@@ -35,7 +35,7 @@
                                                         <li><a href="elements.html">레시피</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="contact.html">마이페이지</a></li>
+                                            <li><a href="../mypage/main.do">마이페이지</a></li>
                                             <li><a href="#">고객센터 <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="blog.html">공지사항</a></li>
