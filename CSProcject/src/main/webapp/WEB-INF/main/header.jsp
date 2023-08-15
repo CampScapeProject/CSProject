@@ -27,7 +27,7 @@
                                         <ul id="navigation">
                                             <li><a class="active" href="../main/home.do">홈</a></li>
                                             <li><a href="about.html">캠핑장예약</a></li>
-                                            <li><a href="about.html">렌터카</a></li>
+                                            <li><a href="../rent/rent_main.do">렌터카</a></li>
                                             <li><a href="../shop/main.do">쇼핑몰</a></li>
                                             <li><a href="#">캠핑정보 <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">

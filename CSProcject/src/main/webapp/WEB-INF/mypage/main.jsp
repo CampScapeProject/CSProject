@@ -96,5 +96,38 @@
 		<tiles:insertAttribute name="footer"/>
 	</div>
 
+
+    <!-- JS here -->
+    <script src="../layout/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="../layout/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="../layout/js/popper.min.js"></script>
+    <script src="../layout/js/bootstrap.min.js"></script>
+    <script src="../layout/js/owl.carousel.min.js"></script>
+    <script src="../layout/js/isotope.pkgd.min.js"></script>
+    <script src="../layout/js/ajax-form.js"></script>
+    <script src="../layout/js/waypoints.min.js"></script>
+    <script src="../layout/js/jquery.counterup.min.js"></script>
+    <script src="../layout/js/imagesloaded.pkgd.min.js"></script>
+    <script src="../layout/js/scrollIt.js"></script>
+    <script src="../layout/js/jquery.scrollUp.min.js"></script>
+    <script src="../layout/js/wow.min.js"></script>
+    <script src="../layout/js/nice-select.min.js"></script>
+    <script src="../layout/js/jquery.slicknav.min.js"></script>
+    <script src="../layout/js/jquery.magnific-popup.min.js"></script>
+    <script src="../layout/js/plugins.js"></script>
+    <script src="../layout/js/gijgo.min.js"></script>
+    <script src="../layout/js/slick.min.js"></script>
+   
+
+    
+    <!--contact js-->
+    <script src="../layout/js/contact.js"></script>
+    <script src="../layout/js/jquery.ajaxchimp.min.js"></script>
+    <script src="../layout/js/jquery.form.js"></script>
+    <script src="../layout/js/jquery.validate.min.js"></script>
+    <script src="../layout/js/mail-script.js"></script>
+
+
+    <script src="../layout/js/main.js"></script>
 </body>
 </html>
