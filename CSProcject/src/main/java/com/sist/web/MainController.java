@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 	
-	@GetMapping("main/main.do")
+	@GetMapping("main/home.do")
 	public String main_main(Model model){
 		return "main/home";
 	}

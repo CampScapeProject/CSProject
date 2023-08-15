@@ -16,7 +16,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="index.html">
+                                    <a href="../main/home.do">
                                         <img src="../layout/img/logo.png" alt="">
                                     </a>
                                 </div>
@@ -25,7 +25,7 @@
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a class="active" href="index.html">홈</a></li>
+                                            <li><a class="active" href="../main/home.do">홈</a></li>
                                             <li><a href="about.html">캠핑장예약</a></li>
                                             <li><a href="about.html">렌터카</a></li>
                                             <li><a href="../shop/main.do">쇼핑몰</a></li>
