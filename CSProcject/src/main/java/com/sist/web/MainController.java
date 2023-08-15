@@ -11,6 +11,6 @@ public class MainController {
 	
 	@GetMapping("main/main.do")
 	public String main_main(Model model){
-		return "main";
+		return "main/home";
 	}
 }

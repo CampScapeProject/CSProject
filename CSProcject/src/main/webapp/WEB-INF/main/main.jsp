@@ -35,9 +35,15 @@
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 <body>
-	<tiles:insertAttribute name="header"/>
-	<tiles:insertAttribute name="home"/>
-	<tiles:insertAttribute name="footer"/>
+	<div>
+		<tiles:insertAttribute name="header"/>
+	</div>
+	<div style="min-height: 700px;">
+		<tiles:insertAttribute name="home"/>
+	</div>
+	<div>
+		<tiles:insertAttribute name="footer"/>
+	</div>
 	
 	
 	  <!-- Modal -->

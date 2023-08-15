@@ -9,6 +9,6 @@ public class MypageController {
 	
 	@GetMapping("mypage/main.do")
 	public String mypage_main(Model model){
-		return "mypage/mypage";
+		return "mypage/content";
 	}
 }
