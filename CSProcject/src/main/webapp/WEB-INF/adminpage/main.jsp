@@ -1,15 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Travelo</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta charset="UTF-8">
+<title>Insert title here</title>
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="../layout/img/favicon.png">
     <!-- Place favicon.ico in the root directory -->
@@ -33,26 +29,74 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../layout/css/style.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style type="text/css">
+	
+    .mypage-title {
+        margin-top: 40px;
+        background: linear-gradient(142.94deg, #7fb88d 7.53%, #41644A 103.72%);
+        border-radius: 20px 20px 0px 0px;
+        color: white;
+        width: 200px;
+        height: 120px;
+        position: relative;
+        padding-top: 25px;
+        font-family: 'Jua', sans-serif;
+        font-size: 32px;
+    }
+    
+    .mypage-menu {
+    	margin-top: -40px;
+        background-color: white;
+        border: 1px solid #AAAAAA;
+        border-radius: 20px;
+        position: absolute;
+        width: 200px;
+        height: 650px;
+        padding: 30px;
+    }
+    
+    .nav-menu-li {
+        list-style-type: none;
+        line-height: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 15px;
+        padding-left: 5px;
+    }
+
+    .col-lg-10 {
+    	margin-top: -130px;
+    	margin-left: 250px;
+    	background-color: red;
+    	width: 160%;
+    	height: 700px;
+    }
+    
+    h4 {
+    	font-weight: 500;
+    }
+    
+</style>
 </head>
 <body>
 	<div>
 		<tiles:insertAttribute name="header"/>
 	</div>
-	<div style="min-height: 1100px;">
-		<tiles:insertAttribute name="home"/>
+	<div style="min-height: 900px;width: 1300px;margin: 0 auto;">
+		<div class="mypage text-center">
+				<tiles:insertAttribute name="menu"/>
+				<tiles:insertAttribute name="content"/>
+		</div>
 	</div>
 	<div>
 		<tiles:insertAttribute name="footer"/>
 	</div>
-	
-	
 
-<!--     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
 
-    <script src=" https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script> -->
-    
     <!-- JS here -->
     <script src="../layout/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="../layout/js/vendor/jquery-1.12.4.min.js"></script>
@@ -85,15 +129,5 @@
 
 
     <script src="../layout/js/main.js"></script>
-    <script>
-        $('#datepicker').datepicker({
-            iconsLibrary: 'fontawesome',
-            icons: {
-             rightIcon: '<span class="fa fa-caret-down"></span>'
-         }
-        });
-    </script>
 </body>
-
-
 </html>

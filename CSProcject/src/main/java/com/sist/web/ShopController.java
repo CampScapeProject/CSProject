@@ -6,11 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ShopController {
-	
-	//ex
-//	@GetMapping("shop/main.do")
-//	public String main_main(Model model){
-//		return "shop/main";
-//	}
-	
+	@GetMapping("shop/shop_main.do")
+	public String shop_main() {
+		return "shop/shop_main";
+	}
 }

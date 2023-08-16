@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap" rel="stylesheet">
 </head>
 <body style="background-color: #F7FAFD;">
 	<!-- where_togo_area_start  -->
@@ -13,10 +16,10 @@
         	<div class=row>
 	            <div class="col-lg-3">
 	                <div class="form_area">
-	                    <h1 style="color: white;text-align: center;font-weight: bold;">차량 조회</h1>
+	                    <h1 style="color: white;text-align: center;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">차량 조회</h1>
 	                </div>
 	            </div>
-	            <div class="col-lg-9" style="padding-top: 15px;">
+	            <div class="col-lg-9" style="padding-top: 10px;">
 	                <div class="search_wrap">
 	                    <form class="search_form" action="#">
 	                        <div class="input_field">

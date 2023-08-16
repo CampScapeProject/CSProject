@@ -26,20 +26,21 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li><a class="active" href="../main/home.do">홈</a></li>
-                                            <li><a href="about.html">캠핑장예약</a></li>
+                                            <li><a href="../camp/camp_main.do">캠핑장예약</a></li>
                                             <li><a href="../rent/rent_main.do">렌터카</a></li>
-                                            <li><a href="../shop/main.do">쇼핑몰</a></li>
+                                            <li><a href="../shop/shop_main.do">쇼핑몰</a></li>
                                             <li><a href="#">캠핑정보 <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                        <li><a href="destination_details.html">캠핑팁</a></li>
-                                                        <li><a href="elements.html">레시피</a></li>
+                                                        <li><a href="../camptip/camptip_main.do">캠핑팁</a></li>
+                                                        <li><a href="../recipe/recipe_main.do">레시피</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="../mypage/main.do">마이페이지</a></li>
+                                            <li><a href="../adminpage/main.do">관리자페이지</a></li>
                                             <li><a href="#">고객센터 <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                    <li><a href="blog.html">공지사항</a></li>
-                                                    <li><a href="single-blog.html">문의사항</a></li>
+                                                    <li><a href="../notice/notice_main.do">공지사항</a></li>
+                                                    <li><a href="../qna/qna_main.do">문의사항</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
