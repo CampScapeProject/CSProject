@@ -10,14 +10,40 @@
 	<!-- where_togo_area_start  -->
     <div class="where_togo_area" style="padding: 30px;">
         <div class="container" style="margin: 0 auto;">
-            <div>
-            	<h1 style="color: white;text-align: center;font-weight: bold;">차량 조회</h1>
+        	<div class=row>
+	            <div class="col-lg-3">
+	                <div class="form_area">
+	                    <h1 style="color: white;text-align: center;font-weight: bold;">차량 조회</h1>
+	                </div>
+	            </div>
+	            <div class="col-lg-9" style="padding-top: 15px;">
+	                <div class="search_wrap">
+	                    <form class="search_form" action="#">
+	                        <div class="input_field">
+	                            <input type="text" placeholder="Where to go?">
+	                        </div>
+	                        <div class="input_field">
+	                            <input id="datepicker" placeholder="Date">
+	                        </div>
+	                        <div class="input_field">
+	                            <select>
+	                                <option data-display="Travel type">Travel type</option>
+	                                <option value="1">Some option</option>
+	                                <option value="2">Another option</option>
+	                            </select>
+	                        </div>
+	                        <div class="search_btn">
+	                            <button class="boxed-btn4 " type="submit" >Search</button>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
             </div>
         </div>
     </div>
     <!-- where_togo_area_end  -->
     
-    <div class="popular_places_area">
+    <div class="popular_places_area" style="padding-top: 50px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
@@ -75,7 +101,7 @@
                                     <!-- <a href="#" class="prise">$500</a> -->
                                 </div>
                                 <div class="place_info">
-                                    <a href="destination_details.html"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
+                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
                                     <p>현대</p>
                                     <div class="rating_days d-flex justify-content-between">
                                         <span class="d-flex justify-content-center align-items-center">
@@ -101,7 +127,7 @@
                                     <!-- <a href="#" class="prise">$500</a> -->
                                 </div>
                                 <div class="place_info">
-                                    <a href="destination_details.html"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
+                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
                                     <p>기아</p>
                                     <div class="rating_days d-flex justify-content-between">
                                         <span class="d-flex justify-content-center align-items-center">
