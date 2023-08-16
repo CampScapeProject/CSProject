@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="social_links d-none d-xl-block">
                                         <ul>
-                                            <li><a href="#"> <i class="fa fa-instagram"></i>로그인 </a></li>
+                                            <li><a href="../member/login.do"> <i class="fa fa-instagram"></i>로그인 </a></li>
                                             <li><a href="#"> <i class="fa fa-arrow-right-from-bracket"></i>로그아웃 </a></li>
                                         </ul>
                                     </div>
