@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="../layout/css/slicknav.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="https://kit.fontawesome.com/d65519dfe2.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../layout/css/style.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->

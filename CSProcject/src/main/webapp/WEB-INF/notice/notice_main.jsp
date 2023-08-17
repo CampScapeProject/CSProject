@@ -4,59 +4,74 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CampScape - 문의사항</title>
 <!-- CSS here -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/themify-icons.css">
-<link rel="stylesheet" href="css/nice-select.css">
-<link rel="stylesheet" href="css/flaticon.css">
-<link rel="stylesheet" href="css/gijgo.css">
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/slicknav.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../layout/css/bootstrap.min.css">
+<link rel="stylesheet" href="../layout/css/owl.carousel.min.css">
+<link rel="stylesheet" href="../layout/css/magnific-popup.css">
+<link rel="stylesheet" href="../layout/css/font-awesome.min.css">
+<link rel="stylesheet" href="../layout/css/themify-icons.css">
+<link rel="stylesheet" href="../layout/css/nice-select.css">
+<link rel="stylesheet" href="../layout/css/flaticon.css">
+<link rel="stylesheet" href="../layout/css/gijgo.css">
+<link rel="stylesheet" href="../layout/css/animate.css">
+<link rel="stylesheet" href="../layout/css/slicknav.css">
+<link rel="stylesheet" href="../layout/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 <style type="text/css">
-	.container {
-		background-color: 
+	.row2 {
+		margin: 0px auto;
+		text-align: center;
 	}
-	.row {
+	.form_area, .blog_item_date {
+		font-family: 'Jua', sans-serif;
+	}
+	.form_area span {
+		font-size: 60px;
+		color: black;
+		font-weight: bold;
+		display: block;
 		margin: 0px auto;
 	}
-	.form_area {
-		background-color: red;
+	.blog_item_img .blog_item_date {
+   		background-color: #E86A33;
 	}
-	.form_area h1 {
-		font-family: 'Jua', sans-serif;
-		color: white;
+	.notice_text {
 		text-align: center;
-		font-weight: bold;
+	}
+	
+	.blog_right_sidebar .post_category_widget .cat-list li a {
+		font-size: 14px;
+		line-height: 20px;
+		color: white;
 	}
 </style>
 </head>
 <body>
 
-	<div class="container">
-		<div class="row text-center">
+	<div class="container" style="padding: 80px; background-color: ">
+		<div class="row2" style="text-align: center">
 			<div class="form_area">
-				<h1>공지사항</h1>
+				<i class="fa-solid fa-bullhorn fa-2xl" style="margin-bottom: 20px;"></i>
+				<br>
+				<span class="notice_text">공지사항</span>
 			</div>
 		</div>
 	</div>
-
 
     <!--================Blog Area =================-->
     <section class="blog_area section-padding">
         <div class="container">
             <div class="row">
+            
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
+                    
                         <article class="blog_item">
                             <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="../webapp/layout/img/blog/single_blog_1.png" alt="">
+                                <img class="card-img rounded-0" src="../layout/img/blog/single_blog_1.png" alt="">
                                 <a href="#" class="blog_item_date">
                                     <h3>15</h3>
                                     <p>Jan</p>
@@ -64,80 +79,13 @@
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="single-blog.html">
-                                    <h2>Google inks pact for new 35-storey office</h2>
+                                <a class="d-inline-block" href="#">
+                                    <h2>공지사항 제목</h2>
                                 </a>
-                                <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                    he earth it first without heaven in place seed it second morning saying.</p>
+                                <p>공지사항 내용</p>
                                 <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-                                </ul>
-                            </div>
-                        </article>
-
-                        <article class="blog_item">
-                            <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="../webapp/layout/img/blog/single_blog_2.png" alt="">
-                                <a href="#" class="blog_item_date">
-                                    <h3>15</h3>
-                                    <p>Jan</p>
-                                </a>
-                            </div>
-
-                            <div class="blog_details">
-                                <a class="d-inline-block" href="single-blog.html">
-                                    <h2>Google inks pact for new 35-storey office</h2>
-                                </a>
-                                <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                    he earth it first without heaven in place seed it second morning saying.</p>
-                                <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-                                </ul>
-                            </div>
-                        </article>
-
-                        <article class="blog_item">
-                            <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="../webapp/layout/img/blog/single_blog_3.png" alt="">
-                                <a href="#" class="blog_item_date">
-                                    <h3>15</h3>
-                                    <p>Jan</p>
-                                </a>
-                            </div>
-
-                            <div class="blog_details">
-                                <a class="d-inline-block" href="single-blog.html">
-                                    <h2>Google inks pact for new 35-storey office</h2>
-                                </a>
-                                <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                    he earth it first without heaven in place seed it second morning saying.</p>
-                                <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-                                </ul>
-                            </div>
-                        </article>
-
-                        <article class="blog_item">
-                            <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="../webapp/layout/img/blog/single_blog_4.png" alt="">
-                                <a href="#" class="blog_item_date">
-                                    <h3>15</h3>
-                                    <p>Jan</p>
-                                </a>
-                            </div>
-
-                            <div class="blog_details">
-                                <a class="d-inline-block" href="single-blog.html">
-                                    <h2>Google inks pact for new 35-storey office</h2>
-                                </a>
-                                <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                    he earth it first without heaven in place seed it second morning saying.</p>
-                                <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                    <li><a href="#"><i class="fa fa-user"></i>관리자</a></li>
+                                    <li><a href="#"><i class="fa fa-comments"></i>03 Comments</a></li>
                                 </ul>
                             </div>
                         </article>
@@ -159,26 +107,27 @@
                                 </li>
                             </ul>
                         </nav>
+                        
                     </div>
                 </div>
+                
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
                     
                     	<aside class="single_sidebar_widget post_category_widget">
-                        	<input type=button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" value="공지사항 작성">
+                        	<a href="../notice/notice_write.do"><input type=button class="boxed-btn4 text-white rounded-0 w-100 btn_1" value="공지사항 작성"></a>
                         </aside>
                     	
                         <aside class="single_sidebar_widget search_widget">
                             <form action="#">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder='검색어 입력'
+                                        <input type="text" class="form-control" placeholder='검색어를 입력하세요.'
                                             onfocus="this.placeholder = ''"
-                                            onblur="this.placeholder = 'Search Keyword'">
+                                            onblur="this.placeholder = '검색어를 입력하세요.'">
                                     </div>
                                 </div>
-                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                                    type="submit">Search</button>
+                                <input type=button class="boxed-btn4 text-white rounded-0 w-100 btn_1" value="검색">
                             </form>
                         </aside>
 
