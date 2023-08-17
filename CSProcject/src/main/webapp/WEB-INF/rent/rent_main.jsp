@@ -9,7 +9,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap" rel="stylesheet">
  
-<!-- dates -->
+<style type="text/css">
+	.filter_result_wrap input[type="checkbox"]{
+		width: 15px;
+		height: 15px;
+	}
+</style>
 
 </head>
 <body style="background-color: #F7FAFD;">
@@ -19,7 +24,7 @@
         	<div class=row>
 	            <div class="col-lg-3">
 	                <div class="form_area">
-	                    <h1 style="color: white;text-align: center;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">차량 조회</h1>
+	                    <h1 style="color: white;text-align: left;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">차량 조회</h1>
 	                </div>
 	            </div>
 	            <div class="col-lg-2"></div>
@@ -31,7 +36,7 @@
 	                        </div>
 	                        <div class="input_field">
 								<!-- daterangepicker -->
-								<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+								<input type="text" name="daterange" />
 
 	                        </div>
 	                        <div class="search_btn">
@@ -50,13 +55,96 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="filter_result_wrap">
-                        <h3>차량 옵션</h3>
+                        <h3><b>차량 옵션</b></h3>
                         <div class="filter_bordered" style="background-color: white;">
                             <div class="filter_inner">
-
+                            	<div class=row style="padding:0 15px 15px 15px;">
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="all">&nbsp;전체
+                            		</div>
+                            	</div>
+                            	
+                            	<hr style="margin-top: 0px;">
+                            	
+                            	<h4><b>차종</b></h4>
+                            	<div class=row style="padding: 3px 15px 15px 15px;">
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="1-1">&nbsp;경차
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="1-2">&nbsp;소형차
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="1-3">&nbsp;준중형
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="1-4">&nbsp;중형
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="1-5">&nbsp;SUV
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="1-6">&nbsp;승합차
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="1-7">&nbsp;전기차
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="1-8">&nbsp;고급차
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="1-9">&nbsp;수입
+                            		</div>
+                            	</div>
+                            	
+                            	<hr style="margin-top: 0px;">
+                            	
+                            	<h4><b>차종</b></h4>
+                            	<div class=row style="padding: 3px 15px 15px 15px;">
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="2-1">&nbsp;기아
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="2-2">&nbsp;현대
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="2-3">&nbsp;기타
+                            		</div>
+                            	</div>
+                            	
+                            	<hr style="margin-top: 0px;">
+                            	
+                            	<h4><b>승차인원</b></h4>
+                            	<div class=row style="padding: 3px 15px 15px 15px;">
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="3-1">&nbsp;0~4
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="3-2">&nbsp;5~8
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="3-3">&nbsp;9~
+                            		</div>
+                            	</div>
+                            	
+                            	<hr style="margin-top: 0px;">
+                            	
+                            	<h4><b>연료</b></h4>
+                            	<div class=row style="padding: 3px 15px 15px 15px;">
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="4-1">&nbsp;휘발유
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="4-2">&nbsp;경유
+                            		</div>
+                            		<div class="col-sm-4">
+                            			<input type="checkbox" id="4-3">&nbsp;기타
+                            		</div>
+                            	</div>
+                            		
                             </div>
 
-                            <div class="reset_btn">
+                            <div class="reset_btn" style="margin-top: 30px;">
                                 <button class="boxed-btn4" type="submit">Reset</button>
                             </div>
                         </div>
@@ -79,220 +167,12 @@
                                              <i class="fa fa-star"></i> 
                                              <i class="fa fa-star"></i> 
                                              <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
+                                             <i class="fa-regular fa-star"></i>
                                              <a href="#">(20 Review)</a>
                                         </span>
                                         <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%8A%B9%ED%95%A9%EC%B0%A8/%EC%98%AC%EB%89%B4%EC%B9%B4%EB%8B%88%EB%B0%9C_9%EC%9D%B8%EC%8A%B9.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
-                                    <p>기아</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%8A%B9%ED%95%A9%EC%B0%A8/%EC%98%AC%EB%89%B4%EC%B9%B4%EB%8B%88%EB%B0%9C_9%EC%9D%B8%EC%8A%B9.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
-                                    <p>기아</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%8A%B9%ED%95%A9%EC%B0%A8/%EC%98%AC%EB%89%B4%EC%B9%B4%EB%8B%88%EB%B0%9C_9%EC%9D%B8%EC%8A%B9.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
-                                    <p>기아</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%8A%B9%ED%95%A9%EC%B0%A8/%EC%98%AC%EB%89%B4%EC%B9%B4%EB%8B%88%EB%B0%9C_9%EC%9D%B8%EC%8A%B9.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
-                                    <p>기아</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%8A%B9%ED%95%A9%EC%B0%A8/%EC%98%AC%EB%89%B4%EC%B9%B4%EB%8B%88%EB%B0%9C_9%EC%9D%B8%EC%8A%B9.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
-                                    <p>기아</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%8A%B9%ED%95%A9%EC%B0%A8/%EC%98%AC%EB%89%B4%EC%B9%B4%EB%8B%88%EB%B0%9C_9%EC%9D%B8%EC%8A%B9.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
-                                    <p>기아</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <i class="fa fa-clock-o"></i>
-                                            <a href="#">5 Days</a>
+                                            <i class="fa fa-heart"></i>
+                                            <a href="#">(0)</a>
                                         </div>
                                     </div>
                                 </div>
@@ -305,7 +185,7 @@
             </div>
         </div>
     </div>
-<script>
+
 
 </body>
 </html>
