@@ -220,6 +220,84 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="single_place">
+                                <div class="thumb">
+                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%8A%B9%ED%95%A9%EC%B0%A8/%EC%98%AC%EB%89%B4%EC%B9%B4%EB%8B%88%EB%B0%9C_9%EC%9D%B8%EC%8A%B9.jpg" height="250px" alt="">
+                                    <!-- <a href="#" class="prise">$500</a> -->
+                                </div>
+                                <div class="place_info">
+                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
+                                    <p>기아</p>
+                                    <div class="rating_days d-flex justify-content-between">
+                                        <span class="d-flex justify-content-center align-items-center">
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i>
+                                             <a href="#">(20 Review)</a>
+                                        </span>
+                                        <div class="days">
+                                            <i class="fa fa-clock-o"></i>
+                                            <a href="#">5 Days</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="single_place">
+                                <div class="thumb">
+                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%8A%B9%ED%95%A9%EC%B0%A8/%EC%98%AC%EB%89%B4%EC%B9%B4%EB%8B%88%EB%B0%9C_9%EC%9D%B8%EC%8A%B9.jpg" height="250px" alt="">
+                                    <!-- <a href="#" class="prise">$500</a> -->
+                                </div>
+                                <div class="place_info">
+                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
+                                    <p>기아</p>
+                                    <div class="rating_days d-flex justify-content-between">
+                                        <span class="d-flex justify-content-center align-items-center">
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i>
+                                             <a href="#">(20 Review)</a>
+                                        </span>
+                                        <div class="days">
+                                            <i class="fa fa-clock-o"></i>
+                                            <a href="#">5 Days</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="single_place">
+                                <div class="thumb">
+                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%8A%B9%ED%95%A9%EC%B0%A8/%EC%98%AC%EB%89%B4%EC%B9%B4%EB%8B%88%EB%B0%9C_9%EC%9D%B8%EC%8A%B9.jpg" height="250px" alt="">
+                                    <!-- <a href="#" class="prise">$500</a> -->
+                                </div>
+                                <div class="place_info">
+                                    <a href="#"><h3 style="margin: 0">올뉴카니발 9인승</h3></a>
+                                    <p>기아</p>
+                                    <div class="rating_days d-flex justify-content-between">
+                                        <span class="d-flex justify-content-center align-items-center">
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i>
+                                             <a href="#">(20 Review)</a>
+                                        </span>
+                                        <div class="days">
+                                            <i class="fa fa-clock-o"></i>
+                                            <a href="#">5 Days</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                         
                     </div>
