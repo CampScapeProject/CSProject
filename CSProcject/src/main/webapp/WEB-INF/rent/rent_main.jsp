@@ -9,6 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap" rel="stylesheet">
  
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+ 
 <style type="text/css">
 	.filter_result_wrap input[type="checkbox"]{
 		width: 15px;
@@ -18,6 +23,7 @@
 
 </head>
 <body style="background-color: #F7FAFD;">
+<div class="el-space">
 	<!-- where_togo_area_start  -->
     <div class="where_togo_area" style="padding: 30px;">
         <div class="container" style="margin: 0 auto;">
@@ -69,31 +75,31 @@
                             	<h4><b>차종</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="1-1">&nbsp;경차
+                            			<input type="checkbox" id="o1-1">&nbsp;경차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="1-2">&nbsp;소형차
+                            			<input type="checkbox" id="o1-2">&nbsp;소형차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="1-3">&nbsp;준중형
+                            			<input type="checkbox" id="o1-3">&nbsp;준중형
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="1-4">&nbsp;중형
+                            			<input type="checkbox" id="o1-4">&nbsp;중형
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="1-5">&nbsp;SUV
+                            			<input type="checkbox" id="o1-5">&nbsp;SUV
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="1-6">&nbsp;승합차
+                            			<input type="checkbox" id="o1-6">&nbsp;승합차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="1-7">&nbsp;전기차
+                            			<input type="checkbox" id="o1-7">&nbsp;전기차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="1-8">&nbsp;고급차
+                            			<input type="checkbox" id="o1-8">&nbsp;고급차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="1-9">&nbsp;수입
+                            			<input type="checkbox" id="o1-9">&nbsp;수입
                             		</div>
                             	</div>
                             	
@@ -102,13 +108,13 @@
                             	<h4><b>차종</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="2-1">&nbsp;기아
+                            			<input type="checkbox" id="o2-1">&nbsp;기아
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="2-2">&nbsp;현대
+                            			<input type="checkbox" id="o2-2">&nbsp;현대
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="2-3">&nbsp;기타
+                            			<input type="checkbox" id="o2-3">&nbsp;기타
                             		</div>
                             	</div>
                             	
@@ -117,13 +123,13 @@
                             	<h4><b>승차인원</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="3-1">&nbsp;0~4
+                            			<input type="checkbox" id="o3-1">&nbsp;0~4
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="3-2">&nbsp;5~8
+                            			<input type="checkbox" id="o3-2">&nbsp;5~8
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="3-3">&nbsp;9~
+                            			<input type="checkbox" id="o3-3">&nbsp;9~
                             		</div>
                             	</div>
                             	
@@ -132,13 +138,13 @@
                             	<h4><b>연료</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="4-1">&nbsp;휘발유
+                            			<input type="checkbox" id="o4-1">&nbsp;휘발유
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="4-2">&nbsp;경유
+                            			<input type="checkbox" id="o4-2">&nbsp;경유
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="4-3">&nbsp;기타
+                            			<input type="checkbox" id="o4-3">&nbsp;기타
                             		</div>
                             	</div>
                             		
@@ -171,8 +177,38 @@
                                              <a href="#">(20 Review)</a>
                                         </span>
                                         <div class="days">
-                                            <i class="fa fa-heart"></i>
-                                            <a href="#">(0)</a>
+                                            <a href="#" style="margin-right: -7px;">
+                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
+                                            </a>
+                                            <span>(1000)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="single_place">
+                                <div class="thumb">
+                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
+                                    <!-- <a href="#" class="prise">$500</a> -->
+                                </div>
+                                <div class="place_info">
+                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
+                                    <p>현대</p>
+                                    <div class="rating_days d-flex justify-content-between">
+                                        <span class="d-flex justify-content-center align-items-center">
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa fa-star"></i> 
+                                             <i class="fa-regular fa-star"></i>
+                                             <a href="#">(20 Review)</a>
+                                        </span>
+                                        <div class="days">
+                                            <a href="#" style="margin-right: -7px;">
+                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
+                                            </a>
+                                            <span>(1000)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +221,33 @@
             </div>
         </div>
     </div>
-
-
+</div>
+<script>
+	new Vue({
+		el:'.el-space',
+		data:{
+			date:''
+			o1-1:false,
+			o1-2:false,
+			o1-3:false,
+			o1-4:false,
+			o1-5:false,
+			o1-6:false,
+			o1-7:false,
+			o1-8:false,
+			o1-9:false,
+			o2-1:false,
+			o2-2:false,
+			o2-3:false,
+			o3-1:false,
+			o3-2:false,
+			o3-3:false,
+			o4-1:false,
+			o4-2:false,
+			o4-3:false,
+			
+		}
+	})
+</script>
 </body>
 </html>
