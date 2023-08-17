@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap" rel="stylesheet">
+ 
+<!-- dates -->
+
 </head>
 <body style="background-color: #F7FAFD;">
 	<!-- where_togo_area_start  -->
@@ -19,21 +22,17 @@
 	                    <h1 style="color: white;text-align: center;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">차량 조회</h1>
 	                </div>
 	            </div>
-	            <div class="col-lg-9" style="padding-top: 10px;">
-	                <div class="search_wrap">
+	            <div class="col-lg-2"></div>
+	            <div class="col-lg-7" style="padding-top: 10px;">
+	                <div class="search_wrap" >
 	                    <form class="search_form" action="#">
 	                        <div class="input_field">
-	                            <input type="text" placeholder="Where to go?">
+	                            <h3 style="color: white;text-align:right;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">날짜를 선택하세요</h3>
 	                        </div>
 	                        <div class="input_field">
-	                            <input id="datepicker" placeholder="Date">
-	                        </div>
-	                        <div class="input_field">
-	                            <select>
-	                                <option data-display="Travel type">Travel type</option>
-	                                <option value="1">Some option</option>
-	                                <option value="2">Another option</option>
-	                            </select>
+								<!-- daterangepicker -->
+								<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+
 	                        </div>
 	                        <div class="search_btn">
 	                            <button class="boxed-btn4 " type="submit" >Search</button>
@@ -54,38 +53,6 @@
                         <h3>차량 옵션</h3>
                         <div class="filter_bordered" style="background-color: white;">
                             <div class="filter_inner">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="single_select">
-                                            <select>
-                                                <option data-display="Country">Country</option>
-                                                <option value="1">Africa</option>
-                                                <option value="2">canada</option>
-                                                <option value="4">USA</option>
-                                              </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single_select">
-                                            <select>
-                                                <option data-display="Travel type">Travel type</option>
-                                                <option value="1">advance</option>
-                                                <option value="2">advance</option>
-                                                <option value="4">premium</option>
-                                              </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="range_slider_wrap">
-                                            <span class="range">Prise range</span>
-                                            <div id="slider-range"></div>
-                                            <p>
-                                                <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-weight:400;">
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
 
                             </div>
 
@@ -156,6 +123,7 @@
             </div>
         </div>
     </div>
+<script>
 
 </body>
 </html>

@@ -28,8 +28,6 @@
     <link rel="stylesheet" href="../layout/css/slicknav.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../layout/css/style.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
@@ -85,15 +83,30 @@
 
 
     <script src="../layout/js/main.js"></script>
-    <script>
+<!--     <script>
         $('#datepicker').datepicker({
             iconsLibrary: 'fontawesome',
             icons: {
              rightIcon: '<span class="fa fa-caret-down"></span>'
          }
         });
-    </script>
+    </script> -->
+    
 </body>
-
-
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script>
+$(function() {
+	var today=new Date();
+	var tomorrow = new Date(today.setDate(today.getDate()+1))
+ 	$('input[name="daterange"]').daterangepicker({
+	    "startDate": new Date(),
+	    "endDate": tomorrow
+	}, function(start, end, label) {
+	  	console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+	});
+});
+</script>
 </html>
