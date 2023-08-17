@@ -17,28 +17,33 @@
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/slicknav.css">
 <link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 <style type="text/css">
 	.container {
-		padding: 30px;
 		background-color: 
 	}
 	.row {
 		margin: 0px auto;
 	}
-	.row h1 {
+	.form_area {
+		background-color: red;
+	}
+	.form_area h1 {
+		font-family: 'Jua', sans-serif;
 		color: white;
 		text-align: center;
 		font-weight: bold;
-		
 	}
 </style>
 </head>
 <body>
 
 	<div class="container">
-		<div class=row>
-			<h1>공지사항</h1>
+		<div class="row text-center">
+			<div class="form_area">
+				<h1>공지사항</h1>
+			</div>
 		</div>
 	</div>
 
