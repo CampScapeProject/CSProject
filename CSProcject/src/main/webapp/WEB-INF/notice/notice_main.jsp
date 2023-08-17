@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CampScape - 문의사항</title>
 <!-- CSS here -->
 <link rel="stylesheet" href="../layout/css/bootstrap.min.css">
 <link rel="stylesheet" href="../layout/css/owl.carousel.min.css">
@@ -29,8 +29,7 @@
 		font-family: 'Jua', sans-serif;
 	}
 	.form_area span {
-		
-		font-size: 48px;
+		font-size: 60px;
 		color: black;
 		font-weight: bold;
 		display: block;
@@ -42,14 +41,20 @@
 	.notice_text {
 		text-align: center;
 	}
+	
+	.blog_right_sidebar .post_category_widget .cat-list li a {
+		font-size: 14px;
+		line-height: 20px;
+		color: white;
+	}
 </style>
 </head>
 <body>
 
-	<div class="container" style="padding: 100px; background-color: ">
+	<div class="container" style="padding: 80px; background-color: ">
 		<div class="row2" style="text-align: center">
 			<div class="form_area">
-				<i class="fa-solid fa-bullhorn fa-rotate-300"></i>
+				<i class="fa-solid fa-bullhorn fa-2xl" style="margin-bottom: 20px;"></i>
 				<br>
 				<span class="notice_text">공지사항</span>
 			</div>
@@ -102,6 +107,7 @@
                                 </li>
                             </ul>
                         </nav>
+                        
                     </div>
                 </div>
                 
@@ -109,7 +115,7 @@
                     <div class="blog_right_sidebar">
                     
                     	<aside class="single_sidebar_widget post_category_widget">
-                        	<input type=button class="boxed-btn4 text-white rounded-0 w-100 btn_1" value="공지사항 작성">
+                        	<a href="../notice/notice_write.do"><input type=button class="boxed-btn4 text-white rounded-0 w-100 btn_1" value="공지사항 작성"></a>
                         </aside>
                     	
                         <aside class="single_sidebar_widget search_widget">
@@ -118,7 +124,7 @@
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" placeholder='검색어를 입력하세요.'
                                             onfocus="this.placeholder = ''"
-                                            onblur="this.placeholder = 'Search Keyword'">
+                                            onblur="this.placeholder = '검색어를 입력하세요.'">
                                     </div>
                                 </div>
                                 <input type=button class="boxed-btn4 text-white rounded-0 w-100 btn_1" value="검색">
