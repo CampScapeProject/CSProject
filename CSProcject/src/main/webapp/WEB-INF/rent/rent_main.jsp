@@ -23,7 +23,7 @@
 	                </div>
 	            </div>
 	            <div class="col-lg-2"></div>
-	            <div class="col-lg-7" style="padding-top: 10px;">
+	            <div class="col-lg-7" style="padding-top: 7px;">
 	                <div class="search_wrap" >
 	                    <form class="search_form" action="#">
 	                        <div class="input_field">
