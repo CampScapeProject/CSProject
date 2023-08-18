@@ -103,10 +103,16 @@ $(function() {
 	var today=new Date();
 	var tomorrow = new Date(today.setDate(today.getDate()+1))
  	$('input[name="daterange"]').daterangepicker({
+ 		locale: {
+ 			format: "YYYY-MM-DD",
+ 			daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+ 			monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+ 		},
 	    "startDate": new Date(),
 	    "endDate": tomorrow
-	}, function(start, end, label) {
-	  	console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+	}, function(start, end) {
+		$('input[name="daterange"]').val(start.format("YYYY-MM-DD") + ' - ' + end.format("YYYY-MM-DD"));
+	  	console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
 	});
 });
 </script>

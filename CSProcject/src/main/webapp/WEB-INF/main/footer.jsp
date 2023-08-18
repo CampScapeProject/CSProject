@@ -21,7 +21,7 @@
                   </ul>
                   </div>
                   
-                <hr width=100%>
+                <hr style="width: 100%;background-color: white;">
                 <div class="row" style="margin:5px;">
                    
                <div>
