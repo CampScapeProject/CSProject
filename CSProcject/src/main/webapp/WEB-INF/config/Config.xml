@@ -5,8 +5,10 @@
 <configuration>
 	<typeAliases>
 		<!-- <typeAlias type="com.sist.vo.CategoryVO" alias="CategoryVO"/> -->
+		<typeAlias type="com.sist.vo.RentVO" alias="RentVO"/>
 	</typeAliases>
 	<mappers>
 		<!-- <mapper resource="com/sist/mapper/food-mapper.xml"/> -->
+		<mapper resource="com/sist/mapper/rent-mapper.xml"/>
 	</mappers>
 </configuration>

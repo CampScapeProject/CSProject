@@ -77,7 +77,7 @@
                             <div class="filter_inner">
                             	<div class=row style="padding:0 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="all">&nbsp;전체
+                            			<input type="checkbox" id="all" v-model="all" ref="all" @click="reset()">&nbsp;전체
                             		</div>
                             	</div>
                             	
@@ -86,31 +86,31 @@
                             	<h4><b>차종</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o1_1">&nbsp;경차
+                            			<input type="checkbox" id="o1_1" v-model="oArray.o1_1" ref="o1_1">&nbsp;경차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o1_2">&nbsp;소형차
+                            			<input type="checkbox" id="o1_2" v-model="oArray.o1_2" ref="o1_2">&nbsp;소형차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o1_3">&nbsp;준중형
+                            			<input type="checkbox" id="o1_3" v-model="oArray.o1_3" ref="o1_3">&nbsp;준중형
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o1_4">&nbsp;중형
+                            			<input type="checkbox" id="o1_4" v-model="oArray.o1_4" ref="o1_4">&nbsp;중형
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o1_5">&nbsp;SUV
+                            			<input type="checkbox" id="o1_5" v-model="oArray.o1_5" ref="o1_5">&nbsp;SUV
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o1_6">&nbsp;승합차
+                            			<input type="checkbox" id="o1_6" v-model="oArray.o1_6" ref="o1_6">&nbsp;승합차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o1_7">&nbsp;전기차
+                            			<input type="checkbox" id="o1_7" v-model="oArray.o1_7" ref="o1_7">&nbsp;전기차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o1_8">&nbsp;고급차
+                            			<input type="checkbox" id="o1_8" v-model="oArray.o1_8" ref="o1_8">&nbsp;고급차
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o1_9">&nbsp;수입
+                            			<input type="checkbox" id="o1_9" v-model="oArray.o1_9" ref="o1_9">&nbsp;수입
                             		</div>
                             	</div>
                             	
@@ -119,13 +119,13 @@
                             	<h4><b>차종</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o2_1">&nbsp;기아
+                            			<input type="checkbox" id="o2_1" v-model="oArray.o2_1" ref="o2_1">&nbsp;기아
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o2_2">&nbsp;현대
+                            			<input type="checkbox" id="o2_2" v-model="oArray.o2_2" ref="o2_2">&nbsp;현대
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o2_3">&nbsp;기타
+                            			<input type="checkbox" id="o2_3" v-model="oArray.o2_3" ref="o2_3">&nbsp;기타
                             		</div>
                             	</div>
                             	
@@ -134,13 +134,13 @@
                             	<h4><b>승차인원</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o3_1">&nbsp;1~4
+                            			<input type="checkbox" id="o3_1" v-model="oArray.o3_1" ref="o3_1">&nbsp;1~4
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o3_2">&nbsp;5~8
+                            			<input type="checkbox" id="o3_2" v-model="oArray.o3_2" ref="o3_2">&nbsp;5~8
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o3_3">&nbsp;9~
+                            			<input type="checkbox" id="o3_3" v-model="oArray.o3_3" ref="o3_3">&nbsp;9~
                             		</div>
                             	</div>
                             	
@@ -149,20 +149,20 @@
                             	<h4><b>연료</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o4_1">&nbsp;휘발유
+                            			<input type="checkbox" id="o4_1" v-model="oArray.o4_1" ref="o4_1">&nbsp;휘발유
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o4_2">&nbsp;경유
+                            			<input type="checkbox" id="o4_2" v-model="oArray.o4_2" ref="o4_2">&nbsp;경유
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o4_3">&nbsp;기타
+                            			<input type="checkbox" id="o4_3" v-model="oArray.o4_3" ref="o4_3">&nbsp;기타
                             		</div>
                             	</div>
                             		
                             </div>
 
                             <div class="reset_btn" style="margin-top: 30px;">
-                                <button class="boxed-btn4" type="submit">Reset</button>
+                                <button class="boxed-btn4" @click="reset()">Reset</button>
                             </div>
                         </div>
                     </div>
@@ -189,483 +189,8 @@
                                         </span>
                                         <div class="days">
                                             <a href="#" style="margin-right: -7px;">
+                                            	<!-- fa-regular fa-heart -->
                                             	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
-                                            </a>
-                                            <span>(1000)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single_place">
-                                <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
-                                    <!-- <a href="#" class="prise">$500</a> -->
-                                </div>
-                                <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
-                                    <div class="rating_days d-flex justify-content-between">
-                                        <span class="d-flex justify-content-center align-items-center">
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
-                                        </span>
-                                        <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
                                             </a>
                                             <span>(1000)</span>
                                         </div>
@@ -685,26 +210,67 @@
 	new Vue({
 		el:'.el-space',
 		data:{
+			rent_list:[],
 			date:'',
-			o1_1:false,
-			o1_2:false,
-			o1_3:false,
-			o1_4:false,
-			o1_5:false,
-			o1_6:false,
-			o1_7:false,
-			o1_8:false,
-			o1_9:false,
-			o2_1:false,
-			o2_2:false,
-			o2_3:false,
-			o3_1:false,
-			o3_2:false,
-			o3_3:false,
-			o4_1:false,
-			o4_2:false,
-			o4_3:false,
+			all:true,
+			oArray:{
+				o1_1:false,
+				o1_2:false,
+				o1_3:false,
+				o1_4:false,
+				o1_5:false,
+				o1_6:false,
+				o1_7:false,
+				o1_8:false,
+				o1_9:false,
+				o2_1:false,
+				o2_2:false,
+				o2_3:false,
+				o3_1:false,
+				o3_2:false,
+				o3_3:false,
+				o4_1:false,
+				o4_2:false,
+				o4_3:false
+			}
+		},
+		mounted:function(){
 			
+		},
+		watch:{
+			oArray: {
+			      handler(newValue, oldValue) {
+			          this.oArrayChange();
+			      },
+			      deep: true,
+			}
+		},
+		methods:{
+			print(){
+				
+			},
+			reset(){
+				for(let o in this.oArray) {
+					this.oArray[o]=false;
+				}
+				this.all=true;
+			},
+			oArrayChange(){
+				let check=false;
+				let values=Object.values(this.oArray);
+				for(let value of values){
+					if(value==true){
+						check=true;
+						break;
+					}
+				}
+				if(check==true){
+					this.all=false;
+				} else {
+					this.all=true;
+				}
+			}
+
 		}
 	})
 </script>
