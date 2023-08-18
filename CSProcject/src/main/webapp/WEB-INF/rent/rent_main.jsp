@@ -53,7 +53,7 @@
 	                        </div>
 	                        <div class="input_field">
 								<!-- daterangepicker -->
-								<input type="text" name="daterange" v-model="date" ref="date"/>
+								<input type="text" name="daterange" ref="date" />
 
 	                        </div>
 	                        <div class="search_btn">
@@ -169,15 +169,15 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="row" style="height: 800px;overflow-y:auto ">
-                        <div class="col-lg-6 col-md-6">
+                        <div class="col-lg-6 col-md-6" v-for="vo in rent_list">
                             <div class="single_place">
                                 <div class="thumb">
-                                    <img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EB%8D%94-%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%8A%A4%ED%83%80%EB%A0%89%EC%8A%A4.jpg" height="250px" alt="">
+                                    <img :src="vo.image" height="250px" alt="">
                                     <!-- <a href="#" class="prise">$500</a> -->
                                 </div>
                                 <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">더뉴그랜드스타렉스 12인승</h3></a>
-                                    <p>현대</p>
+                                    <a href="#"><h3 style="margin: 0">{{vo.car_name}}</h3></a>
+                                    <p>{{vo.maker}}</p>
                                     <div class="rating_days d-flex justify-content-between">
                                         <span class="d-flex justify-content-center align-items-center">
                                              <i class="fa fa-star"></i> 
@@ -200,6 +200,7 @@
                         </div>
                         
                         
+                        
                     </div>
                 </div>
             </div>
@@ -207,11 +208,21 @@
     </div>
 </div>
 <script>
+	function dateFormat(date) {
+	    let month = date.getMonth() + 1;
+	    let day = date.getDate();
+	    month = month >= 10 ? month : '0' + month;
+	    day = day >= 10 ? day : '0' + day;
+	
+	    return date.getFullYear() + '-' + month + '-' + day;
+	}
+	var today=new Date();
+	var tomorrow = new Date(new Date().setDate(today.getDate()+1))
+	let defaultDate=dateFormat(today) + ' - ' + dateFormat(tomorrow);
 	new Vue({
 		el:'.el-space',
 		data:{
 			rent_list:[],
-			date:'',
 			all:true,
 			oArray:{
 				o1_1:false,
@@ -235,6 +246,8 @@
 			}
 		},
 		mounted:function(){
+			//dateFormat(today) + ' - ' + dateFormat(tomorrow)
+			this.$refs.date.value=defaultDate
 			this.print();
 		},
 		watch:{
@@ -247,15 +260,34 @@
 		},
 		methods:{
 			print(){
-				console.log(this.date)
-				console.log(this.$refs.date.value)
-				/* axios.get('http://211.238.142.111/web/rent/rentList_vue.do',{
+				console.log('ref.date: '+this.$refs.date.value)
+				axios.get('http://211.238.142.111/web/rent/rentList_vue.do',{
 					params:{
-						date:this.date
+						date:this.$refs.date.value,
+						all:this.all,
+						o1_1:this.oArray.o1_1,
+						o1_2:this.oArray.o1_2,
+						o1_3:this.oArray.o1_3,
+						o1_4:this.oArray.o1_4,
+						o1_5:this.oArray.o1_5,
+						o1_6:this.oArray.o1_6,
+						o1_7:this.oArray.o1_7,
+						o1_8:this.oArray.o1_8,
+						o1_9:this.oArray.o1_9,
+						o2_1:this.oArray.o2_1,
+						o2_2:this.oArray.o2_2,
+						o2_3:this.oArray.o2_3,
+						o3_1:this.oArray.o3_1,
+						o3_2:this.oArray.o3_2,
+						o3_3:this.oArray.o3_3,
+						o4_1:this.oArray.o4_1,
+						o4_2:this.oArray.o4_2,
+						o4_3:this.oArray.o4_3
 					}
 				}).then(res=>{
-					console.log(this.date)
-				}) */
+					console.log(res.data)
+					this.rent_list=res.data
+				}) 
 			},
 			reset(){
 				for(let o in this.oArray) {
@@ -277,6 +309,7 @@
 				} else {
 					this.all=true;
 				}
+				this.print()
 			}
 
 		}

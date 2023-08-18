@@ -8,5 +8,75 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM rent2
 		WHERE (SELECT COUNT(sDate) FROM reserve2 WHERE rent2.rno=reserve2.fno AND sDate BETWEEN #{sDate} AND #{eDate}) = 0
 		AND (SELECT COUNT(eDate) FROM reserve2 WHERE rent2.rno=reserve2.fno AND eDate BETWEEN #{sDate} AND #{eDate}) = 0
+		<if test="!all">
+			<trim prefix="AND (" suffix=")" suffixOverrides=" AND ">
+				<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+					<if test="oArray.o1_1">
+						OR car_type LIKE '%경차%'
+					</if>
+					<if test="oArray.o1_2">
+						OR car_type LIKE '%소형차%'
+					</if>
+					<if test="oArray.o1_3">
+						OR car_type LIKE '%준중형%'
+					</if>
+					<if test="oArray.o1_4">
+						OR car_type LIKE '%중형%'
+					</if>
+					<if test="oArray.o1_5">
+						OR car_type LIKE '%SUV%'
+					</if>
+					<if test="oArray.o1_6">
+						OR car_type LIKE '%승합차%'
+					</if>
+					<if test="oArray.o1_7">
+						OR car_type LIKE '%전기차%'
+					</if>
+					<if test="oArray.o1_8">
+						OR car_type LIKE '%고급차%'
+					</if>
+					<if test="oArray.o1_9">
+						OR car_type LIKE '%수입%'
+					</if>
+				</trim>
+				
+				<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+					<if test="oArray.o2_1">
+						OR maker LIKE '%기아%'
+					</if>
+					<if test="oArray.o2_2">
+						OR maker LIKE '%현대%'
+					</if>
+					<if test="oArray.o2_3">
+						OR maker NOT LIKE '%기아%' AND maker NOT LIKE '%현대%'
+					</if>
+				</trim>
+				
+				<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+					<if test="oArray.o3_1">
+						OR TO_NUMBER(inwon) &lt;= 4
+					</if>
+					<if test="oArray.o3_2">
+						OR inwon IN ('5','6','7','8')
+					</if>
+					<if test="oArray.o3_3">
+						OR TO_NUMBER(inwon) &gt; 8
+					</if>
+				</trim>
+				
+				<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+					<if test="oArray.o4_1">
+						OR fuel IN('휘발유')
+					</if>
+					<if test="oArray.o4_2">
+						OR fuel IN('경유')
+					</if>
+					<if test="oArray.o4_3">
+						OR fuel NOT IN('휘발유','경유')
+					</if>
+				</trim>
+				 
+			</trim>
+		</if>
 	</select>
 </mapper>
