@@ -28,17 +28,31 @@
 	.notice_text {
 		text-align: center;
 	}
-	
 	.blog_right_sidebar .post_category_widget .cat-list li a {
 		font-size: 14px;
 		line-height: 20px;
 		color: white;
 	}
+	.qna_nav {
+		margin: 0px auto;
+		padding: 80px;
+	}
+	.qna_nav > ul > li {
+		float: left;
+		margin-left: 30px;
+		margin-right: 30px;
+	}
+	li > a:hover {
+		color: #E86A33;
+		font-weight: bold;
+	}
+
 </style>
 </head>
 <body>
 
-	<div class="container" style="padding: 80px; background-color: ">
+	<div class="container" style="padding: 80px;">
+	
 		<div class="row2" style="text-align: center">
 			<div class="form_area">
 				<i class="fa-regular fa-comments fa-2xl" style="margin-bottom: 20px;"></i>
@@ -46,101 +60,78 @@
 				<span class="notice_text">문의사항</span>
 			</div>
 		</div>
+		
+		<div class="row2">
+			<div class="qna_nav">
+				<ul style="list-style: none">
+					<li class="last">
+						<a href="#">캠핑장 예약</a>
+					</li>
+					<li>
+						<a href="#">렌터카 예약</a>
+					</li>
+					<li>
+						<a href="#">상품 문의</a>
+					</li>
+					<li>
+						<a href="#">기타 문의</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
 	</div>
 	
-	<!--================Blog Area =================-->
+	<!--================ 문의사항 폼 시작 =================-->
     <section class="blog_area section-padding">
-        <div class="container">
-            <div class="row">
-            
-                <div class="col-lg-8 mb-5 mb-lg-0">
-                    <div class="blog_left_sidebar">
-                    
-                        <article class="blog_item">
-                            <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="../layout/img/blog/single_blog_1.png" alt="">
-                                <a href="#" class="blog_item_date">
-                                    <h3>15</h3>
-                                    <p>Jan</p>
-                                </a>
-                            </div>
+    	<div class="container">
+	    	<div class="row">
+	    	
+	    		<div class="search_form" style="margin-bottom: 20px;">
+	                    <input type=radio name=search value=name>    이름
+	                    <input type=radio name=search value=subject>    제목 
+	                    <input type=radio name=search value=content>    내용
+	                    <input type=text class="input-sm" placeholder="검색어를 입력하세요." style="margin-left: 5px;"/>
+	                    <a href="#"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #e86a33;margin-left: 5px;"></i></a>
+	                    
+	                    <a href="../qna/qna_insert.do"><input type=button class="boxed-btn4 text-white rounded-1 w-40 h-10 btn_1" value="1:1 문의하기" style="margin-left: 570px"></a>
+	    		</div>
+	    		
+	    		<table class="table">
+	    			<tr>
+	    				<th width=10% class="text-center">NO.</th>
+	    				<th width=40% class="text-center">CONTENT</th>
+	    				<th width=15% class="text-center">NAME</th>
+	    				<th width=20% class="text-center">DATE</th>
+	    				<th width=15% class="text-center">HITS</th>
+	    			</tr>
+	    			<tr>
+	    				<td width=10% class="text-center">번호</td>
+	    				<td width=40%><i class="fa-solid fa-lock" style="color:#C8C8C8; margin-right: 10px;"></i>제목</td>
+	    				<td width=15% class="text-center">사용자 이름</td>
+	    				<td width=20% class="text-center">날짜</td>
+	    				<td width=15% class="text-center">조회수</td>
+	    			</tr>
+	    		</table>
+	    		
+	    	</div>
+    	</div>
+  	</section>
 
-                            <div class="blog_details">
-                                <a class="d-inline-block" href="#">
-                                    <h2>공지사항 제목</h2>
-                                </a>
-                                <p>공지사항 내용</p>
-                                <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i>관리자</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i>03 Comments</a></li>
-                                </ul>
-                            </div>
-                        </article>
-
-                        <nav class="blog-pagination justify-content-center d-flex">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
-                                        <i class="ti-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
-                                        <i class="ti-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                        
-                    </div>
-                </div>
-                
-                <div class="col-lg-4">
-                    <div class="blog_right_sidebar">
-                    
-                    	<aside class="single_sidebar_widget post_category_widget">
-                        	<a href="../notice/notice_write.do"><input type=button class="boxed-btn4 text-white rounded-0 w-100 btn_1" value="공지사항 작성"></a>
-                        </aside>
-                    	
-                        <aside class="single_sidebar_widget search_widget">
-                            <form action="#">
-                                <div class="form-group">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder='검색어를 입력하세요.'
-                                            onfocus="this.placeholder = ''"
-                                            onblur="this.placeholder = '검색어를 입력하세요.'">
-                                    </div>
-                                </div>
-                                <input type=button class="boxed-btn4 text-white rounded-0 w-100 btn_1" value="검색">
-                            </form>
-                        </aside>
-
-                        <aside class="single_sidebar_widget post_category_widget">
-                            <h4 class="widget_title">Category</h4>
-                        </aside>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--================Blog Area =================-->
-
-  <!-- Modal -->
-  <div class="modal fade custom_search_pop" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="serch_form">
-            <input type="text" placeholder="Search" >
-            <button type="submit">search</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-
+<script>
+	new Vue({
+		el:'.container',
+		data:{
+			qna_list:[],
+			page_info:[]
+		},
+		mounted:function(){
+			
+		},
+		methods:{
+			
+		}
+	})
+</script>
 </body>
 </html>
