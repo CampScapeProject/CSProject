@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	CampVO
+	private int cno;
+	private String name,address,phone,msg,image;
+	 -->
+<mapper namespace="com.sist.mapper.CampMapper">
+	<select id="campListData" resultType="CampVO" parameterType="hashmap">
+		SELECT cno,name,address,phone,msg,image,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) as mprice,num 
+		FROM (SELECT cno,name,address,phone,msg,image,rownum as num 
+		FROM (SELECT cno,name,address,phone,msg,image FROM camp2 ORDER BY cno ASC)) c
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="campFindData" resultType="CampVO" parameterType="hashmap">
+		SELECT cno,name,address,phone,msg,image,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) as mprice,num 
+		FROM (SELECT cno,name,address,phone,msg,image,rownum as num 
+		FROM (SELECT cno,name,address,phone,msg,image FROM camp2
+		WHERE 
+		<if test="fname!=null">
+			name LIKE '%'||#{fname}||'%'
+		</if>
+		<if test="faddress!=null">
+			address LIKE '%'||#{faddress}||'%'
+		</if>
+		<if test="fprice!=null">
+		(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) LIKE '%'||#{fprice}||'%'
+		</if>
+		ORDER BY cno ASC)) c
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+</mapper>

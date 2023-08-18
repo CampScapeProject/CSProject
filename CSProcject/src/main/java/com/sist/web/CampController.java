@@ -9,4 +9,8 @@ public class CampController {
 	public String camp_main() {
 		return "camp/camp_main";
 	}
+	@GetMapping("camp/camp_list.do")
+	public String camp_list(){
+		return "camp/camp_list";
+	}
 }
