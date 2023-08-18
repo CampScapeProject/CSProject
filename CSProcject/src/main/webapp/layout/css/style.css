@@ -496,7 +496,7 @@ h3 {
 
 /* line 16, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
 .boxed-btn:hover {
-  background: #FF4A52;
+  background: #ba4f20;
   color: #fff !important;
   border: 1px solid #FF4A52;
 }
@@ -513,7 +513,7 @@ h3 {
 
 /* line 28, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
 .boxed-btn3 {
-  background: #1EC6B6;
+  background: #E86A33;
   color: #fff;
   display: inline-block;
   padding: 18px 41px;
@@ -535,7 +535,7 @@ h3 {
 
 /* line 42, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
 .boxed-btn3:hover {
-  background: #FF4A52;
+  background: #ba4f20;
   color: #fff !important;
 }
 
