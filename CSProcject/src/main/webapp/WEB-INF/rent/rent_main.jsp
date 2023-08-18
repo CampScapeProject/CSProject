@@ -53,11 +53,11 @@
 	                        </div>
 	                        <div class="input_field">
 								<!-- daterangepicker -->
-								<input type="text" name="daterange" />
+								<input type="text" name="daterange" v-model="date" ref="date"/>
 
 	                        </div>
 	                        <div class="search_btn">
-	                            <button class="boxed-btn4 " type="submit" >Search</button>
+	                            <button class="boxed-btn4" type="button" @click="print()">Search</button>
 	                        </div>
 	                    </form>
 	                </div>
@@ -235,7 +235,7 @@
 			}
 		},
 		mounted:function(){
-			
+			this.print();
 		},
 		watch:{
 			oArray: {
@@ -247,7 +247,15 @@
 		},
 		methods:{
 			print(){
-				
+				console.log(this.date)
+				console.log(this.$refs.date.value)
+				/* axios.get('http://211.238.142.111/web/rent/rentList_vue.do',{
+					params:{
+						date:this.date
+					}
+				}).then(res=>{
+					console.log(this.date)
+				}) */
 			},
 			reset(){
 				for(let o in this.oArray) {
