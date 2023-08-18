@@ -169,7 +169,7 @@
 		            return;
 		        }
 				
-				axios.post("http://localhost/web/qna/qna_insert_ok_vue.do", null, {
+				axios.post("../qna/qna_insert_ok_vue.do", null, {
 					params:{
 						title : this.title,
 						content : this.content,
