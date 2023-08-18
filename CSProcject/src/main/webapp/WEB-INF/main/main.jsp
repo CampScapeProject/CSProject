@@ -13,6 +13,9 @@
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="../layout/img/favicon.png">
     <!-- Place favicon.ico in the root directory -->
+	
+	<!-- 폰트 -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
 
     <!-- CSS here -->
     <link rel="stylesheet" href="../layout/css/bootstrap.min.css">
