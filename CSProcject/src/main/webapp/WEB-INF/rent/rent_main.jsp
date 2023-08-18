@@ -261,7 +261,7 @@
 		methods:{
 			print(){
 				console.log('ref.date: '+this.$refs.date.value)
-				axios.get('http://211.238.142.111/web/rent/rentList_vue.do',{
+				axios.get('../rent/rentList_vue.do',{
 					params:{
 						date:this.$refs.date.value,
 						all:this.all,
