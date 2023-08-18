@@ -7,18 +7,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- 임시 -->
-	<div class="where_togo_area" style="padding: 30px;">
-	    <div class="container" style="margin: 0 auto;">
-	    	<div class=row>
-	         <div class="col-lg-3">
-	             <div class="form_area">
-	                 <h1 style="color: white;text-align: center;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">Recipe</h1>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+
+	<!-- 레시피 상단 -->
+	<div class="container" style="padding: 80px; background-color: ">
+		<div class="row2" style="text-align: center">
+			<div class="form_area">
+				<i class="fa-solid fa-bullhorn fa-2xl" style="margin-bottom: 20px;"></i>
+				<br>
+				<span class="notice_text">공지사항</span>
+			</div>
+		</div>
 	</div>
-<!-- 임시  -->
+	
+	<!-- 레시피 본문 -->
+
+	<div class="container">
+		<div class="row">
+			
+		</div>
+	</div>
 </body>
 </html>
