@@ -75,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						OR fuel NOT IN('휘발유','경유')
 					</if>
 				</trim>
-				
+				 
 			</trim>
 		</if>
 	</select>

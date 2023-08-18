@@ -9,4 +9,5 @@ public class OArray {
 	private boolean o2_1,o2_2,o2_3;
 	private boolean o3_1,o3_2,o3_3;
 	private boolean o4_1,o4_2,o4_3;
+	
 }

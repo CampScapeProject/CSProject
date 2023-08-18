@@ -35,5 +35,6 @@ public class RentRestController {
 		List<RentVO> list=dao.rentListData(map);
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(list);
+		
 	}
 }
