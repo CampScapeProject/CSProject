@@ -140,7 +140,6 @@
             </div>
         </div>
     </section>
-    <!--================Blog Area =================-->
 
   <!-- Modal -->
   <div class="modal fade custom_search_pop" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -153,6 +152,7 @@
       </div>
     </div>
   </div>
+  
 </body>
 
 

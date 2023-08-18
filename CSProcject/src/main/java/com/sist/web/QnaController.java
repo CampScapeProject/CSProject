@@ -9,4 +9,9 @@ public class QnaController {
 	public String qna_main() {
 		return "qna/qna_main";
 	}
+	
+	@GetMapping("qna/qna_insert.do")
+	public String qna_insert() {
+		return "qna/qna_insert";
+	}
 }
