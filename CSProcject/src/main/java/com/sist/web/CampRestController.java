@@ -57,7 +57,7 @@ public class CampRestController {
 			
 			DecimalFormat df=new DecimalFormat("###,###,###");
 			String Fprice=df.format(price);
-			vo.setMprice(Fprice);
+			vo.setMprice(Fprice); 
 			
 			String phoneNumber = vo.getPhone();
 			String FphoneNumber = phoneNumber.substring(0, 3) 

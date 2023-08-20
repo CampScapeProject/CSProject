@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>Insert title here</title>
 <style type="text/css">
 .cdetail-single-gallery-image {
   background-repeat: no-repeat !important;
   background-position: center center !important;
   background-size: cover !important;
-  width:500px;
+  width:500px; 
   height:400px;
 }
 

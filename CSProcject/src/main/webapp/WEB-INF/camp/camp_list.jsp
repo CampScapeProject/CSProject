@@ -11,7 +11,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
 
-.well{
+.well{ 
 	width: 1465px;
 	height: 50px;
 }
