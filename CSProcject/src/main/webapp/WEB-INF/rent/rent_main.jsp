@@ -134,10 +134,10 @@
                             	<h4><b>승차인원</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o3_1" v-model="oArray.o3_1" ref="o3_1">&nbsp;1~4
+                            			<input type="checkbox" id="o3_1" v-model="oArray.o3_1" ref="o3_1">&nbsp;1~5
                             		</div>
                             		<div class="col-sm-4">
-                            			<input type="checkbox" id="o3_2" v-model="oArray.o3_2" ref="o3_2">&nbsp;5~8
+                            			<input type="checkbox" id="o3_2" v-model="oArray.o3_2" ref="o3_2">&nbsp;6~8
                             		</div>
                             		<div class="col-sm-4">
                             			<input type="checkbox" id="o3_3" v-model="oArray.o3_3" ref="o3_3">&nbsp;9~
@@ -176,7 +176,7 @@
                                     <!-- <a href="#" class="prise">$500</a> -->
                                 </div>
                                 <div class="place_info">
-                                    <a href="#"><h3 style="margin: 0">{{vo.car_name}}</h3></a>
+                                    <a :href="'../rent/rent_detail.do?rno=' + vo.rno + '&date=' + date"><h3 style="margin: 0">{{vo.car_name}}</h3></a>
                                     <p>{{vo.maker}}</p>
                                     <div class="rating_days d-flex justify-content-between">
                                         <span class="d-flex justify-content-center align-items-center">
@@ -219,9 +219,11 @@
 	var today=new Date();
 	var tomorrow = new Date(new Date().setDate(today.getDate()+1))
 	let defaultDate=dateFormat(today) + ' - ' + dateFormat(tomorrow);
+	
 	new Vue({
 		el:'.el-space',
 		data:{
+			date:'',
 			rent_list:[],
 			all:true,
 			oArray:{
@@ -248,6 +250,7 @@
 		mounted:function(){
 			//dateFormat(today) + ' - ' + dateFormat(tomorrow)
 			this.$refs.date.value=defaultDate
+			this.date=this.$refs.date.value
 			this.print();
 		},
 		watch:{
@@ -287,6 +290,7 @@
 				}).then(res=>{
 					console.log(res.data)
 					this.rent_list=res.data
+					this.date=this.$refs.date.value
 				}) 
 			},
 			reset(){
@@ -311,6 +315,7 @@
 				}
 				this.print()
 			}
+
 
 		}
 	})

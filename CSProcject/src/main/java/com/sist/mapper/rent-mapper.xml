@@ -54,10 +54,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				
 				<trim prefix="(" suffix=") AND " prefixOverrides="OR">
 					<if test="oArray.o3_1">
-						OR TO_NUMBER(inwon) &lt;= 4
+						OR TO_NUMBER(inwon) &lt;= 5
 					</if>
 					<if test="oArray.o3_2">
-						OR inwon IN ('5','6','7','8')
+						OR inwon IN ('6','7','8')
 					</if>
 					<if test="oArray.o3_3">
 						OR TO_NUMBER(inwon) &gt; 8

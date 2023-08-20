@@ -10,4 +10,11 @@ public class RentController {
 	public String rent_main() {
 		return "rent/rent_main";
 	}
+	
+	@GetMapping("rent/rent_detail.do")
+	public String rent_detail(int rno, String date) {
+		System.out.println(rno + " " + date);
+		
+		return "rent/rent_detail";
+	}
 }
