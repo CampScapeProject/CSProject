@@ -1,5 +1,6 @@
 package com.sist.web;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,25 @@ public class CampRestController {
 				img=img.substring(0,img.indexOf("^"));
 				vo.setImage(img);
 			}
+			/*String msg=vo.getMsg();
+			if(msg.length()>10)
+			{
+				msg=msg.substring(0, 8)+"...";
+				vo.setMsg(msg);
+			}*/
+			int price=Integer.parseInt(vo.getMprice());
 			
+			DecimalFormat df=new DecimalFormat("###,###,###");
+			String Fprice=df.format(price);
+			vo.setMprice(Fprice);
+			
+			String phoneNumber = vo.getPhone();
+			String FphoneNumber = phoneNumber.substring(0, 3) 
+								+ "-" 
+								+ phoneNumber.substring(3, 7) 
+								+ "-" 
+								+ phoneNumber.substring(7);
+			vo.setPhone(FphoneNumber);
 		}
 		
 		ObjectMapper mapper=new ObjectMapper();
@@ -62,6 +81,8 @@ public class CampRestController {
 		final int BLOCK = 10;
 		int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
 		int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
+		if(endpage>totalpage)
+			endpage=totalpage;
 		
 		PageVO vo = new PageVO();
 		vo.setStartpage(startpage);

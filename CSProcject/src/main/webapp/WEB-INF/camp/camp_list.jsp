@@ -12,7 +12,7 @@
 <style type="text/css">
 
 .well{
-	width: 1000px;
+	width: 1465px;
 	height: 50px;
 }
 
@@ -51,6 +51,28 @@
   border-radius: 5px;
   padding: 25px;
 }
+
+.blog-pagination {
+  margin-top: 80px;
+}
+
+/* line 988, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_blog.scss */
+.blog-pagination .page-link {
+  font-size: 14px;
+  position: relative;
+  display: block;
+  padding: 0;
+  text-align: center;
+  margin-left: -1px;
+  line-height: 45px;
+  width: 45px;
+  height: 45px;
+  border-radius: 0 !important;
+  color: #8a8a8a;
+  border: 1px solid #f0e9ff;
+  margin-right: 2px;
+}
+
 </style>
 </head>
 <body>
@@ -97,32 +119,44 @@
 						</select>
 						<a href="../camp/camp_main.do" class="btn btn-info" role="button" style="float: right; margin-right: 20px;background-color:gray;border: none; ">캠핑장 검색</a>
 		        	 </div>
-		            <div class="row">
-		                <div class="col-lg-6 col-md-6" v-for="vo in camp_list">
+		        	 <br>
+		            <div class="row" style="width: 1500px;">
+		                <div class="col-lg-3 col-md-3" v-for="vo in camp_list">
 		                    <div class="single_place">
 		                        <div class="thumb">
 		                            <img :src="vo.image" :title="vo.name" style="height: 250px;">
-		                            <a href="#" class="prise">{{vo.mprice}}</a>
+		                            <a href="#" class="prise">{{vo.mprice}}&nbsp;원</a>
 		                        </div>
 		                        <div class="place_info">
-		                            <a href="destination_details.html"><h3>{{vo.name}}</h3></a>
-		                            <p>{{vo.msg}}</p>
-		                            <span><i class="fa fa-phone-square" style="color: #E86A33">{{vo.phone}}</i></span>&nbsp;
-		                            <span><i class="fa fa-location-arrow" style="color: #E86A33">{{vo.address}}</i></span>
+		                            <a href="../camp/camp_detail.do"><h3>{{vo.name}}</h3></a>
+		                            <p></p>
+		                            <i class="fa fa-phone-square" style="color: #E86A33"></i>&nbsp;<span>{{vo.phone}}</span><br>
+		                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span>{{vo.address}}</span>
 		                            <div class="rating_days d-flex justify-content-between" style="margin-top: 8px;margin-bottom: -8px;">
-		                               <a href="#" class="btn btn-sm btn-danger" style="width:85px;height: 25px; text-align: center;font-size: 10px;">Primary</a>
-		                               <a href="#" class="btn btn-sm btn-danger" style="width:85px;height: 25px; text-align: center;font-size: 10px;">Primary</a>
-		                               <a href="#" class="btn btn-sm btn-danger" style="width:85px;height: 25px; text-align: center;font-size: 10px;">Primary</a>
+		                            		<!--  추천,찜 등 -->
 		                            </div>
 		                        </div>
 		                    </div>
 		                </div>
+		                <!--  page바 -->
 		            <div class="row">
-		                <div class="col-lg-12">
-		                    <div class="more_place_btn text-center">
-		                        <a class="boxed-btn4" href="#">캠핑장 더보기</a>
-		                    </div>
-		                </div>
+		                 <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                <li class="page-item" v-if="startpage>1">
+                                    <a href="#" class="page-link" aria-label="Previous" @click="prev()">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
+                                    <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
+                                </li>
+                                <li class="page-item" v-if="endpage<totalpage">
+                                    <a href="#" class="page-link" aria-label="Next" @click="next()">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav> 
 		            </div>
 		        </div>
 		   	 </div>
@@ -142,10 +176,10 @@
 			totalpage:0
 		},
 		mounted:function(){
-			this.dataRecv();
+			this.dataRecive();
 		},
 		methods:{
-			dataRecv:function(){
+			dataRecive:function(){
 				axios.get('../camp/camp_list_vue.do',{
 					params:{
 						page:this.curpage
@@ -169,6 +203,28 @@
 					this.startpage=this.page_list.startpage
 					this.endpage=this.page_list.endpage
 				})
+			},
+			range:function(start,end){
+				let arr=[];
+				let length=end-start;
+				for(let i=0;i<=length;i++)
+				{
+					arr[i]=start
+					start++;
+				}
+				return arr;
+			},
+			prev:function(){
+				this.curpage=this.startpage-1;
+				this.dataRecive();
+			},
+			next:function(){
+				this.curpage=this.endpage+1;
+				this.dataRecive();
+			},
+			pageChange:function(page){
+				this.curpage=page;
+				this.dataRecive();
 			}
 		}
 		
