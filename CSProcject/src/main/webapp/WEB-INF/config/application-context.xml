@@ -16,6 +16,13 @@
 		p:definitions="/WEB-INF/tiles.xml"
 	/>
 	
+	<mvc:interceptors>
+		<mvc:interceptor>
+		<mvc:mapping path="/rent/rent_main.do"/>
+			<bean id="rentCookieInterceptor" class="com.sist.interceptor.RentCookieInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 	<bean id="tilesResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"
 		p:viewClass="org.springframework.web.servlet.view.tiles3.TilesView"
 		p:order="0"

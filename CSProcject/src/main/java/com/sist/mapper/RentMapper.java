@@ -12,4 +12,7 @@ public interface RentMapper {
 	
 	@Select("SELECT * FROM rent2 WHERE rno=#{rno}")
 	public RentVO rentDetailData(int rno);
+	
+	@Select("SELECT rno,car_name,image FROM rent2 WHERE rno=#{rno}")
+	public RentVO rentCookieData(int rno);
 }

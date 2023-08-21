@@ -20,4 +20,8 @@ public class RentDAO {
 	public RentVO rentDetailData(int rno) {
 		return mapper.rentDetailData(rno);
 	}
+	
+	public RentVO rentCookieData(int rno) {
+		return mapper.rentCookieData(rno);
+	}
 }

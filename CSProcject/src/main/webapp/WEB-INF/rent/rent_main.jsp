@@ -31,9 +31,9 @@
 	    background-color: #F5F5F5;
 	}
 	.cookieWrap{
-		position: fixed;
+		position: absolute;
 		top: 250px;
-		right: 50px;
+		right: 70px;
 		
 		border: none;
 		border-radius: 16px;
@@ -64,7 +64,7 @@
 	                        </div>
 	                        <div class="input_field">
 								<!-- daterangepicker -->
-								<input type="text" name="daterange" ref="date" />
+								<input type="text" name="daterange" ref="date" @input="dateChange()"/>
 
 	                        </div>
 	                        <div class="search_btn">
@@ -187,7 +187,7 @@
                                     <!-- <a href="#" class="prise">$500</a> -->
                                 </div>
                                 <div class="place_info">
-                                    <a :href="'../rent/rent_detail.do?rno=' + vo.rno + '&date=' + date"><h3 style="margin: 0">{{vo.car_name}}</h3></a>
+                                    <a href="#" @click="detail(vo.rno)"><h3 style="margin: 0">{{vo.car_name}}</h3></a>
                                     <p>{{vo.maker}}</p>
                                     <div class="rating_days d-flex justify-content-between">
                                         <span class="d-flex justify-content-center align-items-center">
@@ -220,11 +220,15 @@
     
  	<div class="filter_result_wrap cookieWrap">
 		<h3><b>최근 본 렌터카</b></h3>
-		<div class="filter_bordered" style="background-color: white;">
-		    <div class="filter_inner">
-		    	<img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EC%85%80%ED%86%A0%EC%8A%A4.jpg" width="130px" height="100px">
-		    </div>
+		<div class="filter_bordered" style="background-color: white;" v-for="vo,index in clist" v-if="index<3">
+			<a :href="'../rent/rent_detail.do?rno=' + vo.rno + '&date=' + vo.date">
+			    <div class="filter_inner">
+			    	<img :src="vo.image" width="130px" height="100px">
+			    	<p>{{vo.car_name}}</p>
+			    </div>
+		    </a>
 		</div>
+		
 	</div>
     
 </div>
@@ -245,7 +249,6 @@
 	new Vue({
 		el:'.el-space',
 		data:{
-			date:'',
 			rent_list:[],
 			all:true,
 			oArray:{
@@ -267,13 +270,18 @@
 				o4_1:false,
 				o4_2:false,
 				o4_3:false
-			}
+			},
+			clist:[]
 		},
 		mounted:function(){
 			//dateFormat(today) + ' - ' + dateFormat(tomorrow)
 			this.$refs.date.value=defaultDate
 			this.date=this.$refs.date.value
 			this.print();
+			
+			axios.get("../rent/rent_cookie.do").then(res=>{
+				this.clist=res.data
+			})
 		},
 		watch:{
 			oArray: {
@@ -312,7 +320,6 @@
 				}).then(res=>{
 					console.log(res.data)
 					this.rent_list=res.data
-					this.date=this.$refs.date.value
 				}) 
 			},
 			reset(){
@@ -336,6 +343,9 @@
 					this.all=true;
 				}
 				this.print()
+			},
+			detail(rno){
+				location.href='../rent/rent_detail.do?rno=' + rno + '&date=' + this.$refs.date.value
 			}
 
 
