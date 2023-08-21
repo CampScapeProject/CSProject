@@ -313,23 +313,6 @@
                     <div class="filter_result_wrap">
                         <div class="filter_bordered" style="background-color: white;">
                             <div class="filter_inner">
-                            	<!-- <h3><b>운전자 정보</b></h3>
-					        	<div class="row">
-					        		<div class="col-lg-12" style="margin-bottom: 10px;">
-						        		<input type="text" style="width: 100%" placeholder="이름"> 
-					        		</div>
-					        		<div class="col-lg-12" style="margin-bottom: 10px;">
-						        		<input type="text" style="width: 100%" placeholder="생년월일 ex)20030101"> 
-					        		</div>
-					        		<div class="col-lg-12" style="margin-bottom: 10px;">
-						        		<input type="text" style="width: 100%" placeholder="휴대폰 번호 (- 빼고)"> 
-					        		</div>
-					        		<div class="col-lg-12" style="margin-bottom: 10px;">
-						        		<input type="text" style="width: 100%" placeholder="이메일"> 
-					        		</div>
-					        	</div>
-					        	
-					        	<hr> -->
 					        	
                             	<h3><b>결제 정보</b></h3>
 					        	<div class="row" style="padding: 0 20px;">
@@ -370,12 +353,16 @@
                             </div>
 
                             <div class="reset_btn" style="margin-top: 30px;">
-                                <button class="boxed-btn4">예약하기</button>
+                                <a class="boxed-btn4" style="width: 100%;color: white;font-weight: bold;" 
+                                :href="'../rent/rent_payment.do?rno=' + rno + '&sDate=' + sDate + '&eDate=' + eDate">
+                                	예약하기
+                                </a>
                             </div>
                         </div>
                     </div>
                     
                 </div>
+                
             </div>
         </div>
     </div>

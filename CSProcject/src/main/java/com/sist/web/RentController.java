@@ -20,4 +20,13 @@ public class RentController {
 		model.addAttribute("eDate",date.split(" - ")[1]);
 		return "rent/rent_detail";
 	}
+	
+	@GetMapping("rent/rent_payment.do")
+	public String rent_payment(int rno, String sDate, String eDate,Model model) {
+
+		model.addAttribute("rno",rno);
+		model.addAttribute("sDate",sDate);
+		model.addAttribute("eDate",eDate);
+		return "rent/rent_payment";
+	}
 }

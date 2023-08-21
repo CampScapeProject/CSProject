@@ -30,6 +30,17 @@
 	.col-lg-8 .row::-webkit-scrollbar-track {
 	    background-color: #F5F5F5;
 	}
+	.cookieWrap{
+		position: fixed;
+		top: 250px;
+		right: 50px;
+		
+		border: none;
+		border-radius: 16px;
+		color: white;
+		padding: 12px;
+		font-weight: bold;
+	}
 </style>
 
 </head>
@@ -206,7 +217,31 @@
             </div>
         </div>
     </div>
+    
+ 	<div class="filter_result_wrap cookieWrap">
+		<h3><b>최근 본 렌터카</b></h3>
+		<div class="filter_bordered" style="background-color: white;">
+		    <div class="filter_inner">
+		    	<img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EC%85%80%ED%86%A0%EC%8A%A4.jpg" width="130px" height="100px">
+		    </div>
+		</div>
+	</div>
+    
+<!-- <aside class="single_sidebar_widget popular_post_widget cookieWrap">
+	<h3 class="widget_title">펠리세이드</h3>
+	<div class="media post_item">
+		<img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/SUV/%EC%85%80%ED%86%A0%EC%8A%A4.jpg" width="130px" height="100px">
+		<div class="media-body">
+			<a href="single-blog.html">
+				<h3>From life was you fish...</h3>
+			</a>
+			<p>January 12, 2019</p>
+		</div>
+	</div>
+</aside> -->
+
 </div>
+
 <script>
 	function dateFormat(date) {
 	    let month = date.getMonth() + 1;
