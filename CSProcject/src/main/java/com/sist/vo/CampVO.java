@@ -7,4 +7,5 @@ import lombok.Setter;
 public class CampVO {
 	private int cno;
 	private String name,address,phone,msg,image,mprice;
+	private String prevName,nextName;
 }

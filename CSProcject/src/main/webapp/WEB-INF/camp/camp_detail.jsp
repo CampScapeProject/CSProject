@@ -1,74 +1,50 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8"> 
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
-.cdetail-single-gallery-image {
-  background-repeat: no-repeat !important;
-  background-position: center center !important;
-  background-size: cover !important;
-  width:500px; 
-  height:400px;
+.tabs {
+	  display: flex;
+	}
+.tabs > div {
+  	padding: 10px 20px;
+  	cursor: pointer;
+  	background-color: #001D38;
+  	color: white;
+}
+.tabs > div.active {
+  	border-bottom: 3px solid #001D38;
+  	font-weight: bold;
+  	background-color: white;
+  	color: #001D38
+}
+.tabs > div:hover{
+	font-weight: bold;
+	color:#001D38;
+}
+.tab-content > div {
+  display: none;
+}
+.tab-content > div:nth-child(1),
+.tab-content > div:nth-child(2),
+.tab-content > div:nth-child(3) {
+  display: block;
 }
 
-.cdetail-progress-table-wrap {
-	
+
+.single-post-area .navigation-area {
+  border: 1px solid #f0e9ff;
+  padding-bottom: 30px;
+  margin-top: 55px;
 }
 
-.cdetail-progress-table {
-  background: #f9f9ff;
-  padding: 15px 0px 30px 0px;
-  min-width: 800px;
-  min-height: 400px;
-  margin-left: 30px;
-}
-
-.cdetail-progress-table .serial {
-  width: 11.83%;
-  padding-left: 30px;
-}
-
-.cdetail-progress-table .country {
-  width: 28.07%;
-}
-
-.cdetail-progress-table .visit {
-  width: 19.74%;
-}
-
-.cdetail-progress-table .table-head {
-  display: flex;
-}
-
-/* line 377, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_elements.scss */
-.cdetail-progress-table .table-head .serial,
-.cdetail-progress-table .table-head .country,
-.cdetail-progress-table .table-head .visit,
-.cdetail-progress-table .table-head .percentage {
-  color: #415094;
-  line-height: 40px;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-/* line 387, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_elements.scss */
-.cdetail-progress-table .table-row {
-  padding: 15px 0;
-  border-top: 1px solid #edf3fd;
-  display: flex;
-}
-
-/* line 391, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_elements.scss */
-.cdetail-progress-table .table-row .serial,
-.cdetail-progress-table .table-row .country,
-.cdetail-progress-table .table-row .visit,
-.cdetail-progress-table .table-row .percentage {
-  display: flex;
-  align-items: center;
-}
 </style>
 </head>
 <body>
@@ -99,46 +75,256 @@
         </div>
     </div>
 </div>
-<!---------->
-
-			<div>
-	    	<div class="row gallery-item" style="float: left;">
-					<div class="col-md-4">
-	    			<a href="https://img.campingtalk.me/camp/100/16702054140814934_L.jpg" class="img-pop-up">
-						<div class="cdetail-single-gallery-image" style="background: url(https://img.campingtalk.me/camp/100/16702054140814934_L.jpg);"></div>
-					</a>
-	    		</tr>
-	    		</div>
-	    	</div>
-	    	<div class="cdetail-progress-table-wrap" style="float: left;">
-					<div class="cdetail-progress-table">
-	    		<div class="table-head">
-	    			<div class="country">캠핑장 명</div>
-	    		</div>
-	    		<div class="table-row">
-	    			<td class="serial">주소</td>
-	    			<td class="visit">안양시</td>
-	    		</div>
-	    		<div class="table-row">
-	    			<td class="serial">전화</td>
-	    			<td class="visit">010</td>
-	    		</div>
-	    		<div class="table-row">
-	    			<td class="serial">음식종류</td>
-	    			<td class="visit">카레</td>
-	    		</div>
-	    		<div class="table-row">
-	    			<td class="serial">가격대</td>
-	    			<td class="visit">1,000</td>
-	    		</div>
-	    		<div class="table-row">
-	    			<td class="serial">주차</td>
-	    			<td class="visit">가능</td>
-	    		</div>
-	    	</div>
-	    	</div>
-	    </div>
-	    
-	    	
+<!--================Blog Area =================-->
+   <section class="blog_area single-post-area section-padding">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-8 posts-list">
+               <div class="single-post"><!--style="width: 1000px"-->
+                  <div class="feature-img">
+                     <img class="img-fluid" :src="camp_detail.image">
+                  </div>
+                  <div class="blog_details">
+                     <h2>{{camp_detail.name}}</h2>
+                     <ul class="blog-info-link mt-3 mb-4">
+                        <li><a href="#"><i class="fa fa-location-arrow" style="color: #E86A33"></i>{{camp_detail.address}}</a></li>
+                        <li><a href="#"><i class="fa fa-phone-square" style="color: #E86A33"></i>{{camp_detail.phone}}</a></li>
+                     </ul>
+                     <p class="excert">
+                       {{camp_detail.msg}}
+                     </p>
+                  <!--  
+                     <div class="quote-wrapper">
+                        <div class="quotes">
+                          {{camp_detail.msg}}
+                        </div>
+                     </div> -->
+                  </div>
+               </div>
+               <div class="navigation-top"><!--style="width: 1000px"-->
+                  <div class="d-sm-flex justify-content-between text-center">
+                     <p class="like-info"><span class="align-middle"><i class="fa fa-heart"></i></span> Lily and 4
+                        people like this</p>
+                     <div class="col-sm-4 text-center my-2 my-sm-0">
+                        <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+                     </div>
+                     <ul class="social-icons">
+                        <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                     </ul>
+                  </div>
+               </div>
+               
+               <!--  카테고리 -->
+               <div class="comments-area" style="margin-top: 0px;"><!--style="width: 1000px"-->
+               	<div id="app"><!--style="width: 1000px"-->
+					<div class="tabs row text-center" style="padding:20px 35px 0 35px">
+					    <div v-for="(tab, index) in tabs" :key="index" :class="{ active: activeTab === index }" @click="setActiveTab(index)"
+					      class="col-lg-4" style="border-right: 1px solid white;border-left: 1px solid white;">
+					      {{ tab.title }}
+					    </div>
+					</div>
+					<div style="height: 20px;"></div>
+				  	<div class="tab-content" style="padding:0 20px 0 20px;min-height: 200px;">
+				    	<div v-for="(tab, index) in tabs" :key="index" v-show="activeTab === index">
+				      		<template v-if="index == 0">
+				      		
+				      			<div class="row" style="width: 1500px;display: flex;justify-content : center;">
+						                <div class="col-lg-3 col-md-3" v-for="tvo in tour_list" style="border: 1px solid #f0e9ff;width: 400px;height: 500px;">
+						                    <div class="single_place">
+						                        <div class="place_info">
+						                            <a :href="'../camp/camp_detail.do?cno='+vo.cno"><h3>{{tvo.name}}</h3></a>
+						                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span ref="addr">{{tvo.address}}</span>
+						                            <div class="rating_days d-flex justify-content-between" style="margin-top: 8px;margin-bottom: -8px;">
+						                            		<!--  추천,찜 등 -->
+						                            </div>
+						                        </div>
+						                    </div>
+						                </div>
+						                <!--  page바 -->
+						            <!-- <div class="row">
+						                 <nav class="blog-pagination justify-content-center d-flex">
+				                            <ul class="pagination">
+				                                <li class="page-item" v-if="startpage>1">
+				                                    <a href="#" class="page-link" aria-label="Previous" @click="prev()">
+				                                        <i class="ti-angle-left"></i>
+				                                    </a>
+				                                </li>
+				                                <li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
+				                                    <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
+				                                </li>
+				                                <li class="page-item" v-if="endpage<totalpage">
+				                                    <a href="#" class="page-link" aria-label="Next" @click="next()">
+				                                        <i class="ti-angle-right"></i>
+				                                    </a>
+				                                </li>
+				                            </ul>
+				                        </nav> 
+						            </div> -->
+		        				</div>
+		        				
+							</template>
+				      		<template v-if="index == 1">
+					        	5678
+					        	
+							</template>
+				      		<template v-if="index == 2">
+					        	910
+							</template>
+				    	</div>
+				  	</div>
+				</div>
+              </div>
+              <!---------------------->
+              <div class="navigation-area"><!--style="width: 1000px"-->
+                     <div class="row">
+                        <div
+                           class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                           <div class="thumb">
+                              <a href="#">
+                                 <img class="img-fluid" src="img/post/preview.png" alt="">
+                              </a>
+                           </div>
+                           <div class="arrow">
+                              <a href="#">
+                                 <span class="lnr text-white ti-arrow-left"></span>
+                              </a>
+                           </div>
+                           <div class="detials">
+                              <p>이전 캠핑장</p>
+                              <a href="#">
+                                 <h4>Space The Final Frontier</h4>
+                              </a>
+                           </div>
+                        </div>
+                        <div
+                           class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                           <div class="detials">
+                              <p>다음 캠핑장</p>
+                              <a href="#">
+                                 <h4>Telescopes 101</h4>
+                              </a>
+                           </div>
+                           <div class="arrow">
+                              <a href="#">
+                                 <span class="lnr text-white ti-arrow-right"></span>
+                              </a>
+                           </div>
+                           <div class="thumb">
+                              <a href="#">
+                                 <img class="img-fluid" src="img/post/next.png" alt="">
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+            
+            
+	            <div class="col-lg-4">
+	               <div class="blog_right_sidebar">
+               		<aside class="single_sidebar_widget search_widget">
+                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"type="submit" style="background-color:#E86A33;border-color: #E86A33;">예약하기</button>
+                  	</aside>
+	                  <aside class="single_sidebar_widget popular_post_widget">
+	                     <h3 class="widget_title">Recent Post</h3>
+	                     <div class="media post_item">
+	                        <img src="img/post/post_1.png" alt="post">
+	                        <div class="media-body">
+	                           <a href="single-blog.html">
+	                              <h3>From life was you fish...</h3>
+	                           </a>
+	                           <p>January 12, 2019</p>
+	                        </div>
+	                     </div>
+	                  </aside>
+	                  <aside class="single_sidebar_widget instagram_feeds">
+	                     <h4 class="widget_title">Instagram Feeds</h4>
+	                     <ul class="instagram_row flex-wrap">
+	                        <li>
+	                           <a href="#">
+	                              <img class="img-fluid" :src="camp_detail.image" alt="">
+	                           </a>
+	                        </li>
+	                        <li>
+	                           <a href="#">
+	                              <img class="img-fluid" :src="camp_detail.image" alt="">
+	                           </a>
+	                        </li>
+	                        <li>
+	                           <a href="#">
+	                              <img class="img-fluid" :src="camp_detail.image" alt="">
+	                           </a>
+	                        </li>
+	                        <li>
+	                           <a href="#">
+	                              <img class="img-fluid" :src="camp_detail.image" alt="">
+	                           </a>
+	                        </li>
+	                        <li>
+	                           <a href="#">
+	                              <img class="img-fluid" :src="camp_detail.image" alt="">
+	                           </a>
+	                        </li>
+	                        <li>
+	                           <a href="#">
+	                              <img class="img-fluid" :src="camp_detail.image" alt="">
+	                           </a>
+	                        </li>
+	                     </ul>
+	                  </aside>
+	               </div>
+	            </div>
+            
+            
+         </div>
+      </div>
+   </section>
+   <!--================ Blog Area end =================-->
+	<script>
+		new Vue({
+			el:'.blog_area',
+			data:{
+				camp_detail:{},
+				cno:${cno},
+				activeTab: 0,
+			    tabs: [
+				      { title: "주변 관광지", content: "Content for Tab 1" },
+				      { title: "위치 보기", content: "Content for Tab 2" },
+				      { title: "후기", content: "Content for Tab 3" }
+				    ],
+				tour_list:[]
+			},
+			mounted:function(){
+				axios.get('../camp/camp_detail_vue.do',{
+					params:{
+						cno:this.cno
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.camp_detail=res.data
+				}),
+				
+			},
+			methods:{
+				setActiveTab(index) {
+			      	this.activeTab = index;
+			    },
+			    tourShow:function(){
+			    	axios.get('../camp/tour_detail_vue.do',{
+						params:{
+							addr:this.$refs.addr.textContent
+						}
+					}).then(res=>{
+						console.log(res.data)
+						this.tour_list=res.data
+					})
+			    }
+			}
+			
+		})
+	</script> 	
 </body>
 </html>

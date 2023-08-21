@@ -1,6 +1,7 @@
 package com.sist.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -15,7 +16,8 @@ public class CampController {
 	}
 	
 	@GetMapping("camp/camp_detail.do")
-	public String camp_detail(){
+	public String camp_detail(int cno,Model model){
+		model.addAttribute("cno",cno);
 		return "camp/camp_detail";
 	}
 }

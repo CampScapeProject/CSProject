@@ -120,16 +120,16 @@
 						<a href="../camp/camp_main.do" class="btn btn-info" role="button" style="float: right; margin-right: 20px;background-color:gray;border: none; ">캠핑장 검색</a>
 		        	 </div>
 		        	 <br>
-		            <div class="row" style="width: 1500px;">
-		                <div class="col-lg-3 col-md-3" v-for="vo in camp_list">
+		            <div class="row" style="width: 1500px;display: flex;justify-content : center;">
+		                <div class="col-lg-3 col-md-3" v-for="vo in camp_list" style="border: 1px solid #f0e9ff;width: 400px;height: 500px;">
 		                    <div class="single_place">
-		                        <div class="thumb">
+		                        <div class="thumb" style="margin-top: 10px;">
 		                            <img :src="vo.image" :title="vo.name" style="height: 250px;">
 		                            <a href="#" class="prise">{{vo.mprice}}&nbsp;원</a>
 		                        </div>
 		                        <div class="place_info">
-		                            <a href="../camp/camp_detail.do"><h3>{{vo.name}}</h3></a>
-		                            <p></p>
+		                            <a :href="'../camp/camp_detail.do?cno='+vo.cno"><h3>{{vo.name}}</h3></a>
+		                            <p>{{vo.msg}}</p>
 		                            <i class="fa fa-phone-square" style="color: #E86A33"></i>&nbsp;<span>{{vo.phone}}</span><br>
 		                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span>{{vo.address}}</span>
 		                            <div class="rating_days d-flex justify-content-between" style="margin-top: 8px;margin-bottom: -8px;">

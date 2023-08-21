@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.CampDAO;
 import com.sist.vo.CampVO;
 import com.sist.vo.PageVO;
+import com.sist.vo.TourVO;
 
 @RestController
 public class CampRestController {
@@ -22,12 +23,34 @@ public class CampRestController {
 	
 	
 	
-	/*
-	 * @GetMapping(value = "camp/camp_main_vue.do",produces =
-	 * "text/plain;charset=UTF-8") public String campListData() {
-	 * 
-	 * }
-	 */
+	//메인 리스트 출력
+	@GetMapping(value = "camp/camp_main_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String campMainList() throws Exception
+	{
+		List<CampVO> list=dao.campMainList();
+		
+		for(CampVO vo:list)
+		{
+			String img=vo.getImage();
+			if(img.contains("^"))
+			{
+				img=img.substring(0,img.indexOf("^"));
+				vo.setImage(img);
+			}
+			int price=Integer.parseInt(vo.getMprice());
+			
+			DecimalFormat df=new DecimalFormat("###,###,###");
+			String Fprice=df.format(price);
+			vo.setMprice(Fprice); 
+		}
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		return json;
+	}
+	
+	///////////////////
+	
 	@GetMapping(value = "camp/camp_list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String campListData(int page) throws Exception
 	{
@@ -47,12 +70,16 @@ public class CampRestController {
 				img=img.substring(0,img.indexOf("^"));
 				vo.setImage(img);
 			}
-			/*String msg=vo.getMsg();
-			if(msg.length()>10)
+			String msg=vo.getMsg();
+			if(msg.length()>70)
 			{
-				msg=msg.substring(0, 8)+"...";
+				if(msg.contains("-"))
+				{
+					msg=msg.replace("-"," ");
+				}
+				msg=msg.substring(0, 68)+"...";
 				vo.setMsg(msg);
-			}*/
+			}
 			int price=Integer.parseInt(vo.getMprice());
 			
 			DecimalFormat df=new DecimalFormat("###,###,###");
@@ -93,6 +120,58 @@ public class CampRestController {
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
 
+		return json;
+	}
+	@GetMapping(value = "camp/camp_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String campDetail(int cno) throws Exception{
+		
+		CampVO vo=dao.campDetail(cno);
+		String img=vo.getImage();
+		if(img.contains("^"))
+		{
+			img=img.substring(0,img.indexOf("^"));
+			vo.setImage(img);
+		}
+		int price=Integer.parseInt(vo.getMprice());
+		
+		DecimalFormat df=new DecimalFormat("###,###,###");
+		String Fprice=df.format(price);
+		vo.setMprice(Fprice); 
+		
+		String phoneNumber = vo.getPhone();
+		String FphoneNumber = phoneNumber.substring(0, 3) 
+							+ "-" 
+							+ phoneNumber.substring(3, 7) 
+							+ "-" 
+							+ phoneNumber.substring(7);
+		vo.setPhone(FphoneNumber);
+		
+		String msg=vo.getMsg();
+		
+		if(msg.contains("-"))
+		{
+			msg=msg.replace("-"," ");
+		}
+		vo.setMsg(msg);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "camp/tour_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String tourList(String addr) throws Exception
+	{
+		String address=addr.substring(addr.indexOf(" "));
+		address=address.trim();
+		address=address.substring(0,address.indexOf(" "));
+		
+		List<TourVO> list=dao.tourListData(address);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
 		return json;
 	}
 	

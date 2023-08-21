@@ -5,6 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<style type="text/css">
+
+
+</style>
 </head>
 <body>
     <!-- slider_area_start -->
@@ -104,82 +112,36 @@
     </div>
     <!-- where_togo_area_end  -->
     
-    <!-- popular_destination_area_start  -->
+    
+    <!-- 캠핑장 조회수 순 리스트  -->
+    
     <div class="popular_destination_area">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section_title text-center mb_70">
                         <h3>자연 속 휴식,<br> 캠프스케이프에서 만나요!</h3>
-                        <!-- <p>Suffered alteration in some form, by injected humour or good day randomised booth anim 8-bit hella wolf moon beard words.</p> -->
+                        <p>조회수가 가장 높은 캠핑장!!</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
+                <div class="col-lg-4 col-md-6" v-for="cvo in camp_list">
+                    <div class="single_destination" style="width:360px;height: 290px;"  @click="toDetail(cvo.cno)">
                         <div class="thumb">
-                            <img src="../layout/img/destination/1.png" alt="">
+                           <img :src="cvo.image">
                         </div>
                         <div class="content">
-                            <p class="d-flex align-items-center">Italy <a href="travel_destination.html">  07 Places</a> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../layout/img/destination/2.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Brazil <a href="travel_destination.html">  03 Places</a> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../layout/img/destination/3.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">America <a href="travel_destination.html">  10 Places</a> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../layout/img/destination/4.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Nepal <a href="travel_destination.html">  02 Places</a> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../layout/img/destination/5.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Maldives <a href="travel_destination.html">  02 Places</a> </p>  
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_destination">
-                        <div class="thumb">
-                            <img src="../layout/img/destination/6.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p class="d-flex align-items-center">Indonesia <a href="travel_destination.html">  05 Places</a> </p>
-                            
+                            <p class="d-flex align-items-center" >{{cvo.name}}<a href="#" class="mPrice">{{cvo.mprice}}&nbsp;원</a> </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!------------------------------------>
+    
     <!-- popular_destination_area_end  -->
 
     <div class="travel_variation_area">
@@ -456,5 +418,28 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+    let campList=new Vue({
+    	el:'.popular_destination_area',
+    	data:{
+    		camp_list:[]
+    	},
+    	mounted:function(){
+    		axios.get('../camp/camp_main_list_vue.do').then(res=>{
+    			console.log(res.data)
+    			this.camp_list=res.data
+    		})
+    	},
+    	methods:{
+    		toDetail:function(no){
+    			location.href="../camp/camp_detail.do?cno="+no;
+    		}
+    	}
+    })
+    
+   
+    
+    
+    </script>
 </body>
 </html>
