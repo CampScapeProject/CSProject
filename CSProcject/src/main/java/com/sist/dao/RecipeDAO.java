@@ -13,9 +13,14 @@ public class RecipeDAO {
 	@Autowired
 	private RecipeMapper mapper;
 	
-	public List<recipeVO> recipeListData(Map map)
+	public List<RecipeVO> recipeListData(Map map)
 	{
 		return mapper.recipeListData(map);
+	}
+	
+	public int recipeTotalPage()
+	{
+		return mapper.recipeTotalPage();
 	}
 	
 }
