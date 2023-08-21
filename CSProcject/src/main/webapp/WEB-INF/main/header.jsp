@@ -55,9 +55,13 @@
                                     </div>
                                     <div class="social_links d-none d-xl-block">
                                         <ul>
-                                        	<% %>
+                                        	<c:if test="${sessionScope.id==null }">
                                             <li><a href="../member/login.do"> <i class="fa-solid fa-right-to-bracket"></i> 로그인 </a></li>
+                                            </c:if>
+                                            
+                                            <c:if test="${sessionScope.id!=null }">
                                             <li><a href="#"> <i class="fa fa-arrow-right-from-bracket"></i> 로그아웃 </a></li>
+                                            </c:if>
                                         </ul>
                                     </div>
                                 </div>
