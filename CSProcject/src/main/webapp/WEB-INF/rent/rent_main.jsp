@@ -200,8 +200,8 @@
                                         </span>
                                         <div class="days">
                                             <a href="#" style="margin-right: -7px;">
-                                            	<!-- fa-regular fa-heart -->
-                                            	<i class="fa fa-heart" style="color: red;font-size: 20px;"></i>
+                                            	<!-- fa-regular fa-heart, fa fa-heart -->
+                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
                                             </a>
                                             <span>(1000)</span>
                                         </div>
