@@ -14,6 +14,7 @@
 	
 	/* 레시피 리스트 css */
 	.caption {
+		display: block;
 		margin: 0 0 0.5em;
 		font-weight: bold;
 		font-size: 16px;
@@ -43,15 +44,15 @@
 	<!-- 레시피 본문 -->
 
 	<div class="container">
-		<div class="row2">
+		<div class="row">
 			<!-- 레시피 리스트 -->
 			
-			<div class="col-sm-3">
+			<div class="col-lg-3">
 				<div class="thumbnail" v-for="vo in recipe_list">
 			        <a href="#">
 			          <img :src="vo.image" alt="Lights" style="width:200px;">
 			          <div class="caption">
-			            <p>{{vo.title}}</p>
+			          	<p>{{vo.title}}</p>
 			          </div>
 			        </a>
 			    </div>
