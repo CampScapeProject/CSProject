@@ -18,7 +18,7 @@
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
                                     <a href="../main/home.do">
-                                        <img src="../layout/img/logo.png" alt="">
+                                        <img src="../layout/img/logo.png">
                                     </a>
                                 </div>
                             </div>
