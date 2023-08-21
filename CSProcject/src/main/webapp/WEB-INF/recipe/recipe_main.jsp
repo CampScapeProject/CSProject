@@ -13,9 +13,53 @@
 	}
 	
 	/* 레시피 리스트 css */
-	.caption {
+	.card-image {
 		display: block;
+		background: #fff center center no-repeat;
+	}
+	
+	.card-image > img {
+		display: block;
+		width: 100%;
+		opacity: 1;
+		max-height: 10rem;
+		object-fit: cover;
+	}
+	
+	.card-list {
+		display: block;
+		margin: 1rem auto;
+		padding: 0;
+		font-size: 0;
+		text-align: center;
+		list-style: none;
+	}
+	
+	.card {
+		display: inline-block;
+		width: 90%;
+		max-width: 15rem;
+		margin: 1rem;
+		font-size: 1rem;
+		text-decoration: none;
+		overflow: hidden;
+		transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+	}
+	
+	.card:hover {
+		transform: translateY(-0.5rem) scale(1.0125);
+		color: #515151;
+	}
+	
+	.card-description {
+		display: block;
+		padding: 1em 0.5em;
+		text-decoration: none;
+	}
+	
+	.card-description > span {
 		margin: 0 0 0.5em;
+		display: block;
 		font-weight: bold;
 		font-size: 16px;
 		
@@ -24,7 +68,8 @@
 		text-overflow:ellipsis;
 		white-space:nowrap;
 	}
-	.caption:hover {
+	
+	.card-description > span:hover {
 		color: #41644A;
 	}
 	
@@ -45,20 +90,19 @@
 
 	<div class="container">
 		<div class="row">
+		
 			<!-- 레시피 리스트 -->
-			
-			<div class="col-lg-3">
-				<div class="thumbnail" v-for="vo in recipe_list">
-			        <a href="#">
-			          <img :src="vo.image" alt="Lights" style="width:200px;">
-			          <div class="caption">
-			          	<p>{{vo.title}}</p>
-			          </div>
-			        </a>
-			    </div>
+			<div class="col-lg-3" v-for="vo in recipe_list">
+				<li class="card">
+					<a class="card-image" href="#">
+						<img :src="vo.image" :title="vo.title">
+					</a>
+					
+					<a class="card-description" href="https://inlovewithaghost.bandcamp.com/album/lets-go" target="_blank">
+						<span>{{vo.title}}</span>
+					</a>
+				</li>
 			</div>
-			
-			
 			
 			<!-- 페이지 -->
 			<nav class="blog-pagination justify-content-center d-flex">
