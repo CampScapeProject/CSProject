@@ -10,4 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class NoticeRestController {
 	
+	@Autowired
+	private NoticeDAO dao;
+	
+	
 }

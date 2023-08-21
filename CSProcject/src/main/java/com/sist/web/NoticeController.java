@@ -8,4 +8,10 @@ public class NoticeController {
 	public String notice_main() {
 		return "notice/notice_main";
 	}
+	
+	@GetMapping("notice/notice_write.do")
+	public String notice_insert()
+	{
+		return "notice/notice_insert";
+	}
 }

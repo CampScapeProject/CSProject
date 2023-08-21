@@ -61,7 +61,7 @@
 	</div>
 	
 	<!--================ 문의사항 폼 시작 =================-->
-    <section class="blog_area section-padding">
+    <section class="blog_area">
     	<div class="container">
 	    	<div class="row">
 	    		
@@ -72,6 +72,13 @@
 	    				<th width=15% class="text-center">제목</th>
 	    				<td width=85% colspan=3>
 	    					<input type=text class="input-sm form-control" name=title v-model="title">
+	    				</td>
+	    			</tr>
+	    			<tr>
+	    				<th width=8% class="text-center">고정 여부</th>
+	    				<td width=92%>
+	    					<input type=radio name=secret v-model=secret value=y >     고정      
+	                   		<input type=radio name=secret v-model=secret value=n style="margin-left: 10px;" checked>     비고정      
 	    				</td>
 	    			</tr>
 	    			<tr>

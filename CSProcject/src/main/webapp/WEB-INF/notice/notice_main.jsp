@@ -116,9 +116,9 @@
                     <div class="blog_right_sidebar">
                     	
                     	<c:if test="${sessionScope.admin=='y' }">
-                    	<aside class="single_sidebar_widget post_category_widget">
-                        	<a href="../notice/notice_write.do"><input type=button class="boxed-btn4 text-white rounded-0 w-100 btn_1" value="공지사항 작성"></a>
-                        </aside>
+	                    	<aside class="single_sidebar_widget post_category_widget">
+	                        	<a href="../notice/notice_write.do"><input type=button class="boxed-btn4 text-white rounded-0 w-100 btn_1" value="공지사항 작성"></a>
+	                        </aside>
                         </c:if>
                     	
                         <aside class="single_sidebar_widget search_widget">
