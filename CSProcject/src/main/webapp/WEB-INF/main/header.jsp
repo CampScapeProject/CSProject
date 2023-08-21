@@ -50,9 +50,12 @@
                             </div>
                             <div class="col-xl-4 col-lg-4 d-none d-lg-block">
                                 <div class="social_wrap d-flex align-items-center justify-content-end">
-                                    <div class="number">
-                                        <p> <i class="fa fa-user" style="color: black"></i> 님</p>
-                                    </div>
+                                	<c:if test="${sessionScope.id!=null }">
+	                                    <div class="number">
+	                                        <p> <i class="fa fa-user" style="color: black"></i>${sessionScope.name }님</p>
+	                                    </div>
+                                    </c:if>
+                                    
                                     <div class="social_links d-none d-xl-block">
                                         <ul>
                                         	<c:if test="${sessionScope.id==null }">
