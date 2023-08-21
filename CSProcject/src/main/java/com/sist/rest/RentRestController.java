@@ -37,4 +37,12 @@ public class RentRestController {
 		return mapper.writeValueAsString(list);
 		
 	}
+	
+	@GetMapping(value = "rent/rentDetail_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rentDetail(int rno) throws Exception {
+		RentVO vo=dao.rentDetailData(rno);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(vo);
+	}
 }

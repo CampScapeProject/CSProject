@@ -16,4 +16,8 @@ public class RentDAO {
 	public List<RentVO> rentListData(Map map){
 		return mapper.rentListData(map);
 	}
+	
+	public RentVO rentDetailData(int rno) {
+		return mapper.rentDetailData(rno);
+	}
 }

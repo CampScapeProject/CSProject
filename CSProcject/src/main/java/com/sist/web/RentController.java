@@ -1,6 +1,7 @@
 package com.sist.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -12,9 +13,11 @@ public class RentController {
 	}
 	
 	@GetMapping("rent/rent_detail.do")
-	public String rent_detail(int rno, String date) {
-		System.out.println(rno + " " + date);
+	public String rent_detail(int rno, String date, Model model) {
 		
+		model.addAttribute("rno",rno);
+		model.addAttribute("sDate",date.split(" - ")[0]);
+		model.addAttribute("eDate",date.split(" - ")[1]);
 		return "rent/rent_detail";
 	}
 }

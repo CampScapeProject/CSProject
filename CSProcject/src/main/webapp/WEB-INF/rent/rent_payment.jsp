@@ -15,7 +15,6 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
  
 <style type="text/css">
-	
 	.tabs {
 	  display: flex;
 	}
@@ -84,9 +83,9 @@
 		                <div class="row">
 		                	<h4 style="margin: 0"><a href="../rent/rent_main.do" class="prevStep steps">차량조회</a></h4>&nbsp;&nbsp;
 		                    <h4 class="steps" >&gt;</h4>&nbsp;&nbsp;
-		                    <h4 class="cSteps" >예약정보</h4>&nbsp;&nbsp;
+		                    <h4 class="steps" >예약정보</h4>&nbsp;&nbsp;
 		                    <h4 class="steps" >&gt;</h4>&nbsp;&nbsp;
-		                    <h4 class="steps" >결제</h4>
+		                    <h4 class="cSteps" >결제</h4>
 		                </div>
 		            </div>
 	            </div>
@@ -104,14 +103,14 @@
 							<div class="filter_inner">
 							
 								<div class="row" style="margin: 0 auto;">
-									<img :src="rent_detail.image" style="width: 40%;margin: auto;display: block;">                             	
+									<img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%A4%91%ED%98%95%EC%B0%A8/SM6.jpg" style="width: 40%;margin: auto;display: block;">                             	
 								</div>
 								
 								<div style="height: 20px;"></div>
 								
 								<div style="margin:30px;">
-									<h3 style="margin-bottom: 3px;"><i class="fa-solid fa-car"></i>&nbsp;{{rent_detail.maker}}</h3>
-									<h2 style="font-size: 1.4em;">{{rent_detail.car_name}}</h2>
+									<h3 style="margin-bottom: 3px;"><i class="fa-solid fa-car"></i>&nbsp;현대</h3>
+									<h2 style="font-size: 1.4em;">스타렉스 2세대 12인승</h2>
 								</div>
 								
 								<hr>
@@ -119,15 +118,15 @@
 								<div class="row text-center">
 									<div class="col-lg-4">
 										대여일
-										<p style="font-weight: bold;">{{sDate}}</p>
+										<p style="font-weight: bold;">2023-08-23</p>
 									</div>
 									<div class="col-lg-4">
 										대여기간
-										<p style="font-weight: bold;">{{period}}일</p>
+										<p style="font-weight: bold;">2일</p>
 									</div>
 									<div class="col-lg-4">
 										반납일
-										<p style="font-weight: bold;">{{eDate}}</p>
+										<p style="font-weight: bold;">2023-08-25</p>
 									</div>
 	    						</div>
 	    						
@@ -153,19 +152,15 @@
 									    	<div v-for="(tab, index) in tabs" :key="index" v-show="activeTab === index">
 									      		<template v-if="index == 0">
 									      			<h3 style="margin-bottom: 10px;"><b>차량 정보</b></h3>
-										        	<i class="fa-solid fa-car-side"></i>&nbsp; {{rent_detail.car_type}} &nbsp;&nbsp;&nbsp;
-										      		<i class="fa-solid fa-droplet"></i>&nbsp; {{rent_detail.fuel}} &nbsp;&nbsp;&nbsp;
-										      		<i class="fa-solid fa-person"></i>&nbsp; {{rent_detail.inwon}} &nbsp;&nbsp;&nbsp;
-										      		<i class="fa-solid fa-coins"></i>&nbsp; {{rent_detail.price}}
+										        	<i class="fa-solid fa-car-side"></i>&nbsp; RV/SUV &nbsp;&nbsp;&nbsp;
+										      		<i class="fa-solid fa-droplet"></i>&nbsp; 경유 &nbsp;&nbsp;&nbsp;
+										      		<i class="fa-solid fa-person"></i>&nbsp; 6인 &nbsp;&nbsp;&nbsp;
+										      		<i class="fa-solid fa-coins"></i>&nbsp; 37000
 										      		
 										      		<div style="height: 20px;"></div>
 										      		
 									      			<h3 style="margin-bottom: 10px;"><b>차량 옵션</b></h3>
-									      			<div class="row">
-									      				<div class="col-lg-3" v-for="o in option">
-										      				· {{o}}
-									      				</div>
-									      			</div>
+										      		가죽시트,금연,네비게이션,시트열선,운전석에어백,조수석에어백,후방센서,후방카메라,ABS,블루투스,AUX,MP3,USB,스마트키
 												</template>
 									      		<template v-if="index == 1">
 										        	<h3 style="margin-bottom: 20px;"><b>운전자 대여조건</b></h3>
@@ -313,7 +308,7 @@
                     <div class="filter_result_wrap">
                         <div class="filter_bordered" style="background-color: white;">
                             <div class="filter_inner">
-                            	<!-- <h3><b>운전자 정보</b></h3>
+                            	<h3><b>운전자 정보</b></h3>
 					        	<div class="row">
 					        		<div class="col-lg-12" style="margin-bottom: 10px;">
 						        		<input type="text" style="width: 100%" placeholder="이름"> 
@@ -329,7 +324,7 @@
 					        		</div>
 					        	</div>
 					        	
-					        	<hr> -->
+					        	<hr>
 					        	
                             	<h3><b>결제 정보</b></h3>
 					        	<div class="row" style="padding: 0 20px;">
@@ -337,7 +332,7 @@
 					        			<p>요금 상세 &nbsp;<i :class="'fa-solid fa-caret-'+(detail?'up':'down')" @click="setDetail()" style="cursor: pointer;"></i></p>
 					        		</div>
 					        		<div class="col-lg-6 text-right" style="padding: 0 10px;">
-					        			<p style="font-weight: bold;">{{rent_detail.price*period}}원</p>
+					        			<p style="font-weight: bold;">74000원</p>
 					        		</div>
 					        		<div v-if="detail" class="col-lg-12" style="border-radius: 10px;background-color:#F7FAFD;min-height: 50px;padding: 5px 10px">
 					        			<div class="row">
@@ -345,7 +340,7 @@
 					        					대여 요금
 					        				</div>
 					        				<div class="col-lg-6 text-right" style="font-size: 13px;">
-					        					{{rent_detail.price}}원
+					        					37000원
 					        				</div>
 					        			</div>
 					        			<div class="row">
@@ -353,7 +348,7 @@
 					        					대여 기간
 					        				</div>
 					        				<div class="col-lg-6 text-right" style="font-size: 13px;">
-					        					{{period}}일
+					        					2일
 					        				</div>
 					        			</div>
 					        			<div class="row">
@@ -361,7 +356,7 @@
 					        					총 금액
 					        				</div>
 					        				<div class="col-lg-8 text-right" style="font-size: 13px;">
-					        					{{rent_detail.price}}원 X {{period}}일 = {{rent_detail.price*period}}원
+					        					37000원 X 2일 = 74000원
 					        				</div>
 					        			</div>
 					        		</div>
@@ -374,7 +369,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -392,31 +386,10 @@
 		      { title: "유의사항", content: "Content for Tab 2" },
 		      { title: "리뷰", content: "Content for Tab 3" },
 		    ],
-		    detail:true,
-		    sDate:'${sDate}',
-		    eDate:'${eDate}',
-		    rno:${rno},
-		    rent_detail:{},
-		    option:[],
-		    period:0
+		    detail:true
 		},
 		mounted:function(){
-			axios.get('../rent/rentDetail_vue.do',{
-				params:{
-					rno:this.rno
-				}
-			}).then(res=>{
-				console.log(res.data)
-				this.rent_detail=res.data
-				this.option=this.rent_detail.car_option.split(',')
-				
-				let sDate = new Date(this.sDate);
-				let eDate = new Date(this.eDate);
-				let diff = Math.abs(eDate.getTime() - sDate.getTime());
-				diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
-				console.log(diff);
-				this.period=diff
-			})
+			
 		},
 		methods:{
 			setActiveTab(index) {
