@@ -5,17 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style type="text/css">
 	.row2 {
 		margin: 0px auto;
 		text-align: center;
 	}
 	
-	
 	/* 레시피 리스트 css */
 	.card-image {
 		display: block;
-		min-height: 20rem; /* layout hack */
+		min-height: 15rem; /* layout hack */
 		background: #fff center center no-repeat;
 		background-size: cover;
 		filter: blur(3px); /* blur the lowres image */
@@ -40,7 +40,7 @@
 	.card {
 		display: inline-block;
 		width: 90%;
-		max-width: 20rem;
+		max-width: 15rem;
 		margin: 1rem;
 		font-size: 1rem;
 		text-decoration: none;
@@ -83,17 +83,16 @@
 			<!-- 레시피 리스트 -->
 			
 			<div class="col-sm-12">
-			<ul class="card-list">
-				<li class="card">
-				<a class="card-image" href="https://michellezauner.bandcamp.com/album/psychopomp-2" target="_blank" style="background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/310408/psychopomp-100.jpg);" data-image-full="https://s3-us-west-2.amazonaws.com/s.cdpn.io/310408/psychopomp-500.jpg">
-					<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/310408/psychopomp-100.jpg" alt="Psychopomp" />
-				</a>
-				<a class="card-description" href="https://michellezauner.bandcamp.com/album/psychopomp-2" target="_blank">
-					<h2>Psychopomp</h2>
-					<p>Japanese Breakfast</p>
-				</a>
-				</li>
-			</ul>
+				<ul class="card-list">
+					<li class="card" v-for="vo in recipe_list">
+					<a class="card-image" href="#">
+						<img :src="vo.image">
+					</a>
+					<a class="card-description" href="#" :title="vo.title">
+						<h3>{{ vo.title }}</h3>
+					</a>
+					</li>
+				</ul>
 			</div>
 			
 			
@@ -118,9 +117,17 @@
 					</li>
 				</ul>
 			</nav>
+			
 		</div>
 	</div>
-	
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
 <script>
 	new Vue({
 		el:'.container',
@@ -133,36 +140,39 @@
 			endPage:0
 		},
 		mounted:function(){
-			
+			this.dataRecive();
 		},
 		methods:{
-			// 해당 페이지 값 데이터 읽기
-			axios.get('../recipe/recipe_list_vue.do', {
-				params:{
-					page:this.curpage
-				}
-			}).then(response=>{
-				console.log(response.data)
-				this.chef_list=response.data
-			}).catch(error=>{
-				console.log(error.response)
-			})
-			
-			// 페이지 정보
-			axios.get('../recipe/recipe_page_vue.do', {
-				params:{
-					page:this.curpage
-				}
-			}).then(response=>{
-				console.log(response.data)
-				this.page_list = response.data
-				this.curpage = this.page_list.curpage
-				this.totalpage = this.page_list.totalpage
-				this.startPage = this.page_list.startPage
-				this.endPage = this.page_list.endPage
-			}).catch(error=>{
-				console.log(error.response)
-			})
+			dataRecive:function()
+			{
+				// 해당 페이지 값 데이터 읽기
+				axios.get('../recipe/recipe_list_vue.do', {
+					params:{
+						page:this.curpage
+					}
+				}).then(response=>{
+					console.log(response.data)
+					this.recipe_list=response.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+				
+				// 페이지 정보
+				axios.get('../recipe/recipe_page_vue.do', {
+					params:{
+						page:this.curpage
+					}
+				}).then(response=>{
+					console.log(response.data)
+					this.page_list = response.data
+					this.curpage = this.page_list.curpage
+					this.totalpage = this.page_list.totalpage
+					this.startPage = this.page_list.startPage
+					this.endPage = this.page_list.endPage
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			}
 		},
 		
 		range:function(start,end){
@@ -174,7 +184,7 @@
 				start++;
 			}
 			return arr;
-		}
+		},
 		prev:function(){
 			this.curpage = this.startPage-1;
 			this.dataRecive();
