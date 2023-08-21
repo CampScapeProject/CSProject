@@ -4,171 +4,409 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <title>Insert title here</title>
-<style type="text/css">
-.login-row {
-    position: absolute;
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+ <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+ 
+<style>
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans");
+
+/* html,body {
+	position: relative;
+	min-height: 100vh;
+	background-color: #E1E8EE;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: "Fira Sans", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
+
+.form-structor {
+	border-radius: 15px;
+	height: 550px;
+	position: absolute;
+	overflow: hidden; 
+	
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
-    width: 800px;   
-}   
-.login-table {
-    width: 48%; /* 왼쪽 테이블 너비 설정 */
-}
-.find-table {
-    width: 48%; /* 오른쪽 테이블 너비 설정 */
-}
+    width: 25%;
+	
+	&::after {
+		content: '';
+		opacity: .8;
+		position: absolute;
+		top: 0;right:0;bottom:0;left:0;
+		background-repeat: no-repeat;
+		background-position: left bottom;
+		background-size: 500px;
+		background-image: url('https://cdn.pixabay.com/photo/2020/08/08/16/05/camping-5473343_1280.jpg');
+		<!--  -->
+	}
+	
+	.signup {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		-webkit-transform: translate(-50%, -50%);
+		width: 65%;
+		z-index: 5;
+		-webkit-transition: all .3s ease;
+		
+		
+		&.slide-up {
+			top: 5%;
+			-webkit-transform: translate(-50%, 0%);
+			-webkit-transition: all .3s ease;
+		}
+		
+		&.slide-up .form-holder,
+		&.slide-up .submit-btn {
+			opacity: 0;
+			visibility: hidden;
+		}
+		
+		&.slide-up .form-title {
+			font-size: 1em;
+			cursor: pointer;
+		}
+		
+		&.slide-up .form-title span {
+			margin-right: 5px;
+			opacity: 1;
+			visibility: visible;
+			-webkit-transition: all .3s ease;
+		}
+		
+		.form-title {
+			color: #fff;
+			font-size: 1.7em;
+			text-align: center;
+			
+			span {
+				color: rgba(0,0,0,0.4);
+				opacity: 0;
+				visibility: hidden;
+				-webkit-transition: all .3s ease;
+			}
+		}
+		
+		.form-holder {
+			border-radius: 15px;
+			background-color: #fff;
+			overflow: hidden;
+			margin-top: 50px;
+			opacity: 1;
+			visibility: visible;
+			-webkit-transition: all .3s ease;
+			
+			.input {
+				border: 0;
+				outline: none;
+				box-shadow: none;
+				display: block;
+				height: 30px;
+				line-height: 30px;
+				padding: 8px 15px;
+				border-bottom: 1px solid #eee;
+				width: 100%;
+				font-size: 12px;
+				
+				&:last-child {
+					border-bottom: 0;
+				}
+				&::-webkit-input-placeholder {
+					color: rgba(0,0,0,0.4);
+				}
+			}
+		}
+		
+		.submit-btn {
+			background-color: rgba(0,0,0,0.4);
+			color: rgba(256,256,256,0.7);
+			border:0;
+			border-radius: 15px;
+			display: block;
+			margin: 15px auto; 
+			padding: 15px 45px;
+			width: 100%;
+			font-size: 13px;
+			font-weight: bold;
+			cursor: pointer;
+			opacity: 1;
+			visibility: visible;
+			-webkit-transition: all .3s ease;
+			
+			&:hover {
+				transition: all .3s ease;
+				background-color: rgba(0,0,0,0.8);
+			}
+		}
+	}
+	
+	.login {
+		position: absolute;
+		top: 20%;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #fff;
+		z-index: 5;
+		-webkit-transition: all .3s ease;
+		
+		&::before {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: -20px;
+			-webkit-transform: translate(-50%, 0);
+			background-color: #fff;
+			width: 200%;
+			height: 250px;
+			border-radius: 50%;
+			z-index: 4;
+			-webkit-transition: all .3s ease;
+		}
+		
+		.center {
+			position: absolute;
+			top: calc(50% - 10%);
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			width: 65%;
+			z-index: 5;
+			-webkit-transition: all .3s ease;
+			
+			.form-title {
+				color: #000;
+				font-size: 1.7em;
+				text-align: center;
 
-/* tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
+				span {
+					color: rgba(0,0,0,0.4);
+					opacity: 0;
+			    visibility: hidden;
+				  -webkit-transition: all .3s ease;
+				}
+			}
 
+			.form-holder {
+				border-radius: 15px;
+				background-color: #fff;
+				border: 1px solid #eee;
+				overflow: hidden;
+				margin-top: 50px;
+				opacity: 1;
+				visibility: visible;
+				-webkit-transition: all .3s ease;
 
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
+				.input {
+					border: 0;
+					outline: none;
+					box-shadow: none;
+					display: block;
+					height: 30px;
+					line-height: 30px;
+					padding: 8px 15px;
+					border-bottom: 1px solid #eee;
+					width: 100%;
+					font-size: 12px;
 
-.tab button:hover {
-  background-color: #ddd;
-}
+					&:last-child {
+						border-bottom: 0;
+					}
+					&::-webkit-input-placeholder {
+						color: rgba(0,0,0,0.4);
+					}
+				}
+			}
 
-.tab button.active {
-  background-color: #ccc;
-}
+			.submit-btn {
+				background-color: #6B92A4;
+				color: rgba(256,256,256,0.7);
+				border:0;
+				border-radius: 15px;
+				display: block;
+				margin: 15px auto; 
+				padding: 15px 45px;
+				width: 100%;
+				font-size: 13px;
+				font-weight: bold;
+				cursor: pointer;
+				opacity: 1;
+				visibility: visible;
+				-webkit-transition: all .3s ease;
 
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
+				&:hover {
+					transition: all .3s ease;
+					background-color: rgba(0,0,0,0.8);
+				}
+			}
+		}
+		
+		&.slide-up {
+			top: 90%;
+			-webkit-transition: all .3s ease;
+		}
+		
+		&.slide-up .center {
+			top: 10%;
+			-webkit-transform: translate(-50%, 0%);
+			-webkit-transition: all .3s ease;
+		}
+		
+		&.slide-up .form-holder,
+		&.slide-up .submit-btn {
+			opacity: 0;
+			visibility: hidden;
+			-webkit-transition: all .3s ease;
+		}
+		
+		&.slide-up .form-title {
+			font-size: 1em;
+			margin: 0;
+			padding: 0;
+			cursor: pointer;
+			-webkit-transition: all .3s ease;
+		}
+		
+		&.slide-up .form-title span {
+			margin-right: 5px;
+			opacity: 1;
+			visibility: visible;
+			-webkit-transition: all .3s ease;
+		}
+	}
 }
 </style>
-
 </head>
 <body>
-   <div class="login-row">
-      <table class="table login-table">
-         <tr>
-            <th colspan="2" class="text-center">Login</th>
-         </tr>
-         <tr>
-            <th>id</th>
-            <td>
-               <input type="text" name="id" ref="id" v-model="id">
-            </td>
-         </tr>
-         <tr>
-            <th>pwd</th>
-            <td>
-               <input type="password" name="pwd" ref="pwd" v-model="pwd">
-            </td>
-         </tr>
-               <tr>
-                  <td colspan="2">
-                      <input type="button" class="btn btn-sm btn-default" value="login" @click="login()">
-                      <a href="../member/join.do"><button class="btn btn-sm btn-default">Join</button></a>
-                  </td>
-              </tr>
-      </table>
-      <div class="table find-table">
-         <div class="tab">
-           <button class="tablinks" onclick="openTab(event, 'ID')">ID찾기</button>
-           <button class="tablinks" onclick="openTab(event, 'PWD')">PWD찾기</button>
-         </div>
-         
-         <div id="ID" class="tabcontent">
-           <h4>Email로 ID를 찾아보세요</h4>
-           <p>London is the capital city of England.</p>
-         </div>
-         
-         <div id="PWD" class="tabcontent">
-           <h3>PWD 찾기</h3>
-           <p>Paris is the capital of France.</p> 
-         </div>
-      </div>
-   </div>
-   
-   
-<!-- <script>
-   function openTab(evt, tabs) {
-     var i, tabcontent, tablinks;
-     tabcontent = document.getElementsByClassName("tabcontent");
-     for (i = 0; i < tabcontent.length; i++) {
-       tabcontent[i].style.display = "none";
-     }
-     tablinks = document.getElementsByClassName("tablinks");
-     for (i = 0; i < tablinks.length; i++) {
-       tablinks[i].className = tablinks[i].className.replace(" active", "");
-     }
-     document.getElementById(tabs).style.display = "block";
-     evt.currentTarget.className += " active";
-   }
-</script> -->
-   
+<div id="app">
+	<div class="form-structor">
+		<div class="signup">
+			<h2 class="form-title" id="signup" @click="signupSlide($event)">Login</h2>
+			<div class="form-holder">
+				<input type="text" class="input" placeholder="id" ref="id" v-model="id" />
+				<input type="password" class="input" placeholder="Password" ref="pwd" v-model="pwd" />
+			</div>
+			<input type="button" class="submit-btn" value="login" @click="login()">
+			<input type="button" class="submit-btn" value="Join" @click="join()">
+		</div>
+		<div class="login slide-up">
+			<div class="center">
+				<h2 class="form-title" id="login" @click="findIdSlide($event)">ID 찾기</h2>
+				<div class="form-holder">
+					<input type="email" class="input" placeholder="Email을 입력해주세요" v-model="email">
+					<input type="text" class="input" :placeholder="idFindOk" />
+				</div>
+				<button class="submit-btn" @click="idFind()">찾기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- login VueJS -->
 <script>
-
-   new Vue({
-      el:'.row',
-      data:{
-         id:'',
-         pwd:''
-      },
-      methods:{
-         login(){
-            if(this.id.trim()==="") {
-               this.$refs.id.focus();
-               return;
-            }
-            if(this.pwd.trim()===""){
-               this.$refs.id.focus();
-               return;
-            }
-            
-            axios.post('../member/login_ok.do',null,{
-               params:{
-                  id:this.id,
-                  pwd:this.pwd
-               }
-            }).then(response=>{
-               let res=response.data;
-               if(res==="NOID") {
-                  alert('ID가 존재하지 않습니다')
-                  this.id=''
-                  this.pwd=''
-                  this.$refs.id.focus()
-               } else if(res==="NOPWD") {
-                  alert('비밀번호가 틀립니다')
-                  this.pwd='';
-                  this.$refs.pwd.focus()
-               } else {
-                  location.href="../main/main.do"
-               }
-            }).catch(error=>{
-               console.log("Error:"+error);
-            })
-         }
-      }
-   })
-
+new Vue({
+    el:'#app',
+    data:{
+       id:'',
+       pwd:'',
+       email:'',
+       idFindOk:'',
+       signupBtn: '',
+       loginBtn: ''
+    },
+    mounted() {
+    	this.loginBtn = document.getElementById('login');
+		this.signupBtn = document.getElementById('signup');
+    },
+    methods:{
+    	join(){
+    		location.href="../member/join.do"
+    	},
+  	  idFind() {
+  		   axios.get('../member/id_find_vue.do', {
+  		      params: {
+  		         email: this.email // 세미콜론 제거
+  		      }
+  		   }).then(response => {
+  		      console.log(response.data);
+  		      if (response.data === 'no') {
+  		         alert("존재하지 않는 email입니다.");
+  		         this.idFindOk='';
+  		         this.id='';
+  		      } else {
+  		         this.idFindOk = response.data;
+  		      }
+  		   }).catch(error => {
+  		      console.log("Error:", error);
+  		   });
+  		},
+  		findIdSlide(e) {
+  			let parent = e.target.parentNode.parentNode;
+			Array.from(e.target.parentNode.parentNode.classList).find((element) => {
+				if(element !== "slide-up") {
+					parent.classList.add('slide-up')
+				}else{
+					this.signupBtn.parentNode.classList.add('slide-up')
+					parent.classList.remove('slide-up')
+				}
+			});
+  		},
+  		signupSlide(e) {
+  			let parent = e.target.parentNode;
+			Array.from(e.target.parentNode.classList).find((element) => {
+				if(element !== "slide-up") {
+					parent.classList.add('slide-up')
+				}else{
+					this.loginBtn.parentNode.parentNode.classList.add('slide-up')
+					parent.classList.remove('slide-up')
+				}
+			});
+  		},
+   	  pwdFind(){
+  		  
+  	  }, 
+       login(){
+          if(this.id.trim()==="") {
+             this.$refs.id.focus();
+             return;
+          }
+          if(this.pwd.trim()===""){
+             this.$refs.id.focus();
+             return;
+          }
+          
+          axios.post('../member/login_ok.do',null,{
+             params:{
+                id:this.id,
+                pwd:this.pwd
+             }
+          }).then(response=>{
+             let res=response.data;
+             if(res==="NOID") {
+                alert('ID가 존재하지 않습니다')
+                this.id=''
+                this.pwd=''
+                this.$refs.id.focus()
+             } else if(res==="NOPWD") {
+                alert('비밀번호가 틀립니다')
+                this.pwd='';
+                this.$refs.pwd.focus()
+             } else {
+                location.href="../main/home.do"
+             }
+          }).catch(error=>{
+             console.log("Error:"+error);
+          })
+       }
+    }
+ })
+ 
 </script>
-
 </body>
 </html>

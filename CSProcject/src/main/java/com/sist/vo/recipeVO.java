@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter@Setter
 public class recipeVO {
-	private int rno;
+	private int rno, hit, jjim, good;
 	private String title,image,msg1,msg2,ingre,allSteps,allStepsImg;
 
 }

@@ -88,7 +88,7 @@
 	    	<div class="row">
 	    	
 	    		<div class="search_form" style="margin-bottom: 20px;">
-	                    <input type=radio name=search value=name>    이름
+	                    <input type=radio name=search value=name checked>    이름
 	                    <input type=radio name=search value=subject>    제목 
 	                    <input type=radio name=search value=content>    내용
 	                    <input type=text class="input-sm" placeholder="검색어를 입력하세요." style="margin-left: 5px;"/>
@@ -113,6 +113,28 @@
 	    				<td width=15% class="text-center">조회수</td>
 	    			</tr>
 	    		</table>
+	    		
+	    		<div class="row2">
+		    		<nav class="blog-pagination justify-content-center d-flex">
+	                    <ul class="pagination">
+	                        <li class="page-item" v-if="startpage>1">
+	                            <a href="#" class="page-link" aria-label="Previous" @click="prev()">
+	                                <i class="ti-angle-left"></i>
+	                            </a>
+	                        </li>
+	                        
+	                        <li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
+	                            <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
+	                        </li>
+	                        
+	                        <li class="page-item" v-if="endpage<totalpage">
+	                            <a href="#" class="page-link" aria-label="Next" @click="next()">
+	                                <i class="ti-angle-right"></i>
+	                            </a>
+	                        </li>
+	                    </ul>
+	                </nav>
+	    		</div>
 	    		
 	    	</div>
     	</div>
