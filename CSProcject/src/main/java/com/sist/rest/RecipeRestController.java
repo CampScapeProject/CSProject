@@ -28,6 +28,7 @@ public class RecipeRestController {
 		map.put("end", end);
 		
 		List<RecipeVO> list = dao.recipeListData(map);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
 		return json;

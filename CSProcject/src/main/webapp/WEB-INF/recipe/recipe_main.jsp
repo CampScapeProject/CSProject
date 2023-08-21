@@ -13,61 +13,25 @@
 	}
 	
 	/* 레시피 리스트 css */
-	.card-image {
-		display: block;
-		min-height: 15rem; /* layout hack */
-		background: #fff center center no-repeat;
-		background-size: cover;
-		filter: blur(3px); /* blur the lowres image */
-	}
-	.card-image > img {
-		display: block;
-		width: 100%;
-		opacity: 0; /* visually hide the img element */
-	}
-	.card-image.is-loaded {
-		filter: none; /* remove the blur on fullres image */
-		transition: filter 1s;
-	}
-	.card-list {
-		display: block;
-		margin: 1rem auto;
-		padding: 0;
-		font-size: 0;
-		text-align: center;
-		list-style: none;
-	}
-	.card {
-		display: inline-block;
-		width: 90%;
-		max-width: 15rem;
-		margin: 1rem;
-		font-size: 1rem;
-		text-decoration: none;
-		overflow: hidden;
-		box-shadow: 0 0 3rem -1rem rgba(0,0,0,0.5);
-		transition: transform 0.1s ease-in-out, box-shadow 0.1s;
-	}
-	.card:hover {
-		transform: translateY(-0.5rem) scale(1.0125);
-		box-shadow: 0 0.5em 3rem -1rem rgba(0,0,0,0.5);
-	}
-	.card-description {
-		display: block;
-		padding: 1em 0.5em;
-		color: #515151;
-		text-decoration: none;
-	}
-	.card-description > h2 {
+	.caption {
 		margin: 0 0 0.5em;
+		font-weight: bold;
+		font-size: 16px;
+		
+		text-align:left;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
 	}
-	.card-description > p {
-		margin: 0;
+	.caption:hover {
+		color: #41644A;
 	}
 	
 </style>
 </head>
 <body>
+
+<div class="recipe">
 
 	<!-- 레시피 상단 -->
 	<div class="container" style="padding: 80px; background-color: ">
@@ -82,17 +46,15 @@
 		<div class="row2">
 			<!-- 레시피 리스트 -->
 			
-			<div class="col-sm-12">
-				<ul class="card-list">
-					<li class="card" v-for="vo in recipe_list">
-					<a class="card-image" href="#">
-						<img :src="vo.image">
-					</a>
-					<a class="card-description" href="#" :title="vo.title">
-						<h3>{{ vo.title }}</h3>
-					</a>
-					</li>
-				</ul>
+			<div class="col-sm-3">
+				<div class="thumbnail" v-for="vo in recipe_list">
+			        <a href="#">
+			          <img :src="vo.image" alt="Lights" style="width:200px;">
+			          <div class="caption">
+			            <p>{{vo.title}}</p>
+			          </div>
+			        </a>
+			    </div>
 			</div>
 			
 			
@@ -100,17 +62,17 @@
 			<!-- 페이지 -->
 			<nav class="blog-pagination justify-content-center d-flex">
 				<ul class="pagination">
-					<li class="page-item" v-if="startpage>1">
+					<li class="page-item" v-if="startPage>1">
 						<a href="#" class="page-link" aria-label="Previous" @click="prev()">
 							<i class="ti-angle-left"></i>
 						</a>
 					</li>
 					
-					<li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
+					<li v-for="i in range(startPage,endPage)" :class="i==curpage?'page-item active':'page-item'">
 						<a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
 					</li>
 					
-					<li class="page-item" v-if="endpage<totalpage">
+					<li class="page-item" v-if="endPage<totalpage">
 						<a href="#" class="page-link" aria-label="Next" @click="next()">
 							<i class="ti-angle-right"></i>
 						</a>
@@ -120,7 +82,8 @@
 			
 		</div>
 	</div>
-
+	
+</div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -130,7 +93,7 @@
 
 <script>
 	new Vue({
-		el:'.container',
+		el:'.recipe',
 		data:{
 			recipe_list:[],
 			page_list:{},
@@ -172,30 +135,30 @@
 				}).catch(error=>{
 					console.log(error.response)
 				})
+			},
+			
+			range:function(start,end){
+				let arr = [];
+				let length = end-start;
+				for(let i=0;i<=length;i++)
+				{
+					arr[i] = start;
+					start++;
+				}
+				return arr;
+			},
+			prev:function(){
+				this.curpage = this.startPage-1;
+				this.dataRecive();
+			},
+			next:function(){
+				this.curpage = this.endPage+1;
+				this.dataRecive();
+			},
+			pageChange:function(page){
+				this.curpage = page;
+				this.dataRecive();
 			}
-		},
-		
-		range:function(start,end){
-			let arr = [];
-			let length = end-start;
-			for(let i=0;i<=length;i++)
-			{
-				arr[i] = start;
-				start++;
-			}
-			return arr;
-		},
-		prev:function(){
-			this.curpage = this.startPage-1;
-			this.dataRecive();
-		},
-		next:function(){
-			this.curpage = this.endPage+1;
-			this.dataRecive();
-		},
-		pageChange:function(page){
-			this.curpage = page;
-			this.dataRecive();
 		}
 		
 	})

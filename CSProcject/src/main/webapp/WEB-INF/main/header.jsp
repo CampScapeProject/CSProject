@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +55,7 @@
                                     </div>
                                     <div class="social_links d-none d-xl-block">
                                         <ul>
+                                        	<% %>
                                             <li><a href="../member/login.do"> <i class="fa-solid fa-right-to-bracket"></i> 로그인 </a></li>
                                             <li><a href="#"> <i class="fa fa-arrow-right-from-bracket"></i> 로그아웃 </a></li>
                                         </ul>
