@@ -86,28 +86,32 @@
                                 <p>공지사항 내용</p>
                                 <ul class="blog-info-link">
                                     <li><a href="#"><i class="fa fa-user"></i>관리자</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i>03 Comments</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-eye"></i>196 Hits</a></li>
                                 </ul>
                             </div>
                         </article>
 
-                        <nav class="blog-pagination justify-content-center d-flex">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
-                                        <i class="ti-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
-                                        <i class="ti-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <div class="row2">
+				    		<nav class="blog-pagination justify-content-center d-flex">
+			                    <ul class="pagination">
+			                        <li class="page-item" v-if="startPage>1">
+			                            <a href="#" class="page-link" aria-label="Previous" @click="prev()">
+			                                <i class="ti-angle-left"></i>
+			                            </a>
+			                        </li>
+			                        
+			                        <li v-for="i in range(startPage,endPage)" :class="i==curpage?'page-item active':'page-item'">
+			                            <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
+			                        </li>
+			                        
+			                        <li class="page-item" v-if="endPage<totalpage">
+			                            <a href="#" class="page-link" aria-label="Next" @click="next()">
+			                                <i class="ti-angle-right"></i>
+			                            </a>
+			                        </li>
+			                    </ul>
+			                </nav>
+			    		</div>
                         
                     </div>
                 </div>
@@ -155,6 +159,51 @@
       </div>
     </div>
   </div>
+  
+<script>
+	new Vue({
+		el:'.blog_area',
+		data:{
+			notice_list:[],
+			page_info:[],
+			curpage:1,
+			totalpage:0,
+			startPage:0,
+			endPage:0
+		},
+		mounted:function(){
+			
+		},
+		methods:{
+			dataRecive:function(){
+				
+			},
+			
+			range:function(start,end){
+				let arr = [];
+				let length = end-start;
+				for(let i=0;i<=length;i++)
+				{
+					arr[i] = start;
+					start++;
+				}
+				return arr;
+			},
+			prev:function(){
+				this.curpage = this.startPage-1;
+				this.dataRecive();
+			},
+			next:function(){
+				this.curpage = this.endPage+1;
+				this.dataRecive();
+			},
+			pageChange:function(page){
+				this.curpage = page;
+				this.dataRecive();
+			}
+		}
+	})
+</script>
   
 </body>
 

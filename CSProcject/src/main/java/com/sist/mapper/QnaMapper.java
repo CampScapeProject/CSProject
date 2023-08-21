@@ -12,4 +12,7 @@ public interface QnaMapper {
 			+ "FROM qna2 ORDER BY qno DESC) "
 			+ "WHERE num BETWEEN #{start} AND {#end}")
 	public List<QnaVO> qnaListData(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/15.0) FROM qna2")
+	public int qnaTotalpage();
 }

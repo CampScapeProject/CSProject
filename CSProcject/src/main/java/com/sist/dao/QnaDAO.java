@@ -17,4 +17,9 @@ public class QnaDAO {
 		return mapper.qnaListData(map);
 	}
 	
+	public int qnaTotalpage()
+	{
+		return mapper.qnaTotalpage();
+	}
+	
 }

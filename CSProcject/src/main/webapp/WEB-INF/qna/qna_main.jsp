@@ -148,13 +148,42 @@
 		el:'.container',
 		data:{
 			qna_list:[],
-			page_info:[]
+			page_info:[],
+			curpage:1,
+			totalpage:0,
+			startPage:0,
+			endPage:0
 		},
 		mounted:function(){
 			
 		},
 		methods:{
+			dataRecive:function(){
+				
+			},
 			
+			range:function(start,end){
+				let arr = [];
+				let length = end-start;
+				for(let i=0;i<=length;i++)
+				{
+					arr[i] = start;
+					start++;
+				}
+				return arr;
+			},
+			prev:function(){
+				this.curpage = this.startPage-1;
+				this.dataRecive();
+			},
+			next:function(){
+				this.curpage = this.endPage+1;
+				this.dataRecive();
+			},
+			pageChange:function(page){
+				this.curpage = page;
+				this.dataRecive();
+			}
 		}
 	})
 </script>

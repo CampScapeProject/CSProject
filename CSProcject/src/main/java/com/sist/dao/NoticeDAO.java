@@ -17,4 +17,9 @@ public class NoticeDAO {
 	{
 		return mapper.noticeListData(map);
 	}
+	
+	public int noticeTotalpage()
+	{
+		return mapper.noticeTotalpage();
+	}
 }
