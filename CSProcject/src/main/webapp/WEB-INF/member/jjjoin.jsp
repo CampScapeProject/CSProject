@@ -3,11 +3,8 @@
 <!DOCTYPE html>
 <html>
 <title></title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-  <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
 <style type="text/css">
 
 *, *:before, *:after {
@@ -16,12 +13,12 @@
   box-sizing: border-box;
 }
 
-#joinBody {
+body {
   font-family: 'Nunito', sans-serif;
   color: #384047;
 }
 
-#joinForm {
+form {
   max-width: 300px;
   margin: 10px auto;
   padding: 10px 20px;
@@ -29,7 +26,7 @@
   border-radius: 8px;
 }
 
-#joinSub {
+h1 {
   margin: 0 0 30px 0;
   text-align: center;
 }
@@ -71,7 +68,7 @@ select {
   border-radius: 2px;
 }
 
-.joinButton {
+button {
   padding: 19px 39px 18px 39px;
   color: #FFF;
   background-color: #4bc970;
@@ -106,7 +103,7 @@ label.light {
   display: inline;
 }
 
-.joinNumber {
+.number {
   background-color: #5fcf80;
   color: #fff;
   height: 30px;
@@ -122,7 +119,7 @@ label.light {
 
 @media screen and (min-width: 480px) {
 
-  #joinForm {
+  form {
     max-width: 480px;
   }
 
@@ -130,65 +127,50 @@ label.light {
 
 </style>
 <head>
-
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up Form</title>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-    
-	<div id="joinBody">
-      <div id="joinForm">
-        <h1 id="joinSub">Sign Up</h1>
+    <body>
+
+      <form action="index.html" method="post">
+      
+        <h1>Sign Up</h1>
         
         <fieldset>
-          <legend><span class="joinNumber">1</span>Your basic info</legend>
+          <legend><span class="number">1</span>Your basic info</legend>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="user_name">
           
-          <label for="name">아이디:</label><span style="color:red">&nbsp;{{idOk}}</span>
-	          <span v-if="id !== ''">
-	              <button class="btn btn-sm btn-default" id="idCheck" @click="idCheck">중복 확인</button>
-	          </span>
-          	  <input type="text" placeholder="아이디 입력(6~20자)" size=40 v-model="id" ref="id">
+          <label for="mail">Email:</label>
+          <input type="email" id="mail" name="user_email">
           
-          <label for="name">비밀번호:</label><span style="color:red">&nbsp;{{pwdOk}}</span>
-          <input type="password" placeholder="비밀번호 입력(8~20자)" size=50 v-model="pwd" ref="pwd" @keyup="pwdValidate">
-          
-          <label for="name">비밀번호 확인:</label><span v-show="!checkPasswordsMatch()" style="color:red">&nbsp;비밀번호가 일치하지 않습니다.</span>
-          <input type="password" placeholder="비밀번호 재입력" size="50" v-model="confirmPwd">
-          
-          <label for="name">이름:</label>
-          <input type=text placeholder="이름을 입력해주세요" size=50 ref="name" v-model="name">
-          
-          <label for="mail">이메일:</label><span style="color:red">&nbsp;{{emailOk}}</span>
-          <input type=text name=email placeholder="이메일을 입력해주세요" size=50 ref="email" v-model="email" @keyup="emailCheck">
-          
-          <label for="password">닉네임:</label>
-          <input type=text name=nickname placeholder="닉네임을 입력해주세요" size=50 ref="nickname" v-model="nickname">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="user_password">
           
           <label>성별:</label>
           <input type="radio" id="under_13" name=sex value="남" checked v-model="sex"><label for="under_13" class="light">남자</label><br>
           <input type="radio" id="over_13" name=sex value="여" v-model="sex"><label for="over_13" class="light">여자</label>
-          
-          <label for="name">생년월일:</label>
-          <input type=date name=birth size=50 ref="birth" v-model="birth">
-          
-          <label for="name">연락처:</label>
-          <input type=text name=phone size=50 ref="phone" v-model="phone">
-          
-          <label for="name">우편번호:</label><input type=button id="postBtn" value="우편번호 검색" class="btn btn-sm btn-default" size=40>
-          <input type=text name=post id=post class="input-sm" ref="post" v-model="post">
-          
-          <label for="name">주소:</label>
-          <input type=text name=addr1 id=addr1 size=50 ref="addr1" v-model="addr1">
-          
-          <label for="name">상세 주소:</label>
-          <input type=text name=addr2 id=addr2 size=50 ref="addr2" v-model="addr2">
-          
         </fieldset>
         
-		  <button type="submit" class="joinButton" @click="join">Sign Up</button>
-		  <!-- 취소 버튼 -->
-		  <button type="button" class="joinButton" onclick="javascript:history.back()">Cancle</button>
-      </div>
-      
-      </div>
+        <fieldset>
+          <legend><span class="number">2</span>Your profile</legend>
+          <label for="bio">Biography:</label>
+          <textarea id="bio" name="user_bio"></textarea>
+        </fieldset>
+        <fieldset>
+        
+          <label>Interests:</label>
+          <input type="checkbox" id="development" value="interest_development" name="user_interest"><label class="light" for="development">Development</label><br>
+            <input type="checkbox" id="design" value="interest_design" name="user_interest"><label class="light" for="design">Design</label><br>
+          <input type="checkbox" id="business" value="interest_business" name="user_interest"><label class="light" for="business">Business</label>
+        
+        </fieldset>
+        <button type="submit">Sign Up</button>
+      </form>
       
 <script>
 
@@ -204,7 +186,7 @@ $(function(){
 	})
 
 new Vue({
-   el: '#joinForm',
+   el: '.joinContainer',
    data: {
       confirmPwd: '',
       id: '',
@@ -254,6 +236,7 @@ new Vue({
 				let eng=pwd.search(/[a-z]/ig)
 				if(pwd==='') {
 					this.pwdOk='';
+			
 				}
 				if(pwd.length<8 || pwd.length>20) {
 					this.pwdOk='비밀번호는 8~20자 이내로 입력해주세요'
@@ -350,6 +333,11 @@ new Vue({
             this.$refs.phone.focus();
             return;
          }
+         if (this.post === "") {
+             alert("우편번호를 입력해주세요.");
+             this.$refs.post.focus();
+             return;
+          }
          if (this.addr1 === "") {
             alert("주소를 입력해주세요.");
             this.$refs.addr1.focus();

@@ -3,11 +3,14 @@ package com.sist.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.sist.mapper.ShopMapper;
+import com.sist.vo.BasketVO;
+import com.sist.vo.OrderVO;
 import com.sist.vo.ShopCategoryVO;
 import com.sist.vo.ShopVO;
 
@@ -16,6 +19,11 @@ public class ShopDAO {
 
 	@Autowired
 	private ShopMapper mapper;
+	
+//	@Select("SELECT * FROM shop2")
+	public List<ShopVO> shopAllList() {
+		return mapper.shopAllList();
+	}
 	
 //	@Select("SELECT * FROM category_shop2")
 	public List<ShopCategoryVO> shopCateList() {
@@ -34,7 +42,7 @@ public class ShopDAO {
 		return mapper.shopRowCount();
 	}
 	
-//	@Select("SELECT CEIL(COUNT(*)/12.0) FROM shop2")
+//	@Select("SELECT CEIL(COUNT(*)/12.0) FROM shop2 WHERE cno=#{cno}")
 	public int shopTotalPage(int cno) {
 		return mapper.shopTotalPage(cno);
 	}
@@ -49,8 +57,23 @@ public class ShopDAO {
 	
 //	@Insert("INSERT INTO order2 (ono,sno,id,amount,price) "
 //			+ "VALUES(od2_ono_seq.nextval,#{sno},#{id},#{amount},#{price})")
-	public void shopPay(Map map) {
-		mapper.shopPay(map);
+	public void shopPay(OrderVO vo) {
+		mapper.shopPay(vo);
 	}
 	
+//	@Insert("INSERT INTO campbasket (cno,sno,id,amount,price) "
+//			+ "VALUES(cb_cno_seq.nextval,#{sno},#{id},#{amount},#{price})")
+	public void shopBasket(BasketVO vo) {
+		mapper.shopBasket(vo);
+	}
+	
+//	@Select("SELECT * FROM campbasket WHERE id=#{id}")
+	public List<BasketVO> basketList(String id){
+		return mapper.basketList(id);
+	}
+	
+//	@Delete("DELETE FROM campbasket WHERE id=#{id} and cno=#{cno}")
+	public void basketDelete(Map map) {
+		mapper.basketDelete(map);
+}
 }
