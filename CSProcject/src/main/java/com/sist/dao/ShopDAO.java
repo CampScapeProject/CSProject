@@ -42,7 +42,7 @@ public class ShopDAO {
 		return mapper.shopRowCount();
 	}
 	
-//	@Select("SELECT CEIL(COUNT(*)/12.0) FROM shop2")
+//	@Select("SELECT CEIL(COUNT(*)/12.0) FROM shop2 WHERE cno=#{cno}")
 	public int shopTotalPage(int cno) {
 		return mapper.shopTotalPage(cno);
 	}

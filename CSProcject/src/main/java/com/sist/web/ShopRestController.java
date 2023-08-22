@@ -83,17 +83,17 @@ public class ShopRestController {
 		
 		// 시작페이지~끝페이지 1~10
 		final int BLOCK=10;
-		int startPage=((page-1)/BLOCK*BLOCK)+1;
-		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		int startpage=((page-1)/BLOCK*BLOCK)+1;
+		int endpage=((page-1)/BLOCK*BLOCK)+BLOCK;
 		
-		if(endPage>totalpage)
-			endPage=totalpage;
+		if(endpage>totalpage)
+			endpage=totalpage;
 		
 		PageVO vo=new PageVO();
 		vo.setTotalpage(totalpage);
 		vo.setCurpage(page);
-		vo.setStartpage(startPage);
-		vo.setEndpage(endPage);
+		vo.setStartpage(startpage);
+		vo.setEndpage(endpage);
 		
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);

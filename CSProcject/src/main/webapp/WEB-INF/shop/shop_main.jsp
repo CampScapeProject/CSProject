@@ -66,14 +66,6 @@
                             <a :href="'../shop/shop_detail.do?sno='+s.sno"><h3>{{s.name}}</h3></a>
                             <p>{{s.brand}}</p>
                             <div class="rating_days d-flex justify-content-between">
-<!--                                 <span class="d-flex justify-content-center align-items-center">
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i> 
-                                     <i class="fa fa-star"></i>
-                                     <a href="#">(20 Review)</a>
-                                </span> -->
                                 <div class="days">
                                     <i class="fa fa-clock-o"></i>
                                     <a href="#" class="prise">{{s.price.toLocaleString()}}원</a>
@@ -89,15 +81,15 @@
 
  <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
-                                <li class="page-item" v-if="startPage>1">
+                                <li class="page-item" v-if="startpage>1">
                                     <a href="#" class="page-link" aria-label="Previous" @click="prev()">
                                         <i class="ti-angle-left"></i>
                                     </a>
                                 </li>
-                                <li v-for="page in range(startPage,endPage)" :class="page==curpage?'page-item active':'page-item'">
-                                    <a href="#" class="page-link" @click="pageChange(page)">{{page}}</a>
+                                <li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
+                                    <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
                                 </li>
-                                <li class="page-item" v-if="endPage<totalpage">
+                                <li class="page-item" v-if="endpage<totalpage">
                                     <a href="#" class="page-link" aria-label="Next" @click="next()">
                                         <i class="ti-angle-right"></i>
                                     </a>
@@ -115,13 +107,13 @@
          page_list:{},
          curpage:1,
          totalpage:0,
-         startPage:0,
-         endPage:0
+         startpage:0,
+         endpage:0
       },
       mounted: function(){
          axios.get('../shop/shop_cateList_vue.do')
             .then(res => {
-         /*       console.log(res.data) */
+             console.log(res.data) 
                this.shop_cate = res.data;
             }).catch(error => {
                console.error(error);
@@ -136,7 +128,7 @@
                   page:this.curpage
                }
             }).then(res => {
-                  /* console.log(res.data) */
+                  console.log(res.data) 
                   this.shop_all = res.data;
                }).catch(error => {
                   console.error(error);
@@ -149,20 +141,22 @@
             		cno:cno
             	}
             }).then(res=>{
-            	/* console.log(res.data) */
+            	console.log(res.data) 
             	this.page_list=res.data
 				this.curpage=this.page_list.curpage
 				this.totalpage=this.page_list.totalpage
-				this.startPage=this.page_list.startPage
-				this.endPage=this.page_list.endPage				
+				this.startpage=this.page_list.startpage
+				this.endpage=this.page_list.endpage				
             }).catch(error=>{
             	console.log(error)
             })
          },
          range(start,end){
         	 let arr=[];
-        	 for(let i=start;i<end;i++) {
-        		 arr.push(i);
+        	 let length=end-start
+        	 for(let i=0;i<=length;i++) {
+        		 arr[i]=start
+        		 start++;
         	 }
         	 return arr;
          },
@@ -171,11 +165,11 @@
              this.getList(this.curpage);
           },
           prev(){
-             this.curpage = this.startPage - 1;
+             this.curpage = this.startpage - 1;
              this.getList(this.curpage);
           },
           next(){
-             this.curpage = this.endPage + 1;
+             this.curpage = this.endpage + 1;
              this.getList(this.curpage);
           }
       }

@@ -254,7 +254,6 @@ new Vue({
 				let eng=pwd.search(/[a-z]/ig)
 				if(pwd==='') {
 					this.pwdOk='';
-			
 				}
 				if(pwd.length<8 || pwd.length>20) {
 					this.pwdOk='비밀번호는 8~20자 이내로 입력해주세요'

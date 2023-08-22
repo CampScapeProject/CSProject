@@ -249,6 +249,11 @@
 
             });
         },
+        updated:function(){
+            console.log("umounted를 재호출")
+            
+            
+        },
         methods: {
         	basketDel(cno){
         		axios.get('../mypage/basket_delete_vue.do',{
@@ -263,6 +268,8 @@
             },
             calculateTotalPrice() {
                 this.totalPrice = this.basketList.reduce((total, item) => total + (item.price * item.amount), 0);
+                // reduce 배열 내 각 요소 처리 후 누적 결과 계산하는 메서드
+                // total: 누적 값의 변수 초기값 0 / item: 배열 요소 값
         	},
             calculateTotalAmount() {
         		this.totalAmount = this.basketList.reduce((total, item) => total + item.amount, 0); 
