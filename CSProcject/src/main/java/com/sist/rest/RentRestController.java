@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.RentDAO;
 import com.sist.vo.OArray;
 import com.sist.vo.RentVO;
+import com.sist.vo.ReviewVO;
 
 import java.util.*;
 
@@ -27,10 +28,11 @@ public class RentRestController {
 	private RentDAO dao;
 	
 	@GetMapping(value = "rent/rentList_vue.do", produces = "text/plain;charset=UTF-8")
-	public String rentList(String date, boolean all, OArray oArray) throws Exception {
+	public String rentList(String date, boolean all, OArray oArray, String id) throws Exception {
 		String sDate=date.split(" - ")[0];
 		String eDate=date.split(" - ")[1];
 		Map map=new HashMap();
+		map.put("id", id);
 		map.put("sDate", sDate);
 		map.put("eDate", eDate);
 		map.put("all", all);
@@ -70,6 +72,27 @@ public class RentRestController {
 	@GetMapping(value = "rent/rentDetail_vue.do", produces = "text/plain;charset=UTF-8")
 	public String rentDetail(int rno) throws Exception {
 		RentVO vo=dao.rentDetailData(rno);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(vo);
+	}
+	
+	@GetMapping(value = "rent/rent_update_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rent_jjim(int rno, boolean jjimOk, String id) {
+		Map map=new HashMap();
+		map.put("rno", rno);
+		map.put("id", id);
+		if(jjimOk) {
+			dao.jjimDelete(map);
+		} else {
+			dao.jjimInsert(map);
+		}
+		return "";
+	}
+	
+	@GetMapping(value = "rent/reviewTotal_vue.do", produces = "text/plain;charset=UTF-8")
+	public String reviewTotalData(int rno) throws Exception {
+		ReviewVO vo=dao.reviewTotalData(rno);
 		
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(vo);

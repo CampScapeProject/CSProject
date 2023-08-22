@@ -180,6 +180,7 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="row" style="height: 800px;overflow-y:auto ">
+                    
                         <div class="col-lg-6 col-md-6" v-for="vo in rent_list">
                             <div class="single_place">
                                 <div class="thumb">
@@ -191,19 +192,25 @@
                                     <p>{{vo.maker}}</p>
                                     <div class="rating_days d-flex justify-content-between">
                                         <span class="d-flex justify-content-center align-items-center">
+                                             <i v-for="n in rvfc(vo.rvAvg)" class="fa fa-star"></i> 
+                                             <i v-for="n in rvhc(vo.rvAvg)" class="fa-solid fa-star-half-stroke"></i>
+                                             <i v-for="n in rvnc(vo.rvAvg)" class="fa-regular fa-star"></i>
+                                             <!-- <i class="fa fa-star"></i> 
                                              <i class="fa fa-star"></i> 
                                              <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i>
-                                             <a href="#">(20 Review)</a>
+                                             <i class="fa-regular fa-star"></i> -->
+                                             <a style="cursor: default;">({{vo.rvCount}} Review)</a>
                                         </span>
                                         <div class="days">
-                                            <a href="#" style="margin-right: -7px;">
+                                            <a style="margin-right: -7px;">
                                             	<!-- fa-regular fa-heart, fa fa-heart -->
-                                            	<i class="fa-regular fa-heart" style="color: red;font-size: 20px;"></i>
+                                            	<i  
+                                            	   :class="{ 'fa-regular fa-heart': (vo.jjimOk==0), 'fa fa-heart': (vo.jjimOk!=0)}" 
+                                            	   style="color: red; font-size: 20px;cursor: pointer;" 
+                                            	   @click="jjimClick(vo.rno,(vo.jjimOk!=0))">
+                                            	</i>
                                             </a>
-                                            <span>(1000)</span>
+                                            <span>({{vo.jjimCount}})</span>
                                         </div>
                                     </div>
                                 </div>
@@ -271,7 +278,7 @@
 				o4_2:false,
 				o4_3:false
 			},
-			clist:[]
+			clist:[],
 		},
 		mounted:function(){
 			//dateFormat(today) + ' - ' + dateFormat(tomorrow)
@@ -298,6 +305,7 @@
 					params:{
 						date:this.$refs.date.value,
 						all:this.all,
+						id:'${sessionScope.id}',
 						o1_1:this.oArray.o1_1,
 						o1_2:this.oArray.o1_2,
 						o1_3:this.oArray.o1_3,
@@ -346,6 +354,37 @@
 			},
 			detail(rno){
 				location.href='../rent/rent_detail.do?rno=' + rno + '&date=' + this.$refs.date.value
+			},
+			jjimClick(rno, jjimOk){
+				if(${sessionScope.id==null}){
+					alert("로그인 후에 이용하실 수 있습니다.")
+					return
+				}
+	
+				axios.get('../rent/rent_update_vue.do',{
+					params:{
+						rno:rno,
+						jjimOk:jjimOk,
+						id:'${sessionScope.id}'
+					}
+				}).then(res=>{
+					this.print();
+				})
+				
+			},
+			rvfc(rvAvg){
+				return parseInt(rvAvg)
+			},
+			rvhc(rvAvg){
+				let temp=Math.round(rvAvg)
+				if(temp > rvAvg){
+					return 1
+				} else {
+					return 0
+				}
+			},
+			rvnc(rvAvg){
+				return 5-this.rvfc(rvAvg)-this.rvhc(rvAvg)
 			}
 
 

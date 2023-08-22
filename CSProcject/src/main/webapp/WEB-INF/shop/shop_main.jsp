@@ -77,9 +77,7 @@
             </div>
         </div>
     </div>
-</div>    
-
- <nav class="blog-pagination justify-content-center d-flex">
+    					 <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
                                 <li class="page-item" v-if="startpage>1">
                                     <a href="#" class="page-link" aria-label="Previous" @click="prev()">
@@ -96,6 +94,9 @@
                                 </li>
                             </ul>
                         </nav>
+</div>    
+
+
 
 <script>
 

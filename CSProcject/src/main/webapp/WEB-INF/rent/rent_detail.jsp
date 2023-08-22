@@ -60,6 +60,9 @@
 	    font-family: 'Noto Sans KR', sans-serif;
 	    margin: 0;
 	}
+	.page{
+		cursor: pointer;
+	}
 </style>
 
 </head>
@@ -77,16 +80,16 @@
 		            </div>
 		            <div class="col-lg-4" style="display: flex; align-items: center; justify-content: center;">
 		                <div class="row">
-
-		                </div>
-		            </div>
-		            <div class="col-lg-4" style="display: flex; align-items: center; justify-content: center;">
-		                <div class="row">
 		                	<h4 style="margin: 0"><a href="../rent/rent_main.do" class="prevStep steps">차량조회</a></h4>&nbsp;&nbsp;
 		                    <h4 class="steps" >&gt;</h4>&nbsp;&nbsp;
 		                    <h4 class="cSteps" >예약정보</h4>&nbsp;&nbsp;
 		                    <h4 class="steps" >&gt;</h4>&nbsp;&nbsp;
 		                    <h4 class="steps" >결제</h4>
+		                </div>
+		            </div>
+		            <div class="col-lg-4" style="display: flex; align-items: center; justify-content: center;">
+		                <div class="row">
+
 		                </div>
 		            </div>
 	            </div>
@@ -251,12 +254,11 @@
 										        		</div>
 										        		
 										        		<div class="col-lg-4 text-left">
-										        			Review(10)
+										        			Review({{reviewTotal.tcount}})
 										        		</div>
 										        		<div class="col-lg-8 text-right">
-										        			<i class="fa-solid fa-star" style="color: #FDAE5C"></i> 4.5
+										        			<i class="fa-solid fa-star" style="color: #FDAE5C"></i> {{reviewTotal.trating}}
 										        		</div>
-										        		
 										        		
 										        		<div class="col-lg-12">
 										        			<hr>
@@ -294,6 +296,12 @@
 											        				<span style="font-size: 15px;">2023.08.16</span> 
 											        			</div>
 										        			</div>
+										        		</div>
+										        		
+										        		<div class="col-lg-12 text-center" style="color: #E86A33;margin-top: 10px;font-size: 18px;">
+										        			<span class="page">&lt;</span>&nbsp;
+										        			<span class="page">1</span>&nbsp;
+										        			<span class="page">&gt;</span>&nbsp;
 										        		</div>
 										        	</div>
 												</template>
@@ -385,7 +393,8 @@
 		    rno:${rno},
 		    rent_detail:{},
 		    option:[],
-		    period:0
+		    period:0,
+		    reviewTotal:{}
 		},
 		mounted:function(){
 			axios.get('../rent/rentDetail_vue.do',{
@@ -403,6 +412,16 @@
 				diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
 				console.log(diff);
 				this.period=diff
+				
+			})
+			
+			axios.get('../rent/reviewTotal_vue.do',{
+				params:{
+					rno:this.rno
+				}
+			}).then(res=>{
+				console.log(res.data)
+				this.reviewTotal=res.data
 			})
 		},
 		methods:{

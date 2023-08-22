@@ -8,6 +8,7 @@
 		<typeAlias type="com.sist.vo.RentVO" alias="RentVO"/>
 		<typeAlias type="com.sist.vo.CampVO" alias="CampVO"/>
 		<typeAlias type="com.sist.vo.TourVO" alias="TourVO"/>
+		<typeAlias type="com.sist.vo.ReviewVO" alias="ReviewVO"/>
 	</typeAliases>
 	<mappers>
 		<!-- <mapper resource="com/sist/mapper/food-mapper.xml"/> -->

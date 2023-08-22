@@ -71,12 +71,7 @@
 	        	<div class=row>
 		            <div class="col-lg-4 text-left">
 		                <div class="form_area">
-		                    <h1 style="color: white;text-align: left;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">예약정보</h1>
-		                </div>
-		            </div>
-		            <div class="col-lg-4" style="display: flex; align-items: center; justify-content: center;">
-		                <div class="row">
-
+		                    <h1 style="color: white;text-align: left;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">결제</h1>
 		                </div>
 		            </div>
 		            <div class="col-lg-4" style="display: flex; align-items: center; justify-content: center;">
@@ -86,6 +81,11 @@
 		                    <h4 class="steps" ><a :href="'../rent/rent_detail.do?rno='+rno+'&date='+date" class="prevStep steps">예약정보</a></h4>&nbsp;&nbsp;
 		                    <h4 class="steps" >&gt;</h4>&nbsp;&nbsp;
 		                    <h4 class="cSteps" >결제</h4>
+		                </div>
+		            </div>
+		            <div class="col-lg-4" style="display: flex; align-items: center; justify-content: center;">
+		                <div class="row">
+
 		                </div>
 		            </div>
 	            </div>
