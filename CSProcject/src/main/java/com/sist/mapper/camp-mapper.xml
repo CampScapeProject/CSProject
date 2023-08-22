@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
 	<select id="tourListData" resultType="TourVO" parameterType="String">
-		SELECT tno,name,address,link,image,num 
+		SELECT tno,name,address,link,image
 		FROM tour2
 		WHERE address LIKE '%'||#{addr}||'%' 
 		ORDER BY tno ASC

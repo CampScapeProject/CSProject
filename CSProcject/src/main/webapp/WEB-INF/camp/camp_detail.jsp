@@ -10,6 +10,10 @@
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
+.row2 {
+		margin: 0px auto;
+		text-align: center;
+	}
 .tabs {
 	  display: flex;
 	}
@@ -45,6 +49,67 @@
   margin-top: 55px;
 }
 
+
+	.card-image {
+		display: block;
+		background: #fff center center no-repeat;
+	}
+	
+	.card-image > img {
+		display: block;
+		width: 100%;
+		opacity: 1;
+		max-height: 10rem;
+		object-fit: cover;
+	}
+	
+	.card-list {
+		display: block;
+		margin: 1rem auto;
+		padding: 0;
+		font-size: 0;
+		text-align: center;
+		list-style: none;
+	}
+	
+	.card {
+		display: inline-block;
+		width: 90%;
+		max-width: 15rem;
+		margin: 1rem;
+		font-size: 1rem;
+		text-decoration: none;
+		overflow: hidden;
+		transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+	}
+	
+	.card:hover {
+		transform: translateY(-0.5rem) scale(1.0125);
+		color: #515151;
+	}
+	
+	.card-description {
+		display: block;
+		padding: 1em 0.5em;
+		text-decoration: none;
+	}
+	
+	.card-description > span {
+		margin: 0 0 0.5em;
+		display: block;
+		font-weight: bold;
+		font-size: 16px;
+		
+		text-align:left;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+	}
+	
+	.card-description > span:hover {
+		color: #41644A;
+	}
+	
 </style>
 </head>
 <body>
@@ -87,10 +152,10 @@
                   <div class="blog_details">
                      <h2>{{camp_detail.name}}</h2>
                      <ul class="blog-info-link mt-3 mb-4">
-                        <li><a href="#"><i class="fa fa-location-arrow" style="color: #E86A33"></i>{{camp_detail.address}}</a></li>
+                        <li><a href="#" ref="addr"><i class="fa fa-location-arrow" style="color: #E86A33"></i>{{camp_detail.address}}</a></li>
                         <li><a href="#"><i class="fa fa-phone-square" style="color: #E86A33"></i>{{camp_detail.phone}}</a></li>
                      </ul>
-                     <p class="excert">
+                     <p class="excert" style="color: black">
                        {{camp_detail.msg}}
                      </p>
                   <!--  
@@ -130,41 +195,18 @@
 				  	<div class="tab-content" style="padding:0 20px 0 20px;min-height: 200px;">
 				    	<div v-for="(tab, index) in tabs" :key="index" v-show="activeTab === index">
 				      		<template v-if="index == 0">
-				      		
-				      			<div class="row" style="width: 1500px;display: flex;justify-content : center;">
-						                <div class="col-lg-3 col-md-3" v-for="tvo in tour_list" style="border: 1px solid #f0e9ff;width: 400px;height: 500px;">
-						                    <div class="single_place">
-						                        <div class="place_info">
-						                            <a :href="'../camp/camp_detail.do?cno='+vo.cno"><h3>{{tvo.name}}</h3></a>
-						                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span ref="addr">{{tvo.address}}</span>
-						                            <div class="rating_days d-flex justify-content-between" style="margin-top: 8px;margin-bottom: -8px;">
-						                            		<!--  추천,찜 등 -->
-						                            </div>
-						                        </div>
-						                    </div>
-						                </div>
-						                <!--  page바 -->
-						            <!-- <div class="row">
-						                 <nav class="blog-pagination justify-content-center d-flex">
-				                            <ul class="pagination">
-				                                <li class="page-item" v-if="startpage>1">
-				                                    <a href="#" class="page-link" aria-label="Previous" @click="prev()">
-				                                        <i class="ti-angle-left"></i>
-				                                    </a>
-				                                </li>
-				                                <li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
-				                                    <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
-				                                </li>
-				                                <li class="page-item" v-if="endpage<totalpage">
-				                                    <a href="#" class="page-link" aria-label="Next" @click="next()">
-				                                        <i class="ti-angle-right"></i>
-				                                    </a>
-				                                </li>
-				                            </ul>
-				                        </nav> 
-						            </div> -->
-		        				</div>
-		        				
+				      			<div class="row">
+					      			<div class="col-lg-3" v-for="fvo in tour_list">
+										<li class="card" >
+											<a class="card-image" href="#">
+												<img :src="fvo.image">
+											</a>
+											<a class="card-description" :href="fvo.link" target="_blank">
+												<span>{{fvo.name}}{{fvo.link}}</span>
+											</a>
+										</li>
+									</div>
+								</div>
 							</template>
 				      		<template v-if="index == 1">
 					        	5678
@@ -295,7 +337,8 @@
 				      { title: "위치 보기", content: "Content for Tab 2" },
 				      { title: "후기", content: "Content for Tab 3" }
 				    ],
-				tour_list:[]
+				tour_list:[],
+				addr:''
 			},
 			mounted:function(){
 				axios.get('../camp/camp_detail_vue.do',{
@@ -305,17 +348,18 @@
 				}).then(res=>{
 					console.log(res.data)
 					this.camp_detail=res.data
-				}),
+					this.tourShow(this.camp_detail.address)
+				})
 				
 			},
 			methods:{
 				setActiveTab(index) {
 			      	this.activeTab = index;
 			    },
-			    tourShow:function(){
+			    tourShow:function(addr){
 			    	axios.get('../camp/tour_detail_vue.do',{
 						params:{
-							addr:this.$refs.addr.textContent
+							addr:addr
 						}
 					}).then(res=>{
 						console.log(res.data)
