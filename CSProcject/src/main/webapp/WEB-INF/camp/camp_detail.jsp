@@ -11,6 +11,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c6fd98b724a1c5dfb4d7bfce05b0389f&libraries=services"></script>
 <style type="text/css">
+/* 카테고리 */
 .row2 {
 		margin: 0px auto;
 		text-align: center;
@@ -42,7 +43,7 @@
 .tab-content > div:nth-child(3) {
   display: block;
 }
-
+/*---------------------------------------*/
 
 .single-post-area .navigation-area {
   border: 1px solid #f0e9ff;
@@ -50,7 +51,7 @@
   margin-top: 55px;
 }
 
-
+/* 주변관광지 */
 	.card-image {
 		display: block;
 		background: #fff center center no-repeat;
@@ -110,7 +111,53 @@
 	.card-description > span:hover {
 		color: #41644A;
 	}
-	
+/*-----------------------------------------*/
+
+/* 리뷰 */
+
+.campprogress-table-wrap {
+}
+
+.campprogress-table {
+  background: #f9f9ff;
+  padding: 15px 0px 30px 0px;
+  min-width: 800px;
+} 
+
+.campprogress-table .serial {
+  width: 11.83%;
+  padding-left: 30px;
+}
+
+
+.campprogress-table .visit {
+  width: 19.74%;
+}
+
+
+.campprogress-table .table-head {
+  display: flex;
+}
+
+.campprogress-table .table-head .serial,
+.campprogress-table .table-head .visit {
+  color: #415094;
+  line-height: 40px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.campprogress-table .table-row {
+  padding: 15px 0;
+  border-top: 1px solid #edf3fd;
+  display: flex;
+}
+
+.campprogress-table .table-row .serial,
+.campprogress-table .table-row .visit {
+  display: flex;
+  align-items: center;
+}	
 </style>
 </head>
 <body>
@@ -221,7 +268,26 @@
 					        	
 							</template>
 				      		<template v-if="index == 2">
-					        	910
+					        	<div class="container">
+									<div class="campprogress-table-wrap">
+										<div class="campprogress-table">
+											<div class="table-head">
+												<div class="serial">번호</div>
+												<div class="visit">제목</div>
+												<div class="visit">이름</div>
+												<div class="visit">날짜</div>
+												<div class="visit">조회수</div>
+											</div>
+											<div class="table-row">
+												<div class="serial">01</div>
+												<div class="visit">645032</div>
+												<div class="visit">645032</div>
+												<div class="visit">645032</div>
+												<div class="visit">645032</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</template>
 				    	</div>
 				  	</div>
@@ -293,34 +359,9 @@
 	                  <aside class="single_sidebar_widget instagram_feeds">
 	                     <h4 class="widget_title">Instagram Feeds</h4>
 	                     <ul class="instagram_row flex-wrap">
-	                        <li>
+	                        <li v-for="clist in cookie_list">
 	                           <a href="#">
-	                              <img class="img-fluid" :src="camp_detail.image" alt="">
-	                           </a>
-	                        </li>
-	                        <li>
-	                           <a href="#">
-	                              <img class="img-fluid" :src="camp_detail.image" alt="">
-	                           </a>
-	                        </li>
-	                        <li>
-	                           <a href="#">
-	                              <img class="img-fluid" :src="camp_detail.image" alt="">
-	                           </a>
-	                        </li>
-	                        <li>
-	                           <a href="#">
-	                              <img class="img-fluid" :src="camp_detail.image" alt="">
-	                           </a>
-	                        </li>
-	                        <li>
-	                           <a href="#">
-	                              <img class="img-fluid" :src="camp_detail.image" alt="">
-	                           </a>
-	                        </li>
-	                        <li>
-	                           <a href="#">
-	                              <img class="img-fluid" :src="camp_detail.image" alt="">
+	                              <img class="img-fluid" :src="clist.image" alt="">
 	                           </a>
 	                        </li>
 	                     </ul>
@@ -346,7 +387,8 @@
 				      { title: "후기", content: "Content for Tab 3" }
 				    ],
 				tour_list:[],
-				addr:''
+				addr:'',
+				cookie_list:[]
 			},
 			mounted:function(){
 				axios.get('../camp/camp_detail_vue.do',{
@@ -363,6 +405,8 @@
 		               this.addScript();               
 		            }
 				})
+				
+				this.cookieShow();
 				   
 			},
 			methods:{
@@ -378,6 +422,12 @@
 						console.log(res.data)
 						this.tour_list=res.data
 					})
+			    },
+			    cookieShow:function(){
+			    	axios.get('../camp/camp_cookie.do').then(res=>{
+			    		console.log(res.data)
+			    		this.cookie_list=res.data
+			    	})
 			    },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

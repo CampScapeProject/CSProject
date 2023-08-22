@@ -118,8 +118,9 @@ function uncomma(str) {
 			                    <div class="col-lg-12" style="border-bottom: 2px solid #DEE2E7;">
 			                        <div class="single_select">
 			                        <h3><b>지역</b></h3>
-			                            <select v-model="state">
-			                                <option data-display="지역" value="경기">경기</option>
+			                            <select v-model="state" @change="selectState()">
+			                                <option data-display="지역">지역을 선택하세요</option>
+			                                <option value="경기">경기</option>
 			                                <option value="인천">인천</option>
 			                                <option value="강원">강원</option>
 			                                <option value="울산">울산</option>
@@ -136,11 +137,11 @@ function uncomma(str) {
 			                    <div class="col-lg-12" style="border-bottom: 2px solid #DEE2E7;">
 	                                 <h3><b>가격</b></h3>
 	                                 <div class="row">
-										<input type="text" ref=spricefd placeholder="15,000"
+										<input type="text" ref=spricefd v-model=spricefd placeholder="15,000"
 											onfocus="this.placeholder = ''" onblur="this.placeholder = '15,000 ~ 1,100,000사이 입력'" required
 												class="single-input-primary" style="margin-bottom: 20px;margin-left:12px;width: 100px;" onkeyup="inputNumberFormat(this)">
 										<span style="margin: 10px;">&nbsp;-&nbsp;</span>
-										<input type="text" ref=epricefd placeholder="1,100,000사이 입력"
+										<input type="text" ref=epricefd v-model=epricefd placeholder="1,100,000사이 입력"
 									onfocus="this.placeholder = ''" onblur="this.placeholder = '15,000 ~ 1,100,000사이 입력'" required
 										class="single-input-primary" style="margin-bottom: 20px;width: 100px;" onkeyup="inputNumberFormat(this)">
 										<span style="margin: 10px;">&nbsp;원</span>
@@ -148,7 +149,7 @@ function uncomma(str) {
                                 </div>
 			                    <div class="col-lg-12" style="border-bottom: 2px solid #DEE2E7;">
 				                     <h3><b>캠핑장 명</b></h3>
-										<input type="text" ref=campfd placeholder="캠핑장명을 검색하세요."
+										<input type="text" ref=campfd v-model=campfd placeholder="캠핑장명을 검색하세요."
 											onfocus="this.placeholder = ''" onblur="this.placeholder = '캠핑장명을 검색하세요.'" required
 												class="single-input-primary" style="margin-bottom: 20px;">
 								</div>
@@ -218,6 +219,7 @@ function uncomma(str) {
 			epricefd:'',
 			campfd:'',
 			rdate:''
+			
 		},
 		mounted:function(){
 			axios.get('../camp/camp_list_vue.do',{
@@ -246,6 +248,7 @@ function uncomma(str) {
 					this.camp_list=res.data
 				})
 			}
+			
 		}
 		
 		

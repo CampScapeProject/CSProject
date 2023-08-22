@@ -1,9 +1,15 @@
 package com.sist.web;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.CampDAO;
 import com.sist.vo.CampVO;
 import com.sist.vo.PageVO;
+import com.sist.vo.RentVO;
 import com.sist.vo.TourVO;
 
 @RestController
@@ -61,12 +68,20 @@ public class CampRestController {
 		int end = rowsize * page;
 		map.put("start", start);
 		map.put("end", end);
+		
+		
+		System.out.println("데이터:"+rdate);
+		System.out.println("데이터장소:"+state);
+		System.out.println("데이터값시작:"+spricefd);
+		System.out.println("데이터값끝:"+epricefd);
+		System.out.println("데이터 네임:"+campfd);
 		//2023-08-23 - 2023-08-24
 		String sdate=rdate.split(" - ")[0];
 		String edate=rdate.split(" - ")[1];
-		
 		map.put("sdate", sdate);
 		map.put("edate", edate);
+		
+	
 		
 		String sp=spricefd;
 		String ep=epricefd;
@@ -220,6 +235,31 @@ public class CampRestController {
 		String json = mapper.writeValueAsString(vo);
 		
 		return json;
+	}
+	
+	@GetMapping(value = "camp/camp_cookie.do", produces = "text/plain;charset=UTF-8")
+	public String rentCookieData(HttpServletRequest request) throws Exception {
+		Cookie[] cookies=request.getCookies();
+
+		List<CampVO> clist=new ArrayList<CampVO>();
+		if(cookies!=null) {
+			for(int i=cookies.length-1;i>=0;i--) {
+				String key=cookies[i].getName();
+				if(key.startsWith("camp_")) {
+					String data=cookies[i].getValue();
+					CampVO vo=new CampVO();
+					vo=dao.campCookieData(Integer.parseInt(data));
+					String name=vo.getName();
+					if(name.length()>7) {
+						vo.setName(name.substring(0,7)+"..");
+					}
+					clist.add(vo);
+				}
+			}
+		}
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(clist);
 	}
 	
 	@GetMapping(value = "camp/tour_detail_vue.do",produces = "text/plain;charset=UTF-8")

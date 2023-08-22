@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.CampVO;
+import com.sist.vo.RentVO;
 import com.sist.vo.TourVO;
 
 public interface CampMapper {
@@ -42,5 +43,9 @@ public interface CampMapper {
 	 * tno,name,address,link,image FROM tour2 WHERE address LIKE '%'||#{addr}||'%'
 	 * ORDER BY tno ASC)) WHERE num BETWEEN #{start} AND #{end} </select>
 	 */
+	
+	@Select("SELECT cno,name,image FROM camp2 WHERE cno=#{cno}")
+	public CampVO campCookieData(int cno);
+	
 	public List<TourVO> tourListData(String addr);
 }

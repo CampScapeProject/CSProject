@@ -53,6 +53,11 @@ public class CampDAO {
 		return mapper.campName(cno);
 	}
 	
+	public CampVO campCookieData(int cno)
+	{
+		return mapper.campCookieData(cno);
+	}
+	
 	public List<TourVO> tourListData(String addr)
 	{
 		return mapper.tourListData(addr);
