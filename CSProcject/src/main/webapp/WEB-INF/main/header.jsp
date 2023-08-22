@@ -41,7 +41,7 @@
                                             <li><a href="#">고객센터 <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="../notice/notice_main.do">공지사항</a></li>
-                                                    <li><a href="../qna/qna_main.do">문의사항</a></li>
+                                                    <li><a href="../qna/qna_main.do?qcno=1">문의사항</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
