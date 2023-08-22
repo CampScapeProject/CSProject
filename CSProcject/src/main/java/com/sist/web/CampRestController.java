@@ -79,7 +79,7 @@ public class CampRestController {
 				}
 				msg=msg.substring(0, 68)+"...";
 				vo.setMsg(msg);
-			}
+			} 
 			int price=Integer.parseInt(vo.getMprice());
 			
 			DecimalFormat df=new DecimalFormat("###,###,###");
