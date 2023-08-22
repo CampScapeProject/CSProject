@@ -163,13 +163,9 @@ public class CampRestController {
 	@GetMapping(value = "camp/tour_detail_vue.do",produces = "text/plain;charset=UTF-8")
 	public String tourList(String addr) throws Exception
 	{
-		System.out.println(addr);
 		String address=addr.substring(addr.indexOf(" "));
-		System.out.println(address);
 		address=address.trim();
-		System.out.println(address);
 		address=address.substring(0,address.indexOf(" "));
-		System.out.println(address);
 		
 		List<TourVO> list=dao.tourListData(address);
 		
