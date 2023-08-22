@@ -35,19 +35,40 @@ public class RecipeRestController {
 	}
 	
 	@GetMapping(value = "recipe/recipe_page_vue.do", produces = "text/plain;charset=UTF-8")
-	public String recipePage(int page) throws Exception
+	public String recipe_page(int page) throws Exception
 	{
 		int totalpage = dao.recipeTotalPage();
 		
 		final int BLOCK = 10;
-		int startPage = ((page-1)/BLOCK*BLOCK)+1;
-		int endPage = ((page-1)/BLOCK*BLOCK)+BLOCK;
+		int startpage = ((page-1)/BLOCK*BLOCK)+1;
+		int endpage = ((page-1)/BLOCK*BLOCK)+BLOCK;
 		
 		PageVO vo = new PageVO();
 		vo.setTotalpage(totalpage);
 		vo.setCurpage(page);
-		vo.setStartpage(startPage);
-		vo.setEndpage(endPage);
+		vo.setStartpage(startpage);
+		vo.setEndpage(endpage);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	
+	@GetMapping(value = "recipe/recipe_detail_vue.do", produces = "text/plain;charset=UTF-8")
+	public String recipe_detail(int rno) throws Exception
+	{
+		RecipeVO vo = dao.recipeDetailData(rno);
+		
+		String msg2 = vo.getMsg2();
+		vo.setPeople(msg2.substring(0, msg2.indexOf(" ")).trim());
+		vo.setTime(msg2.substring(msg2.indexOf(" "), msg2.lastIndexOf(" ")).trim());
+		vo.setLevel(msg2.substring(msg2.lastIndexOf(" ")).trim());
+		
+		String ingre = vo.getIngre();
+		vo.setIngre(ingre.replace("구매", ""));
+		
+		vo.setIngre_title(ingre.substring(ingre.indexOf(" "), ingre.indexOf("[")).trim());
+		vo.setIngre(ingre.substring(ingre.indexOf("[")).trim());
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);

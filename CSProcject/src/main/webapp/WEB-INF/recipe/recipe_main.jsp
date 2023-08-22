@@ -94,38 +94,42 @@
 			<!-- 레시피 리스트 -->
 			<div class="col-lg-3" v-for="vo in recipe_list">
 				<li class="card">
-					<a class="card-image" href="#">
+					<a class="card-image" :href="'../recipe/recipe_detail.do?rno='+vo.rno">
 						<img :src="vo.image" :title="vo.title">
 					</a>
 					
-					<a class="card-description" href="https://inlovewithaghost.bandcamp.com/album/lets-go" target="_blank">
+					<a class="card-description" :href="'../recipe/recipe_detail.do?rno='+vo.rno">
 						<span>{{vo.title}}</span>
 					</a>
 				</li>
-			</div>
-			
-			<!-- 페이지 -->
+			</div>			
+		</div>
+		
+		<!-- 페이지 -->
+		<div class="row">
 			<nav class="blog-pagination justify-content-center d-flex">
 				<ul class="pagination">
-					<li class="page-item" v-if="startPage>1">
+					<li class="page-item" v-if="startpage>1">
 						<a href="#" class="page-link" aria-label="Previous" @click="prev()">
 							<i class="ti-angle-left"></i>
 						</a>
 					</li>
 					
-					<li v-for="i in range(startPage,endPage)" :class="i==curpage?'page-item active':'page-item'">
+					<li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
 						<a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
 					</li>
 					
-					<li class="page-item" v-if="endPage<totalpage">
+					<li class="page-item" v-if="endpage<totalpage">
 						<a href="#" class="page-link" aria-label="Next" @click="next()">
 							<i class="ti-angle-right"></i>
 						</a>
 					</li>
 				</ul>
 			</nav>
-			
 		</div>
+		
+		
+		
 	</div>
 	
 </div>
@@ -144,8 +148,8 @@
 			page_list:{},
 			curpage:1,
 			totalpage:0,
-			startPage:0,
-			endPage:0
+			startpage:0,
+			endpage:0
 		},
 		mounted:function(){
 			this.dataRecive();
@@ -175,8 +179,8 @@
 					this.page_list = response.data
 					this.curpage = this.page_list.curpage
 					this.totalpage = this.page_list.totalpage
-					this.startPage = this.page_list.startPage
-					this.endPage = this.page_list.endPage
+					this.startpage = this.page_list.startPage
+					this.endpage = this.page_list.endPage
 				}).catch(error=>{
 					console.log(error.response)
 				})

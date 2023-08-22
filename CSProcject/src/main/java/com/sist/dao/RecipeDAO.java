@@ -23,4 +23,10 @@ public class RecipeDAO {
 		return mapper.recipeTotalPage();
 	}
 	
+	
+	public RecipeVO recipeDetailData(int rno)
+	{
+		mapper.recipeHitIncrease(rno);
+		return mapper.recipeDetailData(rno);
+	}
 }
