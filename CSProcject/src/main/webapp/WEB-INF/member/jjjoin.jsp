@@ -2,139 +2,176 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/> -->
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script> -->
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+<title></title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
 <style type="text/css">
 
-.joinContainer {
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.7);
-    height: 600px;
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
-}   
-</style>   
+body {
+  font-family: 'Nunito', sans-serif;
+  color: #384047;
+}
 
+form {
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #f4f7f8;
+  border-radius: 8px;
+}
 
+h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea,
+select {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 30px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 0 4px 8px 0;
+}
+
+select {
+  padding: 6px;
+  height: 32px;
+  border-radius: 2px;
+}
+
+button {
+  padding: 19px 39px 18px 39px;
+  color: #FFF;
+  background-color: #4bc970;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #3ac162;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  margin-bottom: 10px;
+}
+
+fieldset {
+  margin-bottom: 30px;
+  border: none;
+}
+
+legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+label.light {
+  font-weight: 300;
+  display: inline;
+}
+
+.number {
+  background-color: #5fcf80;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 4px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+  border-radius: 100%;
+}
+
+@media screen and (min-width: 480px) {
+
+  form {
+    max-width: 480px;
+  }
+
+}
+
+</style>
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up Form</title>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+    <body>
 
-   <div class="joinContainer">
-      <table class="table">
-         <div class="text-center">
-            <h3>회원가입</h3>
-            회원이 되어 다양한 혜택을 경험해 보세요!
-         </div>
-         <tr>
-             <th>아이디<span style="color:red">&nbsp;{{idOk}}</span></th>
-         </tr>
-         <tr>
-             <td>
-                 <input type="text" placeholder="아이디 입력(6~20자)" size=40 v-model="id" ref="id">
-                 <span v-if="id !== ''">
-                     <button class="btn btn-sm btn-default" id="idCheck" @click="idCheck">중복 확인</button>
-                 </span>
-             </td>
-         </tr>
-         <tr>
-            <th>비밀번호<span style="color:red">&nbsp;{{pwdOk}}</span></th>
-         </tr>
-         <tr>   
-             <td><input type="password" placeholder="비밀번호 입력(8~20자)" size=50 v-model="pwd" ref="pwd" @keyup="pwdValidate"></td>
-         </tr>
-         <tr>
-             <th>비밀번호 확인<span v-show="!checkPasswordsMatch()" style="color:red">&nbsp;비밀번호가 일치하지 않습니다.</span></th>
-         </tr>
-         <tr>    
-             <td>
-                 <input type="password" placeholder="비밀번호 재입력" size="50" v-model="confirmPwd">
-             </td>
-         </tr>
-         <tr>
-            <th>이름</th>
-         </tr>
-         <tr>   
-            <td><input type=text placeholder="이름을 입력해주세요" size=50 ref="name" v-model="name"></td>
-         </tr>
-         <tr>
-            <th>이메일<span style="color:red">&nbsp;{{emailOk}}</span></th>
-         </tr>
-         <tr>   
-            <td><input type=text name=email placeholder="이메일을 입력해주세요" size=50 ref="email" v-model="email" @keyup="emailCheck"></td>
-         </tr>
-         <tr>
-            <th>닉네임</th>
-         </tr>
-         <tr>   
-            <td><input type=text name=nickname placeholder="닉네임을 입력해주세요" size=50 ref="nickname" v-model="nickname"></td>
-         </tr>
-         <tr>
-            <th>성별</th>
-         </tr>
-         <tr>   
-            <td>
-            남<input type=radio name=sex value="남" checked v-model="sex">
-            여<input type=radio name=sex value="여" v-model="sex">
-            </td>
-         </tr>
-         <tr>
-            <th>생년월일</th>
-         </tr>
-         <tr>   
-            <td><input type=date name=birth size=50 ref="birth" v-model="birth"></td>
-         </tr>
-         <tr>
-            <th>전화번호</th>
-         </tr>
-         <tr>   
-            <td><input type=text name=phone size=50 ref="phone" v-model="phone"></td>
-         </tr>
-         <tr>
-            <th>우편번호</th>
-         </tr>
-         <tr>   
-            <td>
-            <input type=text name=post id=post class="input-sm" ref="post" v-model="post">
-            <input type=button id="postBtn" value="우편번호 검색" class="btn btn-sm btn-default" size=40>
-            </td>
-         </tr>
-         <tr>
-            <th>주소</th>
-         </tr>
-         <tr>   
-            <td>
-            <input type=text name=addr1 id=addr1 size=50 ref="addr1" v-model="addr1">
-            </td>
-         </tr>
-         <tr>
-            <th>상세주소</th>
-         </tr>
-         <tr>   
-            <td>
-            <input type=text name=addr2 id=addr2 size=50 ref="addr2" v-model="addr2">
-            </td>
-         </tr>
-               <tr style="text-align: center;">
-                   <td colspan="2">
-                       <input type=submit name="joinBtn" value="회원가입" @click="join">
-                       <input type=button name="joinBtn" value="취소" onclick="javascript:history.back()">
-                   </td>
-               </tr>
-      </table>
-   </div>
-
+      <form action="index.html" method="post">
+      
+        <h1>Sign Up</h1>
+        
+        <fieldset>
+          <legend><span class="number">1</span>Your basic info</legend>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="user_name">
+          
+          <label for="mail">Email:</label>
+          <input type="email" id="mail" name="user_email">
+          
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="user_password">
+          
+          <label>성별:</label>
+          <input type="radio" id="under_13" name=sex value="남" checked v-model="sex"><label for="under_13" class="light">남자</label><br>
+          <input type="radio" id="over_13" name=sex value="여" v-model="sex"><label for="over_13" class="light">여자</label>
+        </fieldset>
+        
+        <fieldset>
+          <legend><span class="number">2</span>Your profile</legend>
+          <label for="bio">Biography:</label>
+          <textarea id="bio" name="user_bio"></textarea>
+        </fieldset>
+        <fieldset>
+        
+          <label>Interests:</label>
+          <input type="checkbox" id="development" value="interest_development" name="user_interest"><label class="light" for="development">Development</label><br>
+            <input type="checkbox" id="design" value="interest_design" name="user_interest"><label class="light" for="design">Design</label><br>
+          <input type="checkbox" id="business" value="interest_business" name="user_interest"><label class="light" for="business">Business</label>
+        
+        </fieldset>
+        <button type="submit">Sign Up</button>
+      </form>
+      
 <script>
 
 $(function(){
@@ -339,8 +376,9 @@ new Vue({
    }
 });
 
-</script>
-</body>
+</script>      
+      
+    </body>
 </html>
-</body>
-</html>
+
+

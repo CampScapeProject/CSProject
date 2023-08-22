@@ -1,4 +1,4 @@
-package com.sist.rest;
+package com.sist.web;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

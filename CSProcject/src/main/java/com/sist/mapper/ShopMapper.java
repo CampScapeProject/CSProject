@@ -3,13 +3,20 @@ package com.sist.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+
+import com.sist.vo.BasketVO;
+import com.sist.vo.OrderVO;
 import com.sist.vo.ShopCategoryVO;
 import com.sist.vo.ShopVO;
 
 public interface ShopMapper {
 
+	@Select("SELECT * FROM shop2 WHERE sno BETWEEN 1 AND 6")
+	public List<ShopVO> shopAllList();
+	
 	@Select("SELECT * FROM category_shop2")
 	public List<ShopCategoryVO> shopCateList();
 
@@ -32,6 +39,16 @@ public interface ShopMapper {
 	
 	@Insert("INSERT INTO order2 (ono,sno,id,amount,price) "
 			+ "VALUES(od2_ono_seq.nextval,#{sno},#{id},#{amount},#{price})")
-	public void shopPay(Map map);
+	public void shopPay(OrderVO vo);
 	
+	// 장바구니 넣기
+	@Insert("INSERT INTO campbasket (cno,sno,id,amount,price) "
+			+ "VALUES(cb_cno_seq.nextval,#{sno},#{id},#{amount},#{price})")
+	public void shopBasket(BasketVO vo);
+	
+	@Select("SELECT * FROM campbasket WHERE id=#{id}")
+	public List<BasketVO> basketList(String id);
+	
+	@Delete("DELETE FROM campbasket WHERE id=#{id} and cno=#{cno}")
+	public void basketDelete(Map map);
 }

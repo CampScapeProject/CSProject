@@ -1,4 +1,4 @@
-package com.sist.rest;
+package com.sist.web;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.ShopService;
+import com.sist.vo.BasketVO;
 import com.sist.vo.OrderVO;
 import com.sist.vo.PageVO;
 import com.sist.vo.ShopCategoryVO;
@@ -26,6 +28,19 @@ public class ShopRestController {
 
 	@Autowired
 	private ShopService service;
+
+	// 메인 상품리스트 출력
+	@GetMapping(value="main/shopList_vue.do", produces = "text/plain;charset=UTF8")
+	public String main_shopList() throws Exception{
+		
+		List<ShopVO> shopList=service.shopAllList();
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(shopList);
+		
+		return json;
+		
+	}
 	
 	@GetMapping(value="shop/shop_cateList_vue.do",produces = "text/plain;charset=UTF8") 
 	public String shop_cateList() throws Exception {
@@ -107,11 +122,46 @@ public class ShopRestController {
 	}
 	
 	@GetMapping(value="shop/shop_pay_vue.do", produces = "text/plain;charset=UTF8")
-	public void shop_pay(int amount,int sno) {
+	public String shop_pay(int sno) throws Exception{
 		
-		OrderVO vo=new OrderVO();	
+		ShopVO vo=service.shopDetailList(sno);
 		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		
+		return json;
 		
 	}
 
+	
+	@GetMapping(value="shop/shop_basketInsert_vue.do",produces = "text/plain;charset=UTF8")
+	public String basketInsert(BasketVO vo) {
+		
+		service.shopBasket(vo);
+		return "ok";
+	}
+	
+	@GetMapping(value="mypage/shop_basketList_vue.do",produces = "text/plain;charset=UTF8")
+	public String basketList(String id) throws Exception {
+		
+		List<BasketVO> basketList=service.basketList(id);
+
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(basketList);
+		
+		return json;
+	}
+	
+	@GetMapping(value="mypage/basket_delete_vue.do",produces = "text/plain;charset=UTF8")
+	public void basket_delete(String id,int cno) {
+		
+		Map map=new HashMap();
+		
+		map.put("id", id);
+		map.put("cno", cno);
+		
+		service.basketDelete(map);
+		
+	}
+	
 }

@@ -300,7 +300,7 @@
 				<h2 class="form-title" id="login" @click="findIdSlide($event)">ID 찾기</h2>
 				<div class="form-holder">
 					<input type="email" class="input" placeholder="Email을 입력해주세요" v-model="email">
-					<input type="text" class="input" :placeholder="idFindOk" />
+					<input type="text" class="input" :value="idFindOk" style="color:red" readonly/>
 				</div>
 				<button class="submit-btn" @click="idFind()">찾기</button>
 			</div>
@@ -336,8 +336,7 @@ new Vue({
   		   }).then(response => {
   		      console.log(response.data);
   		      if (response.data === 'no') {
-  		         alert("존재하지 않는 email입니다.");
-  		         this.idFindOk='';
+  		    	 this.idFindOk ='존재하지 않는 이메일입니다!';
   		         this.id='';
   		      } else {
   		         this.idFindOk = response.data;

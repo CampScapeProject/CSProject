@@ -61,7 +61,6 @@
                     <div class="single_place">
                         <div class="thumb">
                             <img :src="s.image" alt="">
-                            <a href="#" class="prise">{{s.price}}</a>
                         </div>
                         <div class="place_info">
                             <a :href="'../shop/shop_detail.do?sno='+s.sno"><h3>{{s.name}}</h3></a>
@@ -77,7 +76,7 @@
                                 </span> -->
                                 <div class="days">
                                     <i class="fa fa-clock-o"></i>
-                                    <a href="#">장바구니</a>
+                                    <a href="#" class="prise">{{s.price.toLocaleString()}}원</a>
                                 </div>
                             </div>
                         </div>
