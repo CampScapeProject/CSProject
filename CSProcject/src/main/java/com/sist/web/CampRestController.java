@@ -51,15 +51,77 @@ public class CampRestController {
 	
 	///////////////////
 	
-	@GetMapping(value = "camp/camp_list_vue.do",produces = "text/plain;charset=UTF-8")
-	public String campListData(int page) throws Exception
+	@GetMapping(value = "camp/camp_find_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String campFindList(int page,String rdate,String state,String spricefd,String epricefd,String campfd) throws Exception
 	{
+		
 		Map map = new HashMap();
-		int rowsize = 20;
+		int rowsize = 4;
 		int start = (rowsize * page) - (rowsize - 1);
 		int end = rowsize * page;
 		map.put("start", start);
 		map.put("end", end);
+		//2023-08-23 - 2023-08-24
+		String sdate=rdate.split(" - ")[0];
+		String edate=rdate.split(" - ")[1];
+		
+		map.put("sdate", sdate);
+		map.put("edate", edate);
+		
+		String sp=spricefd;
+		String ep=epricefd;
+		
+		if(sp !=null || ep !=null)
+		{
+			sp=sp.replace(",", "");
+			ep=ep.replace(",", "");
+		}else {
+			sp="0";
+			ep="1100000";
+		}
+		
+		map.put("spricefd", sp);
+		map.put("epricefd", ep);
+		
+		map.put("campfd", campfd);
+		map.put("state", state);
+		
+		
+		List<CampVO> list=dao.campFindData(map);
+		
+		/*
+		 * for(CampVO cvo:slist) { int price=dao.campPrice(cvo.getCno());
+		 * map.put("price", price); }
+		 * 
+		 * List<CampVO> list=dao.campFindData(map);
+		 */
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		return json;
+	}
+	
+	
+	@GetMapping(value = "camp/camp_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String campListData(int page,String type) throws Exception
+	{
+		Map map = new HashMap();
+		if(type.equals("list"))
+		{
+			int rowsize = 12;
+			int start = (rowsize * page) - (rowsize - 1);
+			int end = rowsize * page;
+			map.put("start", start);
+			map.put("end", end);
+		}
+		else
+		{
+			int rowsize = 4;
+			int start = (rowsize * page) - (rowsize - 1);
+			int end = rowsize * page;
+			map.put("start", start);
+			map.put("end", end);
+			
+		}
 		
 		List<CampVO> list=dao.campListData(map);
 		for(CampVO vo:list)
@@ -163,9 +225,21 @@ public class CampRestController {
 	@GetMapping(value = "camp/tour_detail_vue.do",produces = "text/plain;charset=UTF-8")
 	public String tourList(String addr) throws Exception
 	{
-		String address=addr.substring(addr.indexOf(" "));
-		address=address.trim();
-		address=address.substring(0,address.indexOf(" "));
+		String caddr=addr;
+		if(caddr.contains("충청남도") || caddr.contains("충청북도") 
+			|| caddr.contains("경상남도") || caddr.contains("경상북도") 
+			|| caddr.contains("전라남도") || caddr.contains("전라북도")) {
+			caddr=caddr.replace("충청남도", "충남");
+			caddr=caddr.replace("충청북도", "충북");
+			caddr=caddr.replace("경상남도", "경남");
+			caddr=caddr.replace("경상북도", "경북");
+			caddr=caddr.replace("전라남도", "전남");
+			caddr=caddr.replace("전라북도", "전북");
+			
+		}
+		
+		String address=caddr.substring(0,1);
+		
 		
 		List<TourVO> list=dao.tourListData(address);
 		

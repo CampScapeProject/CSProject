@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c6fd98b724a1c5dfb4d7bfce05b0389f&libraries=services"></script>
 <style type="text/css">
 
 .well{
@@ -48,6 +53,21 @@
   padding: 25px;
 }
 </style>
+
+<script>
+<!-- 가격 검색시 자동 콤마 넣기 -->
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
+}
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+</script>
 </head>
 <body>
 <!-- 배경 -->
@@ -91,52 +111,52 @@
 			        <br>
 			        <div class="filter_bordered">
 			        <div class="col-lg-12" id="cDate" style="text-align: center;border-bottom: 2px solid #DEE2E7;">
-			        	<input type="text" name="daterange"/>
+			        	<input type="text" name="daterange" ref=rdate/>
 			        </div>
 			            <div class="filter_inner">
 			                <div class="row">
 			                    <div class="col-lg-12" style="border-bottom: 2px solid #DEE2E7;">
 			                        <div class="single_select">
-			                        <h3><b>지역선택</b></h3>
-			                            <select>
-			                                <option data-display="지역">지역</option>
-			                                <option value="1">Africa</option>
-			                                <option value="2">canada</option>
-			                                <option value="4">USA</option>
+			                        <h3><b>지역</b></h3>
+			                            <select v-model="state">
+			                                <option data-display="지역" value="경기">경기</option>
+			                                <option value="인천">인천</option>
+			                                <option value="강원">강원</option>
+			                                <option value="울산">울산</option>
+			                                <option value="충북">충북</option>
+			                                <option value="충남">충남</option>
+			                                <option value="전북">전북</option>
+			                                <option value="전남">전남</option>
+			                                <option value="경북">경북</option>
+			                                <option value="경남">경남</option>
+			                                <option value="제주">제주</option>
 			                              </select>
 			                        </div>
 			                    </div>
 			                    <div class="col-lg-12" style="border-bottom: 2px solid #DEE2E7;">
-	                                <div class="single_select">
-	                                 <h3><b>가격선택</b></h3>
-	                                    <select>
-	                                        <option data-display="가격">가격</option>
-	                                        <option value="1">advance</option>
-	                                        <option value="2">advance</option>
-	                                        <option value="4">premium</option>
-	                                      </select>
-	                                </div>
+	                                 <h3><b>가격</b></h3>
+	                                 <div class="row">
+										<input type="text" ref=spricefd placeholder="15,000"
+											onfocus="this.placeholder = ''" onblur="this.placeholder = '15,000 ~ 1,100,000사이 입력'" required
+												class="single-input-primary" style="margin-bottom: 20px;margin-left:12px;width: 100px;" onkeyup="inputNumberFormat(this)">
+										<span style="margin: 10px;">&nbsp;-&nbsp;</span>
+										<input type="text" ref=epricefd placeholder="1,100,000사이 입력"
+									onfocus="this.placeholder = ''" onblur="this.placeholder = '15,000 ~ 1,100,000사이 입력'" required
+										class="single-input-primary" style="margin-bottom: 20px;width: 100px;" onkeyup="inputNumberFormat(this)">
+										<span style="margin: 10px;">&nbsp;원</span>
+									</div>
                                 </div>
 			                    <div class="col-lg-12" style="border-bottom: 2px solid #DEE2E7;">
-				                     <h3><b>검색</b></h3>
-										<input type="text" name="first_name" placeholder="캠핑장명을 검색하세요."
+				                     <h3><b>캠핑장 명</b></h3>
+										<input type="text" ref=campfd placeholder="캠핑장명을 검색하세요."
 											onfocus="this.placeholder = ''" onblur="this.placeholder = '캠핑장명을 검색하세요.'" required
 												class="single-input-primary" style="margin-bottom: 20px;">
 								</div>
-			                  <!--   <div class="col-lg-12">
-			                    	<div class="range_slider_wrap">
-		                                 <span class="range">가격&nbsp;:&nbsp;만원&nbsp;~&nbsp;만원</span>
-		                                 <div id="slider-range"></div>
-		                                 <p>
-		                                     <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-weight:400;">
-		                       			 </p>
-			                    	</div>
-			                    </div> -->
 			                </div>
 			            </div>
 			            <br>
 			            <div class="reset_btn">
-			                <button class="boxed-btn4" type="submit">적용</button>
+			                <button class="boxed-btn4" type="submit" @click="findCamp()">적용</button>
 			            </div>
 			        </div>
 			    </div>
@@ -147,50 +167,40 @@
 	    <!-- 리스트 목록 -->
 	        <div class="col-lg-8">
 	        	 <div class="well" style=" border-bottom: 2px solid #DEE2E7;">
-					<select>
-						<option value="1">조회순 &nbsp;&nbsp;</option>
-						<option value="1">추천순 &nbsp;&nbsp;</option>
-						<option value="1">리뷰순 &nbsp;&nbsp;</option>
-					</select>
-					<a href="../camp/camp_list.do" class="btn btn-info" role="button" style="float: right; margin-right: 20px;background-color:gray;border: none; ">캠핑장 전체보기</a>
-	        	 </div>
-	            <div class="row">
-	                <div class="col-lg-6 col-md-6">
-	                    <div class="single_place">
-	                        <div class="thumb">
-	                            <img src="../img/place/1.png" alt="">
-	                            <a href="#" class="prise">가격</a>
-	                        </div>
-	                        <div class="place_info">
-	                            <a href="destination_details.html"><h3>제목</h3></a>
-	                            <p>메세지</p>
-	                            <span><i class="fa fa-phone-square" style="color: #E86A33"></i></span>&nbsp;
-	                            <span><i class="fa fa-location-arrow" style="color: #E86A33"></i></span>
-	                            <div class="rating_days d-flex justify-content-between">
-	                                <span class="d-flex justify-content-center align-items-center">
-	                                     <i class="fa fa-star"></i> 
-	                                     <i class="fa fa-star"></i> 
-	                                     <i class="fa fa-star"></i> 
-	                                     <i class="fa fa-star"></i> 
-	                                     <i class="fa fa-star"></i>
-	                                     <a href="#">(20 Review)</a>
-	                                </span>
-	                                <div class="days">
-	                                    <i class="fa fa-clock-o"></i>
-	                                    <a href="#">5 Days</a>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            <div class="row">
+						<select>
+							<option value="1">조회순 &nbsp;&nbsp;</option>
+							<option value="1">추천순 &nbsp;&nbsp;</option>
+							<option value="1">리뷰순 &nbsp;&nbsp;</option>
+						</select>
+						<a href="../camp/camp_list.do" class="btn btn-info" role="button" style="float: right; margin-right: 20px;background-color:gray;border: none; ">캠핑장 전체</a>
+		        	 </div>
+		        	 <br>
+		            <div class="row" style="height: 800px;">
+		                <div class="col-lg-6 col-md-6" v-for="vo in camp_list">
+		                    <div class="single_place">
+		                        <div class="thumb" style="margin-top: 10px;">
+		                            <img :src="vo.image" :title="vo.name" style="height: 250px;">
+		                            <a href="#" class="prise">{{vo.mprice}}&nbsp;원</a>
+		                        </div>
+		                        <div class="place_info">
+		                            <a :href="'../camp/camp_detail.do?cno='+vo.cno"><h3>{{vo.name}}</h3></a>
+		                            <p>{{vo.msg}}</p>
+		                            <i class="fa fa-phone-square" style="color: #E86A33"></i>&nbsp;<span>{{vo.phone}}</span><br>
+		                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span>{{vo.address}}</span>
+		                            <div class="rating_days d-flex justify-content-between" style="margin-top: 8px;margin-bottom: -8px;">
+		                            		<!--  추천,찜 등 -->
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+	        		</div>
+	        	<div class="row">
 	                <div class="col-lg-12">
 	                    <div class="more_place_btn text-center">
 	                        <a class="boxed-btn4" href="#">캠핑장 더보기</a>
 	                    </div>
 	                </div>
 	            </div>
-	        </div>
 	   	 </div>
 	   	 <!----------------->
 	   	 
@@ -198,15 +208,48 @@
 	</div>
 </div>
 <script>
-	/* new Vue({
+	new Vue({
 		el:'.popular_places_area',
 		data:{
 			camp_list:[],
 			curpage:1,
+			state:'',
+			spricefd:'',
+			epricefd:'',
+			campfd:'',
+			rdate:''
+		},
+		mounted:function(){
+			axios.get('../camp/camp_list_vue.do',{
+				params:{
+					page:this.curpage,
+					type:'mlist'
+				}
+			}).then(res=>{
+				this.camp_list=res.data
+			})
+			
+		},
+		methods:{
+			findCamp:function(){
+				axios.get('../camp/camp_find_list_vue.do',{
+					params:{
+						page:this.curpage,
+						rdate:this.rdate,
+						state:this.state,
+						spricefd:this.spricefd,
+						epricefd:this.epricefd,
+						campfd:this.campfd
+						
+					}
+				}).then(res=>{
+					this.camp_list=res.data
+				})
+			}
 		}
 		
 		
-	}) */
+	}) 
 </script>
 </body>
 </html>

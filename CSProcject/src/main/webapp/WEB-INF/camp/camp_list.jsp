@@ -182,7 +182,8 @@
 			dataRecive:function(){
 				axios.get('../camp/camp_list_vue.do',{
 					params:{
-						page:this.curpage
+						page:this.curpage,
+						type:'list'
 					}
 				}).then(res=>{
 					console.log(res.data)

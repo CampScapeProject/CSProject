@@ -15,23 +15,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
 	
+	
+	
 	<select id="campFindData" resultType="CampVO" parameterType="hashmap">
 		SELECT cno,name,address,phone,msg,image,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) as mprice,num 
 		FROM (SELECT cno,name,address,phone,msg,image,rownum as num 
 		FROM (SELECT cno,name,address,phone,msg,image FROM camp2
-		WHERE 
-		<if test="fname!=null">
-			name LIKE '%'||#{fname}||'%'
+		WHERE (SELECT COUNT(sDate) FROM reserve2 WHERE camp2.rno=reserve2.cno AND sDate BETWEEN #{sDate} AND #{eDate} AND type='c') = 0
+		AND (SELECT COUNT(eDate) FROM reserve2 WHERE camp2.rno=reserve2.cno AND eDate BETWEEN #{sDate} AND #{eDate} AND type='c') = 0 
+		AND (SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) BETWEEN #{spricefd} AND #{epricefd}
+		<if test="state!=null">
+		AND address LIKE '%'||#{state}||'%'
 		</if>
-		<if test="faddress!=null">
-			address LIKE '%'||#{faddress}||'%'
+		<if test="campfd!=null">
+		AND name LIKE '%'||#{campfd}||'%'
 		</if>
-		<if test="fprice!=null">
-		(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) LIKE '%'||#{fprice}||'%'
-		</if>
-		ORDER BY cno ASC)) c
+		ORDER BY cno ASC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
+	
 	<select id="tourListData" resultType="TourVO" parameterType="String">
 		SELECT tno,name,address,link,image
 		FROM tour2

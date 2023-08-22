@@ -13,7 +13,7 @@ public interface CampMapper {
 	
 	@Select("SELECT cno,name,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno = c.cno) as mprice,image " 
 			+"FROM camp2 c " 
-			+"ORDER BY hit ASC " 
+			+"ORDER BY hit DESC " 
 			+"FETCH FIRST 6 ROWS ONLY")
 	public List<CampVO> campMainList();
 	

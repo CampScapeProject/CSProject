@@ -198,7 +198,7 @@
 				      		<template v-if="index == 0">
 				      			<div class="row">
 					      			<div class="col-lg-3" v-for="fvo in tour_list">
-										<li class="card" >
+										<li class="card">
 											<a class="card-image" href="#">
 												<img :src="fvo.image">
 											</a>
@@ -274,7 +274,7 @@
             
             
 	            <div class="col-lg-2">
-	               <div class="blog_right_sidebar" style="width: 300px;">
+	               <div class="blog_right_sidebar" style="width: 400px;">
                		<aside class="single_sidebar_widget search_widget">
                         <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"type="submit" style="background-color:#E86A33;border-color: #E86A33;">예약하기</button>
                   	</aside>
@@ -391,9 +391,9 @@
 
 		         // 주소-좌표 변환 객체를 생성합니다
 		         var geocoder = new kakao.maps.services.Geocoder();
-		         var name=this.food_detail.name
+		         var name=this.camp_detail.name
 		         // 주소로 좌표를 검색합니다
-		         geocoder.addressSearch(this.food_detail.address, function(result, status) {
+		         geocoder.addressSearch(this.camp_detail.address, function(result, status) {
 		         
 		             // 정상적으로 검색이 완료됐으면 
 		              if (status === kakao.maps.services.Status.OK) {

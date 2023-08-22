@@ -31,8 +31,10 @@ public class CampDAO {
 	
 	public List<CampVO> campFindData(Map map)
 	{
+		
 		return mapper.campFindData(map);
 	}
+	
 	
 	public int campTotalPage()
 	{
