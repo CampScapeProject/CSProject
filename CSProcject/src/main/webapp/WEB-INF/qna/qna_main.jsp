@@ -36,7 +36,7 @@
 	}
 	.qna_nav {
 		margin: 0px auto;
-		padding: 80px;
+		padding: 80px 80px 80px 200px;
 	}
 	.qna_nav > ul > li {
 		float: left;
@@ -65,17 +65,20 @@
 		<div class="row2">
 			<div class="qna_nav">
 				<ul style="list-style: none">
-					<li class="last">
-						<a href="#">캠핑장 예약</a>
+					<li>
+						<a href="../qna/qna_main.do?qcno=1">전체</a>
 					</li>
 					<li>
-						<a href="#">렌터카 예약</a>
+						<a href="../qna/qna_main.do?qcno=2">캠핑장 예약</a>
 					</li>
 					<li>
-						<a href="#">상품 문의</a>
+						<a href="../qna/qna_main.do?qcno=3">렌터카 예약</a>
 					</li>
 					<li>
-						<a href="#">기타 문의</a>
+						<a href="../qna/qna_main.do?qcno=4">상품 문의</a>
+					</li>
+					<li>
+						<a href="../qna/qna_main.do?qcno=5">기타 문의</a>
 					</li>
 				</ul>
 			</div>
@@ -89,8 +92,7 @@
 	    	<div class="row">
 	    	
 	    		<div class="search_form" style="margin-bottom: 20px;">
-	                    <input type=radio name=search value=name checked>    이름
-	                    <input type=radio name=search value=subject>    제목 
+	                    <input type=radio name=search value=subject checked>    제목 
 	                    <input type=radio name=search value=content>    내용
 	                    <input type=text class="input-sm" placeholder="검색어를 입력하세요." style="margin-left: 5px;"/>
 	                    <a href="#"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #e86a33;margin-left: 5px;"></i></a>
@@ -149,16 +151,47 @@
 		data:{
 			qna_list:[],
 			page_info:[],
+			qcno:1,
 			curpage:1,
 			totalpage:0,
-			startPage:0,
-			endPage:0
+			startpage:0,
+			endpage:0
 		},
 		mounted:function(){
-			
+			this.dataRecive()
 		},
 		methods:{
 			dataRecive:function(){
+				
+				// 데이터값 받아오기
+				axios.get('qna/qna_main_vue.do', {
+					params:{
+						page:this.curpage,
+						qcno:1
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.qna_list(res.data)
+				}).catch(error=>{
+					console.log(error.response)
+				})
+				
+				// 페이지 읽어오기
+				axios.get('qna/qna_page_vue.do',{
+					page:this.curpage,
+					qcno:1
+				}).then(res=>{
+					console.log(res.data)
+					
+					this.page_info = res.data
+					this.curpage = this.page_info.curpage
+					this.totalpage = this.page_info.totalpage
+					this.startpage = this.page_info.startpage
+					this.endpage = this.page_info.endpage
+				}).catch(error=>{
+					console.log(error.response)
+				})
+				
 				
 			},
 			
@@ -173,11 +206,11 @@
 				return arr;
 			},
 			prev:function(){
-				this.curpage = this.startPage-1;
+				this.curpage = this.startpage-1;
 				this.dataRecive();
 			},
 			next:function(){
-				this.curpage = this.endPage+1;
+				this.curpage = this.endpage+1;
 				this.dataRecive();
 			},
 			pageChange:function(page){

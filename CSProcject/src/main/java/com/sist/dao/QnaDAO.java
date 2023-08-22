@@ -17,6 +17,11 @@ public class QnaDAO {
 		return mapper.qnaListData(map);
 	}
 	
+	public List<QnaVO> qnaCategoryListData(Map map)
+	{
+		return mapper.qnaCategoryListData(map);
+	}
+	
 	public int qnaTotalpage()
 	{
 		return mapper.qnaTotalpage();

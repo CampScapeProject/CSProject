@@ -37,7 +37,7 @@
 	
 	.qna_nav {
 		margin: 0px auto;
-		padding: 80px;
+		padding: 80px 80px 80px 200px;
 	}
 	.qna_nav > ul > li {
 		float: left;
@@ -77,20 +77,23 @@
 		
 		<div class="row2">
 			<div class="qna_nav">
-					<ul style="list-style: none">
-						<li class="last">
-							<a href="#">캠핑장 예약</a>
-						</li>
-						<li>
-							<a href="#">렌터카 예약</a>
-						</li>
-						<li>
-							<a href="#">상품 문의</a>
-						</li>
-						<li>
-							<a href="#">기타 문의</a>
-						</li>
-					</ul>
+				<ul style="list-style: none">
+					<li>
+						<a href="../qna/qna_main.do?qcno=1">전체</a>
+					</li>
+					<li>
+						<a href="../qna/qna_main.do?qcno=2">캠핑장 예약</a>
+					</li>
+					<li>
+						<a href="../qna/qna_main.do?qcno=3">렌터카 예약</a>
+					</li>
+					<li>
+						<a href="../qna/qna_main.do?qcno=4">상품 문의</a>
+					</li>
+					<li>
+						<a href="../qna/qna_main.do?qcno=5">기타 문의</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 		
@@ -107,18 +110,18 @@
 	    			<tr>
 	    				<th width=15% class="text-center">카테고리</th>
 	    				<td width=35%>
-							<select v-model="category">
+							<select v-model="qcno">
 								<option selected value=0>   -- 카테고리를 선택해주세요 --    </option>
-								<option value=1>   캠핑장 예약    </option>
-								<option value=2>   렌터카 예약   </option>
-								<option value=3>   상품 문의    </option>
-								<option value=4>   기타 문의    </option>
+								<option value=2>   캠핑장 예약    </option>
+								<option value=3>   렌터카 예약   </option>
+								<option value=4>   상품 문의    </option>
+								<option value=5>   기타 문의    </option>
 							</select>
 	    				</td>
 	    				<th width=8% class="text-center">공개 여부</th>
 	    				<td width=42%>
-	    					<input type=radio name=secret v-model=secret value=y >     비밀      
-	                   		<input type=radio name=secret v-model=secret value=n style="margin-left: 10px;">     공개      
+	    					<input type=radio name=secret v-model=open value=n >     비밀      
+	                   		<input type=radio name=secret v-model=open value=y style="margin-left: 10px;">     공개      
 	    				</td>
 	    			</tr>
 	    			<tr>
@@ -153,21 +156,23 @@
 		data:{
 			title : '',
 			content: '',
-			secret: '',
-			category : 0
+			open: '',
+			id:'${id}',
+			qcno : 0
 		},
 		mounted:function(){
 			
 		},
 		methods:{
 			
+			// 카테고리 선택 안했을 때
 			categoryZero:function(){
 				alert("카테고리 선택해 주세요");
 			}
 			
 			,write:function(){
 				
-				if (this.category===0) {
+				if (this.qcno===0) {
 		            this.categoryZero();
 		            return;
 		        }
@@ -176,8 +181,9 @@
 					params:{
 						title : this.title,
 						content : this.content,
-						category : this.category
-						secret : this.secret
+						qcno : this.qcno,
+						open : this.open,
+						id : this.id
 					}
 				}).then(res=>{
 					console.log(res.data)

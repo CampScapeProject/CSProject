@@ -1,12 +1,15 @@
 package com.sist.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class QnaController {
 	@GetMapping("qna/qna_main.do")
-	public String qna_main() {
+	public String qna_main(int qcno, Model model) {
+		
+		model.addAttribute("qcno", qcno);
 		return "qna/qna_main";
 	}
 	
