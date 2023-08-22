@@ -350,7 +350,7 @@
 					this.camp_detail=res.data
 					this.tourShow(this.camp_detail.address)
 				})
-				 
+				  
 			},
 			methods:{
 				setActiveTab(index) {

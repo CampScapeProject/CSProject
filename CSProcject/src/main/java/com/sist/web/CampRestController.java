@@ -92,7 +92,7 @@ public class CampRestController {
 								+ phoneNumber.substring(3, 7) 
 								+ "-" 
 								+ phoneNumber.substring(7);
-			vo.setPhone(FphoneNumber);
+			vo.setPhone(FphoneNumber); 
 		}
 		
 		ObjectMapper mapper=new ObjectMapper();

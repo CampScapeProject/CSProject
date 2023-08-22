@@ -14,7 +14,7 @@
 .well{ 
 	width: 1465px;
 	height: 50px;
-}
+} 
  
 #cDate input {
   width: 250px;
