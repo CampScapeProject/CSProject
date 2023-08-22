@@ -37,6 +37,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM tour2
 		WHERE address LIKE '%'||#{addr}||'%' 
 		ORDER BY tno ASC
-		FETCH FIRST 6 ROWS ONLY 
+		FETCH FIRST 6 ROWS ONLY  
 	</select>
 </mapper>
