@@ -9,10 +9,12 @@
 		<typeAlias type="com.sist.vo.CampVO" alias="CampVO"/>
 		<typeAlias type="com.sist.vo.TourVO" alias="TourVO"/>
 		<typeAlias type="com.sist.vo.ReviewVO" alias="ReviewVO"/>
+		<typeAlias type="com.sist.vo.QnaVO" alias="QnaVO"/>
 	</typeAliases>
 	<mappers>
 		<!-- <mapper resource="com/sist/mapper/food-mapper.xml"/> -->
 		<mapper resource="com/sist/mapper/rent-mapper.xml"/>
 		<mapper resource="com/sist/mapper/camp-mapper.xml"/>
+		<mapper resource="com/sist/mapper/qna-mapper.xml"/>
 	</mappers>
 </configuration>
