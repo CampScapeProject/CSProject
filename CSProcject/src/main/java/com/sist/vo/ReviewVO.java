@@ -12,4 +12,5 @@ public class ReviewVO {
 	private Date regdate;
 	private int tCount;
 	private Double tRating;
+	private String dbday;
 }

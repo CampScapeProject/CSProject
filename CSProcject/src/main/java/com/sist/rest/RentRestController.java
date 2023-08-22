@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.RentDAO;
-import com.sist.vo.OArray;
-import com.sist.vo.RentVO;
-import com.sist.vo.ReviewVO;
+import com.sist.vo.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.Cookie;
@@ -96,5 +96,72 @@ public class RentRestController {
 		
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(vo);
+	}
+	
+	@GetMapping(value = "rent/review_vue.do", produces = "text/plain;charset=UTF-8")
+	public String reviewList(int rno, int curpage, String selected) throws Exception {
+		Map map=new HashMap();
+		int rowsize=5;
+		int start=rowsize*curpage-(rowsize-1);
+		int end=rowsize*curpage;
+		map.put("rno", rno);
+		map.put("start", start);
+		map.put("end", end);
+		map.put("selected", selected);
+		List<ReviewVO> list=dao.rentReviewList(map);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		
+		return mapper.writeValueAsString(list);
+	}
+	
+	@GetMapping(value = "rent/review_page_vue.do", produces = "text/plain;charset=UTF-8")
+	public String reviewPage(int rno, int curpage) throws Exception {
+		int totalpage=dao.rentReviewTotalpage(rno);
+		final int BLOCK=5;
+		int startpage=(curpage-1)/BLOCK*BLOCK+1;
+		int endpage=(curpage-1)/BLOCK*BLOCK+BLOCK;
+		if(endpage>totalpage) {
+			endpage=totalpage;
+		}
+		PageVO vo=new PageVO();
+		vo.setCurpage(curpage);
+		vo.setStartpage(startpage);
+		vo.setEndpage(endpage);
+		vo.setTotalpage(totalpage);
+		
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(vo);
+	}
+	
+	@GetMapping(value = "rent/memberInfo_vue.do", produces = "text/plain;charset=UTF-8")
+	public String memberInfo(String id) throws Exception {
+		MemberVO vo=dao.memberInfoData(id);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(vo);
+	}
+	
+	@PostMapping(value = "rent/reserve_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rent_reserve(ReserveVO vo) throws Exception {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date sdate = dateFormat.parse(vo.getDbsdate());
+        Date edate = dateFormat.parse(vo.getDbedate());
+        vo.setSdate(sdate);
+        vo.setEdate(edate);
+		dao.rent_reserve_insert(vo);
+		return "";
+	}
+	
+	@GetMapping(value = "rent/reserve_check_vue.do", produces = "text/plain;charset=UTF-8")
+	public boolean reserve_check(int rno, String sdate, String edate) {
+		Map map=new HashMap();
+		map.put("rno", rno);
+		map.put("sdate", sdate);
+		map.put("edate", edate);
+		int count=dao.reserveCheck(map);
+		
+		return count==0;
 	}
 }

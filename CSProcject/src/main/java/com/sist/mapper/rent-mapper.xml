@@ -11,8 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   (SELECT COUNT(*) FROM jjim2 WHERE sno=rno AND id=#{id}) as jjimOk 
 			   
 		FROM rent2
-		WHERE (SELECT COUNT(sDate) FROM reserve2 WHERE rent2.rno=reserve2.fno AND sDate BETWEEN #{sDate} AND #{eDate}) = 0
-		AND (SELECT COUNT(eDate) FROM reserve2 WHERE rent2.rno=reserve2.fno AND eDate BETWEEN #{sDate} AND #{eDate}) = 0
+		WHERE (SELECT COUNT(sDate) FROM reserve2 WHERE rent2.rno=reserve2.fno AND sDate BETWEEN #{sDate} AND #{eDate} AND type='r') = 0 
+		AND (SELECT COUNT(eDate) FROM reserve2 WHERE rent2.rno=reserve2.fno AND eDate BETWEEN #{sDate} AND #{eDate} AND type='r' ) = 0 
 		<if test="!all">
 			<trim prefix="AND (" suffix=")" suffixOverrides=" AND ">
 				<trim prefix="(" suffix=") AND " prefixOverrides="OR">
@@ -87,6 +87,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="rentReviewList" resultType="ReviewVO" parameterType="hashmap">
-	
+		SELECT no,TO_CHAR(regdate, 'yyyy-mm-dd') as dbday,content,sno,type,id,rating,num 
+		FROM (SELECT no,regdate,content,sno,type,id,rating,rownum as num 
+			  FROM (SELECT no,regdate,content,sno,type,id,rating 
+			  		FROM review2 
+			  		WHERE type='r' 
+			  		AND sno=#{rno} 
+			  		ORDER BY 
+				  		<choose>
+				  			<when test="selected=='평점 높은 순'">
+				  				rating DESC ,
+				  			</when>
+				  			<when test="selected=='평점 낮은 순'">
+				  				rating ASC ,
+				  			</when>
+				  		</choose>
+			  		regdate DESC
+			  		)
+			 )
+		WHERE num BETWEEN #{start} AND #{end} 
 	</select>
+	
 </mapper>

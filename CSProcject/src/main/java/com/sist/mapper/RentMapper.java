@@ -30,4 +30,43 @@ public interface RentMapper {
 		  + "WHERE sno=#{rno}")
 	public ReviewVO reviewTotalData(int rno);
 	
+	/*
+	<select id="rentReviewList" resultType="ReviewVO" parameterType="hashmap">
+		SELECT no,regdate,content,sno,type,id,rating,num 
+		FROM (SELECT no,regdate,content,sno,type,id,rating,rownum as num 
+			  FROM (SELECT no,regdate,content,sno,type,id,rating 
+			  		FROM review2 
+			  		WHERE type='r' 
+			  		AND sno=#{rno} 
+			  		ORDER BY regdate DESC
+			  		)
+			 )
+		WHERE num BETWEEN #{start} AND #{end} 
+	</select>
+	 */
+	public List<ReviewVO> rentReviewList(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/5.0) "
+		  + "FROM review2 "
+		  + "WHERE type='r' "
+		  + "AND sno=#{rno}")
+	public int rentReviewTotalpage(int rno);
+	
+	@Select("SELECT id,pwd,email,name,nickname,sex,birth,phone,post,addr1,addr2,admin "
+		  + "FROM member "
+		  + "WHERE id=#{id}")
+	public MemberVO memberInfoData(String id);
+	
+	@Insert("INSERT INTO reserve2(rno,name,birth,phone,email,price,id,fno,type,sdate,edate) "
+		  + "VALUES(rs2_rno_seq.nextval,#{name},#{birth},#{phone},"
+		  + "       #{email},#{price},#{id},#{fno},'r',#{sdate},#{edate})")
+	public void rent_reserve_insert(ReserveVO vo);
+	
+	@Select("SELECT count(*) "
+		  + "FROM reserve2 "
+		  + "WHERE fno=#{rno} "
+		  + "AND sdate BETWEEN #{sdate} AND #{edate} "
+		  + "AND edate BETWEEN #{sdate} AND #{edate} "
+		  + "AND type='r'")
+	public int reserveCheck(Map map);
 }

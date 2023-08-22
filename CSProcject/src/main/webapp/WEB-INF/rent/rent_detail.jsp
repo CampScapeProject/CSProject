@@ -63,6 +63,9 @@
 	.page{
 		cursor: pointer;
 	}
+	.activePage{
+		font-weight: bold;
+	}
 </style>
 
 </head>
@@ -248,9 +251,9 @@
 									      		<template v-if="index == 2">
 										        	<div class="row">
 										        		<div class="col-lg-12 text-right" style="margin-bottom: 15px;">
-										        			최신순 <input type="radio" name="review" checked value="최신순" style="color: red;">&nbsp;
-										        			평점 높은 순 <input type="radio" name="review" value="최신순" style="color: red;">&nbsp;
-										        			평점 낮은 순 <input type="radio" name="review" value="최신순" style="color: red;">
+										        			최신순 <input type="radio" name="review" v-model="selected" @change="changed()" checked value="최신순">&nbsp;
+										        			평점 높은 순 <input type="radio" name="review" v-model="selected" @change="changed()" value="평점 높은 순">&nbsp;
+										        			평점 낮은 순 <input type="radio" name="review" v-model="selected" @change="changed()" value="평점 낮은 순">
 										        		</div>
 										        		
 										        		<div class="col-lg-4 text-left">
@@ -264,44 +267,34 @@
 										        			<hr>
 										        		</div>
 										        		
-										        		<div class="col-lg-12" 
+										        		<div class="col-lg-12" v-for="vo in review_list"
 										        			style="min-height:100px;background-color: #F7FAFD;border-radius: 30px;padding: 10px 20px;margin-bottom: 5px;"
 										        		>
 										        			<div class="row">
-											        			<div class="col-lg-6 text-left">hong</div>
+											        			<div class="col-lg-6 text-left">{{vo.id}}</div>
 											        			<div class="col-lg-6 text-right">
-											        				<i class="fa-solid fa-star" style="color: #FDAE5C"></i> 4
+											        				<i class="fa-solid fa-star" style="color: #FDAE5C"></i> {{vo.rating}}
 											        			</div>
 											        			<div class="col-lg-12" style="margin: 5px 0;">
-											        				친절하고 차량상태 우수함 차량스크레치 동영상까지 찍고 바딱 스크레치 까지 찍어서 남겨놨는데 무난히 검사완료 해주셨음 이번9월달 또 이용할 예정임 
+											        				{{vo.content}} 
 											        			</div>
 											        			<div class="col-lg-12">
-											        				<span style="font-size: 15px;">2023.08.16</span> 
+											        				<span style="font-size: 15px;">{{vo.dbday}}</span> 
 											        			</div>
 										        			</div>
 										        		</div>
 										        		
-										        		<div class="col-lg-12" 
-										        			style="min-height:100px;background-color: #F7FAFD;border-radius: 30px;padding: 10px 20px;margin-bottom: 5px;"
-										        		>
-										        			<div class="row">
-											        			<div class="col-lg-6 text-left">hong</div>
-											        			<div class="col-lg-6 text-right">
-											        				<i class="fa-solid fa-star" style="color: #FDAE5C"></i> 4
-											        			</div>
-											        			<div class="col-lg-12" style="margin: 5px 0;">
-											        				친절하고 차량상태 우수함 차량스크레치 동영상까지 찍고 바딱 스크레치 까지 찍어서 남겨놨는데 무난히 검사완료 해주셨음 이번9월달 또 이용할 예정임 
-											        			</div>
-											        			<div class="col-lg-12">
-											        				<span style="font-size: 15px;">2023.08.16</span> 
-											        			</div>
-										        			</div>
-										        		</div>
 										        		
 										        		<div class="col-lg-12 text-center" style="color: #E86A33;margin-top: 10px;font-size: 18px;">
-										        			<span class="page">&lt;</span>&nbsp;
-										        			<span class="page">1</span>&nbsp;
-										        			<span class="page">&gt;</span>&nbsp;
+										        			<span class="page" @click="prev()" v-if="startpage>1">&lt;</span>&nbsp;
+										        			<span class="page" 
+										        				:class="curpage==(startpage+i-1)?'activePage':''" 
+										        				v-for="i in (endpage-startpage+1)"
+										        				@click="pageSelect((startpage+i-1))"
+										        			>
+										        				{{startpage+i-1}}&nbsp;
+										        			</span>
+										        			<span class="page" @click="next()" v-if="totalpage>endpage">&gt;</span>&nbsp;
 										        		</div>
 										        	</div>
 												</template>
@@ -360,10 +353,17 @@
 					        	
                             </div>
 
-                            <div class="reset_btn" style="margin-top: 30px;">
-                                <a class="boxed-btn4" style="width: 100%;color: white;font-weight: bold;" 
+                            <div class="reset_btn" style="margin-top: 30px;" v-if="${sessionScope.id!=null }">
+                                <a class="boxed-btn4" style="width: 100%;color: white;font-weight: bold;"
                                 :href="'../rent/rent_payment.do?rno=' + rno + '&sDate=' + sDate + '&eDate=' + eDate">
                                 	예약하기
+                                </a>
+                            </div>
+                            <div class="reset_btn text-center" style="margin-top: 30px;" v-if="${sessionScope.id==null }">
+                            	<span style="color: red">로그인 후에 예약하실 수 있습니다</span>
+                                <a class="boxed-btn4" style="width: 100%;color: white;font-weight: bold;"
+                                href="../member/login.do">
+                                	로그인
                                 </a>
                             </div>
                         </div>
@@ -394,7 +394,13 @@
 		    rent_detail:{},
 		    option:[],
 		    period:0,
-		    reviewTotal:{}
+		    reviewTotal:{},
+			curpage:1,
+			review_list:[],
+			startpage:0,
+			endpage:0,
+			totalpage:0,
+			selected:"최신순"
 		},
 		mounted:function(){
 			axios.get('../rent/rentDetail_vue.do',{
@@ -414,7 +420,7 @@
 				this.period=diff
 				
 			})
-			
+			//리뷰 평균, 갯수
 			axios.get('../rent/reviewTotal_vue.do',{
 				params:{
 					rno:this.rno
@@ -423,6 +429,8 @@
 				console.log(res.data)
 				this.reviewTotal=res.data
 			})
+			
+			this.reviewData()
 		},
 		methods:{
 			setActiveTab(index) {
@@ -434,6 +442,48 @@
 		    	} else {
 		    		this.detail=true
 		    	}
+		    },
+		    reviewData(){
+				//페이지
+				axios.get('../rent/review_page_vue.do',{
+					params:{
+						rno:this.rno,
+						curpage:this.curpage
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.startpage=res.data.startpage;
+					this.endpage=res.data.endpage;
+					this.curpage=res.data.curpage;
+					this.totalpage=res.data.totalpage;
+				})
+		    	// 리뷰 리스트
+				axios.get('../rent/review_vue.do',{
+					params:{
+						rno:this.rno,
+						curpage:this.curpage,
+						selected:this.selected
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.review_list=res.data
+				})
+		    },
+		    pageSelect(page){
+		    	this.curpage=page
+		    	this.reviewData()
+		    },
+		    prev(){
+		    	this.curpage=this.startpage-1
+		    	this.reviewData()
+		    },
+		    next(){
+		    	this.curpage=this.endpage+1
+		    	this.reviewData()
+		    },
+		    changed(){
+		    	this.curpage=1
+		    	this.reviewData()
 		    }
 		}
 	})

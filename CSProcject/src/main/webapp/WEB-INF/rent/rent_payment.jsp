@@ -150,28 +150,28 @@
 							        			이름
 							        		</div>
 							        		<div class="col-lg-12" style="margin-bottom: 10px;">
-								        		<input type="text" style="width: 80%" placeholder="성명"> 
+								        		<input type="text" v-model="name" ref="name" style="width: 80%" placeholder="성명"> 
 							        		</div>
 							        		
 							        		<div class="col-lg-12">
 							        			생년월일
 							        		</div>
 							        		<div class="col-lg-12" style="margin-bottom: 10px;">
-								        		<input type="text" style="width: 80%" placeholder="생년월일 ex)20030101"> 
+								        		<input type="text" v-model="birth" ref="birth" style="width: 80%" placeholder="생년월일 ex)2003-01-01"> 
 							        		</div>
 							        		
 							        		<div class="col-lg-12">
 							        			휴대폰 번호
 							        		</div>
 							        		<div class="col-lg-12" style="margin-bottom: 10px;">
-								        		<input type="text" style="width: 80%" placeholder="휴대폰 번호 (- 빼고)"> 
+								        		<input type="text" v-model="phone" ref="phone" style="width: 80%" placeholder="휴대폰 번호 (- 빼고)"> 
 							        		</div>
 							        		
 							        		<div class="col-lg-12">
 							        			이메일
 							        		</div>
 							        		<div class="col-lg-12" style="margin-bottom: 10px;">
-								        		<input type="text" style="width: 80%" placeholder="예약 완료시 이메일로 알려드립니다."> 
+								        		<input type="text" v-model="email" ref="email" style="width: 80%" placeholder="예약 완료시 이메일로 알려드립니다."> 
 							        		</div>
 							        	</div>
 									</div>
@@ -228,8 +228,7 @@
                             </div>
 
                             <div class="reset_btn" style="margin-top: 30px;">
-                                <a class="boxed-btn4" style="width: 100%;color: white;font-weight: bold;" 
-                                :href="'../rent/rent_payment.do?rno=' + rno + '&sDate=' + sDate + '&eDate=' + eDate">
+                                <a class="boxed-btn4" style="width: 100%;color: white;font-weight: bold;" @click="reserve()">
                                 	{{rent_detail.price*period}}원 결제
                                 </a>
                             </div>
@@ -255,11 +254,14 @@
 		    rno:${rno},
 		    rent_detail:{},
 		    option:[],
-		    period:0
+		    period:0,
+		    name:'',
+		    birth:'',
+		    phone:'',
+		    email:''
 		},
 		mounted:function(){
 			this.date=this.sDate + " - " + this.eDate
-			
 			axios.get('../rent/rentDetail_vue.do',{
 				params:{
 					rno:this.rno
@@ -276,6 +278,18 @@
 				console.log(diff);
 				this.period=diff
 			})
+			
+			axios.get('../rent/memberInfo_vue.do',{
+				params:{
+					id:'${sessionScope.id}'
+				}
+			}).then(res=>{
+				console.log(res.data)
+				this.name=res.data.name
+				this.birth=res.data.birth
+				this.phone=res.data.phone
+				this.email=res.data.email
+			})
 		},
 		methods:{
 		    setDetail(){
@@ -284,6 +298,52 @@
 		    	} else {
 		    		this.detail=true
 		    	}
+		    },
+		    reserve(){
+		    	axios.get('../rent/reserve_check_vue.do',{
+		    		params:{
+		    			rno:this.rno,
+		    			sdate:this.sdate,
+		    			edate:this.edate
+		    		}
+		    	}).then(res=>{
+		    		if(!res){
+		    			alert("이미 예약된 상품입니다")
+		    			location.href="../rent/rent_main.do"
+		    		}
+		    	})
+		    	if(this.name.trim()==""){
+		    		this.$refs.name.focus();
+		    		return
+		    	}
+		    	if(this.birth.trim()==""){
+		    		this.$refs.birth.focus();
+		    		return
+		    	}
+		    	if(this.phone.trim()==""){
+		    		this.$refs.phone.focus();
+		    		return
+		    	}
+		    	if(this.email.trim()==""){
+		    		this.$refs.email.focus();
+		    		return
+		    	}
+		    	axios.post('../rent/reserve_vue.do',null,{
+		    		params:{
+		    			name:this.name,
+		    			birth:this.birth,
+		    			phone:this.phone,
+		    			email:this.email,
+		    			dbsdate:this.sDate,
+		    			dbedate:this.eDate,
+		    			fno:this.rno,
+		    			price:this.rent_detail.price,
+		    			id:'${sessionScope.id}'
+		    		}
+		    	}).then(res=>{
+		    		alert("예약이 완료되었습니다.")
+		    		location.href="../main/home.do"
+		    	})
 		    }
 		}
 	})

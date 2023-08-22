@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.RentMapper;
+import com.sist.vo.MemberVO;
 import com.sist.vo.RentVO;
+import com.sist.vo.ReserveVO;
 import com.sist.vo.ReviewVO;
 
 @Repository
@@ -38,5 +40,24 @@ public class RentDAO {
 	
 	public ReviewVO reviewTotalData(int rno) {
 		return mapper.reviewTotalData(rno);
+	}
+	
+	public List<ReviewVO> rentReviewList(Map map) {
+		return mapper.rentReviewList(map);
+	}
+	public int rentReviewTotalpage(int rno) {
+		return mapper.rentReviewTotalpage(rno);
+	}
+	
+	public MemberVO memberInfoData(String id) {
+		return mapper.memberInfoData(id);
+	}
+	
+	public void rent_reserve_insert(ReserveVO vo) {
+		mapper.rent_reserve_insert(vo);
+	}
+	
+	public int reserveCheck(Map map) {
+		return mapper.reserveCheck(map);
 	}
 }
