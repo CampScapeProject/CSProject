@@ -77,8 +77,8 @@
 	    			<tr>
 	    				<th width=8% class="text-center">고정 여부</th>
 	    				<td width=92%>
-	    					<input type=radio name=secret v-model=secret value=y >     고정      
-	                   		<input type=radio name=secret v-model=secret value=n style="margin-left: 10px;" checked>     비고정      
+	    					<input type=radio name=secret v-model=fix value=1 >     고정      
+	                   		<input type=radio name=secret v-model=fix value=0 style="margin-left: 10px;" checked>     비고정      
 	    				</td>
 	    			</tr>
 	    			<tr>
@@ -88,22 +88,10 @@
 	    				</td>
 	    			</tr>
 	    			<tr>
-						<th width=15% class="text-right success">첨부파일</th>
+						<th width=15% class="text-center">이미지 파일</th>
 						<td width=85%>
-							<table class="table">
-								<tr>
-									<td class="text-right">
-										<input type=button value=추가 class="btn btn-xs btn-default" @click="addFile">
-										<input type=button value=삭제 class="btn btn-xs btn-default" @click="removeFile">
-									</td>
-								</tr>
-							</table>
-							<table class="table" id="user-table">
-								<tbody>
-									
-								</tbody>
-							</table>
-						</td> 
+							<input type=file accept="image/*" @change="uploadImage">
+						</td>
 					</tr>
 	    			<tr>
 	    				<td colspan=4 class="text-right">
@@ -117,61 +105,55 @@
     	</div>
   	</section>
 
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
 <script>
 	new Vue({
-		el:'.container',
+		el:'.blog_area',
 		data:{
 			title:'',
 			content:'',
-			filename:'',
-			filesize:''
+			fix:0,
+			image:''
 		},
-		mounted:function(){
-			
-		},
+		
 		methods:{
 			write:function(){
 				
-				if(this.filename==null)
+				if(this.title=="")
 				{
-					
+					alert("제목을 입력해주세요!")
+					return;
+				}
+				if(this.content=="")
+				{
+					alert("내용을 입력해주세요!")
+					return;
 				}
 				
-				if(this.filesize==null)
-				{
-					
-				}
+				const formData = new FormData();
+				formData.append('title', this.title);
+				formData.append('content', this.content);
+				formData.append('fix', this.fix);
+				formData('image', this.imageFile);
 				
-				axios.post("../notice/notice_insert_ok_vue.do", null, {
-					params:{
-						title : this.title,
-						content : this.content,
-						filename : this.filename,
-						filesize : this.filesize
+				axios.post("../notice/notice_insert_ok_vue.do", formData, {
+					headers:{
+						'Content-Type':'multipart/form-data'	
 					}
 				}).then(res=>{
 					console.log(res.data)
-				}).error(catch=>{
-					console.log(error.response)
-				})
+				}).catch(console.log(error.response))
 			},
 			
-			addFile:function()
-			{
-				$('#user-table > tbody').append(
-						'<tr id="m'+(fileIndex)+'">'
-						+'<td>첨부파일 '+(fileIndex+1)+'<input type=file size=20 name=files['+fileIndex+']></td>'
-						+'</tr>'
-					)
-				fileIndex++;
-			},
-			removeFile:function()
-			{
-				if(fileIndex>0)
-				{
-					$('#m'+(fileIndex-1)).remove();
-					fileIndex--;
-				}
+			uploadImage:function(event){
+				const selectedFile = event.target.files[0];
 			}
 		}
 	})

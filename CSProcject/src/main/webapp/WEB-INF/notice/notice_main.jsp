@@ -175,9 +175,19 @@
 			
 		},
 		methods:{
+			
 			dataRecive:function(){
-				
-			},
+				axios.get('../notice/notice_list_vue.do', {
+					params:{
+						page:this.curpage
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.notice_list = res.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			}
 			
 			range:function(start,end){
 				let arr = [];
