@@ -69,12 +69,6 @@
         padding-left: 5px;
     }
 
-    .col-lg-10 {
-    	margin-top: -130px;
-    	margin-left: 250px;
-    	width: 160%;
-    }
-    
     h4 {
     	font-weight: 500;
     }
