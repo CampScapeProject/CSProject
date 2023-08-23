@@ -36,7 +36,7 @@ public class RentDAO {
 	
 	public void jjimDelete(Map map) {
 		mapper.jjimDelete(map);
-	}
+	} 
 	
 	public ReviewVO reviewTotalData(int rno) {
 		return mapper.reviewTotalData(rno);

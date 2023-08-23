@@ -16,7 +16,7 @@
  
 <style type="text/css">
 	.tabs {
-	  display: flex;
+	  display: flex; 
 	}
 	.tabs > div {
 	  	padding: 10px 20px;

@@ -150,7 +150,7 @@
 										      :class="{ active: activeTab === index }"
 										      @click="setActiveTab(index)"
 										      class="col-lg-4"
-										    >
+										    > 
 										      {{ tab.title }}
 										    </div>
 										</div>

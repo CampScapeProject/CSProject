@@ -9,5 +9,5 @@ import lombok.Setter;
 public class ReserveVO {
 	private int rno,inwon,fno;
 	private String name,price,rstate,dbsdate,dbedate,dbdate,type,id,phone,email,birth,image;
-	private Date sdate,edate,regdate;
+	private Date sdate,edate,regdate; 
 }

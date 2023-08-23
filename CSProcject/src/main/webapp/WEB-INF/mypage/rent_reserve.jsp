@@ -196,7 +196,7 @@
 		    ],
 		    reserve_list:[],
 		    reserve_detail:{}
-		},
+		}, 
 		mounted:function(){
 			axios.get("../rent/rent_reserve_list_vue.do", {
 				params:{

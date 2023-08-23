@@ -50,7 +50,7 @@ public interface RentMapper {
 		  + "FROM review2 "
 		  + "WHERE type='r' "
 		  + "AND sno=#{rno}")
-	public int rentReviewTotalpage(int rno);
+	public int rentReviewTotalpage(int rno); 
 	
 	@Select("SELECT id,pwd,email,name,nickname,sex,birth,phone,post,addr1,addr2,admin "
 		  + "FROM member "

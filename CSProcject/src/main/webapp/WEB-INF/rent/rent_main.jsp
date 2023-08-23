@@ -70,7 +70,7 @@
 	                        <div class="search_btn">
 	                            <button class="boxed-btn4" type="button" @click="print()">Search</button>
 	                        </div>
-	                    </form>
+	                    </form> 
 	                </div>
 	            </div>
             </div>
