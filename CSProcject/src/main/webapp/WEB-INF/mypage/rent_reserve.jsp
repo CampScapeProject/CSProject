@@ -51,24 +51,40 @@
 	.tab-content > div:nth-child(2) {
 	  display: block;
 	}
+	
+	.col-lg-2::-webkit-scrollbar {
+	    width: 7px;
+	}
+	.col-lg-2::-webkit-scrollbar-thumb {
+	    background-color: rgb(180, 180, 180);
+	    border-radius: 10px;
+	}
+	.col-lg-2::-webkit-scrollbar-track {
+	    background-color: #F5F5F5;
+	}
 </style>
 </head>
 <body>
 <div class="el">
-	<div class=row style="padding-top: 40px;padding-left: 20px;">
-		<div class="col-lg-2" style="padding-right: 0">
+	<div class=row style="padding-top: 40px;padding-left: 20px;margin-bottom: 30px;">
+		<div class="col-lg-12 text-left" style="margin-bottom: 20px;">
+			<h3 style="margin: 0">예약한 렌터카</h3>
+		</div>
+	
+		<div class="col-lg-2" style="padding-right: 0;height:750px;overflow: auto;">
 		      <div class="thumbnail" :class=" activeReserve===index?'my-active':'' " 
-		      	v-for="vo,index in reserve_list" @click="reserveClick(index)"
+		      	v-for="vo,index in reserve_list" @click="reserveClick(index, vo.fno)"
 		      >
-		        <a href="#">
-		          <img src="" alt="Lights" style="width:100%">
+		        <a style="cursor: pointer;">
+		          <img :src="vo.image" alt="Lights" style="width:100%">
 		          <div class="caption" style="padding: 5px">
-		            <p style="margin: 0"></p>
+		            <p style="margin: 0">{{vo.car_name}}</p>
 		          </div>
 		        </a>
 		      </div>
 			      
 		</div>
+		
 		<div class="col-lg-10" style="margin: 0 auto;">
 				
             <div class="row" style="width: 100%;margin: 0">
@@ -76,15 +92,15 @@
                 
 	                <div class="filter_result_wrap">
 						<div class="filter_bordered" style="background-color: white; border-radius: 20px;padding: 35px;width: 100%">
-							<div class="filter_inner">
+							<div class="filter_inner" v-if="reserve_list[activeReserve]">
 								
 								<div class="row" style="margin: 0 auto;">
-									<img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EA%B2%BD%EC%B0%A8/%EB%8D%94%EB%84%A5%EC%8A%A4%ED%8A%B8%EC%8A%A4%ED%8C%8C%ED%81%AC_1.jpg" style="width: 40%;margin: auto;display: block;">                             	
+									<img :src="rent_detail.image" style="width: 40%;margin: auto;display: block;">                             	
 								</div>
 							
 								<div style="margin: 40px 20px 0 20px;text-align: left;">
-									<h3 style="margin-bottom: 3px;"><i class="fa-solid fa-car"></i>&nbsp;쉐보레</h3>
-									<h2 style="font-size: 1.4em;margin-top: 5px">더넥스트 스파크</h2>
+									<h3 style="margin-bottom: 3px;"><i class="fa-solid fa-car"></i>&nbsp;{{rent_detail.maker}}</h3>
+									<h2 style="font-size: 1.4em;margin-top: 5px">{{rent_detail.car_name}}</h2>
 								</div>
 								
 								<hr>
@@ -92,15 +108,15 @@
 								<div class="row text-center">
 									<div class="col-lg-4">
 										대여일
-										<p style="font-weight: bold;margin: 0">2023-08-23</p>
+										<p style="font-weight: bold;margin: 0">{{ reserve_list[activeReserve].dbsdate }}</p>
 									</div>
 									<div class="col-lg-4">
 										대여기간
-										<p style="font-weight: bold;margin: 0">1일</p>
+										<p style="font-weight: bold;margin: 0">{{period}}일</p>
 									</div>
 									<div class="col-lg-4">
 										반납일
-										<p style="font-weight: bold;margin: 0">2023-08-24</p>
+										<p style="font-weight: bold;margin: 0">{{ reserve_list[activeReserve].dbedate }}</p>
 									</div>
 	    						</div>
 	    						
@@ -127,43 +143,43 @@
 										      			<div class=row>
 										      				<div class="col-lg-4">
 										      					<h3 style="margin-bottom: 10px;"><b>예약자명</b></h3>
-										      					한성전
+										      					{{reserve_list[activeReserve].name}}
 										      				</div>
 										      				<div class="col-lg-4">
 										      					<h3 style="margin-bottom: 10px;"><b>휴대폰</b></h3>
-										      					01022657377
+										      					{{reserve_list[activeReserve].phone}}
 										      				</div>
 										      				<div class="col-lg-4">
 										      					<h3 style="margin-bottom: 10px;"><b>이메일</b></h3>
-										      					hsj304@daum.net
+										      					{{reserve_list[activeReserve].email}}
 										      				</div>
 										      				<div class="col-lg-4">
 										      					<h3 style="margin-bottom: 10px;"><b>생년월일</b></h3>
-										      					2023-08-22
+										      					{{reserve_list[activeReserve].birth}}
 										      				</div>
 										      				<div class="col-lg-4">
 										      					<h3 style="margin-bottom: 10px;"><b>가격</b></h3>
-										      					84,900원
+										      					{{reserve_list[activeReserve].price}}원
 										      				</div>
 										      				<div class="col-lg-4">
 										      					<h3 style="margin-bottom: 10px;"><b>예약상태</b></h3>
-										      					대기
+										      					{{reserve_list[activeReserve].rstate}}
 										      				</div>
 										      			</div>
 													</template>
 										      		<template v-if="index == 1">
 										      			<h3 style="margin-bottom: 10px;"><b>차량 정보</b></h3>
-											        	<i class="fa-solid fa-car-side"></i>&nbsp; 경차,소형차 &nbsp;&nbsp;&nbsp;
-											      		<i class="fa-solid fa-droplet"></i>&nbsp; 휘발유 &nbsp;&nbsp;&nbsp;
-											      		<i class="fa-solid fa-person"></i>&nbsp; 5 &nbsp;&nbsp;&nbsp;
-											      		<i class="fa-solid fa-coins"></i>&nbsp; 26200
+											        	<i class="fa-solid fa-car-side"></i>&nbsp; {{rent_detail.car_type}} &nbsp;&nbsp;&nbsp;
+											      		<i class="fa-solid fa-droplet"></i>&nbsp; {{rent_detail.fuel}} &nbsp;&nbsp;&nbsp;
+											      		<i class="fa-solid fa-person"></i>&nbsp; {{rent_detail.inwon}} &nbsp;&nbsp;&nbsp;
+											      		<i class="fa-solid fa-coins"></i>&nbsp; {{rent_detail.price}}
 											      		
 											      		<div style="height: 20px;"></div>
 											      		
 										      			<h3 style="margin-bottom: 10px;"><b>차량 옵션</b></h3>
 										      			<div class="row">
-										      				<div class="col-lg-3">
-											      				· 가죽시트
+										      				<div class="col-lg-3" v-for="o in option">
+											      				· {{o}}
 										      				</div>
 										      			</div>
 													</template>
@@ -195,7 +211,9 @@
 		      { title: "차량정보", content: "Content for Tab 2" },
 		    ],
 		    reserve_list:[],
-		    reserve_detail:{}
+		    rent_detail:{},
+		    period:0,
+		    option:[]
 		}, 
 		mounted:function(){
 			axios.get("../rent/rent_reserve_list_vue.do", {
@@ -205,14 +223,31 @@
 			}).then(res=>{
 				console.log(res.data)
 				this.reserve_list=res.data
+				this.reserveClick(0,this.reserve_list[0].fno);
 			})
 		},
 		methods:{
 			setActiveTab(index) {
 		      	this.activeTab = index;
 		    },
-		    reserveClick(index){
+		    reserveClick(index, rno){
 		    	this.activeReserve=index;
+		    	axios.get('../rent/rentDetail_vue.do',{
+		    		params:{
+		    			rno:rno
+		    		}
+		    	}).then(res=>{
+		    		console.log(res.data)
+		    		this.rent_detail=res.data
+			    	this.option=this.rent_detail.car_option.split(",")
+		    	})
+		    	
+				let sDate = new Date(this.reserve_list[this.activeReserve].dbsdate);
+				let eDate = new Date(this.reserve_list[this.activeReserve].dbedate);
+				let diff = Math.abs(eDate.getTime() - sDate.getTime());
+				diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
+				console.log(diff);
+				this.period=diff
 		    }
 		}
 	})

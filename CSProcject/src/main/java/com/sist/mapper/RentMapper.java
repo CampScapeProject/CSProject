@@ -74,8 +74,10 @@ public interface RentMapper {
 	@Select("SELECT rno,name,price,rstate,inwon,type,fno,id,phone,email,birth,"
 		  + "		TO_CHAR(sdate,'yyyy-mm-dd') as dbsdate,TO_CHAR(edate,'yyyy-mm-dd') as dbedate,"
 		  + "		TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbdate,"
-		  + "		(SELECT image FROM rent2 WHERE rent2.rno=reserve2.fno) as image "
+		  + "		(SELECT image FROM rent2 WHERE rent2.rno=reserve2.fno) as image, "
+		  + "		(SELECT car_name FROM rent2 WHERE rent2.rno=reserve2.fno) as car_name "
 		  + "FROM reserve2 "
-		  + "WHERE id=#{id}")
+		  + "WHERE id=#{id} "
+		  + "ORDER BY regdate DESC")
 	public List<ReserveVO> reserveListData(String id);
 }
