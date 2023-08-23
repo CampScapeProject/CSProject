@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +22,10 @@ import com.sist.dao.CampDAO;
 import com.sist.vo.CampVO;
 import com.sist.vo.PageVO;
 import com.sist.vo.RentVO;
+import com.sist.vo.ReviewVO;
 import com.sist.vo.TourVO;
+
+import oracle.jdbc.proxy.annotation.Post;
 
 @RestController
 public class CampRestController {
@@ -289,4 +293,112 @@ public class CampRestController {
 		return json;
 	}
 	
+	/* -------- 리뷰 --------      */
+	
+	public String camp_review_list_data(int page,int cno)throws Exception
+	{ 
+		System.out.println("page:"+page);
+		
+		Map map = new HashMap();
+		int rowsize = 5;
+		int start = (rowsize * page) - (rowsize - 1);
+		int end = rowsize * page;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("type", "c");
+		map.put("cno", cno);
+		
+		List<ReviewVO> list=dao.campReviewList(map);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+	
+		return json;
+		
+	}
+	
+	@GetMapping(value = "camp/camp_review_vue.do",produces = "text/plain;charset=UTF-8")
+	public String camp_review_list(int page,int cno)throws Exception
+	{ 
+	
+		return camp_review_list_data(page,cno);
+		
+	}
+	
+	@GetMapping(value = "camp/camp_count_vue.do",produces = "text/plain;charset=UTF-8")
+	public String camp_count(int cno,int page)throws Exception
+	{
+		Map map = new HashMap();
+		map.put("type", "c");
+		map.put("cno", cno);
+		
+		int rcount=dao.campCount(map);
+		//rcount=rcount-(10*(page-1));
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(rcount);
+	
+		return json;
+		
+	}
+	
+	@GetMapping(value = "camp/camp_review_page_vue.do",produces = "text/plain;charset=UTF-8")
+	public String camp_review_page(int page,int cno) throws Exception
+	{
+		
+		Map map = new HashMap();
+		map.put("type", "c");
+		map.put("cno", cno);
+		int total=dao.campReviewTotal(map);
+		
+		PageVO vo=new PageVO();
+		vo.setCurpage(page);
+		vo.setTotalpage(total);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+	
+		return json;
+	}
+	
+	@GetMapping(value = "camp/camp_review_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String camp_review_detail(int no,int cno)  throws Exception
+	{
+		Map map = new HashMap();
+		map.put("type", "c");
+		map.put("cno", cno);
+		map.put("no", no);
+		
+		ReviewVO vo=dao.campReviewDetail(map,no);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+	
+		return json;
+	}
+	
+	@GetMapping(value = "camp/camp_review_delete_vue.do",produces = "text/plain;charset=UTF-8")
+	public String camp_review_delete(int no,int cno,int page) throws Exception
+	{
+		System.out.println("no:"+no);
+		System.out.println("실행됨");
+		
+		dao.campReviewDelete(no);
+		System.out.println("실행됨2");
+		
+		return camp_review_list_data(page,cno);
+		
+	}
+	
+	@PostMapping(value = "camp/camp_review_update_vue.do",produces = "text/plain;charset=UTF-8")
+	public String camp_review_update(int no,int cno,int page,String content,String subject) throws Exception
+	{
+		Map map = new HashMap();
+		map.put("cont", content);
+		map.put("sub", subject);
+		map.put("no", no);
+		
+		dao.campReviewUpdate(map);
+		
+		return camp_review_list_data(page,cno);
+	}
 }

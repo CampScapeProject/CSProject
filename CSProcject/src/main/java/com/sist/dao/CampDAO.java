@@ -3,6 +3,7 @@ package com.sist.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.CampMapper;
 import com.sist.vo.CampVO;
+import com.sist.vo.ReviewVO;
 import com.sist.vo.TourVO;
 
 @Repository
@@ -62,4 +64,40 @@ public class CampDAO {
 	{
 		return mapper.tourListData(addr);
 	}
+	
+	public List<ReviewVO> campReviewList(Map map)
+	{
+		return mapper.campReviewList(map);
+	}
+	
+	public int campReviewTotal(Map map)
+	{
+		return mapper.campReviewTotal(map);
+	}
+	public int campCount(Map map)
+	{
+		return mapper.campCount(map);
+	}
+	
+	public void campReviewInsert()
+	{
+		mapper.campReviewInsert();
+	}
+	
+	public ReviewVO campReviewDetail(Map map,int no)
+	{
+		mapper.campHitUpdate(no);
+		return mapper.campReviewDetail(map);
+	}
+	
+	public void campReviewUpdate(Map map)
+	{
+		mapper.campReviewUpdate(map);
+	}
+	
+	public void campReviewDelete(int no)
+	{
+		mapper.campReviewDelete(no);
+	}
+
 }

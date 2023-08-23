@@ -41,4 +41,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY tno ASC
 		FETCH FIRST 6 ROWS ONLY  
 	</select>
+	
+	<select id="campReviewList" resultType="ReviewVO" parameterType="hashmap">
+		SELECT no,subject,sno,type,id,TO_CHAR(regdate, 'YYYY-MM-DD')as dbday,num
+		FROM (SELECT no,subject,sno,type,id,regdate,rownum as num 
+		FROM (SELECT no,subject,sno,type,id,regdate FROM review2 WHERE sno=#{cno} AND type=#{type} ORDER BY no DESC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
 </mapper>

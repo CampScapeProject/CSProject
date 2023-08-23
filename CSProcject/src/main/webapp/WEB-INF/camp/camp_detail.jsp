@@ -5,11 +5,14 @@
 <head>
 <meta charset="UTF-8"> 
 <title>Insert title here</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c6fd98b724a1c5dfb4d7bfce05b0389f&libraries=services"></script>
+<!--  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
 <style type="text/css">
 /* 카테고리 */
 .row2 {
@@ -158,6 +161,60 @@
   display: flex;
   align-items: center;
 }	
+/*------------------------------------*/
+
+/* 버튼 */
+.cgenric-btn {
+  display: inline-block;
+  outline: none;
+  line-height: 40px;
+  padding: 0 30px;
+  font-size: .9em;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  width: 90px;
+  height: 35px;
+  color: white;
+}
+
+/* line 166, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_elements.scss */
+.cgenric-btn:focus {
+  outline: none;
+}
+
+
+/* line 221, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_elements.scss */
+.cgenric-btn:hover {
+  color: #001D38;
+  border: 1px solid #001D38;
+  background: white;
+}
+
+/* line 227, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_elements.scss */
+.cgenric-btn .cprimary-border {
+  color: #001D38;
+  border: 1px solid #001D38;
+  background: #001D38;
+}
+
+/* line 231, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_elements.scss */
+.cgenric-btn .cprimary-border:hover {
+  color: #001D38;
+  background: white;
+  border: 1px solid #001D38;
+}
+
+.blog_details a:hover {
+  color: #001D38;
+}
+
+
 </style>
 </head>
 <body>
@@ -272,26 +329,116 @@
 									<div class="campprogress-table-wrap">
 										<div class="campprogress-table">
 											<div class="table-head">
-												<div class="serial">번호</div>
-												<div class="visit">제목</div>
-												<div class="visit">이름</div>
-												<div class="visit">날짜</div>
-												<div class="visit">조회수</div>
+												<div class="serial" width=10%>번호</div>
+												<div class="visit" width=45%>제목</div>
+												<div class="visit" width=15%>이름</div>
+												<div class="visit" width=15%>날짜</div>
+												<div class="visit" width=5%>조회수</div>
+												<div class="visit" width=10%></div>
 											</div>
-											<div class="table-row">
-												<div class="serial">01</div>
-												<div class="visit">645032</div>
-												<div class="visit">645032</div>
-												<div class="visit">645032</div>
-												<div class="visit">645032</div>
+											<div class="table-row" v-for="rvo,index in review_list">
+												<div class="serial">{{index+1}}</div>
+												<div class="visit"><a @click="reviewDetail(rvo.no,rvo.sno,true)">{{rvo.subject}}</a></div>
+												<div class="visit">{{rvo.id}}</div>
+												<div class="visit">{{rvo.dbday}}</div>
+												<div class="visit">{{rvo.hit}}</div>
+												<div class="visit">
+													<button class="btn btn-xs btn-danger" style="font-size: 15px;margin-right: 15px;" @click="reviewUpdateDialog(rvo.no,rvo.sno,true)">수정</button>
+          											<button class="btn btn-xs btn-danger" @click="reviewDelete(rvo.no,rvo.sno)" style="font-size: 15px;cursor:pointer;">삭제</buton>
+												</div>
 											</div>
 										</div>
 									</div>
+									<div style="float: right;">
+										<div class="row">
+										<a href="#" class="cgenric-btn cprimary-border circle" style="background-color: #001D38;border-radius: 20px;">작성</a>
+							            </div>
+									</div>
+							 		<nav class="blog-pagination justify-content-center d-flex">
+			                                    <a href="#"  aria-label="Previous" @click="prev()">
+			                                    &lt;
+			                                    </a>
+			                                &nbsp; {{curpage}} page/ {{totalpage}} pages &nbsp;
+			                                    <a href="#"  aria-label="Next" @click="next()">
+			                                    &gt;
+			                                    </a>
+			                                </li>
+			                            </ul>
+			                        </nav> 
 								</div>
 							</template>
 				    	</div>
 				  	</div>
 				</div>
+              </div>
+              
+              <div id="dialog" title="후기글" v-if="isShow">
+              	<div class="comment-form" style="margin-top: -65px;">
+                  <form class="form-contact comment_form" action="#" id="commentForm">
+                     <div class="row" >
+                        <div class="col-sm-6">
+                           <div class="form-group">
+                              <input class="form-control" name="name" id="name" type="text" :value="review_detail.id" readonly>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="form-group">
+                              <input class="form-control" name="date" id="date" type="text" :value="review_detail.dbday" readonly>
+                           </div>
+                        </div>
+                        <div class="col-12">
+                           <div class="form-group">
+                              <input class="form-control" name="subject" id="subject" type="text" :value="review_detail.subject" readonly>
+                           </div>
+                        </div>
+                        <div class="col-12">
+                           <div class="form-group">
+                              <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" readonly>
+                              	{{review_detail.content}}
+                              </textarea>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <button type="submit" class="button button-contactForm btn_1 boxed-btn">후기 작성</button>
+                     </div>
+                  </form>
+               </div>
+              </div>
+              
+              <!-- 리뷰 수정 -->
+              <div id="dialogU" title="후기글 수정" v-if="isShow">
+              	<div class="comment-form" style="margin-top: -65px;">
+                  <form class="form-contact comment_form" action="#" id="commentForm">
+                     <div class="row" >
+                        <div class="col-sm-6">
+                           <div class="form-group">
+                              <input class="form-control" name="name" id="name" type="text" :value="review_detail.id" >
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="form-group">
+                              <input class="form-control" name="date" id="date" type="text" :value="review_detail.dbday" >
+                           </div>
+                        </div>
+                        <div class="col-12">
+                           <div class="form-group">
+                              <input class="form-control" name="subject" id="subject" type="text" :value="review_detail.subject" >
+                           </div>
+                        </div>
+                        <div class="col-12">
+                           <div class="form-group">
+                              <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9">
+                              	{{review_detail.content}}
+                              </textarea>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <button type="submit" class="button button-contactForm btn_1 boxed-btn" @click="reviewUpdate(review_detail.no,review_detail.sno,false)">후기 작성</button>
+                     </div>
+                  </form>
+               </div>
               </div>
               <!---------------------->
               <div class="navigation-area"><!--style="width: 1000px"-->
@@ -388,7 +535,13 @@
 				    ],
 				tour_list:[],
 				addr:'',
-				cookie_list:[]
+				cookie_list:[],
+				review_list:[],
+				curpage:1,
+				totalpage:0,
+				rcount:0,
+				review_detail:{},
+				isShow:false
 			},
 			mounted:function(){
 				axios.get('../camp/camp_detail_vue.do',{
@@ -402,11 +555,15 @@
 					if(window.kakao && window.kakao.maps) {
 		               this.initMap();
 		            } else {
-		               this.addScript();               
+		               this.addScript();   
+		               
 		            }
+					this.cookieShow();
+					this.reviewList();
 				})
 				
-				this.cookieShow();
+				
+				
 				   
 			},
 			methods:{
@@ -429,6 +586,114 @@
 			    		this.cookie_list=res.data
 			    	})
 			    },
+			    reviewList:function(){
+			    	axios.get('../camp/camp_review_vue.do',{
+			    			params:{
+			    			page:this.curpage,
+			    			cno:this.cno
+			    		}
+			    	}).then(res=>{
+			    		console.log(res.data)
+			    		this.review_list=res.data
+			    	})
+			    	
+			    	axios.get('../camp/camp_review_page_vue.do',{
+			    		params:{
+			    			page:this.curpage,
+			    			cno:this.cno
+			    		}
+			    	}).then(res=>{
+			    		console.log(res.data)
+			    		this.curpage=res.data.curpage;
+						this.totalpage=res.data.totalpage
+			    	})
+			    	
+			    	axios.get('../camp/camp_count_vue.do',{
+			    		params:{
+			    			page:this.curpage,
+			    			cno:this.cno
+			    		}
+			    	}).then(res=>{
+			    		console.log(res.data)
+			    		this.rcount=res.data
+			    	})
+			    },
+			    reviewDetail:function(no,cno,bool){
+			    	this.isShow=bool;
+					axios.get('../camp/camp_review_detail_vue.do',{
+						params:{
+							cno:cno,
+							no:no
+						}
+					}).then(res=>{
+						console.log(res.data)
+						this.review_detail=res.data
+						
+						$('#dialog').dialog({
+							autoOpen:false,
+							modal:true, //다이어로그 실행중에는 다른 것은 실행 안되게
+							width:700,
+							height:500
+						}).dialog("open")
+					})			    	
+			    },
+			    reviewDelete:function(no,cno){
+			    	axios.get('../camp/camp_review_delete_vue.do',{
+						params:{
+							cno:cno,
+							no:no,
+							page:this.curpage
+						}
+					}).then(res=>{
+						alert('삭제되었습니다')
+						this.review_list=res.data
+						
+					}).catch(error=>{
+						  console.log(error.response)
+					  })
+			    },reviewUpdateDialog:function(no,cno,bool){
+			    	
+			    	this.isShow=bool;
+			    	axios.get('../camp/camp_review_detail_vue.do',{
+						params:{
+							cno:cno,
+							no:no
+						}
+					}).then(res=>{
+						console.log(res.data)
+						this.review_detail=res.data
+						
+			    	$('#dialogU').dialog({
+						autoOpen:false,
+						modal:true, //다이어로그 실행중에는 다른 것은 실행 안되게
+						width:700,
+						height:500
+					}).dialog("open")
+					})
+					
+			    },	
+			    reviewUpdate:function(no,cno,bool){
+			    	alert("cno:"+cno+"no:"+no)
+			    	this.isShow=bool;
+					
+			    	let cont=$('#content').val()
+			    	let sub=$('#subject').val()
+					  axios.post('../camp/camp_review_update_vue.do',null,{
+						  params:{
+							  no:no,
+							  cno:cno,
+							  page:this.curpage,
+							  content:cont,
+							  subject:sub
+								  
+						  }
+					  }).then(response=>{
+						  console.log(response.data)
+						  this.review_list=response.data
+					  }).catch(error=>{
+						  console.log(error.response)
+					  })
+				  },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		             mapOption = {
@@ -458,7 +723,7 @@
 
 		                 // 인포윈도우로 장소에 대한 설명을 표시합니다
 		                 var infowindow = new kakao.maps.InfoWindow({
-		                     content: '<div style="width:150px;text-align:center;padding:6px 0;">'+name+'</div>'
+		                     content: '<div style="width:400px;text-align:center;padding:6px 0;">'+name+'</div>'
 		                 });
 		                 infowindow.open(map, marker);
 
@@ -467,13 +732,22 @@
 		             } 
 		         });    
 		         },
+		         
 		         addScript(){
 		            const script=document.createElement("script")
 		            /* global kakao */
 		            script.onload=()=>kakao.maps.load(this.initMap())
 		            script.src='//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=c6fd98b724a1c5dfb4d7bfce05b0389f&libraries=services'
 		            document.head.appendChild(script)
-		         }
+		         },
+		         prev:function(){
+					  this.curpage=this.curpage>1?this.curpage-1:this.curpage;
+					  this.dataRecv()
+				  },
+				  next:function(){
+					  this.curpage=this.curpage<this.totalpage?this.curpage+1:this.curpage;
+					  this.dataRecv()
+				  }
 			}
 			
 		})
