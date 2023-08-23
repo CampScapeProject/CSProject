@@ -66,12 +66,6 @@ public class NoticeRestController {
 		vo.setId(id);
 		vo.setContent(content);
 		vo.setFix(fix);
-		
-		System.out.println(vo.getId());
-		System.out.println(vo.getTitle());
-		System.out.println(vo.getContent());
-		System.out.println(vo.getFix());
-		
 		dao.noticeInsert(vo);
 		
 		return "../notice/notice_main.do";
@@ -81,7 +75,6 @@ public class NoticeRestController {
 	public String notice_detail(int nno) throws Exception
 	{
 		NoticeVO vo = dao.noticeDetailData(nno);
-		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
 		return json;

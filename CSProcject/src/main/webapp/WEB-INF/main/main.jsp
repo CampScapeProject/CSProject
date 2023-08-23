@@ -35,6 +35,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../layout/css/style.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    
+<style type="text/css">
+	body {
+		font-family: 'Pretendard-Regular';
+		src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	}
+</style>
 </head>
 <body>
 	<div>

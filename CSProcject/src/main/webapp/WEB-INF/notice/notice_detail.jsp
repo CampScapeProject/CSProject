@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +43,14 @@
 		margin-bottom: 10px;
 	}
 	
+	pre {
+		font-family: 'Pretendard-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	    padding: 30px;
+	}
+	
 </style>
 </head>
 <body>
@@ -67,17 +76,26 @@
 	    			<tr>
 	    				<th width=15% class="text-center">제목</th>
 	    				<td width=85% colspan=3>
-	    					{{notice_data.title}}
+	    					{{title}}
 	    				</td>
 	    			</tr>
 	    			<tr>
+	    				<th width=10% class="text-center">작성자</th>
+	    				<td width=40%><i class="fa-solid fa-user" style="color:#828282; margin-right: 10px;"></i>관리자</td>
+	    				<th width=10% class="text-center">작성일</th>
+	    				<td width=40%>{{regdate}}</td>
+	    			</tr>
+	    			<tr>
 	    				<td colspan=4>
-	    					<pre>{{notice_data.content}}</pre>
+	    					<pre class="notice_content">{{content}}</pre>
 	    				</td>
 	    			</tr>
 	    			<tr>
 	    				<td colspan=4 class="text-right">
-	    					<a href="'../notice/notice_update.do?nno='+notice_date.nno"><input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="수정" @click="update()"></a>
+	    				<c:if test="${sessionScope.admin=='y' }">
+	    					<a href="'../notice/notice_update.do?nno='+notice_data.nno"><input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="수정" @click="update()"></a>
+	    					<a href="'../notice/notice_delete.do?nno='+notice_data.nno"><input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="삭제" @click="del()"></a>
+	    				</c:if>
 	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="목록" style="background-color: #787878" onclick="javascript:history.back()">
 	    				</td>
 	    			</tr>
@@ -100,28 +118,34 @@
 		el:'.blog_area',
 		data:{
 			notice_data:{},
-			nno:0
+			nno:${nno},
+			title:'',
+			content:'',
+			regdate:'',
+			hit:0
 		},
 		mounted:function(){
-			this.dataRecive()
+			axios.get('../notice/notice_detail_vue.do', {
+				params:{
+					nno:this.nno
+				}
+			}).then(res=>{
+				console.log(res.data)
+				this.notice_data = res.data
+				
+				this.title = this.notice_data.title
+				this.content = this.notice_data.content
+				this.date = this.notice_data.dbday
+				this.hit = this.notice_data.hit
+				
+			}).catch(error=>{
+				console.log(error.response)
+			})
 		},
 		methods:{
 			
-			dataRecive:function(){
-				axios.get('../notice/notice_detail_vue.do', {
-					params:{
-						nno:this.nno
-					}
-				}).then(res=>{
-					console.log(res.data)
-					this.notice_data = res.data
-				}).catch(error=>{
-					console.log(error.response)
-				})
-			},
-			
 			update:function(){
-				axios.post('../notice/notice_update_vue.do', {
+				axios.post('../notice/notice_update_vue.do', null, {
 					params:{
 						nno:this.nno
 					}
@@ -131,6 +155,7 @@
 					console.log(error.response)
 				})
 			}
+
 		}
 	})
 </script>

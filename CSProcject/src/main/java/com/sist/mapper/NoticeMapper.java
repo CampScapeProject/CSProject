@@ -25,6 +25,6 @@ public interface NoticeMapper {
 	@Update("UPDATE notice2 SET hit=hit+1 WHERE nno=#{nno}")
 	public void noticeHitIncrease(int nno);
 	
-	@Select("SELECT nno, title, content, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit FROM notice2 WHERE nno=#{nno}")
+	@Select("SELECT nno, title, content, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, fix, hit FROM notice2 WHERE nno=#{nno}")
 	public NoticeVO noticeDetailData(int nno);
 }

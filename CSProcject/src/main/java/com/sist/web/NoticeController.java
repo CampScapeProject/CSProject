@@ -16,7 +16,7 @@ public class NoticeController {
 		return "notice/notice_insert";
 	}
 	
-	@GetMapping("notice/notice_detail")
+	@GetMapping("notice/notice_detail.do")
 	public String notice_detail(int nno, Model model)
 	{
 		model.addAttribute("nno", nno);

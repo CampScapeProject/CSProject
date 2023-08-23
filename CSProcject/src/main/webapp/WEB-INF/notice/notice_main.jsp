@@ -89,11 +89,11 @@
 	    			</tr>
 	    			<tr v-for="vo in notice_list" :style="vo.fix==1?'background-color: rgba(232, 106, 51, 0.1)':''">
 	    			
-	    				<td width=10% class="text-center"><i v-if="vo.fix==1" class="fa-solid fa-microphone" style="color:#828282; margin-right: 10px;"></i></td>
+	    				<td width=10% class="text-center"><i v-if="vo.fix==1" class="fa-solid fa-microphone" style="color:#828282;"></i></td>
 	    				
 	    				
 		    				<td width="40%">
-							    <a :href="'../notice/notice_detail?nno='+vo.nno">{{vo.title}}</a>
+							    <a :href="'../notice/notice_detail.do?nno='+vo.nno">{{vo.title}}</a>
 							</td>
 	    				
 	    				<td width=15% class="text-center">관리자</td>
@@ -208,6 +208,7 @@
 				this.curpage = page;
 				this.dataRecive();
 			}
+			
 		}
 	})
 </script>
