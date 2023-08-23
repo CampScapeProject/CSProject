@@ -112,7 +112,7 @@
 	    			</tr>
 	    			<tr>
 	    				<td width=10% class="text-center">번호</td>
-	    				<td width=40%><i class="fa-solid fa-lock" style="color:#C8C8C8; margin-right: 10px;"></i>제목</td>
+	    				<td width=40%><i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>제목</td>
 	    				<td width=15% class="text-center">사용자 이름</td>
 	    				<td width=20% class="text-center">날짜</td>
 	    				<td width=15% class="text-center">조회수</td>

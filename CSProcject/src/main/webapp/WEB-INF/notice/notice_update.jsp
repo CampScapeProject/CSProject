@@ -65,7 +65,7 @@
     	<div class="container">
 	    	<div class="row">
 	    		
-	    		<label class="form-label">공지사항 작성</label>
+	    		<label class="form-label">공지사항 수정</label>
 	    		
 	    		<table class="table">
 	    			<tr>
@@ -106,42 +106,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
 <script>
-	new Vue({
-		el:'.blog_area',
-		data:{
-			title:'',
-			content:'',
-			fix:0,
-			sessionId:"${id}"
-		},
-		
-		methods:{
-			write:function(){
-				
-				if(this.title==="")
-				{
-					this.$refs.title.focus()
-					return;
-				}
-				if(this.content==="")
-				{
-					this.$refs.content.focus()
-					return;
-				}
-				
-				axios.post("../notice/notice_insert_vue.do", null, {
-					params:{
-						title:this.title,
-						fix:this.fix,
-						content:this.content
-					}
-				}).then(res=>{
-					console.log(res.data)
-				}).catch(console.log(error.response))
-			}
-		}
-	})
+	
 </script>
 </body>
 </html>

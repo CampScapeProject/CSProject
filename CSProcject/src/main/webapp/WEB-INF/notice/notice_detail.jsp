@@ -34,10 +34,6 @@
 		color: white;
 	}
 	
-	textarea {
-		resize: none;
-	}
-	
 	.form-label {
 		color : black;
 		font-size: 32px;
@@ -65,32 +61,24 @@
     	<div class="container">
 	    	<div class="row">
 	    		
-	    		<label class="form-label">공지사항 작성</label>
+	    		<label class="form-label">공지사항</label>
 	    		
 	    		<table class="table">
 	    			<tr>
 	    				<th width=15% class="text-center">제목</th>
 	    				<td width=85% colspan=3>
-	    					<input type=text class="input-sm form-control" name=title v-model="title" ref="title">
+	    					{{notice_data.title}}
 	    				</td>
 	    			</tr>
 	    			<tr>
-	    				<th width=8% class="text-center">고정 여부</th>
-	    				<td width=92%>
-	    					<input type=radio name=secret v-model=fix value=1 >     고정      
-	                   		<input type=radio name=secret v-model=fix value=0 style="margin-left: 10px;" checked>     비고정      
-	    				</td>
-	    			</tr>
-	    			<tr>
-	    				<th width=15% class="text-center">내용</th>
-	    				<td width=85% colspan=3>
-	    					<textarea class="form-control" rows="10" cols="110" name=content v-model="content" ref="content"></textarea>
+	    				<td colspan=4>
+	    					<pre>{{notice_data.content}}</pre>
 	    				</td>
 	    			</tr>
 	    			<tr>
 	    				<td colspan=4 class="text-right">
-	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="작성" @click="write()">
-	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="취소" style="background-color: #787878" onclick="javascript:history.back()">
+	    					<a href="'../notice/notice_update.do?nno='+notice_date.nno"><input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="수정" @click="update()"></a>
+	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="목록" style="background-color: #787878" onclick="javascript:history.back()">
 	    				</td>
 	    			</tr>
 	    		</table>
@@ -106,39 +94,42 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
 <script>
 	new Vue({
 		el:'.blog_area',
 		data:{
-			title:'',
-			content:'',
-			fix:0,
-			sessionId:"${id}"
+			notice_data:{},
+			nno:0
 		},
-		
+		mounted:function(){
+			this.dataRecive()
+		},
 		methods:{
-			write:function(){
-				
-				if(this.title==="")
-				{
-					this.$refs.title.focus()
-					return;
-				}
-				if(this.content==="")
-				{
-					this.$refs.content.focus()
-					return;
-				}
-				
-				axios.post("../notice/notice_insert_vue.do", null, {
+			
+			dataRecive:function(){
+				axios.get('../notice/notice_detail_vue.do', {
 					params:{
-						title:this.title,
-						fix:this.fix,
-						content:this.content
+						nno:this.nno
 					}
 				}).then(res=>{
 					console.log(res.data)
-				}).catch(console.log(error.response))
+					this.notice_data = res.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			},
+			
+			update:function(){
+				axios.post('../notice/notice_update_vue.do', {
+					params:{
+						nno:this.nno
+					}
+				}).then(res=>{
+					console.log(res.data)
+				}).catch(error=>{
+					console.log(error.response)
+				})
 			}
 		}
 	})

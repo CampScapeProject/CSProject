@@ -38,7 +38,7 @@ public class RecipeRestController {
 	{
 		int totalpage = dao.recipeTotalPage();
 		
-		final int BLOCK = 10;
+		final int BLOCK = 5;
 		int startpage = ((page-1)/BLOCK*BLOCK)+1;
 		int endpage = ((page-1)/BLOCK*BLOCK)+BLOCK;
 		

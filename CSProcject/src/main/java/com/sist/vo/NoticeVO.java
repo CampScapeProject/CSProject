@@ -7,8 +7,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class NoticeVO {
-	private int nno, hit, filecount;
-	private String id, title, dbday, filename, filesize;
+	private int nno, hit, fix;
+	private String id, title, content, dbday;
 	private Date regdate;
-	private List<MultipartFile> files; // 업로드된 파일 저장
 }

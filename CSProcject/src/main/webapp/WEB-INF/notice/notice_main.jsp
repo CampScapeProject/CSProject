@@ -43,11 +43,12 @@
 		text-align: center;
 	}
 	
-	.blog_right_sidebar .post_category_widget .cat-list li a {
-		font-size: 14px;
-		line-height: 20px;
-		color: white;
+	a:hover {
+		text-decoration: none;
+		font-weight: bold;
+		color: #E86A33;
 	}
+
 </style>
 </head>
 <body>
@@ -67,32 +68,38 @@
     	<div class="container">
 	    	<div class="row">
 	    	
-	    		<div class="search_form" style="margin-bottom: 20px;">
-	                    <input type=radio name=search value=name checked>    이름
-	                    <input type=radio name=search value=subject>    제목 
+	    		<div class="search_form inline" style="margin-bottom: 20px;">
+	                    <input type=radio name=search value=subject checked>    제목 
 	                    <input type=radio name=search value=content>    내용
 	                    <input type=text class="input-sm" placeholder="검색어를 입력하세요." style="margin-left: 5px;"/>
 	                    <a href="#"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #e86a33;margin-left: 5px;"></i></a>
 	                    
 	                    <c:if test="${sessionScope.admin=='y' }">
-	                    <a href="../qna/qna_insert.do"><input type=button class="boxed-btn4 text-white rounded-1 w-40 h-10 btn_1" value="공지사항 작성" style="margin-left: 570px"></a>
+	                    <a href="../notice/notice_insert.do"><input type=button class="boxed-btn4 text-white rounded-1 w-40 h-10 btn_1" value="공지사항 작성" style="margin-left: 570px"></a>
 	                    </c:if>
 	    		</div>
 	    		
 	    		<table class="table">
 	    			<tr>
-	    				<th width=10% class="text-center">NO.</th>
+	    				<th width=10% class="text-center"></th>
 	    				<th width=40% class="text-center">CONTENT</th>
 	    				<th width=15% class="text-center">NAME</th>
 	    				<th width=20% class="text-center">DATE</th>
 	    				<th width=15% class="text-center">HITS</th>
 	    			</tr>
-	    			<tr>
-	    				<td width=10% class="text-center">번호</td>
-	    				<td width=40%><i class="fa-solid fa-microphone" style="color:#C8C8C8; margin-right: 10px;"></i>제목</td>
+	    			<tr v-for="vo in notice_list" :style="vo.fix==1?'background-color: rgba(232, 106, 51, 0.1)':''">
+	    			
+	    				<td width=10% class="text-center"><i v-if="vo.fix==1" class="fa-solid fa-microphone" style="color:#828282; margin-right: 10px;"></i></td>
+	    				
+	    				
+		    				<td width="40%">
+							    <a :href="'../notice/notice_detail?nno='+vo.nno">{{vo.title}}</a>
+							</td>
+	    				
 	    				<td width=15% class="text-center">관리자</td>
-	    				<td width=20% class="text-center">날짜</td>
-	    				<td width=15% class="text-center">조회수</td>
+	    				<td width=20% class="text-center">{{vo.dbday}}</td>
+	    				<td width=15% class="text-center">{{vo.hit}}</td>
+	    			
 	    			</tr>
 	    		</table>
 	    		
@@ -122,19 +129,27 @@
     	</div>
   	</section>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <script>
 	new Vue({
 		el:'.blog_area',
 		data:{
 			notice_list:[],
 			page_info:[],
+			nno:0,
+			fix:0,
 			curpage:1,
 			totalpage:0,
 			startPage:0,
 			endPage:0
 		},
 		mounted:function(){
-			
+			this.dataRecive()
 		},
 		methods:{
 			
@@ -146,10 +161,30 @@
 				}).then(res=>{
 					console.log(res.data)
 					this.notice_list = res.data
+					
+					this.nno = this.notice_list.nno
+					this.fix = this.notcie_list.fix
+					
 				}).catch(error=>{
 					console.log(error.response)
 				})
-			}
+				
+				axios.get('../notice/notice_page_vue.do', {
+					params:{
+						page:this.curpage
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.page_info = res.data
+					
+					this.curpage = this.page_list.curpage
+					this.totalpage = this.page_list.totalpage
+					this.startpage = this.page_list.startPage
+					this.endpage = this.page_list.endPage
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			},
 			
 			range:function(start,end){
 				let arr = [];

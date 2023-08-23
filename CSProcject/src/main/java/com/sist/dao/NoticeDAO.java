@@ -22,4 +22,15 @@ public class NoticeDAO {
 	{
 		return mapper.noticeTotalpage();
 	}
+	
+	public void noticeInsert(NoticeVO vo)
+	{
+		mapper.noticeInsert(vo);
+	}
+	
+	public NoticeVO noticeDetailData(int nno)
+	{
+		mapper.noticeHitIncrease(nno);
+		return mapper.noticeDetailData(nno);
+	}
 }
