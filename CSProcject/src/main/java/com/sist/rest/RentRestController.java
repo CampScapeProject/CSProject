@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.RentDAO;
 import com.sist.vo.*;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -162,5 +163,18 @@ public class RentRestController {
 		int count=dao.reserveCheck(map);
 		
 		return count==0?"Y":"N";
+	}
+	
+	//마이페이지
+	@GetMapping(value = "rent/rent_reserve_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rent_reserve_list(String id) throws Exception {
+		List<ReserveVO> list=dao.reserveListData(id);
+		DecimalFormat df=new DecimalFormat("###,###");
+		for(ReserveVO vo:list) {
+			vo.setPrice(df.format(Integer.parseInt(vo.getPrice())));
+		}
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(list);
 	}
 }

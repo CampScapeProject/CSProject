@@ -335,7 +335,7 @@
 				    			dbsdate:this.sDate,
 				    			dbedate:this.eDate,
 				    			fno:this.rno,
-				    			price:this.rent_detail.price,
+				    			price:this.rent_detail.price*this.period,
 				    			id:'${sessionScope.id}'
 				    		}
 				    	}).then(res=>{

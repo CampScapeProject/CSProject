@@ -60,4 +60,8 @@ public class RentDAO {
 	public int reserveCheck(Map map) {
 		return mapper.reserveCheck(map);
 	}
+	
+	public List<ReserveVO> reserveListData(String id) {
+		return mapper.reserveListData(id);
+	}
 }

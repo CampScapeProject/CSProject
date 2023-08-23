@@ -69,4 +69,13 @@ public interface RentMapper {
 		  + "AND edate BETWEEN #{sdate} AND #{edate} "
 		  + "AND type='r'")
 	public int reserveCheck(Map map);
+	
+	//마이페이지
+	@Select("SELECT rno,name,price,rstate,inwon,type,fno,id,phone,email,birth,"
+		  + "		TO_CHAR(sdate,'yyyy-mm-dd') as dbsdate,TO_CHAR(edate,'yyyy-mm-dd') as dbedate,"
+		  + "		TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbdate,"
+		  + "		(SELECT image FROM rent2 WHERE rent2.rno=reserve2.fno) as image "
+		  + "FROM reserve2 "
+		  + "WHERE id=#{id}")
+	public List<ReserveVO> reserveListData(String id);
 }

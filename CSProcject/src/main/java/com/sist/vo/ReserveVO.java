@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter@Setter
 public class ReserveVO {
 	private int rno,inwon,fno;
-	private String name,price,rstate,dbsdate,dbedate,type,id,phone,email,birth;
-	private Date sdate,edate;
+	private String name,price,rstate,dbsdate,dbedate,dbdate,type,id,phone,email,birth,image;
+	private Date sdate,edate,regdate;
 }
