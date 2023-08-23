@@ -60,7 +60,7 @@
 	    border-radius: 10px;
 	}
 	.col-lg-2::-webkit-scrollbar-track {
-	    background-color: #F5F5F5;
+	    background-color: white;
 	}
 </style>
 </head>
