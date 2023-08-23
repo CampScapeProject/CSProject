@@ -13,7 +13,7 @@ public interface QnaMapper {
 	//카테고리 상관없이 전체 리스트 출력
 	@Select("SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit, open, group_tab, num "
 			+ "FROM (SELECT qno, qcno, id, name, title, regdate , hit, open, group_tab, rownum as num "
-			+ "FROM (SELECT qno, qcno, id, name, title, regdate , hit, open, group_tab"
+			+ "FROM (SELECT qno, qcno, id, name, title, regdate , hit, open, group_tab "
 			+ "FROM qna2 ORDER BY group_id DESC, group_step ASC)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<QnaVO> qnaListData(Map map);

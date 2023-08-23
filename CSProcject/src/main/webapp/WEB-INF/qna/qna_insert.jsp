@@ -65,6 +65,8 @@
 </head>
 <body>
 
+<div class="qna">
+
 	<div class="container" style="padding: 80px;">
 	
 		<div class="row2" style="text-align: center">
@@ -110,8 +112,8 @@
 	    			<tr>
 	    				<th width=15% class="text-center">카테고리</th>
 	    				<td width=35%>
-							<select v-model="qcno">
-								<option value=0 selected>   -- 카테고리를 선택해주세요 --    </option>
+							<select v-on:change="qcno_insert()">
+								<option value=0>   -- 카테고리를 선택해주세요 --    </option>
 								<option value=2>   캠핑장 예약    </option>
 								<option value=3>   렌터카 예약   </option>
 								<option value=4>   상품 문의    </option>
@@ -138,7 +140,7 @@
 	    			</tr>
 	    			<tr>
 	    				<td colspan=4 class="text-right">
-	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="작성" @click="write()">
+	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="작성" v-on:click="write()">
 	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="취소" style="background-color: #787878" onclick="javascript:history.back()">
 	    				</td>
 	    			</tr>
@@ -147,16 +149,18 @@
 	    	</div>
     	</div>
   	</section>
+  	
+</div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <script>
 	new Vue({
-		el:'.container',
+		el:'.qna',
 		data:{
 			title : '',
 			content: '',
@@ -169,6 +173,10 @@
 			// 카테고리 선택 안했을 때
 			categoryZero:function(){
 				alert("카테고리 선택해 주세요");
+			},
+			
+			qcno_insert:function(){
+				alert("all....")
 			}
 			
 			,write:function(){
