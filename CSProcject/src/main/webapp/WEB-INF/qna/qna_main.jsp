@@ -5,9 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CampScape - 문의사항</title>
+<title>CampScape - 문의하기</title>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 	.row2 {
 		margin: 0px auto;
@@ -46,6 +45,12 @@
 	li > a:hover {
 		color: #E86A33;
 		font-weight: bold;
+	}
+	
+	a:hover {
+		text-decoration: none;
+		font-weight: bold;
+		color: #E86A33;
 	}
 
 </style>
@@ -106,14 +111,17 @@
 	    			<tr>
 	    				<th width=10% class="text-center">NO.</th>
 	    				<th width=40% class="text-center">CONTENT</th>
-	    				<th width=15% class="text-center">NAME</th>
+	    				<th width=15% class="text-center">ID</th>
 	    				<th width=20% class="text-center">DATE</th>
 	    				<th width=15% class="text-center">HITS</th>
 	    			</tr>
 	    			
 	    			<tr v-for="vo in qna_list">
 	    				<td width=10% class="text-center">{{vo.qno}}</td>
-	    				<td width=40%><i v-if="vo.open=='n'" class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>{{vo.title}}</td>
+	    				<td width=40%><i v-if="vo.open=='n'" class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>
+	    					<span v-if="vo.id!=sessionId || sessionId==null">비밀글입니다.</span>
+	    					<a v-if="vo.id==sessionId" :href="'../qna/qna_detail.do?qno='+vo.qno">{{vo.title}}</a>
+	    				</td>
 	    				<td width=15% class="text-center">{{vo.id}}</td>
 	    				<td width=20% class="text-center">{{vo.dbday}}</td>
 	    				<td width=15% class="text-center">{{vo.hit}}</td>
@@ -160,12 +168,12 @@
 		data:{
 			qna_list:[],
 			page_info:[],
-			qcno:1,
+			qcno:${param.qcno},
 			curpage:1,
 			totalpage:0,
 			startpage:0,
 			endpage:0,
-			id:'${id}',
+			sessionId:'${id}',
 			name:'${name}'
 		},
 		mounted:function(){
@@ -178,7 +186,7 @@
 				axios.get('../qna/qna_main_vue.do', {
 					params:{
 						page:this.curpage,
-						qcno:1
+						qcno:this.qcno
 					}
 				}).then(res=>{
 					console.log(res.data)
@@ -191,7 +199,7 @@
 				axios.get('../qna/qna_page_vue.do',{
 					params:{
 						page:this.curpage,
-						qcno:1
+						qcno:this.qcno
 					}
 				}).then(res=>{
 					console.log(res.data)

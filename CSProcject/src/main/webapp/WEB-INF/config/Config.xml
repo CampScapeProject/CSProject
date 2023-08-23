@@ -15,6 +15,6 @@
 		<!-- <mapper resource="com/sist/mapper/food-mapper.xml"/> -->
 		<mapper resource="com/sist/mapper/rent-mapper.xml"/>
 		<mapper resource="com/sist/mapper/camp-mapper.xml"/>
-		<!-- <mapper resource="com/sist/mapper/qna-mapper.xml"/> -->
+		<mapper resource="com/sist/mapper/qna-mapper.xml"/>
 	</mappers>
 </configuration>

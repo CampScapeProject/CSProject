@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.QnaMapper">
 	<select id="qnaCategoryListData" resultType="QnaVO" parameterType="hashmap">
-		SELECT qno, qcno, id, name, title, TO_CHAT(regdate, 'YYYY-MM-DD') as dbday, hit, open, num
+		SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit, open, num
 		FROM (SELECT qno, qcno, id, name, title, regdate, hit, open, rownum as num
 		FROM (SELECT qno, qcno, id, name, title, regdate, hit, open FROM qna2 WHERE qcno=#{qcno} ORDER BY qno DESC))
 		WHERE num BETWEEN #{start} AND #{end}
