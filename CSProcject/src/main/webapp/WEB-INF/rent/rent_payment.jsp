@@ -300,18 +300,6 @@
 		    	}
 		    },
 		    reserve(){
-		    	axios.get('../rent/reserve_check_vue.do',{
-		    		params:{
-		    			rno:this.rno,
-		    			sdate:this.sdate,
-		    			edate:this.edate
-		    		}
-		    	}).then(res=>{
-		    		if(!res){
-		    			alert("이미 예약된 상품입니다")
-		    			location.href="../rent/rent_main.do"
-		    		}
-		    	})
 		    	if(this.name.trim()==""){
 		    		this.$refs.name.focus();
 		    		return
@@ -328,22 +316,39 @@
 		    		this.$refs.email.focus();
 		    		return
 		    	}
-		    	axios.post('../rent/reserve_vue.do',null,{
+		    	
+		    	//예약 체크
+		    	axios.get('../rent/reserve_check_vue.do',{
 		    		params:{
-		    			name:this.name,
-		    			birth:this.birth,
-		    			phone:this.phone,
-		    			email:this.email,
-		    			dbsdate:this.sDate,
-		    			dbedate:this.eDate,
-		    			fno:this.rno,
-		    			price:this.rent_detail.price,
-		    			id:'${sessionScope.id}'
+		    			rno:this.rno,
+		    			sdate:this.sDate,
+		    			edate:this.eDate
 		    		}
 		    	}).then(res=>{
-		    		alert("예약이 완료되었습니다.")
-		    		location.href="../main/home.do"
+		    		if(res.data=="Y"){
+				    	axios.post('../rent/reserve_vue.do',null,{
+				    		params:{
+				    			name:this.name,
+				    			birth:this.birth,
+				    			phone:this.phone,
+				    			email:this.email,
+				    			dbsdate:this.sDate,
+				    			dbedate:this.eDate,
+				    			fno:this.rno,
+				    			price:this.rent_detail.price,
+				    			id:'${sessionScope.id}'
+				    		}
+				    	}).then(res=>{
+				    		alert("예약이 완료되었습니다")
+				    		location.href="../main/home.do"
+				    	})
+		    		} else{
+		    			alert("예약이 불가능한 상품입니다")
+		    			location.href="../rent/rent_main.do"
+		    			
+		    		}
 		    	})
+		    	
 		    }
 		}
 	})

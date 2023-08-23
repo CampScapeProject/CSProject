@@ -87,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="rentReviewList" resultType="ReviewVO" parameterType="hashmap">
-		SELECT no,TO_CHAR(regdate, 'yyyy-mm-dd') as dbday,content,sno,type,id,rating,num 
+		SELECT no,TO_CHAR(regdate, 'yyyy-mm-dd hh24:mi:ss') as dbday,content,sno,type,id,rating,num 
 		FROM (SELECT no,regdate,content,sno,type,id,rating,rownum as num 
 			  FROM (SELECT no,regdate,content,sno,type,id,rating 
 			  		FROM review2 

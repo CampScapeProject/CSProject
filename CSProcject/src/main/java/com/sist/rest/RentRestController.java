@@ -46,7 +46,6 @@ public class RentRestController {
 	@GetMapping(value = "rent/rent_cookie.do", produces = "text/plain;charset=UTF-8")
 	public String rentCookieData(HttpServletRequest request) throws Exception {
 		Cookie[] cookies=request.getCookies();
-
 		List<RentVO> clist=new ArrayList<RentVO>();
 		if(cookies!=null) {
 			for(int i=cookies.length-1;i>=0;i--) {
@@ -155,13 +154,13 @@ public class RentRestController {
 	}
 	
 	@GetMapping(value = "rent/reserve_check_vue.do", produces = "text/plain;charset=UTF-8")
-	public boolean reserve_check(int rno, String sdate, String edate) {
+	public String reserve_check(int rno, String sdate, String edate) {
 		Map map=new HashMap();
 		map.put("rno", rno);
 		map.put("sdate", sdate);
 		map.put("edate", edate);
 		int count=dao.reserveCheck(map);
 		
-		return count==0;
+		return count==0?"Y":"N";
 	}
 }

@@ -195,10 +195,6 @@
                                              <i v-for="n in rvfc(vo.rvAvg)" class="fa fa-star"></i> 
                                              <i v-for="n in rvhc(vo.rvAvg)" class="fa-solid fa-star-half-stroke"></i>
                                              <i v-for="n in rvnc(vo.rvAvg)" class="fa-regular fa-star"></i>
-                                             <!-- <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa fa-star"></i> 
-                                             <i class="fa-regular fa-star"></i> -->
                                              <a style="cursor: default;">({{vo.rvCount}} Review)</a>
                                         </span>
                                         <div class="days">

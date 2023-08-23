@@ -33,6 +33,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/d65519dfe2.js" crossorigin="anonymous"></script>
 <style type="text/css">
 	
     .mypage-title {
@@ -71,9 +72,7 @@
     .col-lg-10 {
     	margin-top: -130px;
     	margin-left: 250px;
-    	background-color: red;
     	width: 160%;
-    	height: 700px;
     }
     
     h4 {
@@ -88,8 +87,14 @@
 	</div>
 	<div style="min-height: 900px;width: 1300px;margin: 0 auto;">
 		<div class="mypage text-center">
-				<tiles:insertAttribute name="menu"/>
-				<tiles:insertAttribute name="content"/>
+			<div class="row">
+				<div class="col-lg-2">
+					<tiles:insertAttribute name="menu"/>
+				</div>
+				<div class="col-lg-10">
+					<tiles:insertAttribute name="content"/>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div>
