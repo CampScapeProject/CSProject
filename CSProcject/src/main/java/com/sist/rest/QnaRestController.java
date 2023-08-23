@@ -82,4 +82,15 @@ public class QnaRestController {
 		vo.setOpen(open);
 		dao.qnaInsert(vo);
 	}
+	
+	@GetMapping(value = "qna/qna_detail_vue.do", produces = "text/plain;charset=UTF-8")
+	public String qna_detail(int qno) throws Exception
+	{
+		
+		QnaVO vo = dao.qnaDetailData(qno);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
 }

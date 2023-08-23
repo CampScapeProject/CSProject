@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>CampScape - 문의사항</title>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 	.row2 {
@@ -106,18 +111,18 @@
     	<div class="container">
 	    	<div class="row">
 	    		
-	    		<label class="form-label">1:1 문의</label>
+	    		<label class="form-label">1:1 문의 작성</label>
 	    		
 	    		<table class="table">
 	    			<tr>
 	    				<th width=15% class="text-center">카테고리</th>
 	    				<td width=35%>
-							<select v-on:change="qcno_insert()">
-								<option value=0>   -- 카테고리를 선택해주세요 --    </option>
-								<option value=2>   캠핑장 예약    </option>
-								<option value=3>   렌터카 예약   </option>
-								<option value=4>   상품 문의    </option>
-								<option value=5>   기타 문의    </option>
+							<select ref="qcno">
+								<option value="0">   -- 카테고리를 선택해주세요 --    </option>
+								<option value="2">   캠핑장 예약    </option>
+								<option value="3">   렌터카 예약   </option>
+								<option value="4">   상품 문의    </option>
+								<option value="5">   기타 문의    </option>
 							</select>
 	    				</td>
 	    				<th width=10% class="text-center">공개 여부</th>
@@ -152,12 +157,7 @@
   	
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
 <script>
 	new Vue({
 		el:'.qna',
@@ -175,11 +175,10 @@
 				alert("카테고리 선택해 주세요");
 			},
 			
-			qcno_insert:function(){
-				alert("all....")
-			}
-			
-			,write:function(){
+			write:function(){
+				
+				this.qcno = this.$refs.qcno.value
+				alert(this.qcno)
 				
 				if (this.qcno===0) {
 		            this.categoryZero();
@@ -196,7 +195,7 @@
 					}
 				}).then(res=>{
 					
-					location.href="../qna/qna_main.do"
+					location.href="../qna/qna_main.do?qcno=1"
 					
 				}).catch(error=>{
 					console.log(error.response)

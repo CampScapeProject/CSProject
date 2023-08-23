@@ -53,7 +53,7 @@
 </head>
 <body>
 
-	<div class="container" style="padding: 80px; background-color: ">
+	<div class="container" style="padding: 80px; ">
 		<div class="row2" style="text-align: center">
 			<div class="form_area">
 				<i class="fa-solid fa-bullhorn fa-2xl" style="margin-bottom: 20px;"></i>

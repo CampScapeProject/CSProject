@@ -24,4 +24,11 @@ public class QnaController {
 	public String qna_insert() {
 		return "qna/qna_insert";
 	}
+	
+	@GetMapping("qna/qna_detail.do")
+	public String qna_detail(int qno, Model model)
+	{
+		model.addAttribute("qno", qno);
+		return "qna/qna_detail";
+	}
 }

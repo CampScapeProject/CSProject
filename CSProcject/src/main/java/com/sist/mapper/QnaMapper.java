@@ -27,7 +27,7 @@ public interface QnaMapper {
 	// 글 작성
 	@Insert("INSERT into qna2(qno, qcno, id, name, title, content, open, group_id, regdate) "
 			+ "VALUES(qna2_qno_seq.nextval, #{qcno}, #{id}, #{name}, #{title}, #{content}, #{open}, "
-			+ "(SELECT NVL(MAX(group_id)+1, 1), SYSDATE FROM qna2")
+			+ "(SELECT NVL(MAX(group_id)+1, 1) FROM qna2), SYSDATE)")
 	public void qnaInsert(QnaVO vo);
 	
 	// 상세 보기
