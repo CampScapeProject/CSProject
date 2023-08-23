@@ -10,12 +10,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<!-- 폰트 -->
+	<link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'>
+	
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="../layout/img/favicon.png">
     <!-- Place favicon.ico in the root directory -->
-	
-	<!-- 폰트 -->
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
 
     <!-- CSS here -->
     <link rel="stylesheet" href="../layout/css/bootstrap.min.css">
@@ -35,13 +35,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../layout/css/style.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-    
-<style type="text/css">
-	body {
-		font-family: 'Pretendard-Regular';
-		src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-	}
-</style>
 </head>
 <body>
 	<div>
