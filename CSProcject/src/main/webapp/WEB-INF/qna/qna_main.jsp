@@ -98,7 +98,7 @@
 	                    <a href="#"><i class="fa-solid fa-magnifying-glass fa-lg" style="color: #e86a33;margin-left: 5px;"></i></a>
 	                    
 	                    <c:if test="${sessionScope.id!=null }">
-	                    <a href="../qna/qna_insert.do"><input type=button class="boxed-btn4 text-white rounded-1 w-40 h-10 btn_1" value="1:1 문의하기" style="margin-left: 570px"></a>
+	                    	<a href="../qna/qna_insert.do"><input type=button class="boxed-btn4 text-white rounded-1 w-40 h-10 btn_1" value="1:1 문의하기" style="margin-left: 570px"></a>
 	                    </c:if>
 	    		</div>
 	    		
@@ -110,16 +110,18 @@
 	    				<th width=20% class="text-center">DATE</th>
 	    				<th width=15% class="text-center">HITS</th>
 	    			</tr>
-	    			<tr>
-	    				<td width=10% class="text-center">번호</td>
-	    				<td width=40%><i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>제목</td>
-	    				<td width=15% class="text-center">사용자 이름</td>
-	    				<td width=20% class="text-center">날짜</td>
-	    				<td width=15% class="text-center">조회수</td>
+	    			
+	    			<tr v-for="vo in qna_list">
+	    				<td width=10% class="text-center">{{vo.qno}}</td>
+	    				<td width=40%><i v-if="vo.open=='n'" class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>{{vo.title}}</td>
+	    				<td width=15% class="text-center">{{vo.id}}</td>
+	    				<td width=20% class="text-center">{{vo.dbday}}</td>
+	    				<td width=15% class="text-center">{{vo.hit}}</td>
 	    			</tr>
 	    		</table>
 	    		
 	    		<div class="row2">
+	    		
 		    		<nav class="blog-pagination justify-content-center d-flex">
 	                    <ul class="pagination">
 	                        <li class="page-item" v-if="startpage>1">
@@ -139,15 +141,22 @@
 	                        </li>
 	                    </ul>
 	                </nav>
+	                
 	    		</div>
 	    		
 	    	</div>
     	</div>
   	</section>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <script>
 	new Vue({
-		el:'.container',
+		el:'.blog_area',
 		data:{
 			qna_list:[],
 			page_info:[],
@@ -155,7 +164,9 @@
 			curpage:1,
 			totalpage:0,
 			startpage:0,
-			endpage:0
+			endpage:0,
+			id:'${id}',
+			name:'${name}'
 		},
 		mounted:function(){
 			this.dataRecive()
@@ -164,22 +175,24 @@
 			dataRecive:function(){
 				
 				// 데이터값 받아오기
-				axios.get('qna/qna_main_vue.do', {
+				axios.get('../qna/qna_main_vue.do', {
 					params:{
 						page:this.curpage,
 						qcno:1
 					}
 				}).then(res=>{
 					console.log(res.data)
-					this.qna_list(res.data)
+					this.qna_list = res.data
 				}).catch(error=>{
 					console.log(error.response)
 				})
 				
 				// 페이지 읽어오기
-				axios.get('qna/qna_page_vue.do',{
-					page:this.curpage,
-					qcno:1
+				axios.get('../qna/qna_page_vue.do',{
+					params:{
+						page:this.curpage,
+						qcno:1
+					}
 				}).then(res=>{
 					console.log(res.data)
 					
@@ -188,6 +201,7 @@
 					this.totalpage = this.page_info.totalpage
 					this.startpage = this.page_info.startpage
 					this.endpage = this.page_info.endpage
+					
 				}).catch(error=>{
 					console.log(error.response)
 				})

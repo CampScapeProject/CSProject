@@ -2,6 +2,7 @@ package com.sist.mapper;
 
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -27,4 +28,13 @@ public interface NoticeMapper {
 	
 	@Select("SELECT nno, title, content, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, fix, hit FROM notice2 WHERE nno=#{nno}")
 	public NoticeVO noticeDetailData(int nno);
+	
+	@Select("SELECT nno, title, content, fix FROM notice2 WHERE nno=#{nno}")
+	public NoticeVO noticeUpdateData(int nno);
+	
+	@Update("UPDATE notice2 SET title=#{title}, content=#{content} WHERE nno=#{nno}")
+	public void noticeUpdate(NoticeVO vo);
+	
+	@Delete("DELETE FROM notice2 WHERE nno=#{nno}")
+	public void noticeDelete(int nno);
 }

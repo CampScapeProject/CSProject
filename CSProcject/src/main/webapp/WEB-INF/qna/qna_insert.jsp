@@ -118,8 +118,8 @@
 								<option value=5>   기타 문의    </option>
 							</select>
 	    				</td>
-	    				<th width=8% class="text-center">공개 여부</th>
-	    				<td width=42%>
+	    				<th width=10% class="text-center">공개 여부</th>
+	    				<td width=50%>
 	    					<input type=radio name=secret v-model=open value=n >     비밀      
 	                   		<input type=radio name=secret v-model=open value=y style="margin-left: 10px;">     공개      
 	    				</td>
@@ -148,9 +148,13 @@
     	</div>
   	</section>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <script>
-	let fileIndex=0;
-	
 	new Vue({
 		el:'.container',
 		data:{
@@ -159,9 +163,6 @@
 			open: '',
 			id:'${id}',
 			qcno : 0
-		},
-		mounted:function(){
-			
 		},
 		methods:{
 			
@@ -186,8 +187,10 @@
 						id : this.id
 					}
 				}).then(res=>{
-					console.log(res.data)
-				}).error(catch=>{
+					
+					location.href="../qna/qna_main.do"
+					
+				}).catch(error=>{
 					console.log(error.response)
 				})
 			}

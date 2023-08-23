@@ -93,8 +93,8 @@
 	    			<tr>
 	    				<td colspan=4 class="text-right">
 	    				<c:if test="${sessionScope.admin=='y' }">
-	    					<a href="'../notice/notice_update.do?nno='+notice_data.nno"><input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="수정" @click="update()"></a>
-	    					<a href="'../notice/notice_delete.do?nno='+notice_data.nno"><input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="삭제" @click="del()"></a>
+	    					<a :href="'../notice/notice_update.do?nno='+notice_data.nno"><input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="수정"></a>
+	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="삭제" @click="del()">
 	    				</c:if>
 	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="목록" style="background-color: #787878" onclick="javascript:history.back()">
 	    				</td>
@@ -135,7 +135,7 @@
 				
 				this.title = this.notice_data.title
 				this.content = this.notice_data.content
-				this.date = this.notice_data.dbday
+				this.regdate = this.notice_data.dbday
 				this.hit = this.notice_data.hit
 				
 			}).catch(error=>{
@@ -144,13 +144,16 @@
 		},
 		methods:{
 			
-			update:function(){
-				axios.post('../notice/notice_update_vue.do', null, {
+			del:function(){
+				
+				alert('삭제하시겠습니까?')
+				
+				axios.get('../notice/notice_delete_vue.do', {
 					params:{
 						nno:this.nno
 					}
 				}).then(res=>{
-					console.log(res.data)
+					location.href="../notice/notice_main.do"
 				}).catch(error=>{
 					console.log(error.response)
 				})

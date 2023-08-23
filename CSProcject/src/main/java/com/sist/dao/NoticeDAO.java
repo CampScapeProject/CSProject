@@ -33,4 +33,19 @@ public class NoticeDAO {
 		mapper.noticeHitIncrease(nno);
 		return mapper.noticeDetailData(nno);
 	}
+	
+	public NoticeVO noticeUpdateData(int nno)
+	{
+		return mapper.noticeUpdateData(nno);
+	}
+	
+	public void noticeUpdate(NoticeVO vo)
+	{
+		mapper.noticeUpdate(vo);
+	}
+	
+	public void noticeDelete(int nno)
+	{
+		mapper.noticeDelete(nno);
+	}
 }

@@ -27,4 +27,9 @@ public class QnaDAO {
 		return mapper.qnaTotalpage();
 	}
 	
+	public void qnaInsert(QnaVO vo)
+	{
+		mapper.qnaInsert(vo);
+	}
+	
 }
