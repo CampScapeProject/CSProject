@@ -111,7 +111,7 @@
 	    				<th width=15% class="text-center">카테고리</th>
 	    				<td width=35%>
 							<select v-model="qcno">
-								<option selected value=0>   -- 카테고리를 선택해주세요 --    </option>
+								<option value=0 selected>   -- 카테고리를 선택해주세요 --    </option>
 								<option value=2>   캠핑장 예약    </option>
 								<option value=3>   렌터카 예약   </option>
 								<option value=4>   상품 문의    </option>
