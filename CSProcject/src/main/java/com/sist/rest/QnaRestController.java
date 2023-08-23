@@ -1,6 +1,9 @@
 package com.sist.rest;
 
 import java.util.*;
+
+import javax.servlet.http.HttpSession;
+
 import com.sist.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.*;
@@ -16,7 +19,7 @@ public class QnaRestController {
 	@Autowired
 	private QnaDAO dao;
 	
-	@GetMapping("qna/qna_main_vue.do")
+	@GetMapping(value = "qna/qna_main_vue.do", produces = "text/plain;charset=UTF-8")
 	public String qna_main(int page, int qcno) throws Exception
 	{	
 		Map map = new HashMap();
@@ -44,11 +47,39 @@ public class QnaRestController {
 		return json;
 	}
 	
-	@PostMapping("qna/qna_insert_ok_vue.do")
-	public String qna_insert(String category, String title, int qcno, String secret)
+	@GetMapping(value = "qna/qna_page_vue.do", produces = "text/plain;charset=UTF-8")
+	public String qna_page(int page) throws Exception
 	{
+		int totalpage = dao.qnaTotalpage();
 		
+		final int BLOCK = 5;
+		int startpage = ((page-1)/BLOCK*BLOCK)+1;
+		int endpage = ((page-1)/BLOCK*BLOCK)+BLOCK;
 		
-		return "";
+		PageVO vo = new PageVO();
+		vo.setTotalpage(totalpage);
+		vo.setCurpage(page);
+		vo.setStartpage(startpage);
+		vo.setEndpage(endpage);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	
+	@PostMapping(value = "qna/qna_insert_ok_vue.do", produces = "text/plain;charset=UTF-8")
+	public void qna_insert_ok(String title, String content, int qcno, String open, HttpSession session)
+	{
+		String id = (String)session.getAttribute("id");
+		String name = (String)session.getAttribute("name");
+		
+		QnaVO vo = new QnaVO();
+		vo.setQcno(qcno);
+		vo.setTitle(title);
+		vo.setContent(content);
+		vo.setId(id);
+		vo.setName(name);
+		vo.setOpen(open);
+		dao.qnaInsert(vo);
 	}
 }

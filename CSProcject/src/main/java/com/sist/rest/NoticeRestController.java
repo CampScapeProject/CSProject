@@ -57,7 +57,7 @@ public class NoticeRestController {
 	}
 	
 	@PostMapping(value = "notice/notice_insert_vue.do", produces = "text/plain;charset=UTF-8")
-	public String notice_insert_ok(String title, String content, int fix, HttpSession session)
+	public void notice_insert_ok(String title, String content, int fix, HttpSession session)
 	{
 		String id = (String)session.getAttribute("id");
 		
@@ -67,8 +67,6 @@ public class NoticeRestController {
 		vo.setContent(content);
 		vo.setFix(fix);
 		dao.noticeInsert(vo);
-		
-		return "../notice/notice_main.do";
 	}
 	
 	@GetMapping(value = "notice/notice_detail_vue.do", produces = "text/plain;charset=UTF-8")
@@ -78,6 +76,27 @@ public class NoticeRestController {
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
 		return json;
+	}
+	
+	@GetMapping(value = "notice/notice_update_vue.do", produces = "text/plain;charset=UTF-8")
+	public String notice_update(int nno) throws Exception
+	{
+		NoticeVO vo = dao.noticeUpdateData(nno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	
+	@PostMapping(value = "notice/notice_update_ok_vue.do", produces = "text/plain;charset=UTF-8")
+	public void notice_update_ok(NoticeVO vo)
+	{
+		dao.noticeUpdate(vo);
+	}
+	
+	@GetMapping(value = "notice/notice_delete_vue.do", produces = "text/plain;charset=UTF-8")
+	public void notice_delete_ok(int nno)
+	{
+		dao.noticeDelete(nno);
 	}
 	
 	

@@ -50,7 +50,7 @@
 </head>
 <body>
 
-	<div class="container" style="padding: 80px; background-color: ">
+	<div class="container" style="padding: 80px;">
 		<div class="row2" style="text-align: center">
 			<div class="form_area">
 				<i class="fa-solid fa-bullhorn fa-2xl" style="margin-bottom: 20px;"></i>
@@ -68,6 +68,7 @@
 	    		<label class="form-label">공지사항 수정</label>
 	    		
 	    		<table class="table">
+	    		<form @submit.prevent="submitForm">
 	    			<tr>
 	    				<th width=15% class="text-center">제목</th>
 	    				<td width=85% colspan=3>
@@ -78,7 +79,7 @@
 	    				<th width=8% class="text-center">고정 여부</th>
 	    				<td width=92%>
 	    					<input type=radio name=secret v-model=fix value=1 >     고정      
-	                   		<input type=radio name=secret v-model=fix value=0 style="margin-left: 10px;" checked>     비고정      
+	                   		<input type=radio name=secret v-model=fix value=0 style="margin-left: 10px;">     비고정      
 	    				</td>
 	    			</tr>
 	    			<tr>
@@ -89,10 +90,11 @@
 	    			</tr>
 	    			<tr>
 	    				<td colspan=4 class="text-right">
-	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="작성" @click="write()">
+	    					<input type=submit class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="작성">
 	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="취소" style="background-color: #787878" onclick="javascript:history.back()">
 	    				</td>
 	    			</tr>
+	    		</form>
 	    		</table>
 	    		
 	    	</div>
@@ -108,7 +110,65 @@
 <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 
 <script>
-	
+	new Vue({
+		el:'.blog_area',
+		data:{
+			update_data:{},
+			title:'',
+			content:'',
+			fix:0,
+			nno:${param.nno}
+		},
+		mounted:function(){
+			
+			axios.get('../notice/notice_update_vue.do', {
+				params:{
+					nno:this.nno
+				}
+			}).then(res=>{
+				console.log(res.data)
+				this.update_data = res.data
+				
+				this.title = this.update_data.title
+				this.content = this.update_data.content
+				
+			}).catch(error=>{
+				console.log(error.response)
+			})
+		},
+		methods:{
+			
+			submitForm:function(){
+				
+				if(this.title=="")
+				{
+					this.$refs.title.focus();
+					return;
+				}
+				if(this.content=="")
+				{
+					this.$refs.content.focus();
+					return;
+				}
+				
+				let form = new FormData();
+				
+				form.append("title", this.title)
+				form.append("content", this.content)
+				form.append("fix", this.fix)
+				form.append("nno", this.nno)
+				
+				axios.post("../notice/notice_update_ok_vue.do", form).then(res=>{
+
+					location.href="../notice/notice_detail.do?nno="+this.nno
+
+				}).catch(error=>{
+					console.log(error.response)
+				})
+				
+			}
+		}
+	})
 </script>
 </body>
 </html>

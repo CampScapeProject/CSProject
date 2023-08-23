@@ -137,7 +137,9 @@
 						content:this.content
 					}
 				}).then(res=>{
-					console.log(res.data)
+					
+					location.href="../notice/notice_main.do"
+					
 				}).catch(console.log(error.response))
 			}
 		}

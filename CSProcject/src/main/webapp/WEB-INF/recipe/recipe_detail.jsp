@@ -24,9 +24,13 @@
 	pre {
 		font-family: 'Pretendard-Regular';
 	    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-	    font-weight: normal;
-	    font-style: normal;
 	}
+	
+	.allsteps {
+		font-size: 18px;
+		font-weight: bold;
+	}
+	
 </style>
 </head>
 <body>
@@ -56,43 +60,34 @@
 					<td class="text-left" width="33.3%"><i class="fa-solid fa-chart-simple" style="color: #8f8f8f;"></i><span class="msg2">       {{level}}       </span></td>
 				</tr>
 				<tr>
-					<td><span style="font-size: 20px;"> <span style="font-weight: 600;">재료</span>   |</span> <span style="font-size: 15px;">   Ingredients</span></td>
-					<td colspan=2><span>{{ingre}}</span></td>
+					<td style="padding: 30px;"><span style="font-size: 24px;"> <span style="font-weight: 600;">재료</span>   |</span> <span style="font-size: 16px;">   Ingredients</span></td>
+					<td style="padding: 30px;" colspan=2><span>{{ingre}}</span></td>
 				</tr>
 				<tr>
-					<td colspan=3>
+					<td colspan=3 style="padding:30px;">
+
 						<!-- 조리 순서 -->
-						<div style="">
-						<i class="fa-solid fa-fire-burner fa-xl" style="color: #E86A33;"></i><span style="font-size: 24px; font-weight: 600;">         조리 순서</span>
+						<div style=>
+						<i class="fa-solid fa-fire-burner fa-xl" style="color: #E86A33;"></i><span style="font-size: 24px; font-weight: 600;">            조리 순서</span>
 						</div>
-						<div style="margin-top: 20px;">
+						
+						<div style="padding: 30px;">
 							<table class="table recipe_step_img">
 								<tr v-for="steps_img, index in allstepsimg">
 									<td width=40% class="text-center">
-										<img :src="steps_img" style="width: 100%">
-									</td>
-									<td width=60% style="padding: 200px 50px 200px 50px;">
-										{{allsteps[index]}}
+										<img :src="steps_img" style="width: 60%; margin-bottom: 20px;">
+										<span class="allsteps"><pre>{{allsteps[index]}}</pre></span>
 									</td>
 								</tr>
 							</table>
 						</div>
+						
 					</td>
 				</tr>
 			</table>
 		</div>
 		
 		<div class="row">
-			<c:if test="${sessionScope.id!=null }">
-			<table class="table">
-				<tr>
-					<td>
-						<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg"></textarea>
-						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="replyWrite">댓글 작성</button>
-					</td>
-				</tr>
-			</table>
-			</c:if>
 		
 			<table class="table" v-for="rvo in reply_list">
 				<tr>
@@ -116,6 +111,17 @@
 					</td>
 				</tr>
 			</table>
+			
+			<c:if test="${sessionScope.id!=null }">
+			<table class="table">
+				<tr>
+					<td>
+						<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg"></textarea>
+						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="replyWrite()">댓글 작성</button>
+					</td>
+				</tr>
+			</table>
+			</c:if>
 		</div>
  
 	</div>

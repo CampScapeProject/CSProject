@@ -22,4 +22,11 @@ public class NoticeController {
 		model.addAttribute("nno", nno);
 		return "notice/notice_detail";
 	}
+	
+	@GetMapping("notice/notice_update.do")
+	public String notice_update(int nno, Model model)
+	{
+		model.addAttribute("nno", nno);
+		return "notice/notice_update";
+	}
 }
