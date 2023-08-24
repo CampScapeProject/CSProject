@@ -35,7 +35,7 @@
 	}
 	.qna_nav {
 		margin: 0px auto;
-		padding: 80px 80px 80px 200px;
+		padding: 80px 80px 80px 180px;
 	}
 	.qna_nav > ul > li {
 		float: left;
