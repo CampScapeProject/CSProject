@@ -69,7 +69,7 @@ public class QnaRestController {
 		String json = mapper.writeValueAsString(vo);
 		return json;
 	}
-	
+	 
 	@PostMapping(value = "qna/qna_insert_ok_vue.do", produces = "text/plain;charset=UTF-8")
 	public void qna_insert_ok(String title, String content, int qcno, String open, HttpSession session)
 	{

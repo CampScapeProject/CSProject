@@ -158,7 +158,7 @@
 			
 		},
 		methods:{
-			
+			 
 			write:function(){
 				
 				axios.post('../qna/reply_insert_vue.do', null, {

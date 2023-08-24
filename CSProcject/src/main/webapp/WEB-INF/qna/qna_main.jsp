@@ -118,7 +118,7 @@
 	    			
 	    			<tr v-for="vo in qna_list">
 	    				<td width=10% class="text-center">{{vo.qno}}</td>
-	    				
+	    				 
 	    				<!-- 답변이 아닐 때 -->
 	    				<td width=40% v-if="vo.group_tab==0">
 	    					<i v-if="vo.open=='n'" class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>

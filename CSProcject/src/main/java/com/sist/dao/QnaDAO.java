@@ -39,7 +39,7 @@ public class QnaDAO {
 		mapper.hitIncrement(qno);
 		return mapper.qnaDetailData(qno);
 	}
-	
+	 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void qnaReplyInsert(int root, QnaVO vo)
 	{

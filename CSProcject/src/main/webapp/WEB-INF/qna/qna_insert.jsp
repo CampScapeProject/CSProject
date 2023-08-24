@@ -171,7 +171,7 @@
 			qcno : 0
 		},
 		methods:{
-			
+			 
 			// 카테고리 선택 안했을 때
 			categoryZero:function(){
 				alert("카테고리 선택해 주세요");

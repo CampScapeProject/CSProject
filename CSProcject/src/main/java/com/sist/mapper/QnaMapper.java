@@ -29,7 +29,7 @@ public interface QnaMapper {
 			+ "VALUES(qna2_qno_seq.nextval, #{qcno}, #{id}, #{name}, #{title}, #{content}, #{open}, "
 			+ "(SELECT NVL(MAX(group_id)+1, 1) FROM qna2), SYSDATE)")
 	public void qnaInsert(QnaVO vo);
-	
+	 
 	// 상세 보기
 	@Update("UPDATE qna2 SET hit=hit+1 WHERE qno=#{qno}")
 	public void hitIncrement(int qno);

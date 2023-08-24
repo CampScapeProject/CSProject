@@ -21,7 +21,7 @@ public class QnaController {
 		model.addAttribute("qcno", qcno);
 		return "qna/qna_main";
 	}
-	
+	 
 	@GetMapping("qna/qna_insert.do")
 	public String qna_insert() {
 		return "qna/qna_insert";

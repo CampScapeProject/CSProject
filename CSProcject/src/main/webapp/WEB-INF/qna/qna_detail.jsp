@@ -168,7 +168,7 @@
 			open:''
 		},
 		mounted:function(){
-			
+			 
 			axios.get('../qna/qna_detail_vue.do', {
 				params:{
 					qno:this.qno

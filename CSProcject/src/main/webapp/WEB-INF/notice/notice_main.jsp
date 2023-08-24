@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="../layout/css/slicknav.css">
 <link rel="stylesheet" href="../layout/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
+ 
 <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 <style type="text/css">
 	.row2 {
