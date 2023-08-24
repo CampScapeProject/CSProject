@@ -51,6 +51,9 @@ public class QnaDAO {
 		vo.setGroup_tab(qvo.getGroup_tab()+1);
 		vo.setRoot(root);
 		
+		vo.setOpen("y");
+		vo.setQcno(qvo.getQcno());
+		
 		mapper.qnaReplyInsert(vo);
 		mapper.qnaDepthIncrement(root);
 	}

@@ -96,4 +96,25 @@ public class QnaRestController {
 		String json = mapper.writeValueAsString(vo);
 		return json;
 	}
+	
+	@PostMapping(value = "qna/reply_insert_vue.do", produces = "text/plain;charset=UTF-8")
+	public void reply_insert(int root, String title, String content, String user_id, HttpSession session)
+	{
+		
+		QnaVO vo = new QnaVO();
+		
+		vo.setId(user_id);
+		vo.setName("관리자");
+		vo.setTitle(title);
+		vo.setContent(content);
+		
+		dao.qnaReplyInsert(root, vo);
+	}
+	
+	@GetMapping(value = "qna/qna_delete_vue.do", produces = "text/plain;charset=UTF-8")
+	public void qna_delete(int qno)
+	{
+		dao.qnaDelete(qno);
+	}
+	
 }

@@ -127,13 +127,15 @@
 	    			<tr>
 	    				<td colspan=4 class="text-right">
 	    				
-	    					<c:if test="${sessionScope.id!=null }">
+	    					<c:if test="${sessionScope.admin=='y' }">
 		    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="답글" @click="reply_insert()">
 		    				</c:if>
 		    				
 	    					<input v-if="qna_data.id==sessionId" type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="수정" @click="update()">
-	    					<input v-if="qna_data.id==sessionId" type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="삭제" @click="reply_insert()">
-    					
+	    					
+	    					<c:if test="${sessionScope.admin=='y' }">
+	    						<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="삭제" @click="del()">
+    						</c:if>
 	    					
 	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="목록" style="background-color: #787878" onclick="javascript:history.back()">
 	    				</td>
@@ -157,11 +159,13 @@
 		data:{
 			qna_data:{},
 			qno:${qno},
+			qcno:0,
 			title:'',
 			content:'',
 			regdate:'',
 			sessionId:'${id}',
-			hit:0
+			hit:0,
+			open:''
 		},
 		mounted:function(){
 			
@@ -173,10 +177,12 @@
 				console.log(res.data)
 				this.qna_data = res.data
 				
+				this.qcno = this.qna_data.qcno
 				this.title = this.qna_data.title
 				this.content = this.qna_data.content
 				this.regdate = this.qna_data.dbday
 				this.hit = this.qna_data.hit
+				this.open = this.qna_data.open
 				
 			}).catch(error=>{
 				console.log(error.response)
@@ -184,6 +190,35 @@
 		},
 		methods:{
 			
+			reply_insert:function(){
+				
+				axios.get('../qna/reply_insert.do', {
+					params:{
+						qno:this.qno
+					}
+				}).then(res=>{
+					
+					location.href="../qna/reply_insert.do?qno="+this.qno
+					
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			},
+			
+			del:function(){
+				alert('삭제하시겠습니까?')
+				
+				axios.get('../qna/qna_delete_vue.do', {
+					params:{
+						qno:this.qno
+					}
+				}).then(res=>{
+					location.href="../qna/qna_main.do?qcno=1"
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			}
+		
 		}
 	})
 </script>

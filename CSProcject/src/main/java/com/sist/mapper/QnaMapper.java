@@ -34,18 +34,18 @@ public interface QnaMapper {
 	@Update("UPDATE qna2 SET hit=hit+1 WHERE qno=#{qno}")
 	public void hitIncrement(int qno);
 	
-	@Select("SELECT qno, id, title, content, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit FROM qna2 WHERE qno=#{qno}")
+	@Select("SELECT qno, qcno, id, title, content, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, open, hit FROM qna2 WHERE qno=#{qno}")
 	public QnaVO qnaDetailData(int qno);
 
 	// 답글
-	@Select("SELECT group_id, group_step, group_tab FROM qna2 WHERE qno=#{qno}")
+	@Select("SELECT qcno, open, group_id, group_step, group_tab FROM qna2 WHERE qno=#{qno}")
 	public QnaVO qnaParentInfo(int qno);
 	
 	@Update("UPDATE qna2 SET group_step=group_step+1 WHERE group_id=#{group_id} AND group_step>#{group_step}")
 	public void qnaGroupStepIncrement(QnaVO vo);
 	
-	@Insert("INSERT INTO qna2(qno, id, name, title, content, group_id, group_step, group_tab, root) "
-			+ "VALUES(qna2_qno_seq.nextval, #{id}, #{name}, #{title}, #{content}, #{group_id}, #{group_step}, #{group_tab}, #{root})")
+	@Insert("INSERT INTO qna2(qno, qcno, id, name, title, content, open, group_id, group_step, group_tab, root) "
+			+ "VALUES(qna2_qno_seq.nextval, #{qcno}, #{id}, #{name}, #{title}, #{content}, #{open}, #{group_id}, #{group_step}, #{group_tab}, #{root})")
 	public void qnaReplyInsert(QnaVO vo);
 	
 	@Update("UPDATE qna2 SET depth=depth+1 WHERE qno=#{qno}")

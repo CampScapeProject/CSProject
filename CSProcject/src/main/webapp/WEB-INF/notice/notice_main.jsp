@@ -179,8 +179,8 @@
 					
 					this.curpage = this.page_info.curpage
 					this.totalpage = this.page_info.totalpage
-					this.startpage = this.page_info.startPage
-					this.endpage = this.page_info.endPage
+					this.startpage = this.page_info.startpage
+					this.endpage = this.page_info.endpage
 				}).catch(error=>{
 					console.log(error.response)
 				})

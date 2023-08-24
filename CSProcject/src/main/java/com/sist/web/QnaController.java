@@ -13,9 +13,11 @@ public class QnaController {
 		
 		String id = (String)session.getAttribute("id");
 		String name = (String)session.getAttribute("name");
+		String admin = (String)session.getAttribute("admin");
 		
 		model.addAttribute("id", id);
 		model.addAttribute("name", name);
+		model.addAttribute("admin", admin);
 		model.addAttribute("qcno", qcno);
 		return "qna/qna_main";
 	}
@@ -30,5 +32,12 @@ public class QnaController {
 	{
 		model.addAttribute("qno", qno);
 		return "qna/qna_detail";
+	}
+	
+	@GetMapping("qna/reply_insert.do")
+	public String qna_reply_insert(int qno, Model model)
+	{
+		model.addAttribute("qno", qno);
+		return "qna/qna_reply_insert";
 	}
 }

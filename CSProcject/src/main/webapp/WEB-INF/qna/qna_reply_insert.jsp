@@ -113,26 +113,9 @@
     	<div class="container">
 	    	<div class="row">
 	    		
-	    		<label class="form-label">1:1 문의 작성</label>
+	    		<label class="form-label">1:1 문의 답변 작성</label>
 	    		
 	    		<table class="table">
-	    			<tr>
-	    				<th width=15% class="text-center">카테고리</th>
-	    				<td width=35%>
-							<select ref="qcno">
-								<option value="0">   -- 카테고리를 선택해주세요 --    </option>
-								<option value="2">   캠핑장 예약    </option>
-								<option value="3">   렌터카 예약   </option>
-								<option value="4">   상품 문의    </option>
-								<option value="5">   기타 문의    </option>
-							</select>
-	    				</td>
-	    				<th width=10% class="text-center">공개 여부</th>
-	    				<td width=50%>
-	    					<input type=radio name=secret v-model=open value=n >     비밀      
-	                   		<input type=radio name=secret v-model=open value=y style="margin-left: 10px;">     공개      
-	    				</td>
-	    			</tr>
 	    			<tr>
 	    				<th width=15% class="text-center">제목</th>
 	    				<td width=85% colspan=3>
@@ -159,40 +142,31 @@
   	
 </div>
 
-
 <script>
 	new Vue({
-		el:'.qna',
+		el:'.blog_area',
 		data:{
-			title : '',
-			content: '',
-			open: '',
+			title:'',
+			content:'',
 			id:'${id}',
-			qcno : 0
+			name:'${name}',
+			title:'',
+			content:'',
+			root:${qno}
+		},
+		mounted:function(){
+			
 		},
 		methods:{
 			
-			// 카테고리 선택 안했을 때
-			categoryZero:function(){
-				alert("카테고리 선택해 주세요");
-			},
-			
 			write:function(){
 				
-				this.qcno = this.$refs.qcno.value
-				
-				if (this.qcno===0) {
-		            this.categoryZero();
-		            return;
-		        }
-				
-				axios.post("../qna/qna_insert_ok_vue.do", null, {
+				axios.post('../qna/reply_insert_vue.do', null, {
 					params:{
-						title : this.title,
-						content : this.content,
-						qcno : this.qcno,
-						open : this.open,
-						id : this.id
+						root:this.root,
+						title:this.title,
+						content:this.content,
+						user_id:this.id
 					}
 				}).then(res=>{
 					
