@@ -193,7 +193,8 @@
 				
 				axios.get('../camp/camp_list_page_vue.do',{
 					params:{
-						page:this.curpage
+						page:this.curpage,
+						type:"list"
 					}
 					
 				}).then(res=>{

@@ -218,21 +218,35 @@ public class CampRestController {
 		
 	}
 	@GetMapping(value = "camp/camp_list_page_vue.do",produces = "text/plain;charset=UTF-8")
-	public String campPageListData(int page) throws Exception{
-		
-		
-		int totalpage=dao.campTotalPage();
-		final int BLOCK = 10;
-		int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
-		int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
-		if(endpage>totalpage)
-			endpage=totalpage;
+	public String campPageListData(int page,String type) throws Exception{
 		
 		PageVO vo = new PageVO();
-		vo.setStartpage(startpage);
-		vo.setEndpage(endpage);
-		vo.setCurpage(page);
-		vo.setTotalpage(totalpage);
+		if(type.equals("list"))
+		{
+			int totalpage=dao.campTotalPage();
+			final int BLOCK = 10;
+			int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
+			int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
+			if(endpage>totalpage)
+				endpage=totalpage;
+			
+			vo.setStartpage(startpage);
+			vo.setEndpage(endpage);
+			vo.setCurpage(page);
+			vo.setTotalpage(totalpage);
+		}else {
+			int totalpage=dao.campTotalPage();
+			final int BLOCK = 5;
+			int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
+			int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
+			if(endpage>totalpage)
+				endpage=totalpage;
+			
+			vo.setStartpage(startpage);
+			vo.setEndpage(endpage);
+			vo.setCurpage(page);
+			vo.setTotalpage(totalpage);
+		}
 
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);

@@ -317,6 +317,7 @@
 								</div>
 							</template>
 				      		<template v-if="index == 1">
+				      		
 								<div class=col-sm-12>
 						            <!-- 지도출력 -->
 						            <div id="map" style="width:100%;height:300px;"></div>
@@ -441,8 +442,9 @@
               </div>
               
               <!--  예약 객식-->
-              <div id="dialogReserve" :title="camp_detail.name" v-if="resShow" style="padding: 0px;overflow-y:auto">
-              <div class="popular_destination_area" style="padding: 0px">
+              <div id="dialogReserve" :title="camp_detail.name+' 예약'" v-if="resShow" style="padding: 0px;overflow-y:auto">
+              
+              <div class="popular_destination_area" style="padding: 0px" v-if="!reserveForm">
         		<div class="container">
 	              	<div>
 	                  <div class="row">
@@ -462,6 +464,43 @@
 	               </div>
               </div>
              </div>
+             
+             <!--  예약 폼 -->
+            	<div class="destination_details_info" v-if="reserveForm">
+				        <div class="container">
+				            <div class="row justify-content-center">
+				                <div class="col-lg-8 col-md-9">
+				                	<div class="contact_join">
+				                        <h3>Contact for join</h3>
+				                        <form action="#">
+				                            <div class="row">
+				                                <div class="col-lg-6 col-md-6">
+				                                    <div class="single_input">
+				                                        <input type="text" placeholder="Your Name">
+				                                    </div>
+				                                </div>
+				                                <div class="col-lg-6 col-md-6">
+				                                    <div class="single_input">
+				                                        <input type="text" placeholder="Phone no.">
+				                                    </div>
+				                                </div>
+				                                <div class="col-lg-12">
+				                                    <div class="single_input">
+				                                        <textarea name="" id="" cols="30" rows="10"placeholder="Message" ></textarea>
+				                                    </div>
+				                                </div>
+				                                <div class="col-lg-12">
+				                                    <div class="submit_btn">
+				                                        <button class="boxed-btn4" type="submit">submit</button>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                        </form>
+				                    </div>
+								</div>
+							</div>	            
+						</div>
+					</div> 
              </div>
              
              <!-- 예약 창 -->
@@ -567,7 +606,8 @@
 				subject:'',
 				content:'',
 				update_data:{},
-				campsite_list:[]
+				campsite_list:[],
+				reserveForm:false
 			},
 			mounted:function(){
 				axios.get('../camp/camp_detail_vue.do',{
@@ -728,6 +768,8 @@
 			    },
 			    reserveList:function(bool){
 			    		this.resShow=bool;
+			    		this.reserveForm=false;
+			    		
 						axios.get('../camp/campsite_list.do',{
 							params:{
 								cno:this.cno
@@ -745,7 +787,7 @@
 						})		    	
 			    },
 			    reserveGo:function(){
-			    	location.href="../camp/camp_reserve.do";
+			    	this.reserveForm=true;
 			    },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
