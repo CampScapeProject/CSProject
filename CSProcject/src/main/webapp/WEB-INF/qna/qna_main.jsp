@@ -122,16 +122,17 @@
 	    				<!-- 답변이 아닐 때 -->
 	    				<td width=40% v-if="vo.group_tab==0">
 	    					<i v-if="vo.open=='n'" class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>
-	    					<span v-if="(vo.id!=sessionId || sessionId==null) && sessionAdmin=='n'">비밀글입니다.</span>
+	    					<span v-if="(vo.id!=sessionId || sessionId==null) && sessionAdmin!='y'">비밀글입니다.</span>
 	    					<a v-if="vo.id==sessionId || sessionAdmin=='y'" :href="'../qna/qna_detail.do?qno='+vo.qno">{{vo.title}}</a>
 	    				</td>
 	    				
 	    				<!-- 답변일 때 -->
 	    				<td width=40% v-if="vo.group_tab>=1">
 	    					<i v-if="vo.open=='n'" class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>
-	    					<a v-if="vo.id==sessionId || sessionAdmin=='y'" :href="'../qna/qna_detail.do?qno='+vo.qno">
-	    						<span v-for="i in vo.group_tab" :key="i">&nbsp;&nbsp;<i class="fa-solid fa-arrow-turn-up fa-rotate-90" style="color: #E86A33"></i></span>&nbsp;&nbsp;{{vo.title}}
-	    					</a>
+	    					<span v-for="i in vo.group_tab" :key="i">&nbsp;&nbsp;
+	    						<i class="fa-solid fa-arrow-turn-up fa-rotate-90" style="color: #E86A33"></i>
+	    					</span>&nbsp;&nbsp;
+	    					<a :href="'../qna/qna_detail.do?qno='+vo.qno">{{vo.title}}</a>
 	    				</td>
 	    				
 	    				
