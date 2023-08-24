@@ -218,20 +218,7 @@
 </style>
 </head>
 <body>
-<!-- 배경 -->
- <div class="bradcam_area bradcam_bg_2">
-     <div class="container">
-	     <div class="row">
-	         <div class="col-xl-12">
-	             <div class="bradcam_text text-center">
-	                 <h3>Destinations</h3>
-	                 <p>Pixel perfect design with awesome contents</p>
-	             </div>
-	         </div>
-	     </div>
-     </div>
-</div>
-<!---------->
+
 
 <!-- 제목 칸 -->
 <div class="where_togo_area" style="padding: 30px;">
@@ -471,7 +458,7 @@
 				            <div class="row justify-content-center">
 				                <div class="col-lg-8 col-md-9">
 				                	<div class="contact_join">
-				                        <h3>Contact for join</h3>
+				                        <h3>예약 정보</h3>
 				                        <form action="#">
 				                            <div class="row">
 				                                <div class="col-lg-6 col-md-6">
@@ -491,7 +478,7 @@
 				                                </div>
 				                                <div class="col-lg-12">
 				                                    <div class="submit_btn">
-				                                        <button class="boxed-btn4" type="submit">submit</button>
+				                                        <button class="boxed-btn4" type="submit">예약하기</button>
 				                                    </div>
 				                                </div>
 				                            </div>
