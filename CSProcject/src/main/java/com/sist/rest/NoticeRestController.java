@@ -1,15 +1,16 @@
 package com.sist.rest;
 
+import java.io.*;
 import java.util.*;
-
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.*;
 import com.sist.vo.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +46,9 @@ public class NoticeRestController {
 		int startpage = ((page-1)/BLOCK*BLOCK)+1;
 		int endpage = ((page-1)/BLOCK*BLOCK)+BLOCK;
 		
+		if(endpage>totalpage)
+			endpage = totalpage;
+		
 		PageVO vo = new PageVO();
 		vo.setTotalpage(totalpage);
 		vo.setCurpage(page);
@@ -57,22 +61,59 @@ public class NoticeRestController {
 	}
 	
 	@PostMapping(value = "notice/notice_insert_vue.do", produces = "text/plain;charset=UTF-8")
-	public void notice_insert_ok(String title, String content, int fix, HttpSession session)
+	public void notice_insert_ok(@ModelAttribute NoticeVO vo, HttpServletRequest request, HttpSession session)
 	{
+
 		String id = (String)session.getAttribute("id");
-		
-		NoticeVO vo = new NoticeVO();
-		vo.setTitle(title);
 		vo.setId(id);
-		vo.setContent(content);
-		vo.setFix(fix);
-		dao.noticeInsert(vo);
+		
+		String path = request.getSession().getServletContext().getRealPath("/")+"upload\\";
+		System.out.println(path);
+		
+		 path=path.replace("\\", File.separator);
+		 List<MultipartFile> list = vo.getImages();
+		 
+		 if(list==null)
+		 {
+			 vo.setFilename("");
+			 vo.setFilesize("");
+			 vo.setFilecount(0);
+		 }
+		 else {
+			 
+			 String fn="";
+			 String fs="";
+			 
+			 for(MultipartFile mf:list)
+			 {
+				 String name = mf.getOriginalFilename();
+				 File file = new File(path+name);
+				 
+				 try {
+					 mf.transferTo(file);
+				 }catch(Exception ex) {}
+				 
+				 fn+=name+',';
+				 fs+=file.length()+",";
+			 }
+			 
+			 fn = fn.substring(0, fn.lastIndexOf(","));
+			 fs = fs.substring(0, fs.lastIndexOf(","));
+			 vo.setFilecount(list.size());
+			 vo.setFilename(fn);
+			 vo.setFilesize(fs);
+		 }
+		 
+		 dao.noticeInsert(vo);
 	}
 	
 	@GetMapping(value = "notice/notice_detail_vue.do", produces = "text/plain;charset=UTF-8")
 	public String notice_detail(int nno) throws Exception
 	{
 		NoticeVO vo = dao.noticeDetailData(nno);
+		
+		System.out.println("파일 이름 : "+vo.getFilename()+" 파일 사이즈 : "+vo.getFilesize());
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
 		return json;
@@ -94,8 +135,26 @@ public class NoticeRestController {
 	}
 	
 	@GetMapping(value = "notice/notice_delete_vue.do", produces = "text/plain;charset=UTF-8")
-	public void notice_delete_ok(int nno)
+	public void notice_delete_ok(int nno, HttpServletRequest request)
 	{
+		NoticeVO vo = dao.databoardFileInfoData(nno);
+		
+		try {
+			if(vo.getFilecount()!=0)
+			{
+				String path = request.getSession().getServletContext().getRealPath("/")+"upload\\";
+				path = path.replace("\\", File.separator);
+				StringTokenizer st = new StringTokenizer(vo.getFilename(), ",");
+				
+				while(st.hasMoreTokens())
+				{
+					path = path+st.nextToken();
+					File file = new File(path);
+					file.delete();
+				}
+			}
+		}catch(Exception ex) {}
+		
 		dao.noticeDelete(nno);
 	}
 	

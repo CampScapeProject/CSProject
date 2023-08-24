@@ -67,6 +67,7 @@
 	    		
 	    		<label class="form-label">공지사항 작성</label>
 	    		
+	    		<form @submit.prevent="submitForm">
 	    		<table class="table">
 	    			<tr>
 	    				<th width=15% class="text-center">제목</th>
@@ -82,6 +83,12 @@
 	    				</td>
 	    			</tr>
 	    			<tr>
+	    				<th width=15% class="text-center">첨부파일</th>
+	    				<td width=85%>
+	    					<input type=file ref="images" @change="fileUpload" multiple accept="upload/*">
+	    				</td>
+	    			</tr>
+	    			<tr>
 	    				<th width=15% class="text-center">내용</th>
 	    				<td width=85% colspan=3>
 	    					<textarea class="form-control" rows="10" cols="110" name=content v-model="content" ref="content"></textarea>
@@ -89,11 +96,12 @@
 	    			</tr>
 	    			<tr>
 	    				<td colspan=4 class="text-right">
-	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="작성" @click="write()">
+	    					<input type=submit class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="작성">
 	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="취소" style="background-color: #787878" onclick="javascript:history.back()">
 	    				</td>
 	    			</tr>
 	    		</table>
+	    		</form>
 	    		
 	    	</div>
     	</div>
@@ -113,11 +121,18 @@
 			title:'',
 			content:'',
 			fix:0,
-			sessionId:"${id}"
+			sessionId:"${id}",
+			images:''
 		},
 		
 		methods:{
-			write:function(){
+			
+			fileUpload:function(){
+
+				 this.images = event.target.files
+			},
+			
+			submitForm:function(){
 				
 				if(this.title==="")
 				{
@@ -130,17 +145,32 @@
 					return;
 				}
 				
-				axios.post("../notice/notice_insert_vue.do", null, {
-					params:{
-						title:this.title,
-						fix:this.fix,
-						content:this.content
+				let form = new FormData();
+				form.append("id", this.sessionId)
+				form.append("title", this.title)
+				form.append("content", this.content)
+				form.append("fix", this.fix)
+				
+				let leng = this.$refs.images.files.length;
+				if(leng>0)
+				{
+					for(let i=0;i<this.$refs.images.files.length;i++)
+					{
+						form.append("images["+i+"]", this.$refs.images.files[i])
+					}
+				}
+				
+				axios.post("../notice/notice_insert_vue.do", form, {
+					header:{
+						'Content-Type':'multipart/form-data'
 					}
 				}).then(res=>{
 					
 					location.href="../notice/notice_main.do"
 					
-				}).catch(console.log(error.response))
+				}).catch(error=>{
+					console.log(error.response)
+				})
 			}
 		}
 	})

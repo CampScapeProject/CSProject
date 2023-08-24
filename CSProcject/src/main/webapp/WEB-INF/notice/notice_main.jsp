@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="../layout/css/slicknav.css">
 <link rel="stylesheet" href="../layout/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 <style type="text/css">
 	.row2 {
@@ -145,8 +145,8 @@
 			fix:0,
 			curpage:1,
 			totalpage:0,
-			startPage:0,
-			endPage:0
+			startpage:0,
+			endpage:0
 		},
 		mounted:function(){
 			this.dataRecive()
@@ -177,10 +177,10 @@
 					console.log(res.data)
 					this.page_info = res.data
 					
-					this.curpage = this.page_list.curpage
-					this.totalpage = this.page_list.totalpage
-					this.startpage = this.page_list.startPage
-					this.endpage = this.page_list.endPage
+					this.curpage = this.page_info.curpage
+					this.totalpage = this.page_info.totalpage
+					this.startpage = this.page_info.startPage
+					this.endpage = this.page_info.endPage
 				}).catch(error=>{
 					console.log(error.response)
 				})

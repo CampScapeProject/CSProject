@@ -56,6 +56,9 @@ public class QnaRestController {
 		int startpage = ((page-1)/BLOCK*BLOCK)+1;
 		int endpage = ((page-1)/BLOCK*BLOCK)+BLOCK;
 		
+		if(endpage>totalpage)
+			endpage = totalpage;
+
 		PageVO vo = new PageVO();
 		vo.setTotalpage(totalpage);
 		vo.setCurpage(page);

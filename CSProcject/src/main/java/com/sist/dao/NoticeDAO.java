@@ -48,4 +48,10 @@ public class NoticeDAO {
 	{
 		mapper.noticeDelete(nno);
 	}
+	
+	public NoticeVO databoardFileInfoData(int nno)
+	{
+		return mapper.databoardFileInfoData(nno);
+	}
+	
 }

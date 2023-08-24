@@ -84,6 +84,14 @@
 	    				<th width=10% class="text-center">작성일</th>
 	    				<td width=40%>{{regdate}}</td>
 	    			</tr>
+	    			<tr v-if="filecount!=0">
+	    				<th width=15% class="text-center">첨부파일</th>
+	    				<td width=85% colspan=3>
+	    					<ul>
+					        	<li v-for="(fn, index) in filenames"><a :href="'../notice/notice_download.do?fn='+fn">{{fn}}</a>&nbsp;({{filesizes[index]}}Bytes)</li>
+					        </ul>
+	    				</td>
+	    			</tr>
 	    			<tr>
 	    				<td colspan=4>
 	    					<pre class="notice_content">{{content}}</pre>
@@ -121,7 +129,10 @@
 			title:'',
 			content:'',
 			regdate:'',
-			hit:0
+			hit:0,
+			filenames:[],
+			filesizes:[],
+			filecount:0
 		},
 		mounted:function(){
 			axios.get('../notice/notice_detail_vue.do', {
@@ -136,6 +147,10 @@
 				this.content = this.notice_data.content
 				this.regdate = this.notice_data.dbday
 				this.hit = this.notice_data.hit
+				
+				this.filecount=this.notice_data.filecount
+    			this.filenames=response.data.filename.split(",")
+    			this.filesizes=response.data.filesize.split(",")
 				
 			}).catch(error=>{
 				console.log(error.response)

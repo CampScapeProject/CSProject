@@ -67,8 +67,8 @@
 	    		
 	    		<label class="form-label">공지사항 수정</label>
 	    		
-	    		<table class="table">
 	    		<form @submit.prevent="submitForm">
+	    		<table class="table">
 	    			<tr>
 	    				<th width=15% class="text-center">제목</th>
 	    				<td width=85% colspan=3>
@@ -90,12 +90,12 @@
 	    			</tr>
 	    			<tr>
 	    				<td colspan=4 class="text-right">
-	    					<input type=submit class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="작성">
+	    					<input type=submit class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="작성" @click="submitForm()">
 	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="취소" style="background-color: #787878" onclick="javascript:history.back()">
 	    				</td>
 	    			</tr>
-	    		</form>
 	    		</table>
+	    		</form>
 	    		
 	    	</div>
     	</div>
@@ -140,33 +140,33 @@
 			
 			submitForm:function(){
 				
-				if(this.title=="")
+				if(this.title==="")
 				{
-					this.$refs.title.focus();
+					this.$refs.title.focus()
 					return;
 				}
-				if(this.content=="")
+				
+				if(this.content==="")
 				{
-					this.$refs.content.focus();
+					this.$refs.content.focus()
 					return;
 				}
 				
 				let form = new FormData();
-				
+				form.appebd("nno", this.nno)
 				form.append("title", this.title)
 				form.append("content", this.content)
 				form.append("fix", this.fix)
-				form.append("nno", this.nno)
 				
-				axios.post("../notice/notice_update_ok_vue.do", form).then(res=>{
-
+				axios.post('../notice/notice_update_ok_vue.do', form).then(res=>{
+					
 					location.href="../notice/notice_detail.do?nno="+this.nno
-
+					
 				}).catch(error=>{
 					console.log(error.response)
 				})
-				
 			}
+			
 		}
 	})
 </script>
