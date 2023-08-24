@@ -99,7 +99,6 @@
 	    				<td width=10% class="text-center">관리자</td>
 	    				<td width=10% class="text-center">{{vo.dbday}}</td>
 	    				<td width=10% class="text-center">{{vo.hit}}</td>
-	    			
 	    			</tr>
 	    		</table>
 	    		
