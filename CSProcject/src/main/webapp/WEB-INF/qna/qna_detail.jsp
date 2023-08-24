@@ -64,7 +64,6 @@
 	    font-style: normal;
 	    padding: 30px;
 	}
-	
 </style>
 </head>
 <body>
