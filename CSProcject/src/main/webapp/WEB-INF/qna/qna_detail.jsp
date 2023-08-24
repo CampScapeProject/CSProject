@@ -216,6 +216,19 @@
 				}).catch(error=>{
 					console.log(error.response)
 				})
+			},
+			
+			update():function(){
+				
+				axios.get('../qna/qna_update_vue.do', {
+					params:{
+						qno:this.qno
+					}
+				}).then(res=>{
+					location.href="../qna/qna_update.do?qno="+this.qno
+				}).catch(error=>{
+					console.log(error.response)
+				})
 			}
 		
 		}

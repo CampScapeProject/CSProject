@@ -163,21 +163,7 @@
 		},
 		methods:{
 			
-			del:function(){
-				
-				alert('삭제하시겠습니까?')
-				
-				axios.get('../notice/notice_delete_vue.do', {
-					params:{
-						nno:this.nno
-					}
-				}).then(res=>{
-					location.href="../notice/notice_main.do"
-				}).catch(error=>{
-					console.log(error.response)
-				})
-			}
-
+			
 		}
 	})
 </script>

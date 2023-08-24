@@ -81,24 +81,27 @@
 	    		
 	    		<table class="table">
 	    			<tr>
-	    				<th width=10% class="text-center"></th>
-	    				<th width=40% class="text-center">CONTENT</th>
-	    				<th width=15% class="text-center">NAME</th>
-	    				<th width=20% class="text-center">DATE</th>
-	    				<th width=15% class="text-center">HITS</th>
+	    				<th width=10% class="text-center">No.</th>
+	    				<th width=60% class="text-center">CONTENT</th>
+	    				<th width=10% class="text-center">NAME</th>
+	    				<th width=10% class="text-center">DATE</th>
+	    				<th width=10% class="text-center">HITS</th>
 	    			</tr>
 	    			<tr v-for="vo in notice_list" :style="vo.fix==1?'background-color: rgba(232, 106, 51, 0.1)':''">
 	    			
-	    				<td width=10% class="text-center"><i v-if="vo.fix==1" class="fa-solid fa-microphone" style="color:#828282;"></i></td>
+	    				<td width=10% class="text-center">
+	    					<i v-if="vo.fix==1" class="fa-solid fa-microphone" style="color:#828282;"></i>
+	    					<span v-if="vo.fix!=1">{{vo.nno}}</span>
+	    				</td>
 	    				
 	    				
-		    				<td width="40%">
+		    				<td width="60%">
 							    <a :href="'../notice/notice_detail.do?nno='+vo.nno">{{vo.title}}</a>
 							</td>
 	    				
-	    				<td width=15% class="text-center">관리자</td>
-	    				<td width=20% class="text-center">{{vo.dbday}}</td>
-	    				<td width=15% class="text-center">{{vo.hit}}</td>
+	    				<td width=10% class="text-center">관리자</td>
+	    				<td width=10% class="text-center">{{vo.dbday}}</td>
+	    				<td width=10% class="text-center">{{vo.hit}}</td>
 	    			
 	    			</tr>
 	    		</table>

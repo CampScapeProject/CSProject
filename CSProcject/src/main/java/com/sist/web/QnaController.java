@@ -40,4 +40,11 @@ public class QnaController {
 		model.addAttribute("qno", qno);
 		return "qna/qna_reply_insert";
 	}
+	
+	@GetMapping("qna/qna_update.do")
+	public String qna_update(int qno, Model model)
+	{
+		model.addAttribute("qno", qno);
+		return "qna/qna_update";
+	}
 }
