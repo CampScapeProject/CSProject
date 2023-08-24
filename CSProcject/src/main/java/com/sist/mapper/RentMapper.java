@@ -85,4 +85,10 @@ public interface RentMapper {
 	@Insert("INSERT INTO review2(no,regdate,content,sno,type,id,rating) "
 		  + "VALUES(rv2_no_seq.nextval,SYSDATE,#{content},#{rno},'r',#{id},#{rank})")
 	public void review_insert(Map map);
+	
+	@Update("UPDATE reserve2 SET rstate='취소 요청' WHERE rno=#{rno}")
+	public void reserve_cancel_request(int rno);
+	
+	@Update("UPDATE reserve2 SET rstate='대기' WHERE rno=#{rno}")
+	public void reserve_request_cancel(int rno);
 }

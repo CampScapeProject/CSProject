@@ -68,4 +68,12 @@ public class RentDAO {
 	public void review_insert(Map map) {
 		mapper.review_insert(map);
 	}
+	
+	public void reserve_cancel_request(int rno) {
+		mapper.reserve_cancel_request(rno);
+	}
+
+	public void reserve_request_cancel(int rno) {
+		mapper.reserve_request_cancel(rno);
+	}
 }

@@ -190,4 +190,16 @@ public class RentRestController {
 		
 		return "";
 	}
+	
+	@GetMapping(value = "rent/reserve_cancel_request_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rent_reserve_cancel_request(int rno) {
+		dao.reserve_cancel_request(rno);
+		return "";
+	}
+	
+	@GetMapping(value = "rent/reserve_request_cancel_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rent_reserve_request_cancel(int rno) {
+		dao.reserve_request_cancel(rno);
+		return "";
+	}
 }
