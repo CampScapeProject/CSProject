@@ -79,5 +79,11 @@ public class ShopServiceImpl implements ShopService {
 		return dao.shopRecomProduct(map);
 	}
 
+	@Override
+	public void shopBasket_pay(int cno) {
+		dao.shopBasket_pay(cno);
+		
+	}
+
 	
 }

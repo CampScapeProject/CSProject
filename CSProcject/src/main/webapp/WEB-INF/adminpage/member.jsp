@@ -92,7 +92,7 @@ th {
 					<th width=10% class="success text-center">우편번호</th>
 					<td width=90% colspan="3">
 						<input type="text" class="form-control-sm" v-model="post" id=post style="margin-right: 10px;display: inline;" value="post">
-						<input type="button" class="btn btn-sm btn-default" value="우편번호 검색" id="postBtn" >
+						<input type="button" class="btn btn-sm btn-default" value="우편번호 검색" id="postBtn"  @click="openPost">
 					</td>
 				</tr>
 				<tr>

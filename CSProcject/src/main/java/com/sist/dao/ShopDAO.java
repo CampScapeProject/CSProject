@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.sist.mapper.ShopMapper;
@@ -90,6 +91,11 @@ public class ShopDAO {
 //			+ "WHERE c.{sno} = #{sno}")
 	public List<ShopVO> basketDetail(String id) {
 		return mapper.basketDetail(id);
+	}
+	
+//	@Update("UPDATE campbasket SET buy_ok=1 WHERE cno=#{cno}")
+	public void shopBasket_pay(int cno) {
+		mapper.shopBasket_pay(cno);
 	}
 	
 }

@@ -98,7 +98,7 @@
 
 		      
 		<div class="form-group">
-		  <label class="col-md-4 control-label">우편번호</label><input type=button id="postBtn" value="우편번호 검색" class="btn btn-sm btn-default" size=40>
+		  <label class="col-md-4 control-label">우편번호</label><input type=button id="postBtn" value="우편번호 검색" class="btn btn-sm btn-default" size=40 @click="openPost">
 		    <div class="col-md-4 inputGroupContainer">
 			    <div class="input-group">
 			        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
@@ -160,7 +160,7 @@
 
 <script>
 
-	$(function(){
+/* 	$(function(){
 		   $('#postBtn').click(function(){
 		      new daum.Postcode({
 		         oncomplete:function(data) {
@@ -169,7 +169,7 @@
 		         }
 		      }).open()
 		   })
-		})
+		}) */
 
 	new Vue({
 		el:'.member_container',	
@@ -210,6 +210,18 @@
 			})
 		},
 		methods: {
+		   openPost() {
+			   const _this = this
+			   new daum.Postcode({
+			         oncomplete:function(data) {
+			            /* $('#post').val(data.zonecode)
+			            $('#addr1').val(data.address) */
+			            console.log(_this)
+			            _this.post = data.zonecode
+			            _this.addr1 = data.address
+			         }
+			      }).open()
+		   },
 	      pwd_check:function() {
 	    	    axios.get('../mypage/pwd_check.do', {
 	    	        params: {

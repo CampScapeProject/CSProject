@@ -179,7 +179,7 @@
 		                </div>
 		                <div class="total_p">
 		                    <strong class="price_amount">{{ (b.price * b.amount).toLocaleString() }}</strong>원
-		                    <span class="del_li_btn"><button @click="buyNow(b.sno,b.amount)">구매</button></span>
+		                    <span class="del_li_btn"><button @click="buyNow(b.sno,b.amount,b.cno)">구매</button></span>
 		                    <span class="del_li_btn"><a href="#" @click="basketDel(b.cno)"><img src="https://tictoc-web.s3.ap-northeast-2.amazonaws.com/web/img/icon/btn_del_circle.svg"></a></span>
 		                </div>
 		            </div>
@@ -209,7 +209,8 @@
 	            totalAmount:0,
 	            snoAll:[],
 	            sno:0,
-	            amount:1
+	            amount:1,
+	            cno:0
 	        },
 	        mounted: function () {
                	axios.get('../mypage/basket_detail_vue.do',{
@@ -218,16 +219,16 @@
                		}
               	}).then(res=>{
               	    console.log(res.data)
+              	    
 					this.basketList=res.data
-
 	                this.calculateTotalPrice();
 	                this.calculateTotalAmount();
 
               	})
 	        },
 	        methods: {
-			    buyNow(sno,amount) {
-			    		const url='../shop/shop_pay.do?sno='+sno+'&amount='+amount;
+			    buyNow(sno,amount,cno) {
+			    		const url='../shop/shop_pay.do?sno='+sno+'&amount='+amount+'&cno='+cno;
 			            window.location.href = url;
 			    },
 	        	basketDel(cno){

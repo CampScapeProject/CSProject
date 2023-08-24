@@ -191,6 +191,14 @@ public class ShopRestController {
 
 		return "ok";
 	}
+	
+	@GetMapping(value="shop/shop_basket_buy_vue.do",produces = "text/plain;charset=UTF8")
+	public String shop_basket_buy(int cno) {
+		
+		service.shopBasket_pay(cno);
+		
+		return "ok";
+	}
 
 	
 }

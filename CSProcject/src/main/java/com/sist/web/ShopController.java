@@ -38,10 +38,10 @@ public class ShopController {
 	@RequestMapping("shop/shop_pay.do")
 	public String shop_pay_order(int sno,int amount,Model model) {
 
+		/* model.addAttribute("cno", cno); */
 		model.addAttribute("sno", sno);
 		model.addAttribute("amount", amount);
 		
-
 	    return "shop/shop_pay";
 	}
 

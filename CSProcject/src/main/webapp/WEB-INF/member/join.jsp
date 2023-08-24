@@ -127,6 +127,17 @@ label.light {
   }
 
 }
+.check-dup {
+ > div {
+ 	display: flex;
+ 	justify-content: space-between;
+ 	.btn-dup {
+ 		display: inline-flex;
+ 		margin-left: 12px;
+ 		height: 52px;
+ 	}
+ }
+}
 
 </style>
 <head>
@@ -140,13 +151,17 @@ label.light {
         
         <fieldset>
           <legend><span class="joinNumber">1</span>Your basic info</legend>
-          
-          <label for="name">아이디:</label><span style="color:red">&nbsp;{{idOk}}</span>
-	          <span v-if="id !== ''">
-	              <button class="btn btn-sm btn-default" id="idCheck" @click="idCheck">중복 확인</button>
-	          </span>
-          	  <input type="text" placeholder="아이디 입력(6~20자)" size=40 v-model="id" ref="id">
-          
+          	
+          	<div class="check-dup">
+	        	<label for="name">아이디:</label><span style="color:red">&nbsp;{{idOk}}</span>
+	        	<div>
+		          	<input type="text" placeholder="아이디 입력(6~20자)" size=40 v-model="id" ref="id">
+			        <span v-if="id !== ''" class="btn-dup">
+			            <button class="btn btn-sm btn-default" id="idCheck" @click="idCheck">중복 확인</button>
+			        </span>
+	           </div>
+           </div>
+	          
           <label for="name">비밀번호:</label><span style="color:red">&nbsp;{{pwdOk}}</span>
           <input type="password" placeholder="비밀번호 입력(8~20자)" size=50 v-model="pwd" ref="pwd" @keyup="pwdValidate">
           
@@ -172,14 +187,19 @@ label.light {
           <label for="name">연락처:</label>
           <input type=text name=phone size=50 ref="phone" v-model="phone">
           
-          <label for="name">우편번호:</label><input type=button id="postBtn" value="우편번호 검색" class="btn btn-sm btn-default" size=40>
-          <input type=text name=post id=post class="input-sm" ref="post" v-model="post">
+          <div class="check-dup">
+	          <label for="name">우편번호:</label>
+	          <div>
+		          <input type=text name=post id=post class="input-sm" ref="post" v-model="post">
+		          <input type=button id="postBtn" value="우편번호 검색" class="btn btn-sm btn-default btn-dup" size=40 @click="openPost">
+	         </div>
+          </div>
           
           <label for="name">주소:</label>
           <input type=text name=addr1 id=addr1 size=50 ref="addr1" v-model="addr1">
           
           <label for="name">상세 주소:</label>
-          <input type=text name=addr2 id=addr2 size=50 ref="addr2" v-model="addr2">
+          <input type=text name=addr2 id=addr2 size=50 ref="addr2" v-model="addr2" @keydown="test($event)">
           
         </fieldset>
         
@@ -192,16 +212,19 @@ label.light {
       
 <script>
 
-$(function(){
+/* $(function(){
 	   $('#postBtn').click(function(){
+		   console.log('1')
 	      new daum.Postcode({
 	         oncomplete:function(data) {
+
+	  		   console.log('2')
 	            $('#post').val(data.zonecode)
 	            $('#addr1').val(data.address)
 	         }
 	      }).open()
 	   })
-	})
+	}) */
 
 new Vue({
    el: '#joinForm',
@@ -223,6 +246,18 @@ new Vue({
       emailOk:''
    },
    methods: {
+	   openPost() {
+		   const _this = this
+		   new daum.Postcode({
+		         oncomplete:function(data) {
+		            /* $('#post').val(data.zonecode)
+		            $('#addr1').val(data.address) */
+		            console.log(_this)
+		            _this.post = data.zonecode
+		            _this.addr1 = data.address
+		         }
+		      }).open()
+	   },
 		emailCheck(){
 				if(this.email!='') {
 					axios.get('../member/email_check_vue.do',{

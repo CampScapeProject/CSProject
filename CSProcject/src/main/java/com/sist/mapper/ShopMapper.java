@@ -65,7 +65,7 @@ public interface ShopMapper {
 	
 	@Select("SELECT * FROM shop2 s "
 	        + "JOIN campbasket c ON c.sno = s.sno "
-	        + "WHERE c.id=#{id}")
+	        + "WHERE c.id=#{id} AND buy_ok=0")
 	public List<ShopVO> basketDetail(String id);
 	
 	
