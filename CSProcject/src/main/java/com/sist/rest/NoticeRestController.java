@@ -78,6 +78,7 @@ public class NoticeRestController {
 			 vo.setFilename("");
 			 vo.setFilesize("");
 			 vo.setFilecount(0);
+			 
 		 }
 		 else {
 			 
