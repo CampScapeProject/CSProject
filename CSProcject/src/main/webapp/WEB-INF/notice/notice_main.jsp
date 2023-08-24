@@ -93,12 +93,9 @@
 	    					<i v-if="vo.fix==1" class="fa-solid fa-microphone" style="color:#828282;"></i>
 	    					<span v-if="vo.fix!=1">{{vo.nno}}</span>
 	    				</td>
-	    				
-	    				
-		    				<td width="60%">
-							    <a :href="'../notice/notice_detail.do?nno='+vo.nno">{{vo.title}}</a>
-							</td>
-	    				
+	    				<td width="60%">
+						    <a :href="'../notice/notice_detail.do?nno='+vo.nno">{{vo.title}}</a>
+						</td>
 	    				<td width=10% class="text-center">관리자</td>
 	    				<td width=10% class="text-center">{{vo.dbday}}</td>
 	    				<td width=10% class="text-center">{{vo.hit}}</td>
