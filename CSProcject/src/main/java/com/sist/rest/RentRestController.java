@@ -203,4 +203,21 @@ public class RentRestController {
 		dao.reserve_request_cancel(rno);
 		return "";
 	}
+	
+	@GetMapping(value = "rent/review_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rent_review_list(String id, int curpage) throws Exception {
+		int rowsize=7;
+		int start=rowsize*curpage-(rowsize-1);
+		int end=rowsize*curpage;
+		
+		Map map=new HashMap();
+		map.put("id", id);
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<ReviewVO> list=dao.rent_review_list(map);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(list);
+	}
 }

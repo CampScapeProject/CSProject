@@ -76,4 +76,8 @@ public class RentDAO {
 	public void reserve_request_cancel(int rno) {
 		mapper.reserve_request_cancel(rno);
 	}
+	
+	public List<ReviewVO> rent_review_list(Map map){
+		return mapper.rent_review_list(map);
+	}
 }

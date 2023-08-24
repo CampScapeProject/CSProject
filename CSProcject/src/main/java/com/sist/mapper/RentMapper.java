@@ -91,4 +91,17 @@ public interface RentMapper {
 	
 	@Update("UPDATE reserve2 SET rstate='대기' WHERE rno=#{rno}")
 	public void reserve_request_cancel(int rno);
+	
+	@Select("SELECT no,content,sno,rating,dbday,car_name,image,num "
+		  + "FROM (SELECT no,content,sno,rating,dbday,car_name,image,rownum as num "
+		  + "	   FROM (SELECT no,content,sno,rating,TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbday,"
+		  + "					(SELECT car_name FROM rent2 WHERE rent2.rno=review2.sno) as car_name, "
+		  + "					(SELECT image FROM rent2 WHERE rent2.rno=review2.sno) as image "
+		  + "			 FROM review2 "
+		  + "			 WHERE id=#{id}"
+		  + "			 ORDER BY regdate DESC"
+		  + "			 )"
+		  + "	   ) "
+		  + "WHERE num BETWEEN #{start} AND #{end}")
+	public List<ReviewVO> rent_review_list(Map map);
 }

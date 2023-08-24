@@ -15,4 +15,5 @@ public class ReviewVO {
 	private String dbday;
 	private int totalpage,curpage;
 	private int rsno;
+	private String car_name, image;
 }

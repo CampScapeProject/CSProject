@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
 <div class="el">
@@ -22,19 +28,19 @@
 						<div class="table-head">
 							<div class="serial"></div>
 							<div class="visit">차량명</div>
-							<div class="visit">내용</div>
+							<div class="percentage">내용</div>
 							<div class="serial text-left">평점</div>
 							<div class="visit text-left">작성날짜</div>
 						</div>
 						
-						<div class="table-row">
+						<div class="table-row" v-for="vo in review_list">
 							<div class="serial">
-								<img src="https://rentinjeju.com/media/images/%EB%A0%8C%ED%8A%B8%EC%B9%B4/%EC%A0%84%EA%B8%B0%EC%B0%A8/%EC%BD%94%EB%82%98_EV.jpg" style="width: 70px;height: 60px;">
+								<img :src="vo.image" style="width: 70px;height: 60px;">
 							</div>
-							<div class="visit">2020 코나(전기차)</div>
-							<div class="visit"> 렌트카 특성상 실내가 ...</div>
-							<div class="serial">4</div>
-							<div class="visit">2023-08-22 18:30:15</div>
+							<div class="visit">{{vo.car_name}}</div>
+							<div class="percentage">{{vo.content}}</div>
+							<div class="serial">{{vo.rating}}</div>
+							<div class="visit">{{vo.dbday}}</div>
 						</div>
 						
 					</div>
@@ -47,7 +53,22 @@
 
 <script>
 	new Vue({
-		
+		el:'.el',
+		data:{
+			curpage:1,
+			review_list:[]
+		},
+		mounted:function(){
+			axios.get('../rent/review_list_vue.do',{
+				params:{
+					id:'${sessionScope.id}',
+					curpage:this.curpage
+				}
+			}).then(res=>{
+				console.log(res.data)
+				this.review_list=res.data
+			})
+		}
 	})
 </script>
 
