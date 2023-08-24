@@ -14,7 +14,7 @@
 	}
 	.form_area, .blog_item_date {
 		font-family: 'Jua', sans-serif;
-	}
+	} 
 	.form_area span {
 		font-size: 60px;
 		color: black;

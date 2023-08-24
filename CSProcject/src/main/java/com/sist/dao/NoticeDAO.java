@@ -36,7 +36,7 @@ public class NoticeDAO {
 	
 	public NoticeVO noticeUpdateData(int nno)
 	{
-		return mapper.noticeUpdateData(nno);
+		return mapper.noticeUpdateData(nno); 
 	}
 	
 	public void noticeUpdate(NoticeVO vo)

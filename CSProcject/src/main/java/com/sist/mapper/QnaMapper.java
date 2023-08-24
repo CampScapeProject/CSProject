@@ -17,7 +17,7 @@ public interface QnaMapper {
 			+ "FROM qna2 ORDER BY group_id DESC, group_step ASC)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<QnaVO> qnaListData(Map map);
-	
+	 
 	//카테고리별 리스트 출력
 	public List<QnaVO> qnaCategoryListData(Map map);
 	

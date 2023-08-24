@@ -22,7 +22,7 @@ public interface NoticeMapper {
 	
 	@Insert("INSERT INTO notice2 (nno, id, title, content, fix, regdate, filename, filesize, filecount) "
 			+ "VALUES(ntc2_nno_seq.nextval, #{id}, #{title}, #{content}, #{fix}, SYSDATE, #{filename}, #{filesize}, #{filecount})")
-	public void noticeInsert(NoticeVO vo);
+	public void noticeInsert(NoticeVO vo); 
 	
 	@Update("UPDATE notice2 SET hit=hit+1 WHERE nno=#{nno}")
 	public void noticeHitIncrease(int nno);

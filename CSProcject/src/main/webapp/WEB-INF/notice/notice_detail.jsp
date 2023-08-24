@@ -133,6 +133,7 @@
 			filenames:[],
 			filesizes:[],
 			filecount:0
+			
 		},
 		mounted:function(){
 			axios.get('../notice/notice_detail_vue.do', {

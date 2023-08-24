@@ -31,7 +31,7 @@ public class NoticeController {
 		model.addAttribute("nno", nno);
 		return "notice/notice_detail";
 	}
-	
+	 
 	@GetMapping("notice/notice_download.do")
 	public void notice_fileDownload(String fn, HttpServletRequest request, HttpServletResponse response)
 	{

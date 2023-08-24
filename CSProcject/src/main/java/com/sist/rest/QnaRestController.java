@@ -18,7 +18,7 @@ public class QnaRestController {
 	
 	@Autowired
 	private QnaDAO dao;
-	
+	 
 	@GetMapping(value = "qna/qna_main_vue.do", produces = "text/plain;charset=UTF-8")
 	public String qna_main(int page, int qcno) throws Exception
 	{	

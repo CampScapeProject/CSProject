@@ -158,6 +158,7 @@
 				form.append("content", this.content)
 				form.append("fix", this.fix)
 				
+				
 				axios.post('../notice/notice_update_ok_vue.do', form).then(res=>{
 					
 					location.href="../notice/notice_detail.do?nno="+this.nno

@@ -123,6 +123,7 @@
 			fix:0,
 			sessionId:"${id}",
 			images:''
+			
 		},
 		
 		methods:{

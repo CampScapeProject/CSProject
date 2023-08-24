@@ -16,7 +16,7 @@
 	.row2 {
 		margin: 0px auto;
 		text-align: center;
-	}
+	} 
 	.form_area, .blog_item_date {
 		font-family: 'Jua', sans-serif;
 	}
