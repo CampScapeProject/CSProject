@@ -15,7 +15,7 @@
 	.cart_table{
 		padding-top: 4.5rem;
 		margin-left:100px;
-	}
+	}  
 	.cart_table>p{
 		font-size: 3rem;
 		border-bottom: 2px solid #222;

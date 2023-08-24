@@ -19,7 +19,7 @@ public class ShopController {
 	
 	@Autowired
 	private ShopService service;
-	
+	  
 	@GetMapping("shop/shop_main.do")
 	public String shop_main() {
 

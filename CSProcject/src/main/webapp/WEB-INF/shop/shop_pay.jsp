@@ -196,7 +196,7 @@
 			    buyer_addr : '서울특별시 강남구 삼성동',
 			    buyer_postcode : '123-456',
 			    app_scheme : 'iamporttest' //in app browser결제에서만 사용 
-			}, function(rsp) {
+			}, function(rsp) {  
 			    if ( rsp.success ) {
 			        var msg = '결제가 완료되었습니다.';
 			        msg += '고유ID : ' + rsp.imp_uid;

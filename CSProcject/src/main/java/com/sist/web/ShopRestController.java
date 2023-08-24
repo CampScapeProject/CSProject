@@ -164,7 +164,7 @@ public class ShopRestController {
 		return json;
 		
 	}
-	
+	  
 	@GetMapping(value="shop/shop_recom_vue.do",produces = "text/plain;charset=UTF8")
 	public String shopRecom(int start,int end,int sno) throws Exception {
 		

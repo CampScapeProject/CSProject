@@ -13,7 +13,7 @@
 	
 	<style type="text/css">
 	.cart_table{
-		padding-top: 4.5rem;
+		padding-top: 4.5rem;  
 		margin-left:100px;
 	}
 	.cart_table>p{

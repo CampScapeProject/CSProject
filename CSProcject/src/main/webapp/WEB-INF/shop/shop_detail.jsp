@@ -795,7 +795,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 		mounted: function(){	
 			axios.get('../shop/shop_recom_vue.do',{
 				params:{
-					sno:this.sno,
+					sno:this.sno,  
 					start:this.sno+1,
 					end:this.sno+3
 				}
