@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.BasketVO;
 import com.sist.vo.OrderVO;
@@ -43,14 +44,18 @@ public interface ShopMapper {
 			+ "FROM shop2 WHERE cateno=#{cateno})) WHERE num BETWEEN #{start} AND #{end}")
 	public List<ShopVO> shopCateDetailList(Map map);
 	
-	@Insert("INSERT INTO order2 (ono,sno,id,amount,price) "
-			+ "VALUES(od2_ono_seq.nextval,#{sno},#{id},#{amount},#{price})")
+	@Insert("INSERT INTO order2 (ono,sno,id,amount,price,buy_ok) "
+			+ "VALUES(od2_ono_seq.nextval,#{sno},#{id},#{amount},#{price},1)")
 	public void shopPay(OrderVO vo);
 	
 	// 장바구니 넣기
 	@Insert("INSERT INTO campbasket (cno,sno,id,amount,price) "
 			+ "VALUES(cb_cno_seq.nextval,#{sno},#{id},#{amount},#{price})")
 	public void shopBasket(BasketVO vo);
+	
+	// 장바구니에서 구매하기
+	@Update("UPDATE campbasket SET buy_ok=1 WHERE cno=#{cno}")
+	public void shopBasket_pay(int cno);
 	
 	@Select("SELECT * FROM campbasket WHERE id=#{id}")
 	public List<BasketVO> basketList(String id);

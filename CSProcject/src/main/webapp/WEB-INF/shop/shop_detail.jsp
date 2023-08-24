@@ -638,8 +638,13 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 	        <div class="option">
 	          <div>
 	            <span>사이즈</span>
-	            <select name="size" ref="amount" ref="amount">
-					    <option v-for="i in 10" :key="i" :value="i">{{ i }}개</option>
+	            <select name="size" ref="amount">
+					    <!-- <option v-for="i in 10" :key="i" :value="i">{{ i }}개</option> -->
+					<option :value="1">1개</option>
+					<option :value="2">2개</option>
+					<option :value="3">3개</option>
+					<option :value="4">4개</option>
+					<option :value="5">5개</option>
 	            </select>
 	          </div>
 	
@@ -667,7 +672,6 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 	      </form>
 	    </section>
 	  </main>
-	
 	
 	  <article class="item">
 	    <div>
@@ -762,7 +766,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 		    	if(this.id==='') {
 		    		alert('로그인이 필요합니다.')
 		    	} else {
-		    		const url='../shop/shop_pay.do?sno='+this.sno+'&amount='+this.amount;
+		    		const url='../shop/shop_pay.do?sno='+this.sno+'&amount='+this.$refs.amount.value;
 		            window.location.href = url;
 		    	}
 		    },
@@ -775,7 +779,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			        		params:{
 			        			sno:this.sno,
 			        			id:this.id,
-			        			amount:this.$refs.amount,
+			        			amount:this.$refs.amount.value,
 			        			price:this.price
 			        		}
 			        	}).then(res=>{
@@ -784,12 +788,12 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			    	}
 		        },
             calculateTotalPrice() {
-		    	this.totalPrice = this.shopDetail.price * this.amount; 
+		    	this.totalPrice = this.shopDetail.price * parseInt(this.$refs.amount.value, 10); 
         	}
 		},
 		computed: {
 		    totalPrice() {
-		        return this.shopDetail.price * this.amount;
+		        return this.shopDetail.price * this.$refs.amount.value;
 		    }
 		},
 		mounted: function(){	
@@ -811,7 +815,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			}).then(res=>{
 				this.shopDetail=res.data.shopDetail;
 				this.imageUrls=res.data.imageUrls;
-				 this.calculateTotalPrice();
+				this.calculateTotalPrice();
 	
 			}).catch(error=>{
 				console.error(error);

@@ -184,11 +184,12 @@ public class ShopRestController {
 
 	}
 	
-	@RequestMapping(value="shop/shop_pay_ok.do",produces = "text/plain;charset=UTF8")
-	public String shop_pay_ok(String id) {
-			
-		System.out.println(id);
-		return "";
+	@PostMapping(value="shop/shop_pay_ok.do",produces = "text/plain;charset=UTF8")
+	public String shop_pay_ok(OrderVO vo) {
+		
+		service.shopPay(vo);
+
+		return "ok";
 	}
 
 	

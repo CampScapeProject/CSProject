@@ -36,7 +36,7 @@ th {
 <div class="member_container">
 	<div id="memberInfo">
 		<h3 style="margin-bottom: 20px">회원 내역</h3>
-		<div class="row1" style="margin-top:50px; ;margin-bottom: 10px;overflow-y: scroll">
+		<div class="row1" style="margin-top:20px; ;margin-bottom: 10px;overflow-y: scroll">
 			<table class="table">
 				<tr class="success">
 					<th width=20% class="text-center">아이디</th>

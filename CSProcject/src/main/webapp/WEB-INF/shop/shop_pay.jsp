@@ -53,6 +53,7 @@
 					<th width=10% class="text-center">수량</th>
 					<th width=10% class="text-center">Total</th>
 				</tr>
+				<form>
 					<tr style="padding: 10px;">
 						<td width=30%>
 							<img :src="buyDetail.image" style="width: 100px; height: 100px;" id="ono">
@@ -60,12 +61,13 @@
 						<td width=40% class="text-center" style="vertical-align: middle;">{{buyDetail.name}}</td>
 						<td width=10% class="text-center" style="vertical-align: middle;" v-model="price">{{buyDetail.price.toLocaleString()}}</td>
 						<td width=10% class="text-center" style="vertical-align: middle;">{{amount}}</td>
-						<td width=10% class="text-center total" style="vertical-align: middle;"v-model="tAmount">{{ (amount * buyDetail.price).toLocaleString() }}</td>
-						
+						<td width=10% class="text-center total" style="vertical-align: middle;" v-model="amount">{{ (amount * buyDetail.price).toLocaleString() }}</td>
+						<input type="hidden" :value="sno">
 					</tr>
+				</form>	
 			</table>
 		</div>
-		
+	
 		<div class="row1 buyForm" >
 			<h3 style="margin-bottom: 20px">주문자 정보</h3>
 			<table class="table" style="margin-bottom: 20px;">
@@ -104,7 +106,7 @@
 			<table>
 				<tr>
 					<td colspan=2>
-						<input type=button class="btn btn-lg btn-success" value="결제하기" style="width: 150px;" id="buyBtn" @click="pay">
+						<input type=submit class="btn btn-lg btn-success" value="결제하기" style="width: 150px;" id="buyBtn" @click="pay">
 						<input type=hidden >
 					</td>
 				</tr>
@@ -128,7 +130,7 @@
 		    addr2:'${sessionScope.addr2}',
 		    id:'${sessionScope.id}',
 		    buyDetail:{},
-		    tAmount:''
+		    tAmount:1
 		},
 		mounted:function(){
 		    const urlParams = new URLSearchParams(window.location.search);
@@ -180,9 +182,8 @@
 	var IMP = window.IMP; // 생략 가능
 	IMP.init("imp37752386"); // 예: imp00000000
 
-	function requestPay(vueApp.id) {
-	    
-    
+	function requestPay() {
+        
 		  // IMP.request_pay(param, callback) 결제창 호출
 			IMP.request_pay({
 			    pg : 'html5_inicis', // version 1.1.0부터 지원.
@@ -203,30 +204,44 @@
 			        msg += '상점 거래ID : ' + rsp.merchant_uid;
 			        msg += '결제 금액 : ' + rsp.paid_amount;
 			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			        console.log(vueApp.id);
-			        var formData = new FormData();
-				
-			        formData.append("id", vueApp.id);
-/* 			        formData.append('amount', vueApp.tAmount);
-			        formData.append('price', vueApp.price); // 실제 가격 값
-			        formData.append('sno', vueApp.sno); */
 			        
-			        axios.post("../shop/shop_pay_ok.do", formData).
-			        then(res => {
-			            console.log(res.data);
-			        }).catch(error => {
-			            console.log(error);
-			    	});
-			        	
+		            let form = new FormData();
+		            form.append("sno", vueApp.sno)
+		            form.append("id", vueApp.id)
+		            form.append("amount", vueApp.amount)
+		            form.append("price", vueApp.price)
+
+		            axios.post("../shop/shop_pay_ok.do", form, {
+		                header:{
+		                   'Content-Type':'multipart/form-data'
+		                }
+		             }).then(res=>{
+		                
+		                location.href="../mypage/shop_order.do"
+		                
+		             }).catch(error=>{
+		                console.log(error.response)
+		             })
+
 			        
 			    } else {
-			        axios.get('../shop/shop_pay_ok.do', { 
-			        	params: formData 
-			        }).then(res => {
-			            console.log(res.data);
-			        }).catch(error => {
-			            console.log(error);
-			    	});
+		            let form = new FormData();
+		            form.append("sno", vueApp.sno)
+		            form.append("id", vueApp.id)
+		            form.append("amount", vueApp.amount)
+		            form.append("price", vueApp.price)
+
+		            axios.post("../shop/shop_pay_ok.do", form, {
+		                header:{
+		                   'Content-Type':'multipart/form-data'
+		                }
+		             }).then(res=>{
+		                
+		                location.href="../mypage/shop_order.do"
+		                
+		             }).catch(error=>{
+		                console.log(error.response)
+		             })
 
 			    }
 			});

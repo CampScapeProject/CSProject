@@ -34,12 +34,6 @@ public class ShopController {
 		return "shop/shop_detail";
 	}
 	
-	/*
-	 * @GetMapping("shop/shop_pay.do") public String shop_pay(OrderVO vo) {
-	 * 
-	 * return "shop/shop_pay"; }
-	 */
-	
 
 	@RequestMapping("shop/shop_pay.do")
 	public String shop_pay_order(int sno,int amount,Model model) {
