@@ -111,14 +111,14 @@ function uncomma(str) {
 			        <br>
 			        <div class="filter_bordered">
 			        <div class="col-lg-12" id="cDate" style="text-align: center;border-bottom: 2px solid #DEE2E7;">
-			        	<input type="text" name="daterange" ref=rdate/>
+			        	<input type="text" name="daterange" ref="rdate"/>
 			        </div>
 			            <div class="filter_inner">
 			                <div class="row">
 			                    <div class="col-lg-12" style="border-bottom: 2px solid #DEE2E7;">
 			                        <div class="single_select">
 			                        <h3><b>지역</b></h3>
-			                            <select v-model="state" @change="selectState()">
+			                            <select ref="state">
 			                                <option data-display="지역">지역을 선택하세요</option>
 			                                <option value="경기">경기</option>
 			                                <option value="인천">인천</option>
@@ -237,8 +237,8 @@ function uncomma(str) {
 				axios.get('../camp/camp_find_list_vue.do',{
 					params:{
 						page:this.curpage,
-						rdate:this.rdate,
-						state:this.state,
+						rdate:this.$refs.rdate.value,
+						state:this.$refs.state.value,
 						spricefd:this.spricefd,
 						epricefd:this.epricefd,
 						campfd:this.campfd

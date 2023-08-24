@@ -302,15 +302,15 @@
 				      		<template v-if="index == 0">
 				      			<div class="row">
 					      			<div class="col-lg-3" v-for="fvo in tour_list">
-										<li class="card">
+										<li class="card" style="width: 200px;">
 											<a class="card-image" href="#">
-												<img :src="fvo.image">
+												<img :src="fvo.image" style="width: 100%;height: 130px">
 											</a>
-											<a class="card-description" :href="fvo.link" target="_blank">
-												<span>{{fvo.name}}</span>
+											<a class="card-description" target="_blank" style="cursor: default;">
+												<span style="text-align: center;">{{fvo.name}}</span>
 											</a>
-											<a class="card-description" :href="fvo.link" target="_blank">
-												<span style="font-size: 10px;">사이트 보기</span>
+											<a class="card-description" :href="fvo.link" target="_blank" style="margin-top: -20px">
+												<span style="font-size: 10px;text-align: center;">사이트 보기</span>
 											</a>
 										</li>
 									</div>
@@ -373,7 +373,9 @@
 				</div>
               </div>
               
-              <div id="dialog" title="후기글" v-if="isShow">
+              <!-- 리뷰 디테일 -->
+              
+              <div id="dialog" title="후기글" v-if="rDetailShow">
               	<div class="comment-form" style="margin-top: -55px;">
                      <div class="row" >
                         <div class="col-sm-6">
@@ -403,13 +405,14 @@
               </div>
               
               <!-- 리뷰 수정 -->
-              <div id="dialogU" title="후기글 수정" v-if="isShow">
+              <div id="dialogU" title="후기글 수정" v-if="rUpShow">
               	<div class="comment-form" style="margin-top: -65px;">
-                  <form @submit.prevent="updateForm(update_data.no)">
+                  <form @submit.prevent="updateForm()">
                      <div class="row" >
                         <div class="col-sm-6">
                            <div class="form-group">
                               <input class="form-control" type="text" :value="update_data.id" readonly>
+                              <input type="hidden" :value="update_data.no"> 
                            </div>
                         </div>
                         <div class="col-sm-6">
@@ -436,6 +439,35 @@
                   </form>
                </div>
               </div>
+              
+              <!--  예약 객식-->
+              <div id="dialogReserve" :title="camp_detail.name" v-if="resShow" style="padding: 0px;overflow-y:auto">
+              <div class="popular_destination_area" style="padding: 0px">
+        		<div class="container">
+	              	<div>
+	                  <div class="row">
+		                <div class="col-lg-12 col-md-12" v-for="cs in campsite_list" style="padding: 0px">
+		                    <div class="single_destination" style="width:100%;height: 290px;cursor: pointer;">
+		                        <div class="thumb">
+		                           <img :src="cs.image" style="width: 100%">
+		                        </div>
+		                        <div class="content">
+		                            <p class="d-flex align-items-center" >{{cs.name}}<a href="#" class="mPrice">{{cs.price}}&nbsp;원</a></p>
+		                            <p style="font-size: 15px;">최대&nbsp;{{cs.inwon}}인<button type="button" @click="reserveGo(true)" class="button button-contactForm btn_1 boxed-btn" style="margin-left: 250px;height: 60px;background-color:#001D38;border:1px solid #001D38 ">예약하기</button></p>
+		                        </div>
+		                            
+		                    </div>
+		                </div>
+	           		 </div>
+	               </div>
+              </div>
+             </div>
+             </div>
+             
+             <!-- 예약 창 -->
+             
+              
+              
               <!---------------------->
               <div class="navigation-area"><!--style="width: 1000px"-->
                      <div class="row">
@@ -485,29 +517,19 @@
 	            <div class="col-lg-2">
 	               <div class="blog_right_sidebar" style="width: 400px;">
                		<aside class="single_sidebar_widget search_widget">
-                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"type="submit" style="background-color:#E86A33;border-color: #E86A33;">예약하기</button>
+                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="button" @click="reserveList(true)" style="background-color:#001D38;border: 1px solid #001D38;">예약하기</button>
                   	</aside>
 	                  <aside class="single_sidebar_widget popular_post_widget">
-	                     <h3 class="widget_title">Recent Post</h3>
-	                     <div class="media post_item">
-	                        <img src="img/post/post_1.png" alt="post">
+	                     <h3 class="widget_title">최근 본 캠핑장</h3>
+	                     <div class="media post_item"  v-for="c in cookie_list">
+	                        <img :src="c.image.split('^')[0]" alt="post" style="width: 100px;height:100px">
 	                        <div class="media-body">
 	                           <a href="single-blog.html">
-	                              <h3>From life was you fish...</h3>
+	                              <h3>{{c.name}}</h3>
 	                           </a>
-	                           <p>January 12, 2019</p>
+	                           <p>{{c.address}}</p>
 	                        </div>
 	                     </div>
-	                  </aside>
-	                  <aside class="single_sidebar_widget instagram_feeds">
-	                     <h4 class="widget_title">최근 본 캠핑장</h4>
-	                     <ul class="instagram_row flex-wrap">
-	                        <li v-for="c in cookie_list">
-	                           <a href="#">
-	                              <img class="img-fluid" :src="c.image">
-	                           </a>
-	                        </li>
-	                     </ul>
 	                  </aside>
 	               </div>
 	            </div>
@@ -524,6 +546,7 @@
 			data:{
 				camp_detail:{},
 				cno:${cno},
+				no:0,
 				activeTab: 0,
 			    tabs: [
 				      { title: "주변 관광지", content: "Content for Tab 1" },
@@ -538,10 +561,13 @@
 				totalpage:0,
 				rcount:0,
 				review_detail:{},
-				isShow:false,
+				rDetailShow:false,
+				rUpShow:false,
+				resShow:false,
 				subject:'',
 				content:'',
-				update_data:{}
+				update_data:{},
+				campsite_list:[]
 			},
 			mounted:function(){
 				axios.get('../camp/camp_detail_vue.do',{
@@ -580,7 +606,6 @@
 					})
 			    },
 			    cookieShow:function(){
-			    	alert('cookie완료')
 			    	axios.get('../camp/camp_cookie.do').then(res=>{
 			    		console.log(res.data)
 			    		this.cookie_list=res.data
@@ -619,7 +644,7 @@
 			    	})
 			    },
 			    reviewDetail:function(no,bool){
-			    	this.isShow=bool;
+			    	this.rDetailShow=bool;
 					axios.get('../camp/camp_review_detail_vue.do',{
 						params:{
 							no:no
@@ -652,7 +677,7 @@
 					  })
 			    },
 			    reviewUpdateDialog:function(no,bool){
-			    	this.isShow=bool;
+			    	this.rUpShow=bool;
 			    	axios.get('../camp/camp_review_update_data_vue.do',{
 						params:{
 							no:no
@@ -662,6 +687,7 @@
 						this.update_data=res.data
 						this.subject=res.data.subject
 						this.content=res.data.content
+						this.no=res.data.no
 						
 			    	$('#dialogU').dialog({
 						autoOpen:false,
@@ -671,7 +697,7 @@
 					}).dialog("open")
 					})	    	
 			    },
-			    updateForm:function(no){
+			    updateForm:function(){
 					
 				   if(this.subject=="")
 				   {
@@ -687,7 +713,7 @@
 				   let form=new FormData();
 				   form.append("subject",this.subject);
 				   form.append("content",this.content);
-				   form.append("no",no)
+				   form.append("no",this.no)
 				   form.append("page",this.curpage)
 				   form.append("cno",this.cno)
 					
@@ -699,7 +725,28 @@
 						  console.log(error.response)
 					  })
 					
-			    },	
+			    },
+			    reserveList:function(bool){
+			    		this.resShow=bool;
+						axios.get('../camp/campsite_list.do',{
+							params:{
+								cno:this.cno
+							}
+						}).then(res=>{
+							console.log(res.data)
+							this.campsite_list=res.data
+							
+							$('#dialogReserve').dialog({
+								autoOpen:false,
+								modal:true, //다이어로그 실행중에는 다른 것은 실행 안되게
+								width:600,
+								height:800
+							}).dialog("open")
+						})		    	
+			    },
+			    reserveGo:function(bool){
+			    	
+			    },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		             mapOption = {

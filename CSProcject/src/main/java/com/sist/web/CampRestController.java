@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.CampDAO;
+import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
 import com.sist.vo.PageVO;
 import com.sist.vo.RentVO;
@@ -85,7 +86,7 @@ public class CampRestController {
 		map.put("sdate", sdate);
 		map.put("edate", edate);
 		
-	
+		
 		
 		String sp=spricefd;
 		String ep=epricefd;
@@ -99,12 +100,14 @@ public class CampRestController {
 			ep="1100000";
 		}
 		
-		map.put("spricefd", sp);
-		map.put("epricefd", ep);
+		map.put("spricefd", Integer.parseInt(sp));
+		map.put("epricefd", Integer.parseInt(ep));
 		
 		map.put("campfd", campfd);
 		map.put("state", state);
 		
+
+	
 		
 		List<CampVO> list=dao.campFindData(map);
 		
@@ -243,7 +246,6 @@ public class CampRestController {
 	
 	@GetMapping(value = "camp/camp_cookie.do", produces = "text/plain;charset=UTF-8")
 	public String rentCookieData(HttpServletRequest request) throws Exception {
-		System.out.println("쿠키 들어옴");
 		
 		Cookie[] cookies=request.getCookies();
 
@@ -263,7 +265,6 @@ public class CampRestController {
 				}
 			}
 		}
-		System.out.println("쿠키 들어옴2");
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(clist);
 	}
@@ -295,9 +296,33 @@ public class CampRestController {
 		return json;
 	}
 	
+	/*---------- 예약 -----------*/
+	
+	@GetMapping(value = "camp/campsite_list.do",produces = "text/plain;charset=UTF-8")
+	public String campsite_list_vue(int cno) throws Exception
+	{
+		List<CampSiteVO> list=dao.campSiteList(cno); 
+		
+		for(CampSiteVO cvo:list)
+		{
+			int price=Integer.parseInt(cvo.getPrice());
+			DecimalFormat df=new DecimalFormat("###,###,###");
+			String Fprice=df.format(price);
+			cvo.setPrice(Fprice); 
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	/* -------------------------------- */
+	
+	
 	/* -------- 리뷰 --------      */
 	
-	public String camp_review_list_data(int page,int cno)throws Exception
+	public String camp_review_list_data(int page,int cno) throws Exception
 	{ 
 		System.out.println("page:"+page);
 		

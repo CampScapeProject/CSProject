@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.CampMapper;
+import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
 import com.sist.vo.ReviewVO;
 import com.sist.vo.TourVO;
@@ -104,5 +105,12 @@ public class CampDAO {
 	{
 		mapper.campReviewDelete(no);
 	}
-
+	
+	
+	//예약
+	
+	public List<CampSiteVO> campSiteList(int cno)
+	{
+		return mapper.campSiteList(cno);
+	}
 }

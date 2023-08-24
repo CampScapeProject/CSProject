@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
 import com.sist.vo.RentVO;
 import com.sist.vo.ReviewVO;
@@ -50,7 +51,7 @@ public interface CampMapper {
 	 * ORDER BY tno ASC)) WHERE num BETWEEN #{start} AND #{end} </select>
 	 */
 	
-	@Select("SELECT cno,name,image FROM camp2 WHERE cno=#{cno}")
+	@Select("SELECT cno,name,image,address FROM camp2 WHERE cno=#{cno}")
 	public CampVO campCookieData(int cno);
 	
 	public List<TourVO> tourListData(String addr);
@@ -83,6 +84,12 @@ public interface CampMapper {
 	
 	@Delete("DELETE FROM review2 WHERE no=#{no}")
 	public void campReviewDelete(int no);
+	
+	
+	//예약
+	
+	@Select("SELECT csno,cno,name,image,price,inwon FROM campsite2 WHERE cno=#{cno}")
+	public List<CampSiteVO> campSiteList(int cno);
 	
 	
 }
