@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <title>CampScape Order</title>
 
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+<script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <style type="text/css">
     .row1 {
         margin: 0px auto;
@@ -28,16 +35,6 @@
         in
     }
 </style>
-
-
-<script type="text/javascript" src="https://code.jquery.com/jquery.js" ></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
-<script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 
 </head>
 <body>
@@ -61,9 +58,9 @@
 							<img :src="buyDetail.image" style="width: 100px; height: 100px;" id="ono">
 						</td>
 						<td width=40% class="text-center" style="vertical-align: middle;">{{buyDetail.name}}</td>
-						<td width=10% class="text-center" style="vertical-align: middle;">{{buyDetail.price.toLocaleString()}}</td>
+						<td width=10% class="text-center" style="vertical-align: middle;" v-model="price">{{buyDetail.price.toLocaleString()}}</td>
 						<td width=10% class="text-center" style="vertical-align: middle;">{{amount}}</td>
-						<td width=10% class="text-center total" style="vertical-align: middle;">{{ (amount * buyDetail.price).toLocaleString() }}</td>
+						<td width=10% class="text-center total" style="vertical-align: middle;"v-model="tAmount">{{ (amount * buyDetail.price).toLocaleString() }}</td>
 						
 					</tr>
 			</table>
@@ -118,82 +115,20 @@
 
 <script>
 
-
-$(function() {
-	$('#buyBtn').click(function() {
-	
-	vueApp.pay();
-	})
-	
-   $('#postBtn').click(function(){
-     new daum.Postcode({
-        oncomplete:function(data) {
-           $('#post').val(data.zonecode)
-           $('#addr1').val(data.address)
-        }
-     }).open()
-  })
-}) 
-
-var IMP = window.IMP; // 생략 가능
-IMP.init("imp37752386"); // 예: imp00000000
-
-function requestPay() {
-	console.log('clicked');
-	 
-	  // IMP.request_pay(param, callback) 결제창 호출
-		IMP.request_pay({
-		    pg : 'html5_inicis', // version 1.1.0부터 지원.
-		    pay_method : 'card', // 'card' : 신용카드 | 'trans' : 실시간계좌이체 | 'vbank' : 가상계좌 | 'phone' : 휴대폰소액결제
-		    merchant_uid : 'merchant_' + new Date().getTime(),
-		    name : '주문명:결제테스트',
-		    amount : 14000,
-		    buyer_email : 'iamport@siot.do',
-		    buyer_name : '구매자이름',
-		    buyer_tel : '010-1234-5678',
-		    buyer_addr : '서울특별시 강남구 삼성동',
-		    buyer_postcode : '123-456',
-		    app_scheme : 'iamporttest' //in app browser결제에서만 사용 
-		}, function(rsp) {
-		    if ( rsp.success ) {
-		        var msg = '결제가 완료되었습니다.';
-		        msg += '고유ID : ' + rsp.imp_uid;
-		        msg += '상점 거래ID : ' + rsp.merchant_uid;
-		        msg += '결제 금액 : ' + rsp.paid_amount;
-		        msg += '카드 승인번호 : ' + rsp.apply_num;
-		        
-		        var formData = new FormData();
-		        formData.append('id', );
-		        formData.append('amount', );
-		        formData.append('price', ); // 실제 가격 값
-		        formData.append('sno', );
-		        
-		        var xhr = new XMLHttpRequest();
-		        xhr.open("POST", "../shop/shop_pay_ok.do", true);
-
-		        xhr.send(formData);
-		    } else {
-		        var xhr = new XMLHttpRequest();
-		        xhr.open("POST", "../shop/shop_pay_ok.do", true);
-
-		        xhr.send(formData);
-
-		    }
-		});
-}
-
 	var vueApp=new Vue({
 		el:'.pay_container',
 		data:{
-			sno:null,
-		    amount:null,
-		    price: 0,
+			sno:${sno},
+		    amount:${amount},
+		    price: 1,
 		    name: '${sessionScope.name}',
 		    phone:'${sessionScope.phone}',
 		    post:'${sessionScope.post}',
 		    addr1:'${sessionScope.addr1}',
 		    addr2:'${sessionScope.addr2}',
-		    buyDetail:{}
+		    id:'${sessionScope.id}',
+		    buyDetail:{},
+		    tAmount:''
 		},
 		mounted:function(){
 		    const urlParams = new URLSearchParams(window.location.search);
@@ -224,6 +159,79 @@ function requestPay() {
 		    }
 		}
 	})
+	
+	
+	$(function() {
+		$('#buyBtn').click(function() {
+		
+		vueApp.pay();
+		})
+		
+	   $('#postBtn').click(function(){
+	     new daum.Postcode({
+	        oncomplete:function(data) {
+	           $('#post').val(data.zonecode)
+	           $('#addr1').val(data.address)
+	        }
+	     }).open()
+	  })
+	}) 
+
+	var IMP = window.IMP; // 생략 가능
+	IMP.init("imp37752386"); // 예: imp00000000
+
+	function requestPay(vueApp.id) {
+	    
+    
+		  // IMP.request_pay(param, callback) 결제창 호출
+			IMP.request_pay({
+			    pg : 'html5_inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card', // 'card' : 신용카드 | 'trans' : 실시간계좌이체 | 'vbank' : 가상계좌 | 'phone' : 휴대폰소액결제
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '주문명:결제테스트',
+			    amount : 14000,
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울특별시 강남구 삼성동',
+			    buyer_postcode : '123-456',
+			    app_scheme : 'iamporttest' //in app browser결제에서만 사용 
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			        var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			        console.log(vueApp.id);
+			        var formData = new FormData();
+				
+			        formData.append("id", vueApp.id);
+/* 			        formData.append('amount', vueApp.tAmount);
+			        formData.append('price', vueApp.price); // 실제 가격 값
+			        formData.append('sno', vueApp.sno); */
+			        
+			        axios.post("../shop/shop_pay_ok.do", formData).
+			        then(res => {
+			            console.log(res.data);
+			        }).catch(error => {
+			            console.log(error);
+			    	});
+			        	
+			        
+			    } else {
+			        axios.get('../shop/shop_pay_ok.do', { 
+			        	params: formData 
+			        }).then(res => {
+			            console.log(res.data);
+			        }).catch(error => {
+			            console.log(error);
+			    	});
+
+			    }
+			});
+	}
+	
 </script>
 
 </body>

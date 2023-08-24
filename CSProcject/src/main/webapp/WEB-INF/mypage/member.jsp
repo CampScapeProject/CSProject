@@ -23,7 +23,7 @@
 <body>
  
 <div class="member_container">
-    <form class="well form-horizontal" style="margin-left:275px;margin-top:20px;">
+    <form class="well form-horizontal" style="margin-left:100px;margin-top:20px;">
 		<fieldset>
 
 		<legend>회원 정보</legend>

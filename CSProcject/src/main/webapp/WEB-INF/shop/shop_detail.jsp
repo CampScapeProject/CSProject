@@ -108,15 +108,10 @@ button {
   cursor: pointer;
 } */
 
-img {
-  width: 100px;
-}
 
 input:focus {
   outline: none;
 }
-
-/* mobile start */
 
 
 
@@ -643,7 +638,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 	        <div class="option">
 	          <div>
 	            <span>사이즈</span>
-	            <select name="size" v-model="amount" ref="amount">
+	            <select name="size" ref="amount" ref="amount">
 					    <option v-for="i in 10" :key="i" :value="i">{{ i }}개</option>
 	            </select>
 	          </div>
@@ -780,7 +775,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			        		params:{
 			        			sno:this.sno,
 			        			id:this.id,
-			        			amount:this.amount,
+			        			amount:this.$refs.amount,
 			        			price:this.price
 			        		}
 			        	}).then(res=>{
@@ -798,7 +793,6 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 		    }
 		},
 		mounted: function(){	
-			
 			axios.get('../shop/shop_recom_vue.do',{
 				params:{
 					sno:this.sno,

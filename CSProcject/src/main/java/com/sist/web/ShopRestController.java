@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.output.CloseShieldOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -182,5 +184,12 @@ public class ShopRestController {
 
 	}
 	
+	@RequestMapping(value="shop/shop_pay_ok.do",produces = "text/plain;charset=UTF8")
+	public String shop_pay_ok(String id) {
+			
+		System.out.println(id);
+		return "";
+	}
+
 	
 }

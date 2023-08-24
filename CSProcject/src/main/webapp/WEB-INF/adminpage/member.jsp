@@ -16,7 +16,7 @@
 
 .member_container {
 	width:900px;
-	margin-left:275px;
+	margin-left:100px;
 }
 
 .row1 {
