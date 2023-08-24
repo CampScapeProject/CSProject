@@ -243,6 +243,8 @@ public class CampRestController {
 	
 	@GetMapping(value = "camp/camp_cookie.do", produces = "text/plain;charset=UTF-8")
 	public String rentCookieData(HttpServletRequest request) throws Exception {
+		System.out.println("쿠키 들어옴");
+		
 		Cookie[] cookies=request.getCookies();
 
 		List<CampVO> clist=new ArrayList<CampVO>();
@@ -261,7 +263,7 @@ public class CampRestController {
 				}
 			}
 		}
-		
+		System.out.println("쿠키 들어옴2");
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(clist);
 	}
@@ -361,14 +363,10 @@ public class CampRestController {
 	}
 	
 	@GetMapping(value = "camp/camp_review_detail_vue.do",produces = "text/plain;charset=UTF-8")
-	public String camp_review_detail(int no,int cno)  throws Exception
+	public String camp_review_detail(int no)  throws Exception
 	{
-		Map map = new HashMap();
-		map.put("type", "c");
-		map.put("cno", cno);
-		map.put("no", no);
 		
-		ReviewVO vo=dao.campReviewDetail(map,no);
+		ReviewVO vo=dao.campReviewDetail(no);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
@@ -389,9 +387,22 @@ public class CampRestController {
 		
 	}
 	
+	@GetMapping(value = "camp/camp_review_update_data_vue.do",produces = "text/plain;charset=UTF-8")
+	public String camp_review_update_data(int no) throws Exception
+	{
+		ReviewVO vo=dao.campUpdateData(no);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+	
+		return json;
+	}
 	@PostMapping(value = "camp/camp_review_update_vue.do",produces = "text/plain;charset=UTF-8")
 	public String camp_review_update(int no,int cno,int page,String content,String subject) throws Exception
 	{
+		
+		System.out.println("sub:"+subject);
+		System.out.println("cont:"+content);
 		Map map = new HashMap();
 		map.put("cont", content);
 		map.put("sub", subject);

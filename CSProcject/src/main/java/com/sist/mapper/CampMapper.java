@@ -78,8 +78,8 @@ public interface CampMapper {
 	@Update("UPDATE review2 SET subject=#{sub},content=#{cont} WHERE no=#{no}")
 	public void campReviewUpdate(Map map);
 	
-	@Select("SELECT no,subject,content,sno,id,TO_CHAR(regdate, 'YYYY-MM-DD')as dbday FROM review2 WHERE no=#{no} AND sno=#{cno} AND type=#{type}")
-	public ReviewVO campReviewDetail(Map map);
+	@Select("SELECT no,subject,content,sno,id,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday FROM review2 WHERE no=#{no}")
+	public ReviewVO campReviewDetail(int no);
 	
 	@Delete("DELETE FROM review2 WHERE no=#{no}")
 	public void campReviewDelete(int no);
