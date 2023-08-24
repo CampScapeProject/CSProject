@@ -19,7 +19,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 /*   border: 1px solid silver; */
 }
 
@@ -395,7 +395,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 .item> :nth-child(2) {
   padding: 14px 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 10px;
   overflow-x: auto;
 }
@@ -406,12 +406,12 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 
 /* 스크롤 이미지 2개만 보이게 하기 */
 .item> :nth-child(2)>div {
-  width: calc((100vw - 60px)/2);
+  width: calc(100% / 3);
   flex-shrink: 0;
 }
 
 .item> :nth-child(2) div a img {
-  width: 20%;
+  width: 300px;
 }
 
 .item> :nth-child(2) div a>p {
@@ -525,6 +525,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 .pro_detail img {
   width: 65%;
   display: flex;
+  margin: 0 auto;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
 }
@@ -585,13 +586,14 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 }
 
 #shopMain {
+	display: block;
 	 width:500px;
 	 margin: 0 auto;
 }
 @media screen and (min-width: 684px) {
   
   .item> :nth-child(2)>div {
-  width: calc((100vw - 80px)/2);
+  width: calc(100% / 3);
   flex-shrink: 0;
 	} 
 }
@@ -599,6 +601,14 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 #orderBtn {
 	background-color: black;
 	color:white;
+}
+
+.nice-select {
+	display: none !important;
+}
+
+#select-count {
+	display: block !important;
 }
 </style>
  
@@ -638,7 +648,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 	        <div class="option">
 	          <div>
 	            <span>사이즈</span>
-	            <select name="size" ref="amount">
+	            <select name="size" v-model="amount" id="select-count">
 					    <!-- <option v-for="i in 10" :key="i" :value="i">{{ i }}개</option> -->
 					<option :value="1">1개</option>
 					<option :value="2">2개</option>
@@ -654,7 +664,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 	
 	          <div>
 	            <span>총 합계</span>
-	            <span><strong>{{ totalPrice.toLocaleString() }}</strong>원</span>
+	            <span><strong>{{ calculateTotalPrice.toLocaleString() }}</strong>원</span>
 	          </div>
 	        </div>
 	
@@ -758,7 +768,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			recomDetail:[],
 			id:'${sessionScope.id}',
 			price:0,
-			totalPrice:0
+			totalPrice:0,
 		},
  		methods: {
 		    buyNow(event) {
@@ -766,7 +776,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 		    	if(this.id==='') {
 		    		alert('로그인이 필요합니다.')
 		    	} else {
-		    		const url='../shop/shop_pay.do?sno='+this.sno+'&amount='+this.$refs.amount.value;
+		    		const url='../shop/shop_pay.do?sno='+this.sno+'&amount='+this.amount;
 		            window.location.href = url;
 		    	}
 		    },
@@ -779,7 +789,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			        		params:{
 			        			sno:this.sno,
 			        			id:this.id,
-			        			amount:this.$refs.amount.value,
+			        			amount:this.amount,
 			        			price:this.price
 			        		}
 			        	}).then(res=>{
@@ -787,13 +797,19 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			        	})
 			    	}
 		        },
-            calculateTotalPrice() {
-		    	this.totalPrice = this.shopDetail.price * parseInt(this.$refs.amount.value, 10); 
-        	}
+            /* calculateTotalPrice(isFirst) {
+		        	console.log(this.amount)
+		       	if(isFirst) {
+		       		this.totalPrice = this.shopDetail.price
+		       	} else {
+			    	this.totalPrice = this.shopDetail.price * parseInt(this.$refs.amount.value, 10); 
+		       	}
+        	} */
 		},
 		computed: {
-		    totalPrice() {
-		        return this.shopDetail.price * this.$refs.amount.value;
+			calculateTotalPrice() {
+		    	console.log('dd')
+		        return this.shopDetail.price * this.amount;
 		    }
 		},
 		mounted: function(){	
@@ -815,7 +831,8 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			}).then(res=>{
 				this.shopDetail=res.data.shopDetail;
 				this.imageUrls=res.data.imageUrls;
-				this.calculateTotalPrice();
+				this.totalPrice = this.shopDetail.price;
+				/* this.calculateTotalPrice(true); */
 	
 			}).catch(error=>{
 				console.error(error);
