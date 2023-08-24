@@ -14,4 +14,5 @@ public class ReviewVO {
 	private Double tRating;
 	private String dbday;
 	private int totalpage,curpage;
+	private int rsno;
 }

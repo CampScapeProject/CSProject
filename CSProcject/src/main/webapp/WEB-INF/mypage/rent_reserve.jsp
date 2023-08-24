@@ -284,7 +284,9 @@
 		    reviewWriteBtn(){
 		    	let x=(document.body.offsetWidth/2)-(450/2)
 				let y=(window.screen.height/2)-(600/2)-50
-				window.open("../mypage/review_write.do?rno="+this.rent_detail.rno,"",'width=450, height=600, left='+x+', top='+y+',scrollbar=yes')
+				window.open("../mypage/review_write.do?rno="+this.reserve_list[this.activeReserve].rno
+													+"&fno="+this.reserve_list[this.activeReserve].fno,
+						"",'width=450, height=600, left='+x+', top='+y+',scrollbar=yes')
 		    },
 		    cancelRequestBtn(){
 		    	axios.get('../rent/reserve_cancel_request_vue.do',{

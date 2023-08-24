@@ -164,7 +164,8 @@ $(function(){
 	new Vue({
 		el:'.container',
 		data:{
-			rno:${rno},
+			rno:${fno},
+			rsno:${rno},
 			rent_detail:{},
 			content:''
 		},
@@ -193,7 +194,8 @@ $(function(){
 						rno:this.rno,
 						rank:rank,
 						content:this.content,
-						id:'${sessionScope.id}'
+						id:'${sessionScope.id}',
+						rsno:this.rsno
 					}
 				}).then(res=>{
 					alert("리뷰가 등록되었습니다")

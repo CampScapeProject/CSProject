@@ -14,6 +14,10 @@
 <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
  
+<!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <style type="text/css">
 	.tabs {
 	  display: flex; 
@@ -244,7 +248,7 @@
 
 <script>
 
-	new Vue({
+	let rent_pay=new Vue({
 		el:'.el-space',
 		data:{
 		    detail:true,
@@ -317,25 +321,57 @@
 		    		return
 		    	}
 		    	
+
+		    	
+		    	requestPay()
+		    }
+		}
+	})
+	
+	
+    var IMP = window.IMP; 
+    IMP.init("imp87215528"); 
+  
+    var today = new Date();   
+    var hours = today.getHours(); // 시
+    var minutes = today.getMinutes();  // 분
+    var seconds = today.getSeconds();  // 초
+    var milliseconds = today.getMilliseconds();
+    var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+    
+
+    function requestPay() {
+        IMP.request_pay({
+            pg : 'kakaopay',
+            merchant_uid: "IMP"+makeMerchantUid, 
+            name : rent_pay.rent_detail.car_name,
+            amount : 1004,
+            buyer_email : 'Iamport@chai.finance',
+            buyer_name : '아임포트 기술지원팀',
+            buyer_tel : '010-1234-5678',
+            buyer_addr : '서울특별시 강남구 삼성동',
+            buyer_postcode : '123-456'
+        }, function (rsp) { // callback
+            if (rsp.success) {
 		    	//예약 체크
 		    	axios.get('../rent/reserve_check_vue.do',{
 		    		params:{
-		    			rno:this.rno,
-		    			sdate:this.sDate,
-		    			edate:this.eDate
+		    			rno:rent_pay.rno,
+		    			sdate:rent_pay.sDate,
+		    			edate:rent_pay.eDate
 		    		}
 		    	}).then(res=>{
 		    		if(res.data=="Y"){
 				    	axios.post('../rent/reserve_vue.do',null,{
 				    		params:{
-				    			name:this.name,
-				    			birth:this.birth,
-				    			phone:this.phone,
-				    			email:this.email,
-				    			dbsdate:this.sDate,
-				    			dbedate:this.eDate,
-				    			fno:this.rno,
-				    			price:this.rent_detail.price*this.period,
+				    			name:rent_pay.name,
+				    			birth:rent_pay.birth,
+				    			phone:rent_pay.phone,
+				    			email:rent_pay.email,
+				    			dbsdate:rent_pay.sDate,
+				    			dbedate:rent_pay.eDate,
+				    			fno:rent_pay.rno,
+				    			price:rent_pay.rent_detail.price*rent_pay.period,
 				    			id:'${sessionScope.id}'
 				    		}
 				    	}).then(res=>{
@@ -348,12 +384,41 @@
 		    			
 		    		}
 		    	})
-		    	
-		    }
-		}
-	})
-	
-
+            } else {
+		    	//예약 체크
+		    	axios.get('../rent/reserve_check_vue.do',{
+		    		params:{
+		    			rno:rent_pay.rno,
+		    			sdate:rent_pay.sDate,
+		    			edate:rent_pay.eDate
+		    		}
+		    	}).then(res=>{
+		    		if(res.data=="Y"){
+				    	axios.post('../rent/reserve_vue.do',null,{
+				    		params:{
+				    			name:rent_pay.name,
+				    			birth:rent_pay.birth,
+				    			phone:rent_pay.phone,
+				    			email:rent_pay.email,
+				    			dbsdate:rent_pay.sDate,
+				    			dbedate:rent_pay.eDate,
+				    			fno:rent_pay.rno,
+				    			price:rent_pay.rent_detail.price*rent_pay.period,
+				    			id:'${sessionScope.id}'
+				    		}
+				    	}).then(res=>{
+				    		alert("예약이 완료되었습니다")
+				    		location.href="../main/home.do"
+				    	})
+		    		} else{
+		    			alert("예약이 불가능한 상품입니다")
+		    			location.href="../rent/rent_main.do"
+		    			
+		    		}
+		    	})
+            }
+        });
+    }
 </script>
 </body>
 </html>

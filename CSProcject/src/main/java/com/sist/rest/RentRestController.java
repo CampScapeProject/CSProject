@@ -179,12 +179,13 @@ public class RentRestController {
 	}
 	
 	@PostMapping(value = "rent/review_insert_vue.do", produces = "text/plain;charset=UTF-8")
-	public String rent_review_insert(int rno,int rank, String content, String id) {
+	public String rent_review_insert(int rno,int rank, String content, String id,int rsno) {
 		Map map = new HashMap();
 		map.put("rno", rno);
 		map.put("rank", rank);
 		map.put("content", content);
 		map.put("id", id);
+		map.put("rsno", rsno);
 		
 		dao.review_insert(map);
 		
