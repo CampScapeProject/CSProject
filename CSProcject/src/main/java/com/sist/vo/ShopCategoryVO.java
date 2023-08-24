@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class ShopCategoryVO {
 
-	private int cno;
+	private int cateno;
 	private String cname;
 }

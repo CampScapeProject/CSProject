@@ -1,11 +1,17 @@
 package com.sist.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.MemberDAO;
 import com.sist.service.MemberService;
 import com.sist.vo.MemberVO;
@@ -16,10 +22,6 @@ public class MemberRestController {
 	@Autowired
 	private MemberService service;
 	
-	/*
-	 * @Autowired private MemberDAO dao;
-	 */
-   
     @Autowired
    private BCryptPasswordEncoder encoder;
    
@@ -46,6 +48,7 @@ public class MemberRestController {
             session.setAttribute("post", vo.getPost());
             session.setAttribute("addr1", vo.getAddr1());
             session.setAttribute("addr2", vo.getAddr2());
+            session.setAttribute("birth", vo.getBirth());
       
          } else {
             result="NOPWD";
@@ -74,7 +77,7 @@ public class MemberRestController {
       return result;
    }
    
-   @PostMapping(value="member/idCheck.do",produces = "text/plain;charset=UTF-8")
+   @RequestMapping(value="member/idCheck.do",produces = "text/plain;charset=UTF-8")
    public String idCheck(String id) {
       String result="";
       
@@ -120,5 +123,63 @@ public class MemberRestController {
 	   }
 	   return result;
    }
+   
+   @RequestMapping(value="mypage/pwd_check.do",produces = "text/plain;charset=UTF-8")
+   public String pwd_check(String pwd,HttpSession session) {
+	   
+	   String result="no";
+
+	   String db_id=(String) session.getAttribute("id");
+
+	   String db_pwd=service.member_password(db_id);
+
+			if(encoder.matches(pwd, db_pwd)) {
+				result="ok";
+			}
+			System.out.println(result);
+			   return result;
+	   }
+
+   
+   @RequestMapping(value="mypage/update_ok.do",produces = "text/plain;charset=UTF-8")
+   public String member_update(MemberVO vo) {
+
+	   service.member_update(vo);
+	   
+	   return "YES";
+	   
+   }
+   
+   @GetMapping(value="adminpage/member_list_vue.do",produces = "text/plain;charset=UTF-8")
+   public String member_list() throws Exception {   
+	   
+	   List<MemberVO> list=service.member_list();
+	   
+	   ObjectMapper mapper=new ObjectMapper();
+	   String json=mapper.writeValueAsString(list);
+	   
+	   return json;
+	   
+   }
+   
+   @PostMapping(value="adminpage/member_detail_vue.do",produces = "text/plain;charset=UTF-8")
+   public String member_detail(String id) throws Exception {
+
+	   MemberVO vo=service.member_detail(id);
+	   
+	   ObjectMapper mapper=new ObjectMapper();
+	   String json=mapper.writeValueAsString(vo);
+	   
+	   return json;
+	   
+   }
+   
+   @PostMapping(value="adminpage/member_update_vue.do",produces = "text/plain;charset=UTF-8")
+   public void admin_member_update(MemberVO vo) {
+	   
+	   service.admin_member_update(vo);
+	    
+   }
+   
    
 }

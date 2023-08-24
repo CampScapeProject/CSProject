@@ -5,15 +5,12 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.io.output.CloseShieldOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.ShopService;
@@ -55,7 +52,7 @@ public class ShopRestController {
 	}
 	
 	@GetMapping(value="shop/shop_cateAllList_vue.do",produces = "text/plain;charset=UTF8") 
-	public String shop_cateAllList(int cno,int page) throws Exception {
+	public String shop_cateAllList(int cateno,int page) throws Exception {
 
 		Map map=new HashMap();	
 		
@@ -64,7 +61,7 @@ public class ShopRestController {
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
 		
-		map.put("cno", cno);
+		map.put("cateno", cateno);
 		map.put("start", start);
 		map.put("end",end);
 		List<ShopVO> list=service.shopCateDetailList(map);
@@ -77,9 +74,9 @@ public class ShopRestController {
 	}
 	
 	@GetMapping(value="shop/page_list_vue.do",produces = "text/plain;charset=UTF-8")
-	public String page_list(int page,int cno) throws Exception {
+	public String page_list(int page,int cateno) throws Exception {
 		
-		int totalpage=service.shopTotalPage(cno);
+		int totalpage=service.shopTotalPage(cateno);
 		
 		// 시작페이지~끝페이지 1~10
 		final int BLOCK=10;
@@ -141,19 +138,8 @@ public class ShopRestController {
 		return "ok";
 	}
 	
-	@GetMapping(value="mypage/shop_basketList_vue.do",produces = "text/plain;charset=UTF8")
-	public String basketList(String id) throws Exception {
-		
-		List<BasketVO> basketList=service.basketList(id);
-
-		ObjectMapper mapper=new ObjectMapper();
-		String json=mapper.writeValueAsString(basketList);
-		
-		return json;
-	}
-	
 	@GetMapping(value="mypage/basket_delete_vue.do",produces = "text/plain;charset=UTF8")
-	public void basket_delete(String id,int cno) {
+	public String basket_delete(String id,int cno) {
 		
 		Map map=new HashMap();
 		
@@ -162,6 +148,39 @@ public class ShopRestController {
 		
 		service.basketDelete(map);
 		
+		return "ok";
+		
 	}
+	
+	@GetMapping(value="mypage/basket_detail_vue.do",produces = "text/plain;charset=UTF8")
+	public String basket_detail(String id) throws Exception {
+		
+		List<ShopVO> list=service.basketDetail(id);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		
+		return json;
+		
+	}
+	
+	@GetMapping(value="shop/shop_recom_vue.do",produces = "text/plain;charset=UTF8")
+	public String shopRecom(int start,int end,int sno) throws Exception {
+		
+
+	    Map recom=new HashMap();
+	    recom.put("start", start);
+	    recom.put("end", end);  
+	    List<ShopVO> recomDetail=service.shopRecomProduct(recom);
+	    
+	    Map result = new HashMap<>();
+	    result.put("recomDetail", recomDetail);
+	
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(result);
+		
+		return json;
+
+	}
+	
 	
 }

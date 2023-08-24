@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import com.sist.vo.BasketVO;
+import com.sist.vo.MemberVO;
 import com.sist.vo.OrderVO;
 import com.sist.vo.ShopCategoryVO;
 import com.sist.vo.ShopVO;
@@ -20,7 +21,7 @@ public interface ShopService {
 	
 	public ShopVO shopDetailList(int sno);
 	
-	public int shopTotalPage(int cno);
+	public int shopTotalPage(int cateno);
 	
 	public List<ShopVO> shopCateDetailList(Map map);
 	
@@ -34,4 +35,9 @@ public interface ShopService {
 
 	public void basketDelete(Map map);
 
+	public List<ShopVO> basketDetail(String id);
+	
+    public List<ShopVO> shopRecomProduct(Map map);
+
+	
 }

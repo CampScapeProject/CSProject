@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sist.dao.ShopDAO;
 import com.sist.vo.BasketVO;
+import com.sist.vo.MemberVO;
 import com.sist.vo.OrderVO;
 import com.sist.vo.ShopCategoryVO;
 import com.sist.vo.ShopVO;
@@ -38,8 +39,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public int shopTotalPage(int cno) {
-		return dao.shopTotalPage(cno);
+	public int shopTotalPage(int cateno) {
+		return dao.shopTotalPage(cateno);
 	}
 
 	@Override
@@ -67,7 +68,16 @@ public class ShopServiceImpl implements ShopService {
 	public void basketDelete(Map map) {
 		dao.basketDelete(map);		
 	}
-	
-	
+
+	@Override
+	public List<ShopVO> basketDetail(String id) {
+		return dao.basketDetail(id);
+	}
+
+	@Override
+	public List<ShopVO> shopRecomProduct(Map map) {
+		return dao.shopRecomProduct(map);
+	}
+
 	
 }

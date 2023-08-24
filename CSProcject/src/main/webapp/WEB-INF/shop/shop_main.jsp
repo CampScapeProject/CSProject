@@ -28,6 +28,12 @@
   border: 1px solid #f0e9ff;
   margin-right: 2px;
 }
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 </style>
 
 </head>
@@ -46,28 +52,28 @@
 	    </div>
 	</div>
 
-    <div class="popular_places_area">
+    <div class="popular_places_area" style="padding-top:40px">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-6">
+                <div class="col-lg-10">
                     <div class="section_title text-center mb_70">
-                        <a v-for="c in shop_cate" class="genric-btn primary radius" @click="getList(c.cno)">{{c.cname}}</a>
+                           <div class="button-container">
+                        <a v-for="c in shop_cate" class="genric-btn primary radius" @click="getList(c.cateno)" style="margin:5px;">{{c.cname}}</a>
+                        </div>
                     </div>
-                    
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6" v-for="(s, index) in shop_all" :key="index" v-if="index <= 12">
                     <div class="single_place">
                         <div class="thumb">
-                            <img :src="s.image" alt="">
+                            <a :href="'../shop/shop_detail.do?sno='+s.sno"><img :src="s.image" alt=""></a>
                         </div>
                         <div class="place_info">
                             <a :href="'../shop/shop_detail.do?sno='+s.sno"><h3>{{s.name}}</h3></a>
                             <p>{{s.brand}}</p>
                             <div class="rating_days d-flex justify-content-between">
                                 <div class="days">
-                                    <i class="fa fa-clock-o"></i>
                                     <a href="#" class="prise">{{s.price.toLocaleString()}}원</a>
                                 </div>
                             </div>
@@ -77,25 +83,25 @@
             </div>
         </div>
     </div>
-    					 <nav class="blog-pagination justify-content-center d-flex">
-                            <ul class="pagination">
-                                <li class="page-item" v-if="startpage>1">
-                                    <a href="#" class="page-link" aria-label="Previous" @click="prev()">
-                                        <i class="ti-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
-                                    <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
-                                </li>
-                                <li class="page-item" v-if="endpage<totalpage">
-                                    <a href="#" class="page-link" aria-label="Next" @click="next()">
-                                        <i class="ti-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+	 <nav class="blog-pagination justify-content-center d-flex" style="margin-top:40px;margin-bottom:40px">
+	     <ul class="pagination">
+	         <li class="page-item" v-if="startpage>1">
+	             <a href="#" class="page-link" aria-label="Previous" @click="prev()">
+	                 <i class="ti-angle-left"></i>
+	             </a>
+	         </li>
+	         <li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
+	             <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
+	         </li>
+	         <li class="page-item" v-if="endpage<totalpage">
+	             <a href="#" class="page-link" aria-label="Next" @click="next()">
+	                 <i class="ti-angle-right"></i>
+	             </a>
+	         </li>
+	     </ul>
+	 </nav>
+                        
 </div>    
-
 
 
 <script>
@@ -122,10 +128,10 @@
          this.getList(1)
       },
       methods: {
-         getList(cno) {
+         getList(cateno) {
             axios.get('../shop/shop_cateAllList_vue.do',{
                params:{
-                  cno: cno,
+                  cateno: cateno,
                   page:this.curpage
                }
             }).then(res => {
@@ -139,7 +145,7 @@
             axios.get('../shop/page_list_vue.do',{
             	params:{
             		page:this.curpage,
-            		cno:cno
+            		cateno:cateno
             	}
             }).then(res=>{
             	console.log(res.data) 

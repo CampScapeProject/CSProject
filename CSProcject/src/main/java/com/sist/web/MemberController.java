@@ -27,7 +27,7 @@ public class MemberController {
    public String member_join(Model model) {
       
       return "member/join"; 
-   }
+   } 
    
    
    @RequestMapping("member/login.do")
@@ -42,9 +42,6 @@ public class MemberController {
       
       return "redirect:../main/home.do";
    }
-   
-   
-   
    
    
    @RequestMapping("member/testLogin.do")

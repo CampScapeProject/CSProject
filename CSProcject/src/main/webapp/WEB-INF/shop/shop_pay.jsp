@@ -8,26 +8,35 @@
 <title>CampScape Order</title>
 
 <style type="text/css">
-	.row1 {
-		margin: 0px auto;
-		width: 900px;
-	}
-	
-	.table > th {
-		vertical-align: middle;
-		text-align: center;
-	}
-	
-	#order {
-		padding-left: 740px;
-	}
+    .row1 {
+        margin: 0px auto;
+        width: 900px;
+    }
+
+    .table > th {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    #order {
+        padding-left: 740px;
+    }
+
+    .buyForm {
+        clear: both;
+        margin-top: 20px;
+        in
+    }
 </style>
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 
 </head>
@@ -37,7 +46,6 @@
 
 <div class="pay_container">
 	<div class="row" id="buy">
-		
 		<div class="row1" style="margin-top:50px; ;margin-bottom: 100px;">
 			<h3 style="margin-bottom: 20px">주문 상품</h3>
 			<table class="table">
@@ -48,18 +56,16 @@
 					<th width=10% class="text-center">수량</th>
 					<th width=10% class="text-center">Total</th>
 				</tr>
- 	
 					<tr style="padding: 10px;">
 						<td width=30%>
 							<img :src="buyDetail.image" style="width: 100px; height: 100px;" id="ono">
 						</td>
 						<td width=40% class="text-center" style="vertical-align: middle;">{{buyDetail.name}}</td>
-						<td width=10% class="text-center" style="vertical-align: middle;">{{buyDetail.price}}</td>
+						<td width=10% class="text-center" style="vertical-align: middle;">{{buyDetail.price.toLocaleString()}}</td>
 						<td width=10% class="text-center" style="vertical-align: middle;">{{amount}}</td>
-						<td width=10% class="text-center total" style="vertical-align: middle;">{{ amount * buyDetail.price }}</td>
+						<td width=10% class="text-center total" style="vertical-align: middle;">{{ (amount * buyDetail.price).toLocaleString() }}</td>
 						
 					</tr>
-			
 			</table>
 		</div>
 		
@@ -97,7 +103,6 @@
 				</tr>
 			</table>
 		</div>
-		
 		<div class="row1" id="order" style="margin-bottom: 80px;">
 			<table>
 				<tr>
@@ -172,10 +177,7 @@ function requestPay() {
 		        xhr.open("POST", "../shop/shop_pay_ok.do", true);
 
 		        xhr.send(formData);
-		        
-		        
-		     /*    location.href = "../shop/shop_pay_ok.do"; */
-		        
+
 		    }
 		});
 }
