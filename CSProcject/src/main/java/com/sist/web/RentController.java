@@ -62,7 +62,8 @@ public class RentController {
 	}
 	
 	@GetMapping("mypage/review_write.do")
-	public String mypage_review(int rno, Model model) {
+	public String mypage_review(int rno,int fno, Model model) {
+		model.addAttribute("fno",fno);
 		model.addAttribute("rno", rno);
 		return "review_write";
 	}

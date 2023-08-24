@@ -13,8 +13,8 @@
 	
 	<style type="text/css">
 	.cart_table{
-		padding-top: 4.5rem;
-		margin-left:275px;
+		padding-top: 4.5rem;  
+		margin-left:100px;
 	}
 	.cart_table>p{
 		font-size: 3rem;

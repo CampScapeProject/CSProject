@@ -164,7 +164,8 @@ $(function(){
 	new Vue({
 		el:'.container',
 		data:{
-			rno:${rno},
+			rno:${fno},
+			rsno:${rno},
 			rent_detail:{},
 			content:''
 		},
@@ -187,18 +188,20 @@ $(function(){
 					this.$refs.content.focus()
 					return;
 				}
-				alert(opener.activeTab)
-				/* axios.post('../rent/review_insert_vue.do',null,{
+
+				axios.post('../rent/review_insert_vue.do',null,{
 					params:{
 						rno:this.rno,
 						rank:rank,
 						content:this.content,
-						id:'${sessionScope.id}'
+						id:'${sessionScope.id}',
+						rsno:this.rsno
 					}
 				}).then(res=>{
 					alert("리뷰가 등록되었습니다")
-					
-				}) */
+					opener.location.reload();
+  	  		        window.close();
+				})
 			},
 			cancelBtn(){
 				window.close()

@@ -129,7 +129,7 @@
                 <div class="col-lg-4 col-md-6" v-for="cvo in camp_list">
                     <div class="single_destination" style="width:360px;height: 290px;cursor: pointer;"  @click="toDetail(cvo.cno)">
                         <div class="thumb">
-                           <img :src="cvo.image" style="width: 100%">
+                           <img :src="cvo.image" style="width: 100%;height: 290px;">
                         </div>
                         <div class="content">
                             <p class="d-flex align-items-center" >{{cvo.name}}<a href="#" class="mPrice">{{cvo.mprice}}&nbsp;원</a> </p>

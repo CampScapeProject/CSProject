@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.CampDAO;
+import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
 import com.sist.vo.PageVO;
 import com.sist.vo.RentVO;
@@ -85,12 +86,12 @@ public class CampRestController {
 		map.put("sdate", sdate);
 		map.put("edate", edate);
 		
-	
+		
 		
 		String sp=spricefd;
 		String ep=epricefd;
 		
-		if(sp !=null || ep !=null)
+		if(sp.trim() !="" || ep.trim() !="")
 		{
 			sp=sp.replace(",", "");
 			ep=ep.replace(",", "");
@@ -99,14 +100,49 @@ public class CampRestController {
 			ep="1100000";
 		}
 		
-		map.put("spricefd", sp);
-		map.put("epricefd", ep);
+		map.put("spricefd", Integer.parseInt(sp));
+		map.put("epricefd", Integer.parseInt(ep));
 		
 		map.put("campfd", campfd);
 		map.put("state", state);
 		
+
+	
 		
 		List<CampVO> list=dao.campFindData(map);
+		
+		for(CampVO vo:list)
+		{
+			String img=vo.getImage();
+			if(img.contains("^"))
+			{
+				img=img.substring(0,img.indexOf("^"));
+				vo.setImage(img);
+			}
+			String msg=vo.getMsg();
+			if(msg.length()>70)
+			{
+				if(msg.contains("-"))
+				{
+					msg=msg.replace("-"," ");
+				}
+				msg=msg.substring(0, 68)+"...";
+				vo.setMsg(msg);
+			} 
+			int price=Integer.parseInt(vo.getMprice());
+			
+			DecimalFormat df=new DecimalFormat("###,###,###");
+			String Fprice=df.format(price);
+			vo.setMprice(Fprice); 
+			
+			String phoneNumber = vo.getPhone();
+			String FphoneNumber = phoneNumber.substring(0, 3) 
+								+ "-" 
+								+ phoneNumber.substring(3, 7) 
+								+ "-" 
+								+ phoneNumber.substring(7);
+			vo.setPhone(FphoneNumber);  
+		}
 		
 		/*
 		 * for(CampVO cvo:slist) { int price=dao.campPrice(cvo.getCno());
@@ -182,21 +218,35 @@ public class CampRestController {
 		
 	}
 	@GetMapping(value = "camp/camp_list_page_vue.do",produces = "text/plain;charset=UTF-8")
-	public String campPageListData(int page) throws Exception{
-		
-		
-		int totalpage=dao.campTotalPage();
-		final int BLOCK = 10;
-		int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
-		int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
-		if(endpage>totalpage)
-			endpage=totalpage;
+	public String campPageListData(int page,String type) throws Exception{
 		
 		PageVO vo = new PageVO();
-		vo.setStartpage(startpage);
-		vo.setEndpage(endpage);
-		vo.setCurpage(page);
-		vo.setTotalpage(totalpage);
+		if(type.equals("list"))
+		{
+			int totalpage=dao.campTotalPage();
+			final int BLOCK = 10;
+			int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
+			int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
+			if(endpage>totalpage)
+				endpage=totalpage;
+			
+			vo.setStartpage(startpage);
+			vo.setEndpage(endpage);
+			vo.setCurpage(page);
+			vo.setTotalpage(totalpage);
+		}else {
+			int totalpage=dao.campTotalPage();
+			final int BLOCK = 5;
+			int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
+			int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
+			if(endpage>totalpage)
+				endpage=totalpage;
+			
+			vo.setStartpage(startpage);
+			vo.setEndpage(endpage);
+			vo.setCurpage(page);
+			vo.setTotalpage(totalpage);
+		}
 
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
@@ -243,7 +293,6 @@ public class CampRestController {
 	
 	@GetMapping(value = "camp/camp_cookie.do", produces = "text/plain;charset=UTF-8")
 	public String rentCookieData(HttpServletRequest request) throws Exception {
-		System.out.println("쿠키 들어옴");
 		
 		Cookie[] cookies=request.getCookies();
 
@@ -263,7 +312,6 @@ public class CampRestController {
 				}
 			}
 		}
-		System.out.println("쿠키 들어옴2");
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(clist);
 	}
@@ -295,9 +343,33 @@ public class CampRestController {
 		return json;
 	}
 	
+	/*---------- 예약 -----------*/
+	
+	@GetMapping(value = "camp/campsite_list.do",produces = "text/plain;charset=UTF-8")
+	public String campsite_list_vue(int cno) throws Exception
+	{
+		List<CampSiteVO> list=dao.campSiteList(cno); 
+		
+		for(CampSiteVO cvo:list)
+		{
+			int price=Integer.parseInt(cvo.getPrice());
+			DecimalFormat df=new DecimalFormat("###,###,###");
+			String Fprice=df.format(price);
+			cvo.setPrice(Fprice); 
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	/* -------------------------------- */
+	
+	
 	/* -------- 리뷰 --------      */
 	
-	public String camp_review_list_data(int page,int cno)throws Exception
+	public String camp_review_list_data(int page,int cno) throws Exception
 	{ 
 		System.out.println("page:"+page);
 		

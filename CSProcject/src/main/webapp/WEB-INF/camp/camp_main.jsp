@@ -100,7 +100,7 @@ function uncomma(str) {
 <!---------->
 
 
-<div class="popular_places_area">
+<div class="popular_places_area" style="height: 1500px">
 	<div class="container">
 		<div class="row">
 	<!-- 검색 창 -->
@@ -111,14 +111,15 @@ function uncomma(str) {
 			        <br>
 			        <div class="filter_bordered">
 			        <div class="col-lg-12" id="cDate" style="text-align: center;border-bottom: 2px solid #DEE2E7;">
-			        	<input type="text" name="daterange" ref=rdate/>
+			        	<h3><b>예약날짜 입력</b></h3>
+			        	<input type="text" name="daterange" ref="rdate" style="margin-top: -10px;"/>
 			        </div>
 			            <div class="filter_inner">
 			                <div class="row">
 			                    <div class="col-lg-12" style="border-bottom: 2px solid #DEE2E7;">
 			                        <div class="single_select">
 			                        <h3><b>지역</b></h3>
-			                            <select v-model="state" @change="selectState()">
+			                            <select ref="state">
 			                                <option data-display="지역">지역을 선택하세요</option>
 			                                <option value="경기">경기</option>
 			                                <option value="인천">인천</option>
@@ -167,7 +168,7 @@ function uncomma(str) {
 	    	 
 	    <!-- 리스트 목록 -->
 	        <div class="col-lg-8">
-	        	 <div class="well" style=" border-bottom: 2px solid #DEE2E7;">
+	        	 <div class="well" style=" border-bottom: 2px solid #DEE2E7;width:750px;">
 						<select>
 							<option value="1">조회순 &nbsp;&nbsp;</option>
 							<option value="1">추천순 &nbsp;&nbsp;</option>
@@ -194,15 +195,28 @@ function uncomma(str) {
 		                        </div>
 		                    </div>
 		                </div>
+			                <!--  page바 -->
+			            <div class="row" style="margin-left: 220px;margin-top:-40px;">
+			                 <nav class="blog-pagination justify-content-center d-flex">
+	                            <ul class="pagination">
+	                                <li class="page-item" v-if="startpage>1">
+	                                    <a href="#" class="page-link" aria-label="Previous" @click="prev()">
+	                                        <i class="ti-angle-left"></i>
+	                                    </a>
+	                                </li>
+	                                <li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
+	                                    <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
+	                                </li>
+	                                <li class="page-item" v-if="endpage<totalpage">
+	                                    <a href="#" class="page-link" aria-label="Next" @click="next()">
+	                                        <i class="ti-angle-right"></i>
+	                                    </a>
+	                                </li>
+	                            </ul>
+	                        </nav> 
+			            </div>
 	        		</div>
-	        	<div class="row">
-	                <div class="col-lg-12">
-	                    <div class="more_place_btn text-center">
-	                        <a class="boxed-btn4" href="#">캠핑장 더보기</a>
-	                    </div>
-	                </div>
-	            </div>
-	   	 </div>
+			   	 </div>
 	   	 <!----------------->
 	   	 
 		</div>
@@ -218,27 +232,52 @@ function uncomma(str) {
 			spricefd:'',
 			epricefd:'',
 			campfd:'',
-			rdate:''
+			rdate:'',
+			page_list:[],
+			curpage:1,
+			startpage:0,
+			endpage:0,
+			totalpage:0
 			
 		},
 		mounted:function(){
-			axios.get('../camp/camp_list_vue.do',{
-				params:{
-					page:this.curpage,
-					type:'mlist'
-				}
-			}).then(res=>{
-				this.camp_list=res.data
-			})
 			
+			this.campRecive();
 		},
 		methods:{
+			campRecive:function(){
+				
+				axios.get('../camp/camp_list_vue.do',{
+					params:{
+						page:this.curpage,
+						type:'mlist'
+					}
+				}).then(res=>{
+					this.camp_list=res.data
+				})
+				
+				axios.get('../camp/camp_list_page_vue.do',{
+						params:{
+							page:this.curpage,
+							type:"find"
+							
+						}
+						
+					}).then(res=>{
+						console.log(res.data)
+						this.page_list=res.data
+						this.curpage=this.page_list.curpage
+						this.totalpage=this.page_list.totalpage
+						this.startpage=this.page_list.startpage
+						this.endpage=this.page_list.endpage
+					})
+			},
 			findCamp:function(){
 				axios.get('../camp/camp_find_list_vue.do',{
 					params:{
 						page:this.curpage,
-						rdate:this.rdate,
-						state:this.state,
+						rdate:this.$refs.rdate.value,
+						state:this.$refs.state.value,
 						spricefd:this.spricefd,
 						epricefd:this.epricefd,
 						campfd:this.campfd
@@ -247,6 +286,28 @@ function uncomma(str) {
 				}).then(res=>{
 					this.camp_list=res.data
 				})
+			},
+			range:function(start,end){
+				let arr=[];
+				let length=end-start;
+				for(let i=0;i<=length;i++)
+				{
+					arr[i]=start
+					start++;
+				}
+				return arr;
+			},
+			prev:function(){
+				this.curpage=this.startpage-1;
+				this.campRecive();
+			},
+			next:function(){
+				this.curpage=this.endpage+1;
+				this.campRecive();
+			},
+			pageChange:function(page){
+				this.curpage=page;
+				this.campRecive();
 			}
 			
 		}

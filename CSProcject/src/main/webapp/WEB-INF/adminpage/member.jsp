@@ -15,8 +15,8 @@
 <style type="text/css">
 
 .member_container {
-	width:900px;
-	margin-left:275px;
+	width:900px;  
+	margin-left:100px;
 }
 
 .row1 {

@@ -179,15 +179,28 @@ public class RentRestController {
 	}
 	
 	@PostMapping(value = "rent/review_insert_vue.do", produces = "text/plain;charset=UTF-8")
-	public String rent_review_insert(int rno,int rank, String content, String id) {
+	public String rent_review_insert(int rno,int rank, String content, String id,int rsno) {
 		Map map = new HashMap();
 		map.put("rno", rno);
 		map.put("rank", rank);
 		map.put("content", content);
 		map.put("id", id);
+		map.put("rsno", rsno);
 		
 		dao.review_insert(map);
 		
+		return "";
+	}
+	
+	@GetMapping(value = "rent/reserve_cancel_request_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rent_reserve_cancel_request(int rno) {
+		dao.reserve_cancel_request(rno);
+		return "";
+	}
+	
+	@GetMapping(value = "rent/reserve_request_cancel_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rent_reserve_request_cancel(int rno) {
+		dao.reserve_request_cancel(rno);
 		return "";
 	}
 }

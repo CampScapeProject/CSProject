@@ -43,4 +43,9 @@ public class CampController {
 		model.addAttribute("cno",cno);
 		return "camp/camp_detail";
 	}
+	@GetMapping("camp/camp_reserve.do")
+	public String camp_reserve()
+	{
+		return "camp/camp_reserve";
+	}
 }
