@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="state != null">
 		AND address LIKE '%'||#{state}||'%'
 		</if>	
-		<if test="campfd != null">
+		<if test="campfd != ''">
 		AND name LIKE '%'||#{campfd}||'%'
 		</if>
 		ORDER BY cno ASC))

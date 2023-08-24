@@ -100,6 +100,12 @@ public class CampRestController {
 			ep="1100000";
 		}
 		
+		
+		if(state.equals("지역을 선택하세요"))
+		{
+			state=null;
+		}
+		
 		map.put("spricefd", Integer.parseInt(sp));
 		map.put("epricefd", Integer.parseInt(ep));
 		
