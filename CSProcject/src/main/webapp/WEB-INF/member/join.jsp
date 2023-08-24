@@ -228,7 +228,7 @@ label.light {
 
 new Vue({
    el: '#joinForm',
-   data: {
+   data: { 
       confirmPwd: '',
       id: '',
       pwd: '',
@@ -239,7 +239,7 @@ new Vue({
       birth: '',
       phone: '',
       post: '',
-      addr1: '',
+      addr1: '', 
       addr2: '',
       idOk:'',
       pwdOk:'',

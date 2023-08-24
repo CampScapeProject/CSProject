@@ -305,7 +305,7 @@
 	            return;
 	         }
 	         if (this.addr2 === "") {
-	            alert("상세주소를 입력해주세요.");
+	            alert("상세주소를 입력해주세요."); 
 	            this.$refs.addr2.focus();
 	            return;
 	         }
@@ -317,7 +317,7 @@
    		               nickname: this.nickname,
    		               sex: this.sex,
    		               birth: this.birth,
-   		               phone: this.phone,
+   		               phone: this.phone, 
    		               post: this.post,
    		               addr1: this.addr1,
    		               addr2: this.addr2

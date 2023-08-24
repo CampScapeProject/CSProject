@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sist.service.ShopService;
 import com.sist.vo.OrderVO;
 
-@Controller
+@Controller 
 public class ShopController {
 	
 	@Autowired

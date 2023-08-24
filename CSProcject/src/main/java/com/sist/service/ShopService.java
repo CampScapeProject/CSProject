@@ -20,7 +20,7 @@ public interface ShopService {
 	
 	public List<ShopCategoryVO> shopCateList();
 	
-	public ShopVO shopDetailList(int sno);
+	public ShopVO shopDetailList(int sno); 
 	
 	public int shopTotalPage(int cateno);
 	

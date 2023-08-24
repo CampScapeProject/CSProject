@@ -17,7 +17,7 @@ public class MemberServiceImpl implements MemberService{
 	public void join(MemberVO vo) {
 		dao.join(vo);
 	}
-
+ 
 	@Override
 	public int id_count(String id) {
 		return dao.id_count(id);

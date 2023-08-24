@@ -19,7 +19,7 @@
   display: block;
   padding: 0;
   text-align: center;
-  margin-left: -1px;
+  margin-left: -1px; 
   line-height: 45px;
   width: 45px;
   height: 45px;

@@ -17,7 +17,7 @@ public class MemberDAO {
    private MemberMapper mapper;
      
 //   @Insert("INSERT INTO mymember VALUES(#{id},#{pwd},#{email},#{name},#{nickname},"
-//         + "#{sex},#{birth},#{phone},#{post},#{addr1},#{addr2})")
+//         + "#{sex},#{birth},#{phone},#{post},#{addr1},#{addr2})") 
    public void join(MemberVO vo) {
       mapper.join(vo);  
    }

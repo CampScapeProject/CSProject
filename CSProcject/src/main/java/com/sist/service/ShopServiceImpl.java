@@ -15,7 +15,7 @@ import com.sist.vo.ShopVO;
 @Service
 public class ShopServiceImpl implements ShopService {
 
-	@Autowired
+	@Autowired 
 	private ShopDAO dao;
 	
 	@Override

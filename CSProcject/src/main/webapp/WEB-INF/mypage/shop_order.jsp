@@ -167,7 +167,7 @@
 		            <div class="checkbox">
 		               
 		            </div>
-		            <div class="item_detail">
+		            <div class="item_detail"> 
 		                <img :src="b.image">
 		                <p class="name"><strong></strong></p>
 		                <p class="txt"></p>
@@ -183,7 +183,7 @@
 		                </div>
 		            </div>
 		        </li>
-		    </ul>
+		    </ul> 
 
 		    <div class="btn_box">
 		        <button type="button" class="btn wh-btn">계속 쇼핑하기</button>

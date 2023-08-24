@@ -230,7 +230,7 @@
 			    buyNow(sno,amount,cno) {
 			    		const url='../shop/shop_pay.do?sno='+sno+'&amount='+amount+'&cno='+cno;
 			            window.location.href = url;
-			    },
+			    }, 
 	        	basketDel(cno){
 	        		axios.get('../mypage/basket_delete_vue.do',{
 	        			params:{
@@ -242,7 +242,7 @@
 	        			location.href="../mypage/shop_basket.do";
 	        		})
 	        	},
-	            goBack() {
+	            goBack() { 
 	        		location.href="../shop/shop_main.do";
 	                /* 이전페이지 location.href = document.referrer; */
 	            },

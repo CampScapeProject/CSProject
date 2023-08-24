@@ -16,7 +16,7 @@ public interface MemberService {
 	   
 	   public int email_count(String email);
 
-	   public MemberVO login(String id);
+	   public MemberVO login(String id); 
 	   
 	   public String email_id_find(String email);
 

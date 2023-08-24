@@ -190,7 +190,7 @@ th {
 					this.addr2=this.detailInfo.addr2
 					this.sex=this.detailInfo.sex
 					this.admin=this.detailInfo.admin
-				})
+				}) 
 			},
  			updateGo(){
 				axios.post('../adminpage/member_update_vue.do',null,{

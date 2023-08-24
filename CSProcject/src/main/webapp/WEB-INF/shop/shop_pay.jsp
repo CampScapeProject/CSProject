@@ -20,7 +20,7 @@
         width: 900px;
     }
 
-    .table > th {
+    .table > th { 
         vertical-align: middle;
         text-align: center;
     }
