@@ -42,6 +42,10 @@
 		margin-bottom: 10px;
 	}
 	
+	a:hover {
+		font-weight: bold;
+	}
+	
 	pre {
 		font-family: 'Pretendard-Regular';
 	    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -88,7 +92,7 @@
 	    				<th width=15% class="text-center">첨부파일</th>
 	    				<td width=85% colspan=3>
 	    					<ul>
-					        	<li v-for="(fn, index) in filenames"><a :href="'../notice/notice_download.do?fn='+fn">{{fn}}</a>&nbsp;({{filesizes[index]}}Bytes)</li>
+					        	<li v-for="(fn, index) in filenames"><a :href="'../notice/notice_download.do?fn='+fn">{{fn}}</a>&nbsp;&#91;{{filesizes[index]}} Bytes&#93;</li>
 					        </ul>
 	    				</td>
 	    			</tr>
@@ -150,8 +154,8 @@
 				this.hit = this.notice_data.hit
 				
 				this.filecount=this.notice_data.filecount
-    			this.filenames=response.data.filename.split(",")
-    			this.filesizes=response.data.filesize.split(",")
+    			this.filenames=res.data.filename.split(",")
+    			this.filesizes=res.data.filesize.split(",")
 				
 			}).catch(error=>{
 				console.log(error.response)

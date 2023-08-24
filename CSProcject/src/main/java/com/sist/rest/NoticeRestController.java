@@ -68,7 +68,6 @@ public class NoticeRestController {
 		vo.setId(id);
 		
 		String path = request.getSession().getServletContext().getRealPath("/")+"upload\\";
-		System.out.println(path);
 		
 		 path=path.replace("\\", File.separator);
 		 List<MultipartFile> list = vo.getImages();
@@ -112,8 +111,6 @@ public class NoticeRestController {
 	public String notice_detail(int nno) throws Exception
 	{
 		NoticeVO vo = dao.noticeDetailData(nno);
-		
-		System.out.println("파일 이름 : "+vo.getFilename()+" 파일 사이즈 : "+vo.getFilesize());
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
