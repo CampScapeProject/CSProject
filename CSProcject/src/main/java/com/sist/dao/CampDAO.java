@@ -84,10 +84,15 @@ public class CampDAO {
 		mapper.campReviewInsert();
 	}
 	
-	public ReviewVO campReviewDetail(Map map,int no)
+	public ReviewVO campReviewDetail(int no)
 	{
 		mapper.campHitUpdate(no);
-		return mapper.campReviewDetail(map);
+		return mapper.campReviewDetail(no);
+	}
+	
+	public ReviewVO campUpdateData(int no)
+	{
+		return mapper.campReviewDetail(no);
 	}
 	
 	public void campReviewUpdate(Map map)

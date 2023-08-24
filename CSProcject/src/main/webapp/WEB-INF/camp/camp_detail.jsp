@@ -326,7 +326,8 @@
 							</template>
 				      		<template v-if="index == 2">
 					        	<div class="container">
-									<div class="campprogress-table-wrap">
+					        		<h4 style="color:#001D38;font-weight: bold;">Review({{rcount}})</h4>
+									<div class="campprogress-table-wrap" style="margin-top: -20px;">
 										<div class="campprogress-table">
 											<div class="table-head">
 												<div class="serial" width=10%>번호</div>
@@ -338,12 +339,12 @@
 											</div>
 											<div class="table-row" v-for="rvo,index in review_list">
 												<div class="serial">{{index+1}}</div>
-												<div class="visit"><a @click="reviewDetail(rvo.no,rvo.sno,true)">{{rvo.subject}}</a></div>
+												<div class="visit"><a @click="reviewDetail(rvo.no,true)">{{rvo.subject}}</a></div>
 												<div class="visit">{{rvo.id}}</div>
 												<div class="visit">{{rvo.dbday}}</div>
 												<div class="visit">{{rvo.hit}}</div>
 												<div class="visit">
-													<button class="btn btn-xs btn-danger" style="font-size: 15px;margin-right: 15px;" @click="reviewUpdateDialog(rvo.no,rvo.sno,true)">수정</button>
+													<button class="btn btn-xs btn-danger" style="font-size: 15px;margin-right: 15px;" @click="reviewUpdateDialog(rvo.no,true)">수정</button>
           											<button class="btn btn-xs btn-danger" @click="reviewDelete(rvo.no,rvo.sno)" style="font-size: 15px;cursor:pointer;">삭제</buton>
 												</div>
 											</div>
@@ -373,8 +374,7 @@
               </div>
               
               <div id="dialog" title="후기글" v-if="isShow">
-              	<div class="comment-form" style="margin-top: -65px;">
-                  <form class="form-contact comment_form" action="#" id="commentForm">
+              	<div class="comment-form" style="margin-top: -55px;">
                      <div class="row" >
                         <div class="col-sm-6">
                            <div class="form-group">
@@ -399,43 +399,39 @@
                            </div>
                         </div>
                      </div>
-                     <div class="form-group">
-                        <button type="submit" class="button button-contactForm btn_1 boxed-btn">후기 작성</button>
-                     </div>
-                  </form>
                </div>
               </div>
               
               <!-- 리뷰 수정 -->
               <div id="dialogU" title="후기글 수정" v-if="isShow">
               	<div class="comment-form" style="margin-top: -65px;">
-                  <form class="form-contact comment_form" action="#" id="commentForm">
+                  <form @submit.prevent="updateForm(update_data.no)">
                      <div class="row" >
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" name="name" id="name" type="text" :value="review_detail.id" >
+                              <input class="form-control" type="text" :value="update_data.id" readonly>
                            </div>
                         </div>
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" name="date" id="date" type="text" :value="review_detail.dbday" >
+                              <input class="form-control" type="text" :value="update_data.dbday" readonly>
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              <input class="form-control" name="subject" id="subject" type="text" :value="review_detail.subject" >
+                              <input class="form-control" ref=subject v-model=subject type="text">
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9">
-                              	{{review_detail.content}}
+                              <textarea class="form-control w-100" ref=content v-model=content cols="30" rows="9">
+                              	{{content}}
                               </textarea>
                            </div>
                         </div>
                      </div>
                      <div class="form-group">
-                        <button type="submit" class="button button-contactForm btn_1 boxed-btn" @click="reviewUpdate(review_detail.no,review_detail.sno,false)">후기 작성</button>
+                        <button type="submit" class="button button-contactForm btn_1 boxed-btn">수정</button>
                      </div>
                   </form>
                </div>
@@ -504,11 +500,11 @@
 	                     </div>
 	                  </aside>
 	                  <aside class="single_sidebar_widget instagram_feeds">
-	                     <h4 class="widget_title">Instagram Feeds</h4>
+	                     <h4 class="widget_title">최근 본 캠핑장</h4>
 	                     <ul class="instagram_row flex-wrap">
-	                        <li v-for="clist in cookie_list">
+	                        <li v-for="c in cookie_list">
 	                           <a href="#">
-	                              <img class="img-fluid" :src="clist.image" alt="">
+	                              <img class="img-fluid" :src="c.image">
 	                           </a>
 	                        </li>
 	                     </ul>
@@ -519,6 +515,7 @@
             
          </div>
       </div>
+      
    </section>
    <!--================ Blog Area end =================-->
 	<script>
@@ -541,7 +538,10 @@
 				totalpage:0,
 				rcount:0,
 				review_detail:{},
-				isShow:false
+				isShow:false,
+				subject:'',
+				content:'',
+				update_data:{}
 			},
 			mounted:function(){
 				axios.get('../camp/camp_detail_vue.do',{
@@ -558,11 +558,10 @@
 		               this.addScript();   
 		               
 		            }
-					this.cookieShow();
+					
 					this.reviewList();
 				})
-				
-				
+				this.cookieShow();
 				
 				   
 			},
@@ -581,6 +580,7 @@
 					})
 			    },
 			    cookieShow:function(){
+			    	alert('cookie완료')
 			    	axios.get('../camp/camp_cookie.do').then(res=>{
 			    		console.log(res.data)
 			    		this.cookie_list=res.data
@@ -618,11 +618,10 @@
 			    		this.rcount=res.data
 			    	})
 			    },
-			    reviewDetail:function(no,cno,bool){
+			    reviewDetail:function(no,bool){
 			    	this.isShow=bool;
 					axios.get('../camp/camp_review_detail_vue.do',{
 						params:{
-							cno:cno,
 							no:no
 						}
 					}).then(res=>{
@@ -651,17 +650,18 @@
 					}).catch(error=>{
 						  console.log(error.response)
 					  })
-			    },reviewUpdateDialog:function(no,cno,bool){
-			    	
+			    },
+			    reviewUpdateDialog:function(no,bool){
 			    	this.isShow=bool;
-			    	axios.get('../camp/camp_review_detail_vue.do',{
+			    	axios.get('../camp/camp_review_update_data_vue.do',{
 						params:{
-							cno:cno,
 							no:no
 						}
 					}).then(res=>{
 						console.log(res.data)
-						this.review_detail=res.data
+						this.update_data=res.data
+						this.subject=res.data.subject
+						this.content=res.data.content
 						
 			    	$('#dialogU').dialog({
 						autoOpen:false,
@@ -669,31 +669,37 @@
 						width:700,
 						height:500
 					}).dialog("open")
-					})
+					})	    	
+			    },
+			    updateForm:function(no){
 					
-			    },	
-			    reviewUpdate:function(no,cno,bool){
-			    	alert("cno:"+cno+"no:"+no)
-			    	this.isShow=bool;
+				   if(this.subject=="")
+				   {
+					   this.$refs.subject.focus();
+					   return;
+				   }
+				   if(this.content=="")
+				   {
+					   this.$refs.content.focus();
+					   return;
+				   }
+				   
+				   let form=new FormData();
+				   form.append("subject",this.subject);
+				   form.append("content",this.content);
+				   form.append("no",no)
+				   form.append("page",this.curpage)
+				   form.append("cno",this.cno)
 					
-			    	let cont=$('#content').val()
-			    	let sub=$('#subject').val()
-					  axios.post('../camp/camp_review_update_vue.do',null,{
-						  params:{
-							  no:no,
-							  cno:cno,
-							  page:this.curpage,
-							  content:cont,
-							  subject:sub
-								  
-						  }
-					  }).then(response=>{
+					 axios.post('../camp/camp_review_update_vue.do',form).then(response=>{
+						  
 						  console.log(response.data)
 						  this.review_list=response.data
 					  }).catch(error=>{
 						  console.log(error.response)
 					  })
-				  },
+					
+			    },	
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		             mapOption = {

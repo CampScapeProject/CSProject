@@ -36,7 +36,7 @@ public class CampController {
 			}
 		}
 		
-		Cookie cookie=new Cookie("rent_"+cno, String.valueOf(cno));
+		Cookie cookie=new Cookie("camp_"+cno, String.valueOf(cno));
 		cookie.setPath("/");
 		cookie.setMaxAge(60*60*24);
 		response.addCookie(cookie);
