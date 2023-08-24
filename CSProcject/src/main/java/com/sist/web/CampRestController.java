@@ -91,7 +91,7 @@ public class CampRestController {
 		String sp=spricefd;
 		String ep=epricefd;
 		
-		if(sp !=null || ep !=null)
+		if(sp.trim() !="" || ep.trim() !="")
 		{
 			sp=sp.replace(",", "");
 			ep=ep.replace(",", "");
@@ -110,6 +110,39 @@ public class CampRestController {
 	
 		
 		List<CampVO> list=dao.campFindData(map);
+		
+		for(CampVO vo:list)
+		{
+			String img=vo.getImage();
+			if(img.contains("^"))
+			{
+				img=img.substring(0,img.indexOf("^"));
+				vo.setImage(img);
+			}
+			String msg=vo.getMsg();
+			if(msg.length()>70)
+			{
+				if(msg.contains("-"))
+				{
+					msg=msg.replace("-"," ");
+				}
+				msg=msg.substring(0, 68)+"...";
+				vo.setMsg(msg);
+			} 
+			int price=Integer.parseInt(vo.getMprice());
+			
+			DecimalFormat df=new DecimalFormat("###,###,###");
+			String Fprice=df.format(price);
+			vo.setMprice(Fprice); 
+			
+			String phoneNumber = vo.getPhone();
+			String FphoneNumber = phoneNumber.substring(0, 3) 
+								+ "-" 
+								+ phoneNumber.substring(3, 7) 
+								+ "-" 
+								+ phoneNumber.substring(7);
+			vo.setPhone(FphoneNumber);  
+		}
 		
 		/*
 		 * for(CampVO cvo:slist) { int price=dao.campPrice(cvo.getCno());

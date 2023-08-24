@@ -453,7 +453,7 @@
 		                        </div>
 		                        <div class="content">
 		                            <p class="d-flex align-items-center" >{{cs.name}}<a href="#" class="mPrice">{{cs.price}}&nbsp;원</a></p>
-		                            <p style="font-size: 15px;">최대&nbsp;{{cs.inwon}}인<button type="button" @click="reserveGo(true)" class="button button-contactForm btn_1 boxed-btn" style="margin-left: 250px;height: 60px;background-color:#001D38;border:1px solid #001D38 ">예약하기</button></p>
+		                            <p style="font-size: 15px;">최대&nbsp;{{cs.inwon}}인<button type="button" @click="reserveGo()" class="button button-contactForm btn_1 boxed-btn" style="margin-left: 250px;height: 60px;background-color:#001D38;border:1px solid #001D38 ">예약하기</button></p>
 		                        </div>
 		                            
 		                    </div>
@@ -744,8 +744,8 @@
 							}).dialog("open")
 						})		    	
 			    },
-			    reserveGo:function(bool){
-			    	
+			    reserveGo:function(){
+			    	location.href="../camp/camp_reserve.do";
 			    },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

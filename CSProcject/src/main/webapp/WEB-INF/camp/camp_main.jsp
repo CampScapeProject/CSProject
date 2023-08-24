@@ -194,15 +194,28 @@ function uncomma(str) {
 		                        </div>
 		                    </div>
 		                </div>
+			                <!--  page바 -->
+			            <div class="row">
+			                 <nav class="blog-pagination justify-content-center d-flex">
+	                            <ul class="pagination">
+	                                <li class="page-item" v-if="startpage>1">
+	                                    <a href="#" class="page-link" aria-label="Previous" @click="prev()">
+	                                        <i class="ti-angle-left"></i>
+	                                    </a>
+	                                </li>
+	                                <li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
+	                                    <a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
+	                                </li>
+	                                <li class="page-item" v-if="endpage<totalpage">
+	                                    <a href="#" class="page-link" aria-label="Next" @click="next()">
+	                                        <i class="ti-angle-right"></i>
+	                                    </a>
+	                                </li>
+	                            </ul>
+	                        </nav> 
+			            </div>
 	        		</div>
-	        	<div class="row">
-	                <div class="col-lg-12">
-	                    <div class="more_place_btn text-center">
-	                        <a class="boxed-btn4" href="#">캠핑장 더보기</a>
-	                    </div>
-	                </div>
-	            </div>
-	   	 </div>
+			   	 </div>
 	   	 <!----------------->
 	   	 
 		</div>

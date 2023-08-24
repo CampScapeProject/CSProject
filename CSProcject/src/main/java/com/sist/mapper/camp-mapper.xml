@@ -21,8 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT cno,name,address,phone,msg,image,mprice,num 
 		FROM (SELECT cno,name,address,phone,msg,image,mprice,rownum as num 
 		FROM (SELECT cno,name,address,phone,msg,image,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=camp2.cno) as mprice FROM camp2 
-		WHERE (SELECT COUNT(sDate) FROM reserve2 WHERE camp2.cno=reserve2.rno AND sDate BETWEEN #{sDate} AND #{eDate} AND type='c') = 0
-		AND (SELECT COUNT(eDate) FROM reserve2 WHERE camp2.cno=reserve2.rno AND eDate BETWEEN #{sDate} AND #{eDate} AND type='c') = 0
+		WHERE (SELECT COUNT(sDate) FROM reserve2 WHERE camp2.cno=reserve2.rno AND sDate BETWEEN #{sdate} AND #{edate} AND type='c') = 0
+		AND (SELECT COUNT(eDate) FROM reserve2 WHERE camp2.cno=reserve2.rno AND eDate BETWEEN #{sdate} AND #{edate} AND type='c') = 0
         AND (SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=camp2.cno) BETWEEN #{spricefd} AND #{epricefd} 
 		<if test="state != null">
 		AND address LIKE '%'||#{state}||'%'
