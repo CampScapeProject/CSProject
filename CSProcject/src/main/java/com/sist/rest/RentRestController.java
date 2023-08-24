@@ -177,4 +177,17 @@ public class RentRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(list);
 	}
+	
+	@PostMapping(value = "rent/review_insert_vue.do", produces = "text/plain;charset=UTF-8")
+	public String rent_review_insert(int rno,int rank, String content, String id) {
+		Map map = new HashMap();
+		map.put("rno", rno);
+		map.put("rank", rank);
+		map.put("content", content);
+		map.put("id", id);
+		
+		dao.review_insert(map);
+		
+		return "";
+	}
 }

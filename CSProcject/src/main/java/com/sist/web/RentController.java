@@ -60,4 +60,10 @@ public class RentController {
 		model.addAttribute("eDate",eDate);
 		return "rent/rent_payment";
 	}
+	
+	@GetMapping("mypage/review_write.do")
+	public String mypage_review(int rno, Model model) {
+		model.addAttribute("rno", rno);
+		return "review_write";
+	}
 }

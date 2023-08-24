@@ -18,6 +18,8 @@
 		<put-attribute name="content" value="/WEB-INF/mypage/{1}.jsp"/>
 	</definition>
 	
+	<definition name="review_write" template="/WEB-INF/mypage/review_write.jsp"/>
+	
 	<!-- 관리자페이지 -->
 	<definition name="adminpage" template="/WEB-INF/adminpage/main.jsp" extends="main">
 		<put-attribute name="menu" value="/WEB-INF/adminpage/menu.jsp"/>

@@ -163,7 +163,7 @@
 										      				</div>
 										      				<div class="col-lg-4">
 										      					<h3 style="margin-bottom: 10px;"><b>예약상태</b></h3>
-										      					{{reserve_list[activeReserve].rstate}}
+										      					{{reviewState()?'이용완료':reserve_list[activeReserve].rstate}}
 										      				</div>
 										      			</div>
 													</template>
@@ -188,6 +188,18 @@
 										</div>
 									</div>
 									
+									<div class="col-lg-6 text-left" style="margin-top: 10px;">
+										예약일 : {{reserve_list[activeReserve].dbdate}}
+									</div>
+									<div class="col-lg-6 text-right" style="margin-top: 10px;">
+										<input type="button" value="리뷰쓰기" class="btn btn-sm btn-success" 
+											v-if="reviewState()" @click="reviewWrite()"
+										>
+										<span v-if="reserve_list[activeReserve].reviewok!=0">리뷰 작성됨</span>
+										<input type="button" value="취소요청" class="btn btn-sm btn-danger" 
+											v-if="cancel()"
+										>
+									</div>
 								</div>
 	    	
 	    					</div>
@@ -248,6 +260,22 @@
 				diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
 				console.log(diff);
 				this.period=diff
+		    },
+		    reviewState(){
+		    	let today=new Date()
+		    	
+		    	return (new Date(this.reserve_list[this.activeReserve].dbedate) < new Date(today.toLocaleDateString())) 
+		    			&& (this.reserve_list[this.activeReserve].rstate == "예약승인") && (this.reserve_list[this.activeReserve].reviewok==0)
+		    },
+		    cancel(){
+		    	let today=new Date()
+		    	
+		    	return new Date(this.reserve_list[this.activeReserve].dbsdate) > new Date(today.toLocaleDateString())
+		    },
+		    reviewWrite(){
+		    	let x=(document.body.offsetWidth/2)-(450/2)
+				let y=(window.screen.height/2)-(600/2)-50
+				window.open("../mypage/review_write.do?rno="+this.rent_detail.rno,"",'width=450, height=600, left='+x+', top='+y+',scrollbar=yes')
 		    }
 		}
 	})

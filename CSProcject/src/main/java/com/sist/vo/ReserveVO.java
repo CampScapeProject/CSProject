@@ -11,4 +11,5 @@ public class ReserveVO {
 	private String name,price,rstate,dbsdate,dbedate,dbdate,type,id,phone,email,birth;
 	private Date sdate,edate,regdate; 
 	private String image,car_name;
+	private int reviewok;
 }
