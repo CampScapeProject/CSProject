@@ -64,4 +64,8 @@ public class RentDAO {
 	public List<ReserveVO> reserveListData(String id) {
 		return mapper.reserveListData(id);
 	}
+	
+	public void review_insert(Map map) {
+		mapper.review_insert(map);
+	}
 }

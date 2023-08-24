@@ -74,10 +74,15 @@ public interface RentMapper {
 	@Select("SELECT rno,name,price,rstate,inwon,type,fno,id,phone,email,birth,"
 		  + "		TO_CHAR(sdate,'yyyy-mm-dd') as dbsdate,TO_CHAR(edate,'yyyy-mm-dd') as dbedate,"
 		  + "		TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbdate,"
-		  + "		(SELECT image FROM rent2 WHERE rent2.rno=reserve2.fno) as image, "
-		  + "		(SELECT car_name FROM rent2 WHERE rent2.rno=reserve2.fno) as car_name "
+		  + "		(SELECT image FROM rent2 WHERE rent2.rno=reserve2.fno AND type='r') as image, "
+		  + "		(SELECT car_name FROM rent2 WHERE rent2.rno=reserve2.fno AND type='r') as car_name,"
+		  + "		(SELECT COUNT(*) FROM review2 WHERE reserve2.fno=review2.sno AND type='r') as reviewok "
 		  + "FROM reserve2 "
 		  + "WHERE id=#{id} "
 		  + "ORDER BY regdate DESC")
 	public List<ReserveVO> reserveListData(String id);
+	
+	@Insert("INSERT INTO review2(no,regdate,content,sno,type,id,rating) "
+		  + "VALUES(rv2_no_seq.nextval,SYSDATE,#{content},#{rno},'r',#{id},#{rank})")
+	public void review_insert(Map map);
 }
