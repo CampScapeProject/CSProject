@@ -1,12 +1,17 @@
 package com.sist.rest;
 
 import java.util.*;
-
+import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.*;
 import com.sist.vo.*;
+
+import oracle.jdbc.proxy.annotation.Post;
+
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -73,4 +78,49 @@ public class RecipeRestController {
 		String json = mapper.writeValueAsString(vo);
 		return json;
 	}
+	
+	// 댓글
+	@GetMapping(value = "recipe/comment_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String recipe_comment_list(int rno)
+	{
+		String json = "";
+		
+		try {
+			List<CommentVO> list = dao.CommentListData(rno);
+			ObjectMapper mapper = new ObjectMapper();
+			json = mapper.writeValueAsString(list);
+		}catch(Exception ex) {}
+		
+		return json;
+	}
+	
+	@PostMapping(value = "recipe/comment_insert_vue.do", produces = "text/plain;charset=UTF-8")
+	public String recipe_comment_insert(CommentVO vo, HttpSession session)
+	{
+		String id = (String)session.getAttribute("id");
+		String nickname = (String)session.getAttribute("nickname");
+		vo.setId(id);
+		vo.setNickname(nickname);
+		dao.CommentInsert(vo);
+		
+		return recipe_comment_list(vo.getRno());
+	}
+	
+	@PostMapping(value = "recipe/comment_update_vue.do", produces = "text/plain;charset=UTF-8")
+	public String recipe_comment_update(CommentVO vo)
+	{
+			dao.CommentUpdate(vo);
+			
+			return recipe_comment_list(vo.getRno());
+	}
+	
+	@GetMapping(value = "recipe/comment_delete_vue.do", produces = "text/plain;charset=UTF-8")
+	public String recipe_comment_delete(int rno, int cmno)
+	{
+		dao.CommentDelete(cmno);
+		
+		return recipe_comment_list(rno);
+	}
+	
+	
 }

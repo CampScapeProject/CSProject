@@ -49,7 +49,7 @@
 			<table class="table">
 				<tr>
 					<td class="text-center" colspan=3>
-						<img :src="image" style="width: 60%">
+						<img :src="image" style="width: 600px">
 					</td>
 				</tr>
 				<tr>
@@ -74,7 +74,7 @@
 					<td colspan=3 style="padding:30px;">
 
 						<!-- 조리 순서 -->
-						<div style=>
+						<div>
 						<i class="fa-solid fa-fire-burner fa-xl" style="color: #E86A33;"></i><span style="font-size: 24px; font-weight: 600;">            조리 순서</span>
 						</div>
 						
@@ -82,7 +82,7 @@
 							<table class="table recipe_step_img">
 								<tr v-for="steps_img, index in allstepsimg">
 									<td width=40% class="text-center">
-										<img :src="steps_img" style="width: 60%; margin-bottom: 20px;">
+										<img :src="steps_img" style="width: 600px; margin-bottom: 20px;">
 										<span class="allsteps"><pre>{{allsteps[index]}}</pre></span>
 									</td>
 								</tr>
@@ -94,31 +94,35 @@
 			</table>
 		</div>
 		
+		<!-- 댓글 -->
 		<div class="row1">
 		
-			<table class="table" v-for="rvo in reply_list">
+			<table class="table" v-for="cvo in comment_list">
 				<tr>
 					<td class="text-left">
-						<i class="fa-solid fa-user fa-xl" style="color: #8f8f8f;"></i>&nbsp;&nbsp;{{rvo.nickname}}<span style="font-size: 12px;">  &#91;{{rvo.dbday}}&#93;</span>
+						<i class="fa-solid fa-user fa-xl" style="color: #8f8f8f;"></i>&nbsp;&nbsp;{{cvo.nickname}}<span style="font-size: 12px;">  &#91;{{cvo.dbday}}&#93;</span>
 					</td>
 					<td class="text-right">
-						<span v-if="sessionId==rvo.id">
-							<input type=button class="btn btn-sm btn-default ups" value="수정" :id="'up'+rvo.rpno" @click="replyUpdateForm(rvo.rpno)">
-	    					<input type=button class="btn btn-sm btn-default" value="삭제" @click="replyDelete(rvo.rpno)">
+						<span v-if="sessionId==cvo.id">
+							<input type=button class="btn btn-sm btn-default ups" value="수정" :id="'up'+cvo.cmno" @click="replyUpdateForm(cvo.cmno)">
+	    					<input type=button class="btn btn-sm btn-default" value="삭제" @click="replyDelete(cvo.cmno)">
 						</span>
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2><pre style="white-space: pre-wrap;background-color: white;border: none">{{rvo.msg}}</pre></td>
+					<td colspan=2><pre style="white-space: pre-wrap;background-color: white;border: none">{{cvo.msg}}</pre></td>
 				</tr>
-				<tr :id="'u'+rvo.rpno" class="updates" style="display:none">
+				
+				<!-- 댓글 업데이트 -->
+				<tr :id="'u'+cvo.cmno" class="updates" style="display:none">
 					<td colspan=2>
-						<textarea rows=3 cols=100 :id="'msg'+rvo.rpno" style="float:left; resize: none;">{{rvo.msg}}</textarea>
-						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="replyUpdate(rvo.rpno)">수정</button>
+						<textarea rows=3 cols=100 :id="'msg'+cvo.cmno" style="float:left; resize: none;">{{cvo.msg}}</textarea>
+						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="replyUpdate(cvo.cmno)">수정</button>
 					</td>
 				</tr>
 			</table>
 			
+			<!-- 댓글 작성 -->
 			<c:if test="${sessionScope.id!=null }">
 			<table class="table">
 				<tr>
@@ -158,12 +162,12 @@
 			allstepsimg:[],
 			jjim:0,
 			recommend:0,
-			reply_list:[],
+			comment_list:[],
 			sessionId:"${id}",
 			sessionNickname:"${nickname}",
 			msg:'',
 			isShow:false,
-			rpno:0,
+			cmno:0,
 			bool:false
 		},
 		mounted:function(){
@@ -202,8 +206,9 @@
 				})
 			},
 			
+			// 댓글 목록
 			replyRead:function(){
-				axios.get('../recipe/reply_list_vue.do',{
+				axios.get('../recipe/comment_list_vue.do',{
 					params:{
 						rno:this.rno
 					}
@@ -223,7 +228,7 @@
 					return;
 				}
 				
-				axios.post('../recipe/reply_insert_vue.do', null, {
+				axios.post('../recipe/comment_insert_vue.do', null, {
 					params:{
 						rno:this.rno,
 						msg:this.msg
@@ -238,37 +243,37 @@
 			},
 			
 			// 댓글 수정
-			replyUpdateForm:function(rpno){
+			replyUpdateForm:function(cmno){
 				$('.updates').hide()
 				$('.ups').val('수정')
 				
 				if(this.bool==false)
 				{
-					$('#u'+rpno).show();
-					$('#up'+rpno).val('취소')
+					$('#u'+cmno).show();
+					$('#up'+cmno).val('취소')
 					this.bool=true;
 				}
 				else {
-					$('#u'+rpno).hide();
-					$('#up'+rpno).val('수정')
+					$('#u'+cmno).hide();
+					$('#up'+cmno).val('수정')
 					this.bool=false;
 				}
 			},
 			
-			replyUpdate:function(rpno){
-				let msg = $('#msg'+rpno).val()
+			replyUpdate:function(cmno){
+				let msg = $('#msg'+cmno).val()
 				
-				axios.post('../recipe/reply_update_vue.do', null, {
+				axios.post('../recipe/comment_update_vue.do', null, {
 					params:{
-						rpno:rpno,
+						cmno:cmno,
 						rno:this.rno,
 						msg:msg
 					}
 				}).then(res=>{
 					console.log(res.data)
 					this.reply_list = res.data
-					$('#u'+rpno).hide();
-					$('#up'+rpno).val('수정')
+					$('#u'+cmno).hide();
+					$('#up'+cmno).val('수정')
 					
 				}).catch(error=>{
 					console.log(error.response)
@@ -276,10 +281,10 @@
 			},
 			
 			// 댓글 삭제
-			replyDelete:function(rpno){
-				axios.get('../recipe/reply_delete_vue.do', {
+			replyDelete:function(cmno){
+				axios.get('../recipe/comment_delete_vue.do', {
 					params:{
-						rpno:rpno,
+						cmno:cmno,
 						rno:this.rno
 					}
 				}).then(res=>{
