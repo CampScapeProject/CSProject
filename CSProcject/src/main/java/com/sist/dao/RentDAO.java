@@ -80,4 +80,8 @@ public class RentDAO {
 	public List<ReviewVO> rent_review_list(Map map){
 		return mapper.rent_review_list(map);
 	}
+	
+	public int reviewTotalPage(String id) {
+		return mapper.reviewTotalPage(id);
+	}
 }
