@@ -117,4 +117,18 @@ public class QnaRestController {
 		dao.qnaDelete(qno);
 	}
 	
+	@GetMapping(value = "qna/qna_update_vue.do", produces = "text/plain;charset=UTF-8")
+	public String qna_update_data(int qno) throws Exception
+	{
+		QnaVO vo = dao.qnaUpdateData(qno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	
+	@PostMapping(value = "qna/qna_update_ok_vue.do", produces = "text/plain;charset=UTF-8")
+	public void qna_update_ok(QnaVO vo)
+	{
+		dao.qnaUpdate(vo);
+	}
 }

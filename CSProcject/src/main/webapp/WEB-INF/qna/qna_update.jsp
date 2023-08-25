@@ -20,6 +20,13 @@
 		font-weight: bold;
 		display: block;
 		margin: 0px auto;
+	}	
+	.form-label {
+		color : black;
+		font-size: 32px;
+		font-weight: bold;
+		padding-left: 20px;
+		margin-bottom: 10px;
 	}
 	.blog_item_img .blog_item_date {
    		background-color: #E86A33;
@@ -95,7 +102,7 @@
     	<div class="container">
 	    	<div class="row">
 	    		
-	    		<label class="form-label">공지사항 수정</label>
+	    		<label class="form-label">1:1 문의 수정</label>
 	    		
 	    		<form @submit.prevent="submitForm">
 	    		<table class="table">
@@ -103,13 +110,6 @@
 	    				<th width=15% class="text-center">제목</th>
 	    				<td width=85% colspan=3>
 	    					<input type=text class="input-sm form-control" name=title v-model="title" ref="title">
-	    				</td>
-	    			</tr>
-	    			<tr>
-	    				<th width=8% class="text-center">공개 여부</th>
-	    				<td width=92%>
-	    					<input type=radio name=secret v-model=fix value=1 >     고정      
-	                   		<input type=radio name=secret v-model=fix value=0 style="margin-left: 10px;">     비고정      
 	    				</td>
 	    			</tr>
 	    			<tr>
@@ -146,18 +146,17 @@
 			update_data:{},
 			title:'',
 			content:'',
-			open:'',
 			qno:${param.qno}
 		},
 		mounted:function(){
 			
-			axios.get('../qna/qna_insert.do', {
+			axios.get('../qna/qna_update_vue.do', {
 				params:{
 					qno:this.qno
 				}
 			}).then(res=>{
 				console.log(res.data)
-				this.update_date = res.data
+				this.update_data = res.data
 				
 				this.title = this.update_data.title
 				this.content = this.update_data.content
@@ -167,7 +166,7 @@
 			})
 			
 		},
-		methods:(){
+		methods:{
 			
 			submitForm:function(){
 				
@@ -184,15 +183,14 @@
 				}
 				
 				let form = new FormData();
-				form.appebd("qno", this.qno)
+				form.append("qno", this.qno)
 				form.append("title", this.title)
 				form.append("content", this.content)
-				form.append("fix", this.fix)
 				
 				
 				axios.post('../qna/qna_update_ok_vue.do', form).then(res=>{
 					
-					location.href="../qna/qna_detail.do?nno="+this.nno
+					location.href="../qna/qna_detail.do?qno="+this.qno
 					
 				}).catch(error=>{
 					console.log(error.response)

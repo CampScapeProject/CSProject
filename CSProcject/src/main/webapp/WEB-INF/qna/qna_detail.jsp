@@ -114,7 +114,11 @@
 	    			</tr>
 	    			<tr>
 	    				<th width=10% class="text-center">작성자</th>
-	    				<td width=40%><i class="fa-solid fa-user" style="color:#828282; margin-right: 10px;"></i>{{qna_data.id}}</td>
+	    				<td width=40%>
+	    					<i class="fa-solid fa-user" style="color:#828282; margin-right: 10px;"></i>
+	    					<span v-if="group_tab==0">{{qna_data.id}}</span>
+	    					<span v-if="group_tab>=1">관리자</span>
+	    				</td>
 	    				<th width=10% class="text-center">작성일</th>
 	    				<td width=40%>{{regdate}}</td>
 	    			</tr>
@@ -164,7 +168,8 @@
 			regdate:'',
 			sessionId:'${id}',
 			hit:0,
-			open:''
+			open:'',
+			group_tab:0
 		},
 		mounted:function(){
 			 
@@ -182,6 +187,7 @@
 				this.regdate = this.qna_data.dbday
 				this.hit = this.qna_data.hit
 				this.open = this.qna_data.open
+				this.group_tab = this.qna_data.group_tab
 				
 			}).catch(error=>{
 				console.log(error.response)
@@ -203,7 +209,7 @@
 					console.log(error.response)
 				})
 			},
-			
+				
 			del:function(){
 				alert('삭제하시겠습니까?')
 				
@@ -218,7 +224,7 @@
 				})
 			},
 			
-			update():function(){
+			update:function(){
 				
 				axios.get('../qna/qna_update_vue.do', {
 					params:{

@@ -34,7 +34,7 @@ public interface QnaMapper {
 	@Update("UPDATE qna2 SET hit=hit+1 WHERE qno=#{qno}")
 	public void hitIncrement(int qno);
 	
-	@Select("SELECT qno, qcno, id, title, content, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, open, hit FROM qna2 WHERE qno=#{qno}")
+	@Select("SELECT qno, qcno, id, title, content, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, open, hit, group_tab FROM qna2 WHERE qno=#{qno}")
 	public QnaVO qnaDetailData(int qno);
 
 	// 답글
