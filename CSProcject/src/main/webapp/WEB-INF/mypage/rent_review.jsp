@@ -60,7 +60,7 @@
    			<span class="page" @click="prev()" v-if="startpage>1">&lt;</span>&nbsp;
    			<span class="page" 
    				:class="curpage==(startpage+i-1)?'activePage':''" 
-   				v-for="i in (endpage-startpage+1)"
+   			 	v-for="i in (endpage-startpage+1)"
    				@click="pageSelect((startpage+i-1))"
    			>
    				{{startpage+i-1}}&nbsp;

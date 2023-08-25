@@ -8,7 +8,7 @@
 <script type="text/javascript">
 	location.href="main/home.do"
 </script>
-</head>
+</head> 
 <body>
 
 </body>

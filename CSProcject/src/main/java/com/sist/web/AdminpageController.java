@@ -23,7 +23,7 @@ public class AdminpageController {
 
 	@GetMapping("adminpage/rent_reserve.do")
 	public String adminpage_rent_reserve(){
-		return "adminpage/rent_reserve";
+		return "adminpage/rent_reserve"; 
 	}
 
 	@GetMapping("adminpage/rent_list.do")

@@ -55,7 +55,7 @@ public class RentDAO {
 	
 	public void rent_reserve_insert(ReserveVO vo) {
 		mapper.rent_reserve_insert(vo);
-	}
+	} 
 	
 	public int reserveCheck(Map map) {
 		return mapper.reserveCheck(map);

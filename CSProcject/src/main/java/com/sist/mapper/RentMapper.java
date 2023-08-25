@@ -88,7 +88,7 @@ public interface RentMapper {
 	
 	@Update("UPDATE reserve2 SET rstate='취소 요청' WHERE rno=#{rno}")
 	public void reserve_cancel_request(int rno);
-	
+	 
 	@Update("UPDATE reserve2 SET rstate='대기' WHERE rno=#{rno}")
 	public void reserve_request_cancel(int rno);
 	

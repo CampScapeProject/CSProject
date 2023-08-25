@@ -103,7 +103,7 @@ public class RentRestController {
 		Map map=new HashMap();
 		int rowsize=5;
 		int start=rowsize*curpage-(rowsize-1);
-		int end=rowsize*curpage; 
+		int end=rowsize*curpage;  
 		map.put("rno", rno);
 		map.put("start", start);
 		map.put("end", end);

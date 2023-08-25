@@ -40,7 +40,7 @@
 	.tab-content > div:nth-child(3) {
 	  display: block;
 	}
-	
+	 
 	.row .steps{
 		color: gray;
 		font-weight: bold;

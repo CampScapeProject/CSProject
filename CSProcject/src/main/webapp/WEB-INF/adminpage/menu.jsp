@@ -34,7 +34,7 @@
 			
 			<h4>렌터카</h4>
 			<ul class="nav-menu-li">
-				<li><a href="../adminpage/rent_list.do">- 렌터카 목록</a></li>
+				<li><a href="../adminpage/rent_list.do">- 렌터카 목록</a></li> 
 				<li><a href="../adminpage/rent_reserve.do">- 렌터카 예약 정보</a></li>
 			</ul>
 			
