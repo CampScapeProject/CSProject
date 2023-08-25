@@ -126,7 +126,7 @@
 		data:{
 			sno:${sno},
 		    amount:${amount},
-		    price: ${price},
+		    price: 1,
 		    name: '${sessionScope.name}',
 		    phone:'${sessionScope.phone}',
 		    post:'${sessionScope.post}',
@@ -142,17 +142,19 @@
 		    this.sno = urlParams.get('sno');
 		    this.amount = urlParams.get('amount');
 		    this.cno = urlParams.get('cno') || 0;
-		    console.log(this.cno)
-		    
+
 	        axios.get('../shop/shop_pay_vue.do',{
 	            params: {
 	                sno:this.sno
 	            }
 	        }).then(res=>{
 	        	this.buyDetail=res.data
+	        	this.price=res.data.price
+
 	        }).catch(error=>{
 	        	console.log(error)
 	        })
+
 		},
 		methods: {
 		    isEmpty(value) {

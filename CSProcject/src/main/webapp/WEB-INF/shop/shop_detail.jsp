@@ -768,7 +768,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			recomDetail:[],
 			id:'${sessionScope.id}',
 			price:0,
-			totalPrice:0,
+			totalPrice:0
 		},
  		methods: {
 		    buyNow(event) {
@@ -790,7 +790,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			        			sno:this.sno,
 			        			id:this.id,
 			        			amount:this.amount,
-			        			price:this.price
+			        			price:this.totalPrice
 			        		}
 			        	}).then(res=>{
 			        		location.href="../mypage/shop_basket.do";

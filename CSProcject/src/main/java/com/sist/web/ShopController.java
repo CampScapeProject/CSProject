@@ -38,7 +38,6 @@ public class ShopController {
 	@RequestMapping("shop/shop_pay.do")
 	public String shop_pay_order(OrderVO vo,Model model) {
 
-		
 		model.addAttribute("sno",vo.getSno());
 		model.addAttribute("amount", vo.getAmount());
 		model.addAttribute("id", vo.getId());

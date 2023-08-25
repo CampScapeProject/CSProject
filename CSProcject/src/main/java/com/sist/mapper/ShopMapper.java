@@ -72,4 +72,8 @@ public interface ShopMapper {
 	@Delete("DELETE FROM campbasket WHERE cno=#{cno}")
 	public void deleteBasket(int cno);
 	
+	@Select("SELECT * FROM order2 o JOIN shop2 s ON o.sno=s.sno"
+			+ " WHERE id=#{id}")
+	public List<OrderVO> orderList(String id);
+	
 }

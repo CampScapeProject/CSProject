@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 public class OrderVO {
 
-	private String id;
+	private String id,image,name;
 	private int ono,sno,amount,price,buy_ok,check_ok,cno;
 	private Date regdate;
 	

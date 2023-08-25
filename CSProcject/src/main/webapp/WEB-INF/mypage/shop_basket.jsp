@@ -188,7 +188,7 @@
 		        <p>결제 정보</p>
 		        <div class="cart_total_price">
 		            <p>총 수량 <strong class="item_price">{{ totalAmount.toLocaleString() }}</strong>개</p>&nbsp;&nbsp;
-		            <p>총 결제금액 <strong class="total_price color-red">{{ totalPrice.toLocaleString() }}</strong>원</p>
+		            <p>총 금액 <strong class="total_price color-red">{{ totalPrice.toLocaleString() }}</strong>원</p>
 		        </div>
 		    </div>
 		    <div class="btn_box">

@@ -103,4 +103,8 @@ public class ShopDAO {
 		mapper.deleteBasket(cno);
 	}
 	
+//	@Select("SELECT * FROM order2 WHERE id=#{id}")
+	public List<OrderVO> orderList(String id) {
+		return mapper.orderList(id);
+	}
 }

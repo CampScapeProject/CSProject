@@ -205,5 +205,15 @@ public class ShopRestController {
 		return "ok";
 	}
 
+	@GetMapping(value="mypage/order_detail_vue.do",produces = "text/plain;charset=UTF8")
+	public String mypage_orderList(String id) throws Exception {
+		
+		List<OrderVO> list=service.orderList(id);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		
+		return json;
+		
+	}
 	
 }

@@ -91,5 +91,10 @@ public class ShopServiceImpl implements ShopService {
 		
 	}
 
+	@Override
+	public List<OrderVO> orderList(String id) {
+		return dao.orderList(id);
+	}
+
 	
 }

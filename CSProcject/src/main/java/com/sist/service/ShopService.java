@@ -43,4 +43,6 @@ public interface ShopService {
 	public void shopBasket_pay(int cno);
 	
 	public void deleteBasket(int cno);
+
+	public List<OrderVO> orderList(String id);
 }
