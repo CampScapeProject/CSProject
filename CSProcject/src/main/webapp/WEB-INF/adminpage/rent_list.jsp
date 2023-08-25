@@ -79,6 +79,69 @@
    			</span>
    			<span class="page" @click="next()" v-if="totalpage>endpage">&gt;</span>&nbsp;
    		</div>
+   		
+   		<!-- 차량 등록 칸 -->
+   		<div class="col-lg-12" style="padding: 30px">
+   			<div class="text-left">
+   			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">차량 등록</span>
+   			</div>
+   			
+   			<div>
+   				<div class="col-lg-4 text-center" style="padding:30px;">
+   					<div style="width: 300px; height: 300px; background-color: grey"></div>
+   				</div>
+   				
+   				<div class="col-lg-8" style="padding:30px;">
+   					<table class="table">
+   						<tr>
+	   						<th class="text-center" width=15%>차량명</th>
+	   						<td width=85%>
+	   							<input type=text class="input-sm form-control">
+	   						</td>
+   						</tr>
+   						<tr>
+	   						<th class="text-center" width=15%>차종</th>
+	   						<td width=85%>
+	   							<input type=text class="input-sm form-control">
+	   						</td>
+   						</tr>
+   						<tr>
+	   						<th class="text-center" width=15%>브랜드</th>
+	   						<td width=85%>
+	   							<input type=text class="input-sm form-control">
+	   						</td>
+   						</tr>
+   						<tr>
+	   						<th class="text-center" width=15%>탑승인원</th>
+	   						<td width=85%>
+	   							<select>
+	   								<option v-for="i in people" :key="i" :value="i+3">       {{i+3}}       </option>
+	   							</select>
+	   						</td>
+   						</tr>
+   						<tr>
+	   						<th class="text-center" width=15%>연료</th>
+	   						<td width=85%>
+	   							<input type=text class="input-sm form-control">
+	   						</td>
+   						</tr>
+   						<tr>
+	   						<th class="text-center" width=15%>가격</th>
+	   						<td width=85%>
+	   							<input type=text class="input-sm form-control">
+	   						</td>
+   						</tr>
+   						<tr>
+   							<th class="text-center" width=15%>이미지 파일</th>
+   							<td width=85%>
+   								<input type=file>
+   							</td>
+   						</tr>
+   					</table>
+   				</div>
+   			</div>
+   		</div>
+   		
 	</div>
 </div>
 
@@ -91,7 +154,8 @@
 			rent_list:[],
 			totalpage:0,
 			startpage:0,
-			endpage:0
+			endpage:0,
+			people:9
 		},
 		mounted:function(){
 			this.listData()

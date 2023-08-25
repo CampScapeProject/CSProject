@@ -127,7 +127,7 @@
 			<table class="table">
 				<tr>
 					<td>
-						<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg"></textarea>
+						<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg" v-model="msg"></textarea>
 						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="replyWrite()">댓글 작성</button>
 					</td>
 				</tr>
