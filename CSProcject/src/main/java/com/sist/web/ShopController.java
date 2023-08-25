@@ -36,11 +36,18 @@ public class ShopController {
 	
 
 	@RequestMapping("shop/shop_pay.do")
-	public String shop_pay_order(int sno,int amount,Model model) {
+	public String shop_pay_order(OrderVO vo,Model model) {
 
-		/* model.addAttribute("cno", cno); */
-		model.addAttribute("sno", sno);
-		model.addAttribute("amount", amount);
+		
+		model.addAttribute("sno",vo.getSno());
+		model.addAttribute("amount", vo.getAmount());
+		model.addAttribute("id", vo.getId());
+		model.addAttribute("price", vo.getPrice());
+		
+		if(vo.getCno()!=0) {
+			model.addAttribute("cno", vo.getCno());
+		}
+
 		
 	    return "shop/shop_pay";
 	}

@@ -85,5 +85,11 @@ public class ShopServiceImpl implements ShopService {
 		
 	}
 
+	@Override
+	public void deleteBasket(int cno) {
+		dao.deleteBasket(cno);
+		
+	}
+
 	
 }

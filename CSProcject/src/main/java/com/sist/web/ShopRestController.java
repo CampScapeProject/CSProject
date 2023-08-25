@@ -187,8 +187,13 @@ public class ShopRestController {
 	@PostMapping(value="shop/shop_pay_ok.do",produces = "text/plain;charset=UTF8")
 	public String shop_pay_ok(OrderVO vo) {
 		
-		service.shopPay(vo);
-
+		if(vo.getCno()==0) {
+			service.shopPay(vo);
+		} else {
+			service.shopPay(vo);
+			service.deleteBasket(vo.getCno());
+		}
+	
 		return "ok";
 	}
 	

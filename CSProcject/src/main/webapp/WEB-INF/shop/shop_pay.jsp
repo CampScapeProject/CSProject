@@ -126,13 +126,14 @@
 		data:{
 			sno:${sno},
 		    amount:${amount},
-		    price: 1,
+		    price: ${price},
 		    name: '${sessionScope.name}',
 		    phone:'${sessionScope.phone}',
 		    post:'${sessionScope.post}',
 		    addr1:'${sessionScope.addr1}',
 		    addr2:'${sessionScope.addr2}',
 		    id:'${sessionScope.id}',
+		    cno: 0,
 		    buyDetail:{},
 		    tAmount:1
 		},
@@ -140,13 +141,14 @@
 		    const urlParams = new URLSearchParams(window.location.search);
 		    this.sno = urlParams.get('sno');
 		    this.amount = urlParams.get('amount');
-			
+		    this.cno = urlParams.get('cno') || 0;
+		    console.log(this.cno)
+		    
 	        axios.get('../shop/shop_pay_vue.do',{
 	            params: {
 	                sno:this.sno
 	            }
 	        }).then(res=>{
-/* 	        	console.log(res.data) */
 	        	this.buyDetail=res.data
 	        }).catch(error=>{
 	        	console.log(error)
@@ -169,8 +171,8 @@
 	
 	$(function() {
 		$('#buyBtn').click(function() {
-		
 		vueApp.pay();
+
 		})
 		
 	   $('#postBtn').click(function(){
@@ -209,17 +211,19 @@
 			        msg += '결제 금액 : ' + rsp.paid_amount;
 			        msg += '카드 승인번호 : ' + rsp.apply_num;
 			        
+			    
 		            let form = new FormData();
 		            form.append("sno", vueApp.sno)
 		            form.append("id", vueApp.id)
 		            form.append("amount", vueApp.amount)
 		            form.append("price", vueApp.price)
 
-		            axios.post("../shop/shop_pay_ok.do", form, {
-		                header:{
-		                   'Content-Type':'multipart/form-data'
-		                }
-		             }).then(res=>{
+		            if(this.cno!==0) {
+		            	form.append("cno",vueApp.cno)
+		            }
+
+		            axios.post("../shop/shop_pay_ok.do", form).
+		            then(res=>{
 		                
 		                location.href="../mypage/shop_order.do"
 		                
@@ -234,12 +238,13 @@
 		            form.append("id", vueApp.id)
 		            form.append("amount", vueApp.amount)
 		            form.append("price", vueApp.price)
+		            
+		            if(this.cno!==0) {
+		            	form.append("cno",vueApp.cno)
+		            }
 
-		            axios.post("../shop/shop_pay_ok.do", form, {
-		                header:{
-		                   'Content-Type':'multipart/form-data'
-		                }
-		             }).then(res=>{
+		            axios.post("../shop/shop_pay_ok.do", form).
+		            then(res=>{
 		                
 		                location.href="../mypage/shop_order.do"
 		                

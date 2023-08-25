@@ -41,4 +41,6 @@ public interface ShopService {
     public List<ShopVO> shopRecomProduct(Map map);
 
 	public void shopBasket_pay(int cno);
+	
+	public void deleteBasket(int cno);
 }
