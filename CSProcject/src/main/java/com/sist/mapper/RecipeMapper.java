@@ -39,7 +39,7 @@ public interface RecipeMapper {
 	public void CommentDelete(int cmno);
 	
 	// 마이 페이지
-	
+	 
 	// 관리자 페이지
 	@Select("SELECT rno, title, image, jjim, hit, num "
 			+ "FROM (SELECT rno, title, image, jjim, hit, rownum as num "

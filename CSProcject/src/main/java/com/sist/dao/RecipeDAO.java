@@ -30,7 +30,7 @@ public class RecipeDAO {
 		mapper.recipeHitIncrease(rno);
 		return mapper.recipeDetailData(rno);
 	}
-	 
+	
 	// 댓글
 	public List<CommentVO> CommentListData(int rno)
 	{

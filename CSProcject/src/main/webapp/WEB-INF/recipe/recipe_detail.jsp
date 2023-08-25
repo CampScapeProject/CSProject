@@ -278,7 +278,7 @@
 				}).catch(error=>{
 					console.log(error.response)
 				})
-			}, 
+			},
 			
 			// 댓글 삭제
 			replyDelete:function(cmno){
