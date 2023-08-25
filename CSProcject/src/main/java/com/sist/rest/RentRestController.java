@@ -1,5 +1,6 @@
 package com.sist.rest;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -240,4 +241,40 @@ public class RentRestController {
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(map);
 	}
+	
+	//관리자 페이지
+	@GetMapping(value = "rent/admin_rent_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String admin_rent_list(int curpage, String fd) throws Exception {
+		int rowsize=7;
+		int start=rowsize*curpage-(rowsize-1);
+		int end=rowsize*curpage;
+		
+		Map map=new HashedMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("fd", fd);
+		
+		List<RentVO> list=dao.adminRentListData(map);
+		
+		
+		int totalpage=dao.adminRentTotalpage(fd);
+		final int BLOCK=5;
+		int startpage=(curpage-1)/BLOCK*BLOCK+1;
+		int endpage=(curpage-1)/BLOCK*BLOCK+BLOCK;
+		if(endpage>totalpage)
+			endpage=totalpage;
+		
+		Map smap=new HashMap();
+		smap.put("curpage", curpage);
+		smap.put("totalpage", totalpage);
+		smap.put("startpage", startpage);
+		smap.put("endpage", endpage);
+		smap.put("list", list);
+		
+		
+		ObjectMapper mapper=new ObjectMapper();
+		
+		return mapper.writeValueAsString(smap);
+	}
+	
 }

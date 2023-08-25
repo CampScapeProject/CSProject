@@ -84,4 +84,12 @@ public class RentDAO {
 	public int reviewTotalPage(String id) {
 		return mapper.reviewTotalPage(id);
 	}
+	
+	public List<RentVO> adminRentListData(Map map){
+		return mapper.adminRentListData(map);
+	}
+	
+	public int adminRentTotalpage(String fd) {
+		return mapper.adminRentTotalpage(fd);
+	}
 }

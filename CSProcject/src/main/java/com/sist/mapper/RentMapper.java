@@ -107,4 +107,20 @@ public interface RentMapper {
 	
 	@Select("SELECT CEIL(COUNT(*)/7.0) FROM review2 WHERE id=#{id}")
 	public int reviewTotalPage(String id);
+	
+	//관리자페이지
+	@Select("SELECT rno,image,car_name,car_type,maker,inwon,fuel,car_option,price,num "
+		  + "FROM (SELECT rno,image,car_name,car_type,maker,inwon,fuel,car_option,price,rownum as num "
+		  + "	   FROM (SELECT /*+INDEX_ASC(rent2 rt2_rno_pk)*/rno,image,car_name,car_type,maker,inwon,fuel,car_option,price "
+		  + "  			 FROM rent2 "
+		  + "			 WHERE car_name LIKE '%'||#{fd}||'%' "
+		  + "			)"
+		  + "	  ) "
+		  + "WHERE num BETWEEN #{start} AND #{end}")
+	public List<RentVO> adminRentListData(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/7.0) "
+		  + "FROM rent2 "
+		  + "WHERE car_name LIKE '%'||#{fd}||'%'")
+	public int adminRentTotalpage(String fd);
 }
