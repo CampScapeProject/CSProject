@@ -26,9 +26,9 @@ public class AdminpageController {
 		return "adminpage/rent_reserve";
 	}
 
-	@GetMapping("adminpage/rent_review.do")
-	public String adminpage_rent_review(){
-		return "adminpage/rent_review";
+	@GetMapping("adminpage/rent_list.do")
+	public String adminpage_rent_list(){
+		return "adminpage/rent_list";
 	}
 
 	@GetMapping("adminpage/shop_order.do")
