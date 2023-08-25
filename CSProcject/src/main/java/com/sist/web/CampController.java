@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,17 @@ public class CampController {
 	}
 	
 	@GetMapping("camp/camp_detail.do")
-	public String camp_detail(int cno,Model model,HttpServletResponse response, HttpServletRequest request){
+	public String camp_detail(int cno,String rdate,Model model,HttpServletResponse response, HttpServletRequest request,HttpSession session)throws Exception
+	{
+		String id = (String)session.getAttribute("id");
+		String name = (String)session.getAttribute("name");
+		String email = (String)session.getAttribute("email");
+		String phone = (String)session.getAttribute("phone");
+		model.addAttribute("id",id);
+		model.addAttribute("name",name);
+		model.addAttribute("email",email);
+		model.addAttribute("phone",phone);
+		
 		Cookie[] cookies=request.getCookies();
 		if(cookies!=null) {
 			for(int i=cookies.length-1;i>=0;i--) {
@@ -34,6 +45,17 @@ public class CampController {
 	                response.addCookie(cookies[i]);
 				}
 			}
+		}
+		
+		if(rdate!=null) 
+		{
+			
+			String sdate=rdate.split(" - ")[0];
+			String edate=rdate.split(" - ")[1];
+			model.addAttribute("sdate",sdate);
+			model.addAttribute("edate",edate);
+			
+			System.out.println("s:"+sdate+"e:"+edate);
 		}
 		
 		Cookie cookie=new Cookie("camp_"+cno, String.valueOf(cno));

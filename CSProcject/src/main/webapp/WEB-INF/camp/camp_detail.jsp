@@ -429,7 +429,7 @@
               </div>
               
               <!--  예약 객식-->
-              <div id="dialogReserve" :title="camp_detail.name+' 예약'" v-if="resShow" style="padding: 0px;overflow-y:auto">
+              <div id="dialogReserve" :title="camp_detail.name+' 예약'" v-if="resShow" style="padding: 0px;overflow-y:auto;background-color: #EEEEEE;">
               
               <div class="popular_destination_area" style="padding: 0px" v-if="!reserveForm">
         		<div class="container">
@@ -442,7 +442,7 @@
 		                        </div>
 		                        <div class="content">
 		                            <p class="d-flex align-items-center" >{{cs.name}}<a href="#" class="mPrice">{{cs.price}}&nbsp;원</a></p>
-		                            <p style="font-size: 15px;">최대&nbsp;{{cs.inwon}}인<button type="button" @click="reserveGo()" class="button button-contactForm btn_1 boxed-btn" style="margin-left: 250px;height: 60px;background-color:#001D38;border:1px solid #001D38 ">예약하기</button></p>
+		                            <p style="font-size: 15px;">최대&nbsp;{{cs.inwon}}인<button type="button" @click="reserveGo(cs.csno)" class="button button-contactForm btn_1 boxed-btn" style="margin-left: 250px;height: 60px;background-color:#001D38;border:1px solid #001D38 ">예약하기</button></p>
 		                        </div>
 		                            
 		                    </div>
@@ -453,48 +453,122 @@
              </div>
              
              <!--  예약 폼 -->
-            	<div class="destination_details_info" v-if="reserveForm">
-				        <div class="container">
-				            <div class="row justify-content-center">
-				                <div class="col-lg-8 col-md-9">
-				                	<div class="contact_join">
-				                        <h3>예약 정보</h3>
-				                        <form action="#">
-				                            <div class="row">
-				                                <div class="col-lg-6 col-md-6">
-				                                    <div class="single_input">
-				                                        <input type="text" placeholder="Your Name">
-				                                    </div>
-				                                </div>
-				                                <div class="col-lg-6 col-md-6">
-				                                    <div class="single_input">
-				                                        <input type="text" placeholder="Phone no.">
-				                                    </div>
-				                                </div>
-				                                <div class="col-lg-12">
-				                                    <div class="single_input">
-				                                        <textarea name="" id="" cols="30" rows="10"placeholder="Message" ></textarea>
-				                                    </div>
-				                                </div>
-				                                <div class="col-lg-12">
-				                                    <div class="submit_btn">
-				                                        <button class="boxed-btn4" type="submit">예약하기</button>
-				                                    </div>
-				                                </div>
+          	<div class="destination_details_info" v-if="reserveForm" style="padding: 0px;margin-top: -40px;">
+          		<div class="container">
+			          		<div class="row" style="background-color: white;">
+			          			<div class="col-lg-12 text-center">
+			                   <a href="../main/home.do">
+			                       <img src="../layout/img/logo.png">
+			                   </a>
+			                   </div>
+			               </div>
+			               <br>
+         					<section>
+         					  <div class="row justify-content-center" style="background-color: white;">
+			                <div class="col-lg-8 col-md-9">
+			                	<div class="contact_join" style="margin-top: 20px;margin-bottom: 20px">
+         						<h4><i class="fa-solid fa-house"></i>&nbsp;{{camp_detail.name}}</h4>
+		                            	<p>{{campsite_detail.name}}</p>
+		                            	<br>
+		                            	<div class="row">
+			                            	<div class="col-lg-6" style="border: 1px solid gray">
+			                                    <div class="single_input">
+			                                    	<label><i class="fa-regular fa-calendar-check"></i>&nbsp;입실일</label>	
+			                                    	<h4>{{sdate}}</h4>
+			                                    </div>
+			                                 </div>
+			                                <div class="col-lg-6" style="border: 1px solid gray">
+			                                    <div class="single_input">
+			                                    	<label><i class="fa-regular fa-calendar-minus"></i>&nbsp;퇴실일</label>
+			                                    	<h4>{{edate}}</h4>
+			                                    </div>
+			                                </div>
+		                            	</div>
+		                    		</div>
+		                   		 </div>
+		                    </div>
+         					</section>
+         					<br>
+         					<section>
+         					  <div class="row justify-content-center" style="background-color: white;">
+			                <div class="col-lg-8 col-md-9">
+			                	 <form @submit.prevent="ReserveOk()">
+			                	<div class="contact_join" style="margin-top: 20px;margin-bottom: 20px">
+         						<h4>예약 인원 수</h4>
+         						<p>*최대 인원 {{campsite_detail.inwon}}명</p>
+		                            	<br>
+	                            	<div class="row"> 
+	                           			<div class="col-lg-12">
+	                            			<div class="option">
+									          <div>
+									            <span><i class="fa-solid fa-user"></i></span>
+									            <select ref="inwon">
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+													<option value="8">8</option>
+													<option value="9">9</option>
+													<option value="10">10</option>
+									            </select>
+									            <span>명</span>
+									          </div>
 				                            </div>
-				                        </form>
-				                    </div>
-								</div>
-							</div>	            
+	                            		</div>
+		                    		</div>
+		                   		 </div>
+		                    </div>
+         					</section>
+         					<br>
+			        	<section>
+			            <div class="row justify-content-center" style="background-color: white;">
+			                <div class="col-lg-8 col-md-9">
+			                	<div class="contact_join" style="margin-top: 20px;margin-bottom: 20px">
+			                        <h3>예약 정보</h3>
+			                            <div class="row">
+			                                <div class="col-lg-6">
+			                                    <div class="single_input">
+			                                    	<label>이름</label>
+			                                       <input type="text" :value="name" ref="name">
+			                                       <input type="hidden" :value="campsite_detail.csno" ref="csno">
+			                                    </div>
+			                                </div>
+			                                <div class="col-lg-8">
+			                                    <div class="single_input">
+			                                   		<label>연락처</label>
+			                                        <input type="text" :value="phone" ref="phone">
+			                                    </div>
+			                                </div>
+			                                <div class="col-lg-8">
+			                                    <div class="single_input">
+			                                    	<label>이메일</label>
+			                                        <input type="email" :value="email" ref="email">
+			                                    </div>
+			                                </div>
+			                                <div class="col-lg-12">
+			                                    <div class="single_input">
+			                                    	<label>요청사항</label>
+			                                        <textarea name="" id="" cols="30" rows="10" ref="msg"></textarea>
+			                                    </div>
+			                                </div>
+			                            </div>
+			                        </form>
+			                    </div>
+							</div>
 						</div>
-					</div> 
-             </div>
+					</section> 
+					</div>
+					<div class="col-lg-12" >
+                           <div class="submit_btn" style="width: 100%;	">
+                               <button class="boxed-btn4" type="submit" style="width: 100%">예약하기 | {{campsite_detail.price}}원</button>
+                           </div>
+                       </div>
+				</div> 
+	          </div>
+             <!-- ------------------------------ -->
              
-             <!-- 예약 창 -->
-             
-              
-              
-              <!---------------------->
               <div class="navigation-area"><!--style="width: 1000px"-->
                      <div class="row">
                         <div
@@ -572,6 +646,12 @@
 			data:{
 				camp_detail:{},
 				cno:${cno},
+				sdate:'${sdate}',
+				edate:'${edate}',
+				id:'${id}',
+				name:'${name}}',
+				email:'${email}',
+				phone:'${phone}',
 				no:0,
 				activeTab: 0,
 			    tabs: [
@@ -594,6 +674,7 @@
 				content:'',
 				update_data:{},
 				campsite_list:[],
+				campsite_detail:{},
 				reserveForm:false
 			},
 			mounted:function(){
@@ -773,8 +854,60 @@
 							}).dialog("open")
 						})		    	
 			    },
-			    reserveGo:function(){
+			    reserveGo:function(no){
 			    	this.reserveForm=true;
+			    	axios.get('../camp/campsite_detail_vue.do',{
+			    		params:{
+			    			csno:no
+			    		}
+			    	}).then(res=>{
+			    		this.campsite_detail=res.data
+			    	})
+			    },
+			    reserve:function(){
+			    	this.resShow=false;
+			    	let name=this.$refs.name.value;
+			    	let email=this.$refs.email.value;
+			    	let msg=this.$refs.msg.value;
+			    	let phone=this.$refs.phone.value;
+			    	let csno=this.$refs.csno.value;
+			    	let inwon=this.$refs.inwon.value;
+			    	
+		    		if(name=="")
+				   {
+					   this.$refs.name.focus();
+					   return;
+				   }
+				   if(email=="")
+				   {
+					   this.$refs.email.focus();
+					   return;
+				   }
+				   if(msg=="")
+				   {
+					   this.$refs.msg.focus();
+					   return;
+				   }
+				   if(phone=="")
+				   {
+					   this.$refs.phone.focus();
+					   return;
+				   }
+					   
+					   let form=new FormData();
+					   form.append("name",name);
+					   form.append("email",email);
+					   form.append("msg",msg)
+					   form.append("page",page)
+					   form.append("csno",csno)
+					   form.append("inwon",inwon)
+						
+						 axios.post('../camp/camp_reserve_ok_vue.do',form).then(res=>{
+								location.href="../camp/camp_main.do"
+								alert('예약이 완료되었습니다')
+						  }).catch(error=>{
+							  console.log(error.response)
+						  })
 			    },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

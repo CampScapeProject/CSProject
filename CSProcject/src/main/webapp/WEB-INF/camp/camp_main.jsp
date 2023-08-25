@@ -185,7 +185,7 @@ function uncomma(str) {
 		                            <a href="#" class="prise">{{vo.mprice}}&nbsp;원</a>
 		                        </div>
 		                        <div class="place_info">
-		                            <a :href="'../camp/camp_detail.do?cno='+vo.cno"><h3>{{vo.name}}</h3></a>
+		                            <a @click="detailPage(vo.cno)" style="cursor: pointer;"><h3>{{vo.name}}</h3></a>
 		                            <p>{{vo.msg}}</p>
 		                            <i class="fa fa-phone-square" style="color: #E86A33"></i>&nbsp;<span>{{vo.phone}}</span><br>
 		                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span>{{vo.address}}</span>
@@ -271,6 +271,9 @@ function uncomma(str) {
 						this.startpage=this.page_list.startpage
 						this.endpage=this.page_list.endpage
 					})
+			},
+			detailPage:function(no){
+				location.href="../camp/camp_detail.do?cno="+no+"&rdate="+this.$refs.rdate.value;
 			},
 			findCamp:function(){
 				axios.get('../camp/camp_find_list_vue.do',{

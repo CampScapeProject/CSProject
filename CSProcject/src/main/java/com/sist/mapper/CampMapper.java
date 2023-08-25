@@ -91,5 +91,10 @@ public interface CampMapper {
 	@Select("SELECT csno,cno,name,image,price,inwon FROM campsite2 WHERE cno=#{cno}")
 	public List<CampSiteVO> campSiteList(int cno);
 	
+	@Select("SELECT * FROM campsite2 WHERE csno=#{csno}")
+	public CampSiteVO campSiteDetail(int csno);
+	
+	//@Insert("INSERT INTO reserve2(rno) VALUES()")
+	
 	
 }

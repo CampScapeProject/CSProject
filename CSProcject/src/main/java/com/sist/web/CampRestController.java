@@ -23,6 +23,7 @@ import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
 import com.sist.vo.PageVO;
 import com.sist.vo.RentVO;
+import com.sist.vo.ReserveVO;
 import com.sist.vo.ReviewVO;
 import com.sist.vo.TourVO;
 
@@ -370,6 +371,30 @@ public class CampRestController {
 		return json;
 	}
 	
+	@GetMapping(value = "camp/campsite_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String campsite_detail_vue(int csno) throws Exception
+	{
+		CampSiteVO vo=dao.campSiteDetail(csno);
+		
+		int price=Integer.parseInt(vo.getPrice());
+		
+		DecimalFormat df=new DecimalFormat("###,###,###");
+		String Fprice=df.format(price);
+		vo.setPrice(Fprice); 
+
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		
+		return json;
+	}
+	
+	/*
+	 * @PostMapping(value = "camp/camp_reserve_ok_vue.do",produces =
+	 * "text/plain;charset=UTF-8") public String camp_reserve_ok_vue(ReserveVO vo)
+	 * throws Exception {
+	 * 
+	 * }
+	 */
 	/* -------------------------------- */
 	
 	

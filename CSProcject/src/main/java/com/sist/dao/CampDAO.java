@@ -113,4 +113,9 @@ public class CampDAO {
 	{
 		return mapper.campSiteList(cno);
 	}
+	
+	public CampSiteVO campSiteDetail(int csno)
+	{
+		return mapper.campSiteDetail(csno);
+	}
 }
