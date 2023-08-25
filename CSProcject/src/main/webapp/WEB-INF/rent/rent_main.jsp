@@ -44,8 +44,8 @@
 </style>
 
 </head>
-<body style="background-color: #F7FAFD;">
-<div class="el-space">
+<body>
+<div class="el-space" style="background-color: #F7FAFD;">
 	<!-- where_togo_area_start  -->
     <div class="where_togo_area" style="padding: 30px;">
         <div class="container" style="margin: 0 auto;">

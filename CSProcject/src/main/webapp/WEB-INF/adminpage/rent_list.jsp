@@ -88,7 +88,12 @@
    			
    			<div>
    				<div class="col-lg-4 text-center" style="padding:30px;">
-   					<div style="width: 300px; height: 300px; background-color: grey"></div>
+   					<div style="width: 300px; height: 300px; background-color: white;  display: grid;place-items: center;border:1px solid black;">
+							<input type="file" id=chooseFile name="chooseFile" accept="image/*" onchange="loadFile(this)" style="display: none;">
+							<label for="chooseFile" style="width: 20%;height: 20%;margin: 0 ">
+								<img src="../layout/img/imgUpload.png" style="width: 100%;height: 100%;">
+							</label>
+   					</div>
    				</div>
    				
    				<div class="col-lg-8" style="padding:30px;">
@@ -115,7 +120,7 @@
 	   						<th class="text-center" width=15%>탑승인원</th>
 	   						<td width=85%>
 	   							<select>
-	   								<option v-for="i in people" :key="i" :value="i+3">       {{i+3}}       </option>
+	   								<option v-for="i in people" :key="i" :value="i+3">       {{i+3}}&nbsp;&nbsp;&nbsp;       </option>
 	   							</select>
 	   						</td>
    						</tr>
@@ -132,10 +137,21 @@
 	   						</td>
    						</tr>
    						<tr>
-   							<th class="text-center" width=15%>이미지 파일</th>
-   							<td width=85%>
-   								<input type=file>
-   							</td>
+   							<th colspan=2>
+   								<div class=row>
+   									<div class="col-lg-8 text-left" >
+   										차량 옵션
+   									</div>
+   									<div class="col-lg-4 text-right" style="font-size: 20px;">
+   										<i class="fa-solid fa-plus"></i> <i class="fa-solid fa-minus"></i>
+   									</div>
+   									
+   									<div class="col-lg-3">
+   										· <input type=text style="width: 70%;text-align: right">
+   									</div>
+   									
+   								</div>
+   							</th>
    						</tr>
    					</table>
    				</div>
