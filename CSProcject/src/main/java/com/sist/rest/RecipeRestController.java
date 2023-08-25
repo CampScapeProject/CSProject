@@ -57,7 +57,7 @@ public class RecipeRestController {
 		String json = mapper.writeValueAsString(vo);
 		return json;
 	}
-	
+	 
 	@GetMapping(value = "recipe/recipe_detail_vue.do", produces = "text/plain;charset=UTF-8")
 	public String recipe_detail(int rno) throws Exception
 	{
