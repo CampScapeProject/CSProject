@@ -68,6 +68,8 @@ public interface ShopMapper {
 	        + "WHERE c.id=#{id} AND buy_ok=0")
 	public List<ShopVO> basketDetail(String id);
 	
-	
+	// 장바구니에서 구매할 때 장바구니 삭제
+	@Delete("DELETE FROM campbasket WHERE cno=#{cno}")
+	public void deleteBasket(int cno);
 	
 }

@@ -98,4 +98,9 @@ public class ShopDAO {
 		mapper.shopBasket_pay(cno);
 	}
 	
+//	@Delete("DELETE FROM campbasket WHERE cno=#{cno}")
+	public void deleteBasket(int cno) {
+		mapper.deleteBasket(cno);
+	}
+	
 }

@@ -19,7 +19,7 @@ import lombok.Setter;
 public class OrderVO {
 
 	private String id;
-	private int ono,sno,amount,price,buy_ok,check_ok;
+	private int ono,sno,amount,price,buy_ok,check_ok,cno;
 	private Date regdate;
 	
 }

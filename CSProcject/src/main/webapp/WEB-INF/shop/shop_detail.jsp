@@ -808,7 +808,6 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 		},
 		computed: {
 			calculateTotalPrice() {
-		    	console.log('dd')
 		        return this.shopDetail.price * this.amount;
 		    }
 		},

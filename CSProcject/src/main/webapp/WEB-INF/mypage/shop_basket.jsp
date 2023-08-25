@@ -217,8 +217,6 @@
                			id:this.id
                		}
               	}).then(res=>{
-              	    console.log(res.data)
-              	    
 					this.basketList=res.data
 	                this.calculateTotalPrice();
 	                this.calculateTotalAmount();
@@ -226,9 +224,32 @@
               	})
 	        },
 	        methods: {
-			    buyNow(sno,amount,cno) {
+			    buyNow(sno,amount,cno,price) {
+			    	
+			    	let form = new FormData();
+			    	form.append("sno",sno);
+			    	form.append("id",this.id);
+			    	form.append("amount",amount);
+			    	form.append("price",this.totalPrice);
+			    	
+			    	if(this.cno!==0) {
+			    		form.append("cno",cno)
+			    	}
+			    	console.log(cno)
+			    	
+			    	axios.post('../shop/shop_pay.do',form).
+			    	then(res=>{
+			    		
+			    		console.log(res.data)
+			    		
 			    		const url='../shop/shop_pay.do?sno='+sno+'&amount='+amount+'&cno='+cno;
 			            window.location.href = url;
+			    	}).catch(error=>{
+			    		console.log(error)
+			    	})
+			    	
+			    		/* const url='../shop/shop_pay.do?sno='+sno+'&amount='+amount+'&cno='+cno;
+			            window.location.href = url; */
 			    }, 
 	        	basketDel(cno){
 	        		axios.get('../mypage/basket_delete_vue.do',{
