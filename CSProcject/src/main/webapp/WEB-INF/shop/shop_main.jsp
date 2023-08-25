@@ -40,7 +40,7 @@
 <body>
 
 <div class="shop_main">	
-	<div class="where_togo_area" style="padding: 30px;">
+	<div class="where_togo_area" style="padding: 30px;background: linear-gradient(142.94deg, #7fb88d 7.53%, #41644A 103.72%);">
 	    <div class="container" style="margin: 0 auto;">
 	    	<div class=row>
 	         <div class="col-lg-3">
