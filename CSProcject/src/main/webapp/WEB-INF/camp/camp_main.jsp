@@ -196,7 +196,7 @@ function uncomma(str) {
 		                    </div>
 		                </div>
 			                <!--  page바 -->
-			            <div class="row" style="margin-left: 220px;margin-top:-40px;">
+			            <div class="row" style="margin-left: 220px;margin-top:-40px;"> 
 			                 <nav class="blog-pagination justify-content-center d-flex">
 	                            <ul class="pagination">
 	                                <li class="page-item" v-if="startpage>1">

@@ -887,7 +887,7 @@
 				   {
 					   this.$refs.msg.focus();
 					   return;
-				   }
+				   } 
 				   if(phone=="")
 				   {
 					   this.$refs.phone.focus();

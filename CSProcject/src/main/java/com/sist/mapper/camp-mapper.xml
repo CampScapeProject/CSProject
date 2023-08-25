@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
 	
-	
+	 
 	
 	<select id="campFindData" resultType="CampVO" parameterType="hashmap">
 		SELECT cno,name,address,phone,msg,image,mprice,num 

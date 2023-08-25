@@ -33,7 +33,7 @@ public class CampController {
 		model.addAttribute("id",id);
 		model.addAttribute("name",name);
 		model.addAttribute("email",email);
-		model.addAttribute("phone",phone);
+		model.addAttribute("phone",phone);  
 		
 		Cookie[] cookies=request.getCookies();
 		if(cookies!=null) {

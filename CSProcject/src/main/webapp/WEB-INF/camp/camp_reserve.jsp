@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<!-- 제목 칸 -->
+<!-- 제목 칸 --> 
 <div class="where_togo_area" style="padding: 30px;">
     <div class="container" style="margin: 0 auto;">
     	<div class=row>

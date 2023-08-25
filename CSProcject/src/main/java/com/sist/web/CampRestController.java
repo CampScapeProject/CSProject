@@ -385,7 +385,7 @@ public class CampRestController {
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
 		
-		return json;
+		return json;  
 	}
 	
 	/*
