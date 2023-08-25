@@ -22,7 +22,7 @@
 		padding: 0 0 10px 40px;
 	}
 	.cart_table .cart_list{
-		padding: 4rem;
+		padding: 1rem;
 		font-size: 14px;
 		}
 	.cart_table .cart_list li>div{
@@ -95,7 +95,7 @@
 		display: inline-block;
 	}
 	.cart_table .cart_list li>div.item_detail{
-		width: 60%;
+		width: 90%;
 	}
 	.cart_table .cart_list li>div.item_detail img{
 		max-width: 150px; 
@@ -168,9 +168,8 @@
 		                {{index+1}}
 		            </div>
 		            <div class="item_detail">
-		                <img :src="b.image">
-		                <p class="name"><strong>{{b.name}}</strong></p>
-		                <p class="txt"></p>
+		                <img :src="b.image" style="display: inline-block;">
+		                <div class="name" style="display: inline-block;fnot-size:18px"><strong>{{b.name}}</strong></div>
 		            </div>
 		            <div class="opt_info">
 		                <strong class="price_unit">{{ b.price.toLocaleString() }}</strong>원
@@ -179,8 +178,8 @@
 		                </div>
 		                <div class="total_p">
 		                    <strong class="price_amount">{{ (b.price * b.amount).toLocaleString() }}</strong>원
-		                    <span class="del_li_btn"><button @click="buyNow(b.sno,b.amount,b.cno)">구매</button></span>
-		                    <span class="del_li_btn"><a href="#" @click="basketDel(b.cno)"><img src="https://tictoc-web.s3.ap-northeast-2.amazonaws.com/web/img/icon/btn_del_circle.svg"></a></span>
+		                    <i class="fa-regular fa-credit-card" style="color: #000000; size:20" @click="buyNow(b.sno,b.amount,b.cno)"></i>&nbsp;
+		                    <i class="fa-regular fa-circle-xmark" style="color: #000000;" @click="basketDel(b.cno)"></i>
 		                </div>
 		            </div>
 		        </li>

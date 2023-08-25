@@ -172,6 +172,18 @@ th {
 	            });
 	    },
  		methods:{
+ 		   openPost() {
+ 			   const _this = this
+ 			   new daum.Postcode({
+ 			         oncomplete:function(data) {
+ 			            /* $('#post').val(data.zonecode)
+ 			            $('#addr1').val(data.address) */
+ 			            console.log(_this)
+ 			            _this.post = data.zonecode
+ 			            _this.addr1 = data.address
+ 			         }
+ 			      }).open()
+ 		   },
 			detailInfoGo(id){
 				axios.post('../adminpage/member_detail_vue.do',null,{
 					params: {
@@ -190,7 +202,9 @@ th {
 					this.addr2=this.detailInfo.addr2
 					this.sex=this.detailInfo.sex
 					this.admin=this.detailInfo.admin
-				}) 
+				}).catch(error=>{
+					console.log(error)
+				})
 			},
  			updateGo(){
 				axios.post('../adminpage/member_update_vue.do',null,{
