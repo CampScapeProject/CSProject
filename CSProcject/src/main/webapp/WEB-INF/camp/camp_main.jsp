@@ -70,33 +70,20 @@ function uncomma(str) {
 </script>
 </head>
 <body>
-<!-- 배경 -->
- <div class="bradcam_area bradcam_bg_2">
-     <div class="container">
-	     <div class="row">
-	         <div class="col-xl-12">
-	             <div class="bradcam_text text-center">
-	                 <h3>Destinations</h3>
-	                 <p>Pixel perfect design with awesome contents</p>
-	             </div>
-	         </div>
-	     </div>
-     </div>
-</div>
-<!---------->
+
 
 <!-- 제목 칸 -->
-<!-- <div class="where_togo_area" style="padding: 30px;">
-    <div class="container" style="margin: 0 auto;">
-    	<div class=row>
-         <div class="col-lg-3">
-             <div class="form_area">
-                 <h1 style="color: white;text-align: center;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">캠핑</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+	<div class="where_togo_area" style="padding: 30px;">
+	    <div class="container" style="margin: 0 auto;">
+	    	<div class=row>
+	         <div class="col-lg-3">
+	             <div class="form_area">
+	                 <h1 style="color: white;text-align: center;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">캠핑</h1>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 <!---------->
 
 

@@ -19,26 +19,24 @@
     <div class="slider_area">
     	
         <div class="slider_active owl-carousel">
+        
             <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-12 col-md-12">
                             <div class="slider_text text-center">
-                                <h3>캠핑장 정보 어디서 찾으세요?</h3>
-                                <p>캠프스케이프에서 캠핑장·렌터카·캠핑용품 구매까지 한번에!!</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
+ 
             <div class="single_slider  d-flex align-items-center slider_bg_2 overlay">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-12 col-md-12">
                             <div class="slider_text text-center">
-                                <h3>캠핑장 정보 어디서 찾으세요?</h3>
-                                <p>캠프스케이프에서 캠핑장·렌터카·캠핑용품 구매까지 한번에!!</p>
                             </div>
                         </div>
                     </div>
@@ -50,8 +48,6 @@
                     <div class="row align-items-center">
                         <div class="col-xl-12 col-md-12">
                             <div class="slider_text text-center">
-                                <h3>캠핑장 정보 어디서 찾으세요?</h3>
-                                <p>캠프스케이프에서 캠핑장·렌터카·캠핑용품 구매까지 한번에!!</p>
                             </div>
                         </div>
                     </div>
@@ -63,8 +59,6 @@
                     <div class="row align-items-center">
                         <div class="col-xl-12 col-md-12">
                             <div class="slider_text text-center">
-                                <h3>캠핑장 정보 어디서 찾으세요?</h3>
-                                <p>캠프스케이프에서 캠핑장·렌터카·캠핑용품 구매까지 한번에!!</p>
                             </div>
                         </div>
                     </div>
@@ -288,42 +282,50 @@
         </div>
     </div>
     
-    <script type="text/javascript">
-    let campList=new Vue({
-    	el:'.popular_destination_area',
-    	data:{
-    		camp_list:[]
-    	},
-    	mounted:function(){
-    		axios.get('../camp/camp_main_list_vue.do').then(res=>{
-    			console.log(res.data)
-    			this.camp_list=res.data
-    		})
-    	},
-    	methods:{
-    		toDetail:function(no){
-    			location.href="../camp/camp_detail.do?cno="+no;
-    		}
-    	}
-    })
-    
-    let shop=new Vue({
-        el: '.popular_places_area',
-        data: {
-            shopList: []
-        },
-        mounted: function() {
-            axios.get('../main/shopList_vue.do')
-                .then(res => {
-                    this.shopList = res.data; 
-                    console.log(this.shopList);
-                })
-                .catch(error => {
-                    console.error(error); 
-                });
-        }
-    })    
-    
-    </script>
+<script type="text/javascript">
+	
+let slider = new Vue({
+		el:'.slider_area',
+		data:{
+			slider_number : 3
+		}
+	})
+
+let campList=new Vue({
+	el:'.popular_destination_area',
+	data:{
+		camp_list:[]
+	},
+	mounted:function(){
+		axios.get('../camp/camp_main_list_vue.do').then(res=>{
+			console.log(res.data)
+			this.camp_list=res.data
+		})
+	},
+	methods:{
+		toDetail:function(no){
+			location.href="../camp/camp_detail.do?cno="+no;
+		}
+	}
+})
+
+let shop=new Vue({
+    el: '.popular_places_area',
+    data: {
+        shopList: []
+    },
+    mounted: function() {
+        axios.get('../main/shopList_vue.do')
+            .then(res => {
+                this.shopList = res.data; 
+                console.log(this.shopList);
+            })
+            .catch(error => {
+                console.error(error); 
+            });
+    }
+})    
+
+</script>
 </body>
 </html>
