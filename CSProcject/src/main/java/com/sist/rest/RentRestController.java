@@ -103,7 +103,7 @@ public class RentRestController {
 		Map map=new HashMap();
 		int rowsize=5;
 		int start=rowsize*curpage-(rowsize-1);
-		int end=rowsize*curpage; 
+		int end=rowsize*curpage;  
 		map.put("rno", rno);
 		map.put("start", start);
 		map.put("end", end);
@@ -219,5 +219,25 @@ public class RentRestController {
 		
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(list);
+	}
+	
+	@GetMapping(value = "rent/my_review_page_vue.do", produces = "text/plain;charset=UTF-8")
+	public String my_rent_page(String id, int curpage) throws Exception {
+		int totalpage=dao.reviewTotalPage(id);
+		final int BLOCK=5;
+		int startpage=(curpage-1)/BLOCK*BLOCK+1;
+		int endpage=(curpage-1)/BLOCK*BLOCK+BLOCK;
+		
+		if(endpage>totalpage)
+			endpage=totalpage;
+		
+		Map map=new HashMap();
+		map.put("curpage", curpage);
+		map.put("totalpage", totalpage);
+		map.put("startpage", startpage);
+		map.put("endpage", endpage);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(map);
 	}
 }

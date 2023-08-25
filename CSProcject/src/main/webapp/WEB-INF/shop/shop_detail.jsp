@@ -640,7 +640,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 	          <ul>
 	            <li>
 	              <span>판매가</span>
-	              <span>{{shopDetail.price.toLocaleString()}}</span>
+	              <span style="text-decoration:none; color: red;font: bold;">{{shopDetail.price.toLocaleString()}} 원</span>
 	            </li>
 	          </ul>
 	        </div>

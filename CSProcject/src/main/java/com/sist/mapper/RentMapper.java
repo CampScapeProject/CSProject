@@ -88,7 +88,7 @@ public interface RentMapper {
 	
 	@Update("UPDATE reserve2 SET rstate='취소 요청' WHERE rno=#{rno}")
 	public void reserve_cancel_request(int rno);
-	
+	 
 	@Update("UPDATE reserve2 SET rstate='대기' WHERE rno=#{rno}")
 	public void reserve_request_cancel(int rno);
 	
@@ -104,4 +104,7 @@ public interface RentMapper {
 		  + "	   ) "
 		  + "WHERE num BETWEEN #{start} AND #{end}")
 	public List<ReviewVO> rent_review_list(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/7.0) FROM review2 WHERE id=#{id}")
+	public int reviewTotalPage(String id);
 }
