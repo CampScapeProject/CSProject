@@ -34,6 +34,10 @@
         margin-top: 20px;
         in
     }
+    .rowPay {
+    
+    }
+    
 </style>
 
 </head>
@@ -42,7 +46,7 @@
 <div style="height: 100px;"></div>
 
 <div class="pay_container">
-	<div class="row" id="buy">
+	<div class="rowPay" id="buy">
 		<div class="row1" style="margin-top:50px; ;margin-bottom: 100px;">
 			<h3 style="margin-bottom: 20px">주문 상품</h3>
 			<table class="table">
