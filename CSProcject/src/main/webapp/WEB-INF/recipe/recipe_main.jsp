@@ -12,6 +12,10 @@
 		text-align: center;
 	}
 	
+	.where_togo_area {
+		background: linear-gradient(142.94deg, #7fb88d 7.53%, #41644A 103.72%);
+	}
+	
 	/* 레시피 리스트 css */
 	.card-image {
 		display: block;
@@ -88,17 +92,22 @@
 
 <div class="recipe">
 
-	<!-- 레시피 상단 -->
-	<div class="container" style="padding: 80px; background-color: ">
-		<div class="row2" style="text-align: center">
-
-		</div>
+	<div class="where_togo_area" style="padding: 30px;">
+	    <div class="container" style="margin: 0 auto;">
+	    	<div class=row>
+	         <div class="col-lg-3">
+	             <div class="form_area">
+	                 <h1 style="color: white;text-align: center;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">Recipe</h1>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 	</div>
 	
 	<!-- 레시피 본문 -->
-
+	
 	<div class="container">
-		<div class="row">
+		<div class="row" style="margin-top: 50px;">
 		
 			<!-- 레시피 리스트 -->
 			<div class="col-lg-3" v-for="vo in recipe_list">
@@ -120,7 +129,7 @@
 		</div>
 		
 		<!-- 페이지 -->
-		<div class="row">
+		<div class="row2" style="margin-bottom: 80px">
 			<nav class="blog-pagination justify-content-center d-flex">
 				<ul class="pagination">
 					<li class="page-item" v-if="startpage>1">
@@ -190,11 +199,12 @@
 					}
 				}).then(response=>{
 					console.log(response.data)
+					
 					this.page_list = response.data
 					this.curpage = this.page_list.curpage
 					this.totalpage = this.page_list.totalpage
-					this.startpage = this.page_list.startPage
-					this.endpage = this.page_list.endPage
+					this.startpage = this.page_list.startpage
+					this.endpage = this.page_list.endpage
 				}).catch(error=>{
 					console.log(error.response)
 				})
