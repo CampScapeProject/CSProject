@@ -388,13 +388,18 @@ public class CampRestController {
 		return json;  
 	}
 	
+	
 	/*
 	 * @PostMapping(value = "camp/camp_reserve_ok_vue.do",produces =
-	 * "text/plain;charset=UTF-8") public String camp_reserve_ok_vue(ReserveVO vo)
-	 * throws Exception {
+	 * "text/plain;charset=UTF-8") public String camp_reserve_ok_vue(ReserveVO
+	 * vo,int cno) throws Exception { dao.campReserveInsert(vo);
+	 * 
+	 * List<CampVO> list=dao.campListData(map)
 	 * 
 	 * }
 	 */
+
+
 	/* -------------------------------- */
 	
 	

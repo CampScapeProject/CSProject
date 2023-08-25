@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
 import com.sist.vo.RentVO;
+import com.sist.vo.ReserveVO;
 import com.sist.vo.ReviewVO;
 import com.sist.vo.TourVO;
 
@@ -94,7 +95,9 @@ public interface CampMapper {
 	@Select("SELECT * FROM campsite2 WHERE csno=#{csno}")
 	public CampSiteVO campSiteDetail(int csno);
 	
-	//@Insert("INSERT INTO reserve2(rno) VALUES()")
+	@Insert("INSERT INTO reserve2(rno,name,price,inwon,sdate,edate,type,fno,id,phone,email,regdate,msg,csno) "
+			+ "VALUES(rs2_rno_seq.nextval,#{name},#{price},#{inwon},#{sdate},#{edate},'c',#{cno},#{id},#{email},SYSDATE,#{msg},#{csno})")
+	public void campReserveInsert(ReserveVO vo);
 	
 	
 }

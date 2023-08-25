@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.sist.mapper.CampMapper;
 import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
+import com.sist.vo.ReserveVO;
 import com.sist.vo.ReviewVO;
 import com.sist.vo.TourVO;
 
@@ -117,5 +118,10 @@ public class CampDAO {
 	public CampSiteVO campSiteDetail(int csno)
 	{
 		return mapper.campSiteDetail(csno);  
+	}
+	
+	public void campReserveInsert(ReserveVO vo)
+	{
+		mapper.campReserveInsert(vo);
 	}
 }

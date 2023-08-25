@@ -533,6 +533,7 @@
 			                                    	<label>이름</label>
 			                                       <input type="text" :value="name" ref="name">
 			                                       <input type="hidden" :value="campsite_detail.csno" ref="csno">
+			                                       <input type="hidden" :value="cno" ref="cno">
 			                                    </div>
 			                                </div>
 			                                <div class="col-lg-8">
@@ -898,9 +899,14 @@
 					   form.append("name",name);
 					   form.append("email",email);
 					   form.append("msg",msg)
-					   form.append("page",page)
+					   form.append("phone",phone)  //인서트 이어서 (페이지 넘겨줘야함)
 					   form.append("csno",csno)
+					   form.append("cno",cno)
 					   form.append("inwon",inwon)
+					   form.append("sdate",this.sdate)
+					   form.append("edate",this.edate)
+					   form.append("page",1)
+					   
 						
 						 axios.post('../camp/camp_reserve_ok_vue.do',form).then(res=>{
 								location.href="../camp/camp_main.do"
