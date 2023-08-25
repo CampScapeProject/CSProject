@@ -50,7 +50,6 @@
 			</ul>
 			
 			<h5><a href="../adminpage/qna.do">문의글</a></h5>
-			<h5><a href="../adminpage/notice.do">공지사항</a></h5>
 		</div>
 	</div>
 </body>

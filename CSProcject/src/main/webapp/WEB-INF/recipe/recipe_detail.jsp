@@ -13,6 +13,8 @@
 	
 	.row1 {
 		margin: 0px auto;
+		display: flex;
+		justify-content: space-between;
 	}
 
 	/* 순서 상-우-하-좌 */
@@ -92,23 +94,22 @@
 					</td>
 				</tr>
 			</table>
-		</div>
-		
-		<!-- 댓글 -->
-		<div class="row1">
-		
+			
+			<!-- 댓글 -->
 			<table class="table" v-for="cvo in comment_list">
 				<tr>
 					<td class="text-left">
 						<i class="fa-solid fa-user fa-xl" style="color: #8f8f8f;"></i>&nbsp;&nbsp;{{cvo.nickname}}<span style="font-size: 12px;">  &#91;{{cvo.dbday}}&#93;</span>
 					</td>
+					
 					<td class="text-right">
 						<span v-if="sessionId==cvo.id">
-							<input type=button class="btn btn-sm btn-default ups" value="수정" :id="'up'+cvo.cmno" @click="replyUpdateForm(cvo.cmno)">
-	    					<input type=button class="btn btn-sm btn-default" value="삭제" @click="replyDelete(cvo.cmno)">
+							<input type=button class="btn btn-sm btn-default ups" value="수정" :id="'up'+cvo.cmno" @click="commentUpdateForm(cvo.cmno)">
+	    					<input type=button class="btn btn-sm btn-default" value="삭제" @click="commentDelete(cvo.cmno)">
 						</span>
 					</td>
 				</tr>
+				
 				<tr>
 					<td colspan=2><pre style="white-space: pre-wrap;background-color: white;border: none">{{cvo.msg}}</pre></td>
 				</tr>
@@ -117,7 +118,7 @@
 				<tr :id="'u'+cvo.cmno" class="updates" style="display:none">
 					<td colspan=2>
 						<textarea rows=3 cols=100 :id="'msg'+cvo.cmno" style="float:left; resize: none;">{{cvo.msg}}</textarea>
-						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="replyUpdate(cvo.cmno)">수정</button>
+						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentUpdate(cvo.cmno)">수정</button>
 					</td>
 				</tr>
 			</table>
@@ -128,12 +129,16 @@
 				<tr>
 					<td>
 						<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg" v-model="msg"></textarea>
-						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="replyWrite()">댓글 작성</button>
+						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentInsert()">댓글 작성</button>
 					</td>
 				</tr>
 			</table>
 			</c:if>
+			
+			
 		</div>
+		
+		
  
 	</div>
 </div>
@@ -172,7 +177,7 @@
 		},
 		mounted:function(){
 			this.dataRecive()
-			this.replyRead()
+			this.commentList()
 		},
 		methods:{
 			dataRecive:function(){
@@ -198,30 +203,27 @@
 					this.allsteps = res.data.allSteps.split("|");
 					this.allstepsimg = res.data.allStepsImg.split("^");
 					
-					console.log(allsteps)
-					console.log(allstepsimg)
-					
 				}).catch(error=>{
 					console.log(error.response)
 				})
 			},
 			
 			// 댓글 목록
-			replyRead:function(){
+			commentList:function(){
 				axios.get('../recipe/comment_list_vue.do',{
 					params:{
 						rno:this.rno
 					}
 				}).then(res=>{
 					console.log(res.data)
-					this.reply_list = res.data
+					this.comment_list = res.data
 				}).catch(error=>{
 					console.log(error.response)
 				})
 			},
 			
 			// 댓글 입력
-			replyWrite:function(){
+			commentInsert:function(){
 				if(this.msg==="")
 				{
 					this.$refs.msg.focus()
@@ -235,7 +237,7 @@
 					}
 				}).then(res=>{
 					console.log(res.data)
-					this.reply_list=res.data
+					this.comment_list=res.data
 					this.msg='';
 				}).catch(error=>{
 					console.log(error.response)
@@ -243,7 +245,7 @@
 			},
 			
 			// 댓글 수정
-			replyUpdateForm:function(cmno){
+			commentUpdateForm:function(cmno){
 				$('.updates').hide()
 				$('.ups').val('수정')
 				
@@ -260,7 +262,7 @@
 				}
 			},
 			
-			replyUpdate:function(cmno){
+			commentUpdate:function(cmno){
 				let msg = $('#msg'+cmno).val()
 				
 				axios.post('../recipe/comment_update_vue.do', null, {
@@ -271,7 +273,7 @@
 					}
 				}).then(res=>{
 					console.log(res.data)
-					this.reply_list = res.data
+					this.comment_list = res.data
 					$('#u'+cmno).hide();
 					$('#up'+cmno).val('수정')
 					
@@ -281,7 +283,7 @@
 			},
 			
 			// 댓글 삭제
-			replyDelete:function(cmno){
+			commentDelete:function(cmno){
 				axios.get('../recipe/comment_delete_vue.do', {
 					params:{
 						cmno:cmno,
@@ -289,7 +291,7 @@
 					}
 				}).then(res=>{
 					console.log(res.data)
-					this.reply_list = res.data
+					this.comment_list = res.data
 				}).catch(error=>{
 					console.log(error.response)
 				})
