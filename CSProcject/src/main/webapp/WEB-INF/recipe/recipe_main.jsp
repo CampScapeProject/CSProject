@@ -53,7 +53,7 @@
 	
 	.card-description {
 		display: block;
-		padding: 1em 0.5em;
+		padding: 0.7em 0.5em;
 		text-decoration: none;
 	}
 	
@@ -71,6 +71,15 @@
 	
 	.card-description > span:hover {
 		color: #41644A;
+	}
+	
+	.card-description-detail {
+		margin: 0px 10px 5px 10px;
+	}
+	
+	.card-description-detail > span {
+		color: #8f8f8f;
+		font-size: 12px;
 	}
 	
 </style>
@@ -101,6 +110,11 @@
 					<a class="card-description" :href="'../recipe/recipe_detail.do?rno='+vo.rno">
 						<span>{{vo.title}}</span>
 					</a>
+					
+					<div class="card-description-detail text-right">
+						<i class="fa-solid fa-eye fa-sm" style="color: #8f8f8f;"></i><span>     {{vo.hit}}</span>
+						<i class="fa-solid fa-heart fa-sm" style="color: #8f8f8f;"></i><span></span>
+					</div>
 				</li>
 			</div>			
 		</div>

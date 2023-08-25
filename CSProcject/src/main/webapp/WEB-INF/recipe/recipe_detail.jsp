@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	.recipe {
+		margin-top: 80px;
+	}
+	
+	.row1 {
+		margin: 0px auto;
+	}
+
 	/* 순서 상-우-하-좌 */
 	.recipe_title {
 		padding: 5px;
@@ -37,7 +45,7 @@
 
 <div class="recipe">
 	<div class="container">
-		<div class="row">
+		<div class="row1">
 			<table class="table">
 				<tr>
 					<td class="text-center" colspan=3>
@@ -47,8 +55,7 @@
 				<tr>
 					<td class="text-left" colspan=2><span class="recipe_title">{{title}}</span></td>
 					<td class="text-right" style="padding-top: 17px;">
-						<i class="fa-regular fa-heart fa-2xl" style="color: #f05c5c;"></i><span style="margin-right: 20px;">       찜하기</span>
-						<i class="fa-regular fa-thumbs-up fa-2xl" style="color: #8f8f8f;"></i><span style="margin-right: 10px;">       추천</span>
+						<i class="fa-regular fa-heart fa-2xl" style="color: #f05c5c;"></i><span style="margin-right: 10px;">       찜하기</span>
 					</td>
 				</tr>
 				<tr>
@@ -87,7 +94,7 @@
 			</table>
 		</div>
 		
-		<div class="row">
+		<div class="row1">
 		
 			<table class="table" v-for="rvo in reply_list">
 				<tr>
