@@ -19,7 +19,8 @@
     <div class="slider_area">
     	
         <div class="slider_active owl-carousel">
-        
+        	
+        	<a href="../notice/notice_detail.do?nno=11">
             <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
                 <div class="container">
                     <div class="row align-items-center">
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </div>
+            </a>
 
  
             <div class="single_slider  d-flex align-items-center slider_bg_2 overlay">
@@ -44,17 +46,6 @@
             </div>
             
             <div class="single_slider  d-flex align-items-center slider_bg_3 overlay">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-xl-12 col-md-12">
-                            <div class="slider_text text-center">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="single_slider  d-flex align-items-center slider_bg_4 overlay">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-12 col-md-12">
