@@ -42,7 +42,7 @@
 	}
 	 
 	.row .steps{
-		color: gray;
+		color: #b4b4b4;
 		font-weight: bold;
 		font-family: 'Noto Sans KR', sans-serif;
 		margin: 0;

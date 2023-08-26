@@ -24,7 +24,7 @@
 <div class="el">
 	<div class=row style="padding-top: 40px;padding-left: 20px;padding-bottom: 150px;">
 		<div class="col-lg-12 text-left" style="margin-bottom: 20px;">
-			<h3 style="margin: 0">렌터카 목록</h3>
+			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">렌터카 목록</span>
 		</div>
 		
 		<div class="col-lg-6 text-left" style="margin-bottom: 10px;">
@@ -146,7 +146,10 @@
    										<i class="fa-solid fa-plus"></i> <i class="fa-solid fa-minus"></i>
    									</div>
    									
-   									<div class="col-lg-3">
+   									<div class="col-lg-3" style="padding:0 5px;">
+   										· <input type=text style="width: 70%;text-align: right">
+   									</div>
+   									<div class="col-lg-3" style="padding:0 5px;">
    										· <input type=text style="width: 70%;text-align: right">
    									</div>
    									
@@ -204,6 +207,7 @@
 		    	this.listData()
 		    },
 		    findData(){
+		    	this.curpage=1;
 		    	this.listData()
 		    }
 		}
