@@ -59,4 +59,9 @@ public class RecipeDAO {
 	{
 		return mapper.ap_recipeListData(map);
 	}
+	
+	public int ap_recipeTotalPage()
+	{
+		return mapper.ap_recipeTotalPage();
+	}
 }

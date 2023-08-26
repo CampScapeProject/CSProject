@@ -122,5 +122,43 @@ public class RecipeRestController {
 		return recipe_comment_list(rno);
 	}
 	
+	// 관리자 페이지
+	@GetMapping(value = "recipe/ap_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String ap_recipe_list(int page) throws Exception
+	{
+		Map map = new HashMap();
+		int rowSize = 12;
+		int start = (rowSize*page)-(rowSize-1);
+		int end = rowSize*page;
+		
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<RecipeVO> list = dao.ap_recipeListData(map);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	
+	@GetMapping(value = "recipe/ap_totalpage_vue.do", produces = "text/plain;charset=UTF-8")
+	public String ap_recipe_page(int page) throws Exception
+	{
+		int totalpage = dao.ap_recipeTotalPage();
+		
+		final int BLOCK = 5;
+		int startpage = ((page-1)/BLOCK*BLOCK)+1;
+		int endpage = ((page-1)/BLOCK*BLOCK)+BLOCK;
+		
+		PageVO vo = new PageVO();
+		vo.setTotalpage(totalpage);
+		vo.setCurpage(page);
+		vo.setStartpage(startpage);
+		vo.setEndpage(endpage);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
 	
 }

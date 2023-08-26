@@ -47,4 +47,7 @@ public interface RecipeMapper {
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<RecipeVO> ap_recipeListData(Map map);
 	
+	@Select("SELECT CEIL(COUNT(*)/10.0) FROM recipe2")
+	public int ap_recipeTotalPage();
+	
 }
