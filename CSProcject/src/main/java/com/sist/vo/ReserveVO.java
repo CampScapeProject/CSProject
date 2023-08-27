@@ -13,4 +13,4 @@ public class ReserveVO {
 	private String image,car_name,msg,campsite_name,camp_name;
 	private int reviewok;
 }
- 
+  

@@ -17,7 +17,7 @@ import com.sist.vo.ReviewVO;
 import com.sist.vo.TourVO;
 
 import lombok.Delegate;
- 
+  
 public interface CampMapper {
 	
 	@Select("SELECT cno,name,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno = c.cno) as mprice,image " 

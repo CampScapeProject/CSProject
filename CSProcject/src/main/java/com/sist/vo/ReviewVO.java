@@ -17,4 +17,4 @@ public class ReviewVO {
 	private int rsno;
 	private String car_name, image;
 }
- 
+  
