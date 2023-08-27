@@ -121,4 +121,15 @@ public interface CampMapper {
 	
 	@Update("UPDATE reserve2 SET rstate='예약승인' WHERE rno=#{rno}")
 	public void rstateChange(int rno);
+	
+	
+	//찜하기
+	@Insert("INSERT INTO jjim2 VALUES(j2_no_seq.nextval, #{id}, 'c', #{cno})")
+	public void campJjimInsert(Map map);
+	
+	@Delete("DELETE FROM jjim2 WHERE id=#{id} AND type='c' AND sno=#{cno}")
+	public void campJjimDelete(Map map);
+	
+	@Select("SELECT COUNT(*) FROM jjim2 WHERE type='c' AND id=#{id} AND sno=#{cno} ")
+	public int campJjimCount(Map map);
 }

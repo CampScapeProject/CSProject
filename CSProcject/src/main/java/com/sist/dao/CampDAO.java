@@ -4,6 +4,7 @@ import java.util.List;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -152,5 +153,22 @@ public class CampDAO {
 	public void rstateChange(int rno)
 	{
 		mapper.rstateChange(rno);
+	}
+	
+	//찜하기
+	
+	public void campJjimInsert(Map map)
+	{
+		mapper.campJjimInsert(map);
+	}
+	
+	public void campJjimDelete(Map map)
+	{
+		mapper.campJjimDelete(map);
+	}
+	
+	public int campJjimCount(Map map)
+	{
+		return mapper.campJjimCount(map);
 	}
 }

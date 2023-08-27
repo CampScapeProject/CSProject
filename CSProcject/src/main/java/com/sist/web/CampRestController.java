@@ -680,4 +680,62 @@ public class CampRestController {
 		return admin_camp_reserve_list_data(page,rstate);
 	}
 	
+	//찜
+	@GetMapping(value ="camp/camp_jjim_insert.do" ,produces = "text/plain;charset=UTF-8")
+	public String camp_jjim_insert(int cno,String id)throws Exception
+	{
+		Map map=new HashMap();
+		map.put("cno", cno);
+		map.put("id", id);
+		
+		dao.campJjimInsert(map);
+		
+		int jjimCount=dao.campJjimCount(map);
+		
+		Map rmap=new HashMap();
+		rmap.put("jjimCount", jjimCount);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(rmap);
+	
+		return json;
+	}
+	
+	@GetMapping(value ="camp/camp_jjim_delete.do" ,produces = "text/plain;charset=UTF-8")
+	public String camp_jjim_delete(int cno,String id)throws Exception
+	{
+		Map map=new HashMap();
+		map.put("cno", cno);
+		map.put("id", id);
+		
+		dao.campJjimDelete(map);
+		
+		int jjimCount=dao.campJjimCount(map);
+		
+		Map rmap=new HashMap();
+		rmap.put("jjimCount", jjimCount);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(rmap);
+	
+		return json;
+	}
+	
+	@GetMapping(value = "camp/camp_jjim_count.do",produces = "text/plain;charset=UTF-8")
+	public String camp_jjim_count(int cno,String id)throws Exception
+	{
+		Map map=new HashMap();
+		map.put("cno", cno);
+		map.put("id", id);
+		
+		int jjimCount=dao.campJjimCount(map);
+		Map rmap=new HashMap();
+		rmap.put("jjimCount", jjimCount);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(rmap);
+	
+		return json;
+	}
+	
 }

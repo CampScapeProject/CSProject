@@ -265,11 +265,11 @@
                      <div class="col-sm-4 text-center my-2 my-sm-0">
                         <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
                      </div>
-                     <ul class="social-icons">
-                        <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                     <ul class="social-icons" v-if="jjimCount==0">
+                     	<i class="fa-regular fa-heart" @click="jjimInsert()"></i>&nbsp;찜하기
+                     </ul>
+                     <ul class="social-icons" v-if="jjimCount==1">
+                     	<i class="fa-solid fa-heart" style="color: red;" @click="jjimDelete()"></i>&nbsp;찜하기
                      </ul>
                   </div>
                </div>
@@ -680,31 +680,34 @@
 				campsite_detail:{},
 				reserveForm:false,
 				dateCount:${dateCount},
-				csprice:0
+				csprice:0,
+				jjimCount:0
 			},
 			mounted:function(){
-				axios.get('../camp/camp_detail_vue.do',{
-					params:{
-						cno:this.cno
-					}
-				}).then(res=>{
-					console.log(res.data)
-					this.camp_detail=res.data
-					this.tourShow(this.camp_detail.address)
-					if(window.kakao && window.kakao.maps) {
-		               this.initMap();
-		            } else {
-		               this.addScript();   
-		               
-		            }
-					
-					this.reviewList();
-				})
-				this.cookieShow();
-				
-				   
+				this.dataRecive();
 			},
 			methods:{
+				dataRecive:function(){
+					axios.get('../camp/camp_detail_vue.do',{
+						params:{
+							cno:this.cno
+						}
+					}).then(res=>{
+						console.log(res.data)
+						this.camp_detail=res.data
+						this.tourShow(this.camp_detail.address)
+						if(window.kakao && window.kakao.maps) {
+			               this.initMap();
+			            } else {
+			               this.addScript();   
+			               
+			            }
+						
+						this.reviewList();
+						this.jjimCountData();
+					})
+					this.cookieShow();
+				},
 				setActiveTab(index) {
 			      	this.activeTab = index;
 			    },
@@ -928,6 +931,42 @@
 						  }).catch(error=>{
 							  console.log(error.response)
 						  })
+			    },
+			    jjimInsert:function(){
+			    	if(${sessionScope.id==null}){
+						alert("로그인 후 사용 가능합니다.")
+						return;
+					}
+			    	axios.get('../camp/camp_jjim_insert.do',{
+			    		params:{
+			    			id:this.id,
+			    			cno:this.cno
+			    		}
+			    	}).then(res=>{
+			    		this.jjimCount=res.data.jjimCount
+			    		this.dataRecive();
+			    	})
+			    },
+			    jjimDelete:function(){
+			    	axios.get('../camp/camp_jjim_delete.do',{
+			    		params:{
+			    			id:this.id,
+			    			cno:this.cno
+			    		}
+			    	}).then(res=>{
+			    		this.jjimCount=res.data.jjimCount
+			    		this.dataRecive();
+			    	})
+			    },
+			    jjimCountData:function(){
+			    	axios.get('../camp/camp_jjim_count.do',{
+			    		params:{
+			    			id:this.id,
+			    			cno:this.cno
+			    		}
+			    	}).then(res=>{
+			    		this.jjimCount=res.data.jjimCount
+			    	})
 			    },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
