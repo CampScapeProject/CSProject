@@ -24,7 +24,7 @@ public class CampController {
 	public String camp_list(){
 		return "camp/camp_list";
 	}
-	
+	 
 	@GetMapping("camp/camp_detail.do")
 	public String camp_detail(int cno,String rdate,Model model,HttpServletResponse response, HttpServletRequest request,HttpSession session)throws Exception
 	{

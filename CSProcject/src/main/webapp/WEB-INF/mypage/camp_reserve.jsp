@@ -14,7 +14,7 @@
 <style type="text/css">
 	.page{
 		cursor: pointer;
-	}
+	} 
 	.activePage{
 		font-weight: bold;
 	}

@@ -10,7 +10,7 @@
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
- 
+  
 .well{ 
 	width: 1465px;
 	height: 50px;

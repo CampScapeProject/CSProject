@@ -9,3 +9,4 @@ public class CampVO {
 	private String name,address,phone,msg,image,mprice;
 	private String prevName,nextName;
 }
+ 
