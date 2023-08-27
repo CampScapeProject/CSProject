@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	.mypage-menu a{
+	.mypage-menu a{ 
 		color: gray;
 	}
 	.mypage-menu a:hover{
