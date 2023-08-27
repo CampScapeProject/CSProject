@@ -127,7 +127,7 @@
                             	
                             	<hr style="margin-top: 0px;">
                             	
-                            	<h4><b>차종</b></h4>
+                            	<h4><b>브랜드</b></h4>
                             	<div class=row style="padding: 3px 15px 15px 15px;">
                             		<div class="col-sm-4">
                             			<input type="checkbox" id="o2_1" v-model="oArray.o2_1" ref="o2_1">&nbsp;기아

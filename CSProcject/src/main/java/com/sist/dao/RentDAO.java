@@ -92,4 +92,12 @@ public class RentDAO {
 	public int adminRentTotalpage(String fd) {
 		return mapper.adminRentTotalpage(fd);
 	}
+
+	public void insertRent(RentVO vo) {
+		mapper.insertRent(vo);
+	}
+	
+	public void updateRent(RentVO vo) {
+		mapper.updateRent(vo);
+	}
 }

@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.RentDAO;
 import com.sist.vo.*;
 
+import oracle.jdbc.proxy.annotation.Post;
+
+import java.io.File;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -277,4 +282,60 @@ public class RentRestController {
 		return mapper.writeValueAsString(smap);
 	}
 	
+	//렌터카 등록
+	@PostMapping(value = "admin_rent_insert_vue.do", produces = "text/plain;charset=UTF-8")
+	public String admin_rent_insert(RentVO vo, MultipartFile imagefile, HttpServletRequest request) {
+		
+		String path = request.getSession().getServletContext().getRealPath("/")+"layout\\upload-rent\\"+imagefile.getOriginalFilename();
+		path=path.replace("\\", File.separator); // os에 따른 경로 구분자 변경
+		
+		try {
+			imagefile.transferTo(new File(path));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		vo.setImage("../layout/upload-rent/"+imagefile.getOriginalFilename());
+		
+		System.out.println(vo.getCar_name());
+		System.out.println(vo.getCar_type());
+		System.out.println(vo.getInwon());
+		System.out.println(vo.getPrice());
+		System.out.println(vo.getImage());
+		System.out.println(vo.getFuel());
+		System.out.println(vo.getMaker());
+		System.out.println(vo.getCar_option());
+		dao.insertRent(vo);
+		
+		return "";
+	}
+	
+	@PostMapping(value = "admin_rent_update_vue.do", produces = "text/plain;charset=UTF-8")
+	public String admin_rent_update(RentVO vo, MultipartFile imagefile, HttpServletRequest request) {
+		if(imagefile!=null) {
+			String path = request.getSession().getServletContext().getRealPath("/")+"layout\\upload-rent\\"+imagefile.getOriginalFilename();
+			path=path.replace("\\", File.separator); // os에 따른 경로 구분자 변경
+			
+			try {
+				imagefile.transferTo(new File(path));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			vo.setImage("../layout/upload-rent/"+imagefile.getOriginalFilename());
+		}
+		
+//		System.out.println(vo.getRno());
+//		System.out.println(vo.getCar_name());
+//		System.out.println(vo.getCar_type());
+//		System.out.println(vo.getInwon());
+//		System.out.println(vo.getPrice());
+//		System.out.println(vo.getImage());
+//		System.out.println(vo.getFuel());
+//		System.out.println(vo.getMaker());
+//		System.out.println(vo.getCar_option());
+
+		dao.updateRent(vo);
+		
+		return "";
+	}
 }

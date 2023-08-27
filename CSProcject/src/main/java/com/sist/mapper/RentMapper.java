@@ -123,4 +123,17 @@ public interface RentMapper {
 		  + "FROM rent2 "
 		  + "WHERE car_name LIKE '%'||#{fd}||'%'")
 	public int adminRentTotalpage(String fd);
+	
+	//렌터카 등록
+	@Insert("INSERT INTO rent2 VALUES("
+		  + "rt2_rno_seq.nextval, #{image},#{car_name},#{car_type},#{maker},#{inwon},#{fuel},#{car_option},#{price}"
+		  + ")")
+	public void insertRent(RentVO vo);
+	
+	//렌터카 업데이트
+	@Update("UPDATE rent2 SET "
+		  + "image=#{image}, car_name=#{car_name}, car_type=#{car_type}, maker=#{maker}, "
+		  + "inwon=#{inwon}, fuel=#{fuel}, car_option=#{car_option}, price=#{price} "
+		  + "WHERE rno=#{rno}")
+	public void updateRent(RentVO vo);
 }
