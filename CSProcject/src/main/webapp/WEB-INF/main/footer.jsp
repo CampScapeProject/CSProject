@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <footer class="footer" style="background-color: #2B2E41">
+    <footer class="footer" style="background-color: #272727">
         <div class="footer_top">
             <div class="container">
                   <div class=row style="margin:5px;">

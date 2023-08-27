@@ -161,4 +161,14 @@ public class RecipeRestController {
 		return json;
 	}
 	
+	@GetMapping(value = "main/recipe_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String main_recipe_list() throws Exception
+	{
+		List<RecipeVO> list = dao.main_recipe_list();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	
 }

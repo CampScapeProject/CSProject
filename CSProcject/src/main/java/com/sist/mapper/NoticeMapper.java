@@ -2,6 +2,8 @@ package com.sist.mapper;
 
 import java.util.*;
 
+import javax.naming.NoInitialContextException;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -41,4 +43,7 @@ public interface NoticeMapper {
 	
 	@Select("SELECT filename, filecount FROM notice2 WHERE nno=#{nno}")
 	public NoticeVO databoardFileInfoData(int nno);
+	
+	@Select("SELECT nno, title, hit FROM notice2 ORDER BY nno DESC")
+	public List<NoticeVO> mainNoticeList();
 }

@@ -50,4 +50,7 @@ public interface RecipeMapper {
 	@Select("SELECT CEIL(COUNT(*)/10.0) FROM recipe2")
 	public int ap_recipeTotalPage();
 	
+	@Select("SELECT rno, title, hit FROM recipe2 ORDER BY hit DESC")
+	public List<RecipeVO> main_recipe_list();
+	
 }

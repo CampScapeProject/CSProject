@@ -6,6 +6,8 @@ import com.sist.mapper.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -63,5 +65,10 @@ public class RecipeDAO {
 	public int ap_recipeTotalPage()
 	{
 		return mapper.ap_recipeTotalPage();
+	}
+	
+	public List<RecipeVO> main_recipe_list()
+	{
+		return mapper.main_recipe_list();
 	}
 }

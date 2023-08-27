@@ -10,7 +10,35 @@
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
-
+	.board_area {
+		padding: 30px;
+		background: #f5f5f5;
+	}
+	
+	.board_area > table > td {
+		font-size: 12px;
+	}
+	
+	.board_area_title {
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	.board_list_title {
+		overflow: inherit;
+	}
+	
+	.table td, .table th {
+	    padding: 0.3rem;
+	    vertical-align: top;
+	    border-top: 1px solid #dee2e6;
+	    font-size: 14px;
+	}
+	
+	.table a:hover {
+		color: #E86A33;
+		font-weight: bold;
+	}
 
 </style>
 </head>
@@ -126,42 +154,6 @@
     </div>
     
     <!------------------------------------>
-    
-    <!-- popular_destination_area_end  -->
-
-    <div class="travel_variation_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_travel text-center">
-                        <div class="icon">
-                            <img src="../layout/img/svg_icon/1.svg" alt="">
-                        </div>
-                        <h3>Comfortable Journey</h3>
-                        <p>A wonderful serenity has taken to the possession of my entire soul.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_travel text-center">
-                        <div class="icon">
-                            <img src="../layout/img/svg_icon/2.svg" alt="">
-                        </div>
-                        <h3>Luxuries Hotel</h3>
-                        <p>A wonderful serenity has taken to the possession of my entire soul.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_travel text-center">
-                        <div class="icon">
-                            <img src="../layout/img/svg_icon/3.svg" alt="">
-                        </div>
-                        <h3>Travel Guide</h3>
-                        <p>A wonderful serenity has taken to the possession of my entire soul.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="popular_places_area">
         <div class="container">
@@ -273,6 +265,46 @@
         </div>
     </div>
     
+    <div class="board_area">
+	    <div class="container">
+	    	<div class="row">
+	    		<div class="col-lg-6" style="padding: 30px;">
+	    			<div style="margin-bottom: 15px;">
+	    			<span class="board_area_title">공지사항</span>
+	    			</div>
+	    			
+	    			<table class="table">
+	    				<tr>
+	    					<th width=80% class="text-center">제목</th>
+	    					<th width=20% class="text-center">조회수</th>
+	    				</tr>
+	    				<tr v-for="nvo, index in notice_list" :key=index v-if="index<Math.min(notice_list.length, 5)">
+	    					<td width=80% class="board_list_title"><a :href="'../notice/notice_detail.do?nno='+nvo.nno">{{nvo.title}}</a></td>
+	    					<td width=20% class="text-center">{{nvo.hit}}</td>
+	    				</tr>
+	    			</table>
+	    		</div>
+	    		
+	    		<div class="col-lg-6" style="padding: 30px;">
+	    			<div style="margin-bottom: 15px;">
+	    			<span class="board_area_title">인기 레시피</span>
+	    			</div>
+	    			
+	    			<table class="table">
+	    				<tr>
+	    					<th width=80% class="text-center">레시피명</th>
+	    					<th width=20% class="text-center">조회수</th>
+	    				</tr>
+	    				<tr v-for="rvo, index in recipe_list" :key=index v-if="index<Math.min(recipe_list.length, 5)">
+	    					<td width=80% class="board_list_title"><a :href="'../recipe/recipe_detail.do?rno='+rvo.rno">{{rvo.title}}</a></td>
+	    					<td width=20% class="text-center">{{rvo.hit}}</td>
+	    				</tr>
+	    			</table>
+	    		</div>
+	    	</div>
+	    </div>
+    </div>
+    
 <script type="text/javascript">
 	
 let slider = new Vue({
@@ -315,7 +347,29 @@ let shop=new Vue({
                 console.error(error); 
             });
     }
-})    
+})
+
+let board = new Vue({
+	el:'.board_area',
+	data:{
+		notice_list:[],
+		recipe_list:[]
+	},
+	mounted:function(){
+		axios.get('../main/notice_list_vue.do').then(res=>{
+			this.notice_list = res.data
+			
+		}).catch(error=>{
+			console.log(error.response)
+		})
+		
+		axios.get('../main/recipe_list_vue.do').then(res=>{
+			this.recipe_list = res.data
+		}).catch(error=>{
+			console.log(error.response)
+		})
+	}
+})
 
 </script>
 </body>

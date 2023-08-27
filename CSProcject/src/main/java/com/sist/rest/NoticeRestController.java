@@ -156,5 +156,16 @@ public class NoticeRestController {
 		dao.noticeDelete(nno);
 	}
 	
+	// 메인화면 띄우기용
+	@GetMapping(value = "main/notice_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String main_notice_list() throws Exception
+	{
+		List<NoticeVO> list = dao.mainNoticeList();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	
 	
 }

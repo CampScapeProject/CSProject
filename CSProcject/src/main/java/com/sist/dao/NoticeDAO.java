@@ -54,4 +54,9 @@ public class NoticeDAO {
 		return mapper.databoardFileInfoData(nno);
 	}
 	
+	public List<NoticeVO> mainNoticeList()
+	{
+		return mapper.mainNoticeList();
+	}
+	
 }
