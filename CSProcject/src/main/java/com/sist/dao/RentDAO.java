@@ -100,4 +100,8 @@ public class RentDAO {
 	public void updateRent(RentVO vo) {
 		mapper.updateRent(vo);
 	}
+
+	public List<ReserveVO> adminReserveListData(Map map){
+		return mapper.adminReserveListData(map);
+	}
 }

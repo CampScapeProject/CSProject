@@ -24,7 +24,7 @@
 <div class="el">
 	<div class=row style="padding-top: 40px;padding-left: 20px;padding-bottom: 150px;">
 		<div class="col-lg-12 text-left" style="margin-bottom: 20px;">
-			<h3 style="margin: 0">내가 작성한 리뷰</h3>
+			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">내가 작성한 리뷰</span>
 		</div>
 		
 		<div class="col-lg-12">

@@ -108,4 +108,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE num BETWEEN #{start} AND #{end} 
 	</select>
 	
+	<select id="adminReserveListData" parameterType="hashmap" resultType="ReserveVO">
+		  SELECT rs.rno,rs.name,rs.price,rstate,rs.inwon,rs.type,fno,id,phone,email,birth,
+		  		 TO_char(sdate,'yyyy-mm-dd') as dbsdate, TO_CHAR(edate,'yyyy-mm-dd') as dbedate,
+		  		 TO_CHAR(regdate, 'yyyy-mm-dd hh24:mi:ss') as dbdate, rt.image, rt.car_name,
+		  		 (SELECT COUNT(*) FROM review2 WHERE rs.rno=review2.rsno AND type='r') as reviewok 
+		  FROM reserve2 rs, rent2 rt 
+		  WHERE rt.rno=rs.fno AND rt.rno=rs.fno AND rs.type='r' 
+		  <choose>
+		  	<when test="type==1">
+		 		AND car_name LIKE '%'||#{fd}||'%' 
+		  	</when>
+		  	<when test="type==2">
+		  		AND rs.name LIKE '%'||#{fd}||'%'
+		  	</when>
+		  </choose>
+		  ORDER BY regdate DESC
+	</select>
+	
 </mapper>
