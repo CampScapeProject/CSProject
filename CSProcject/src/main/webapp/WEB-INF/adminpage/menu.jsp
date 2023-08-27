@@ -40,7 +40,6 @@
 			
 			<h4>캠핑용품</h4>
 			<ul class="nav-menu-li">
-				<li><a href="../adminpage/shop_order.do">- 주문 확인</a></li>
 				<li><a href="../adminpage/shop_goods.do">- 물품 정보</a></li>
 			</ul>
 			

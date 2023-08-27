@@ -41,7 +41,7 @@ public interface ShopMapper {
 	@Select("SELECT sno,image,brand,name,price,detail_image,cateno,num "
 			+ "FROM (SELECT sno,image,brand,name,price,detail_image,cateno,rownum as num "
 			+ "FROM (SELECT /*+INDEX_ASC(S2_SNO_PK)*/ sno,image,brand,name,price,detail_image,cateno "
-			+ "FROM shop2 WHERE cateno=#{cateno})) WHERE num BETWEEN #{start} AND #{end}")
+			+ "FROM shop2 WHERE cateno=#{cateno} AND name LIKE '%'||#{fd}||'%')) WHERE num BETWEEN #{start} AND #{end}")
 	public List<ShopVO> shopCateDetailList(Map map);
 	
 	@Insert("INSERT INTO order2 (ono,sno,id,amount,price,buy_ok) "
@@ -76,4 +76,21 @@ public interface ShopMapper {
 			+ " WHERE id=#{id}")
 	public List<OrderVO> orderList(String id);
 	
+	
+	
+	// ======== adminpage shopping
+	@Delete("DELETE FROM campbasket WHERE sno=#{sno}")
+	public void campbasketProductDelete(int sno);
+	
+	@Delete("DELETE FROM order2 WHERE sno=#{sno}")
+	public void order2ProductDelete(int sno);
+	
+	@Delete("DELETE FROM shop2 WHERE sno=#{sno}")
+	public void shopProductDelete(int sno);	
+	
+	@Update("UPDATE shop2 SET name=#{name},brand=#{brand},price=#{price} "
+			+ "WHERE sno=#{sno}")
+	public void shopProductUpdate(ShopVO vo);
+	
+
 }

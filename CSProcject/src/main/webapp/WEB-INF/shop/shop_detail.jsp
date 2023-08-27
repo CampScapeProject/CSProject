@@ -620,139 +620,152 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 	    <p>카카오 채널 추가 시 3천원 할인!</p>
 	  </div>
 
-	<div class="shop_detail">
-	  <main>
+		<div class="shop_detail">
+		  <main>
+		
+		    <img :src="shopDetail.image" id="shopMain">
 	
-	    <img :src="shopDetail.image" id="shopMain">
-
-	    <section>
-	      <div class="product-info">
-	        <h3>{{shopDetail.name}}</h3>
-	        <p>브랜드 : {{shopDetail.brand}}</p>
-	        <div>
-	          <p><a href="#">+ 추가혜택</a></p>
-	        </div>
+		    <section>
+		      <div class="product-info">
+		        <h3>{{shopDetail.name}}</h3>
+		        <p>브랜드 : {{shopDetail.brand}}</p>
+		        <div>
+		          <p><a href="#">+ 추가혜택</a></p>
+		        </div>
+				</div>
+		
+		      <form>
+		
+		        <div class="price">
+		          <ul>
+		            <li>
+		              <span>판매가</span>
+		              <span style="text-decoration:none; color: red;font: bold;">{{shopDetail.price.toLocaleString()}} 원</span>
+		            </li>
+		          </ul>
+		        </div>
+		
+		        <div class="option">
+		          <div>
+		            <span>사이즈</span>
+		            <select name="size" v-model="amount" id="select-count">
+						    <!-- <option v-for="i in 10" :key="i" :value="i">{{ i }}개</option> -->
+						<option :value="1">1개</option>
+						<option :value="2">2개</option>
+						<option :value="3">3개</option>
+						<option :value="4">4개</option>
+						<option :value="5">5개</option>
+		            </select>
+		          </div>
+		
+		          <div>
+		            <a href="../camp/camp_main.do"><span>캠프스케이프와 신나는 캠핑을 떠나보세요! (캠핑장 예약 바로가기)</span></a>
+		          </div>
+		
+		          <div>
+		            <span>총 합계</span>
+		            <span><strong>{{ calculateTotalPrice.toLocaleString() }}</strong>원</span>
+		          </div>
+		        </div>
+		
+		
+		        <div class="purchase">
+		          <div>
+		            <button type="button" value="찜하기" @click="basketGo">장바구니</button>
+					<button type="button" value="찜하기" @click="buyNow" id="orderBtn">구매하기</button>
+		          </div>
+	
+		          <div>
+		            <span><a href="#"><strong>[충전결제혜택]</strong>최대3%적립 + 소득공제</a></span>
+		          </div>
+		        </div>
+		      </form>
+		    </section>
+		  </main>
+		
+		  <article class="item">
+		    <div>
+		      <h4>비슷한 item</h4>
+		    </div>
+		
+		    <div>
+		      <div v-for="r in recomDetail">
+		        <a :href="'../shop/shop_detail.do?sno='+r.sno">
+		          <img :src="r.image" alt="1" style="size:30px">
+		          <div style="font-size:12px">{{r.name}}</div>
+		          <div>
+		            <p>{{r.price.toLocaleString()}}원</p>
+		          </div>
+		        </a>
+		      </div>
+		    </div>
+		  </article>
+		
+		
+		  <article class="membership">
+		    <h4>회원 혜택안내</h4>
+		    <div>
+		      <div>
+		        <img src="https://xexymix.jpg3.kr/xexymix/2020/sub/member/log_icon_1.gif" alt="1">
+		        <p><a href="#">카카오플친 <br> 3천원 즉시할인</a></p>
+		      </div>
+		
+		      <div>
+		        <img src="https://xexymix.jpg3.kr/xexymix/2020/sub/member/log_icon_2.gif" alt="1">
+		        <p><a href="#">등급별 <br> 최대 15% 할인</a></p>
+		      </div>
+		
+		      <div>
+		        <img src="https://xexymix.jpg3.kr/xexymix/2020/sub/member/log_icon_3.gif" alt="1">
+		        <p><a href="#">리뷰 작성시 <br> 적립금 지급</a></p>
+		      </div>
+		
+		      <div>
+		        <img src="https://xexymix.jpg3.kr/xexymix/2020/sub/member/log_icon_4.gif" alt="1">
+		        <p><a href="#">전 상품 <br> 무료배송</a></p>
+		      </div>
+		    </div>
+		  </article>
+		
+		  <article class="info-bar">
+		    <ul>
+		      <li><a href="#">상세정보</a></li>
+		    </ul>
+		  </article>
+		  
+		  <div class="pro_detail">
+		  	<div v-for="imageUrl in imageUrls" :key="imageUrl">
+				<img :src="imageUrl" style="width: 70%">
 			</div>
-	
-	      <form>
-	
-	        <div class="price">
-	          <ul>
-	            <li>
-	              <span>판매가</span>
-	              <span style="text-decoration:none; color: red;font: bold;">{{shopDetail.price.toLocaleString()}} 원</span>
-	            </li>
-	          </ul>
-	        </div>
-	
-	        <div class="option">
-	          <div>
-	            <span>사이즈</span>
-	            <select name="size" v-model="amount" id="select-count">
-					    <!-- <option v-for="i in 10" :key="i" :value="i">{{ i }}개</option> -->
-					<option :value="1">1개</option>
-					<option :value="2">2개</option>
-					<option :value="3">3개</option>
-					<option :value="4">4개</option>
-					<option :value="5">5개</option>
-	            </select>
-	          </div>
-	
-	          <div>
-	            <a href="../camp/camp_main.do"><span>캠프스케이프와 신나는 캠핑을 떠나보세요! (캠핑장 예약 바로가기)</span></a>
-	          </div>
-	
-	          <div>
-	            <span>총 합계</span>
-	            <span><strong>{{ calculateTotalPrice.toLocaleString() }}</strong>원</span>
-	          </div>
-	        </div>
-	
-	
-	        <div class="purchase">
-	          <div>
-	            <button type="button" value="찜하기" @click="basketGo">장바구니</button>
-				<button type="button" value="찜하기" @click="buyNow" id="orderBtn">구매하기</button>
-	          </div>
-
-	          <div>
-	            <span><a href="#"><strong>[충전결제혜택]</strong>최대3%적립 + 소득공제</a></span>
-	          </div>
-	        </div>
-	      </form>
-	    </section>
-	  </main>
-	
-	  <article class="item">
-	    <div>
-	      <h4>비슷한 item</h4>
-	    </div>
-	
-	    <div>
-	      <div v-for="r in recomDetail">
-	        <a :href="'../shop/shop_detail.do?sno='+r.sno">
-	          <img :src="r.image" alt="1" style="size:30px">
-	          <div style="font-size:12px">{{r.name}}</div>
-	          <div>
-	            <p>{{r.price.toLocaleString()}}원</p>
-	          </div>
-	        </a>
-	      </div>
-	    </div>
-	  </article>
-	
-	
-	  <article class="membership">
-	    <h4>회원 혜택안내</h4>
-	    <div>
-	      <div>
-	        <img src="https://xexymix.jpg3.kr/xexymix/2020/sub/member/log_icon_1.gif" alt="1">
-	        <p><a href="#">카카오플친 <br> 3천원 즉시할인</a></p>
-	      </div>
-	
-	      <div>
-	        <img src="https://xexymix.jpg3.kr/xexymix/2020/sub/member/log_icon_2.gif" alt="1">
-	        <p><a href="#">등급별 <br> 최대 15% 할인</a></p>
-	      </div>
-	
-	      <div>
-	        <img src="https://xexymix.jpg3.kr/xexymix/2020/sub/member/log_icon_3.gif" alt="1">
-	        <p><a href="#">리뷰 작성시 <br> 적립금 지급</a></p>
-	      </div>
-	
-	      <div>
-	        <img src="https://xexymix.jpg3.kr/xexymix/2020/sub/member/log_icon_4.gif" alt="1">
-	        <p><a href="#">전 상품 <br> 무료배송</a></p>
-	      </div>
-	    </div>
-	  </article>
-	
-	  <article class="info-bar">
-	    <ul>
-	      <li><a href="#">상세정보</a></li>
-	    </ul>
-	  </article>
-	  
-	  <div class="pro_detail">
-	  	<div v-for="imageUrl in imageUrls" :key="imageUrl">
-			<img :src="imageUrl" style="width: 70%">
+		  </div>
+		
+		
+		  <div class="plus">
+		    <a href="#">
+		      <img src="https://xexymix.jpg3.kr/xexymix/2020m/main/quick_btn_plus.png" alt="plus">
+		    </a>
+		  </div>
+		
+		  <div class="top">
+		    <a href="#totop">
+		      <img src="https://xexymix.jpg3.kr/xexymix/2020m/main/quick_btn_top.png" alt="top">
+		    </a>
+		  </div>
+    
+    	<!--  cookie  -->
+		    <aside class="single_sidebar_widget popular_post_widget">
+		       <h3 class="widget_title">최근 본 상품</h3>
+		       <div class="media post_item"  v-for="c in cookie_list">
+		          <img :src="c.image" alt="post" style="width: 100px;height:100px">
+		          <div class="media-body">
+		             <a href="single-blog.html">
+		                <h3>{{c.name}}</h3>
+		             </a>
+		          </div>
+		       </div>
+		    </aside>
+    
 		</div>
-	  </div>
-	
-	
-	  <div class="plus">
-	    <a href="#">
-	      <img src="https://xexymix.jpg3.kr/xexymix/2020m/main/quick_btn_plus.png" alt="plus">
-	    </a>
-	  </div>
-	
-	
-	  <div class="top">
-	    <a href="#totop">
-	      <img src="https://xexymix.jpg3.kr/xexymix/2020m/main/quick_btn_top.png" alt="top">
-	    </a>
-	  </div>
-	</div>
 	</div>
 </body>
 
@@ -768,9 +781,17 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			recomDetail:[],
 			id:'${sessionScope.id}',
 			price:0,
-			totalPrice:0
+			totalPrice:0,
+	        cookie_list:[]
 		},
  		methods: {
+ 		    cookieShow(){
+ 		    	axios.get('../shop/shop_cookie.do').
+ 		    	then(res=>{
+ 		    		console.log(res.data)
+ 		    		this.cookie_list=res.data
+ 		    	})
+ 		    },
 		    buyNow(event) {
 		    	event.preventDefault();
 		    	if(this.id==='') {
@@ -796,15 +817,7 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 			        		location.href="../mypage/shop_basket.do";
 			        	})
 			    	}
-		        },
-            /* calculateTotalPrice(isFirst) {
-		        	console.log(this.amount)
-		       	if(isFirst) {
-		       		this.totalPrice = this.shopDetail.price
-		       	} else {
-			    	this.totalPrice = this.shopDetail.price * parseInt(this.$refs.amount.value, 10); 
-		       	}
-        	} */
+		        }
 		},
 		computed: {
 			calculateTotalPrice() {
@@ -835,7 +848,9 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 	
 			}).catch(error=>{
 				console.error(error);
-			})
+			});
+
+	         this.cookieShow();
 		}
 	})
 

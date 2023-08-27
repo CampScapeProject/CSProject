@@ -2,13 +2,17 @@ package com.sist.web;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.io.output.CloseShieldOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.ShopService;
 import com.sist.vo.BasketVO;
+import com.sist.vo.CampVO;
 import com.sist.vo.OrderVO;
 import com.sist.vo.PageVO;
 import com.sist.vo.ShopCategoryVO;
@@ -54,7 +59,7 @@ public class ShopRestController {
 	}
 	
 	@GetMapping(value="shop/shop_cateAllList_vue.do",produces = "text/plain;charset=UTF8") 
-	public String shop_cateAllList(int cateno,int page) throws Exception {
+	public String shop_cateAllList(int cateno,int page,String fd) throws Exception {
 
 		Map map=new HashMap();	
 		
@@ -66,6 +71,8 @@ public class ShopRestController {
 		map.put("cateno", cateno);
 		map.put("start", start);
 		map.put("end",end);
+		map.put("fd", fd);
+		
 		List<ShopVO> list=service.shopCateDetailList(map);
 		
 		ObjectMapper mapper=new ObjectMapper();
@@ -214,6 +221,53 @@ public class ShopRestController {
 		
 		return json;
 		
+	}
+	
+	@AfterTransaction
+	@GetMapping(value="adminpage/product_delete_vue.do",produces = "text/plain;charset=UTF8")
+	public String shop_product_delete(int sno) {
+		
+		service.shopProductDelete(sno);
+		
+		return "ok";
+	}
+	
+	@GetMapping(value="adminpage/find_product_vue.do",produces = "text/plain;charset=UTF8")
+	public String shop_product_find(String fd) {
+
+		return "ok";
+	}
+	
+	@GetMapping(value="adminpage/product_update_vue.do",produces = "text/plain;charset=UTF8")
+	public String shop_product_update(ShopVO vo) {
+
+		service.shopProductUpdate(vo);
+		return "ok";
+	}
+	
+	@GetMapping(value = "shop/shop_cookie.do", produces = "text/plain;charset=UTF-8")
+	public String shopCookieData(HttpServletRequest request) throws Exception {
+		
+		Cookie[] cookies=request.getCookies();
+
+		List<ShopVO> clist=new ArrayList<ShopVO>();
+		if(cookies!=null) {
+			for(int i=cookies.length-1;i>=0;i--) {
+				String key=cookies[i].getName();
+				if(key.startsWith("shop_")) {
+					String data=cookies[i].getValue();
+					ShopVO vo=new ShopVO();
+					vo=service.shopDetailList(Integer.parseInt(data));
+					String name=vo.getName();
+					if(name.length()>7) {
+						vo.setName(name.substring(0,7)+"..");
+					}
+					clist.add(vo);
+				}
+			}
+		}
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(clist);
 	}
 	
 }

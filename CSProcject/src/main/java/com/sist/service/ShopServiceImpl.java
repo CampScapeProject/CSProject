@@ -96,5 +96,15 @@ public class ShopServiceImpl implements ShopService {
 		return dao.orderList(id);
 	}
 
+	@Override
+	public void shopProductDelete(int sno) {
+		dao.shopProductDelete(sno);
+	}
+
+	@Override
+	public void shopProductUpdate(ShopVO vo) {
+		dao.shopProductUpdate(vo);
+	}
+
 	
 }

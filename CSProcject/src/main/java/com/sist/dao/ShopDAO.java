@@ -107,4 +107,19 @@ public class ShopDAO {
 	public List<OrderVO> orderList(String id) {
 		return mapper.orderList(id);
 	}
+	
+//	@Delete("DELETE FROM campbasket WHERE sno=#{sno}")
+//	@Delete("DELETE FROM order2 WHERE sno=#{sno}")	
+//	@Delete("DELETE FROM shop2 WHERE sno=#{sno}")
+	public void shopProductDelete(int sno) {
+		mapper.campbasketProductDelete(sno);
+		mapper.order2ProductDelete(sno);
+		mapper.shopProductDelete(sno);
+	}
+	
+//	@Update("UPDATE shop2 SET name=#{name},brand=#{brand},price=#{price} "
+//			+ "WHERE sno=#{sno}")
+	public void shopProductUpdate(ShopVO vo) {
+		mapper.shopProductUpdate(vo);
+	}
 }

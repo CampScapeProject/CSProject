@@ -45,4 +45,8 @@ public interface ShopService {
 	public void deleteBasket(int cno);
 
 	public List<OrderVO> orderList(String id);
+	
+	public void shopProductDelete(int sno);
+
+	public void shopProductUpdate(ShopVO vo);
 }
