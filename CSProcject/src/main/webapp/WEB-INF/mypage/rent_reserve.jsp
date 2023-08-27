@@ -68,7 +68,7 @@
 <div class="el">
 	<div class=row style="padding-top: 40px;padding-left: 20px;margin-bottom: 30px;">
 		<div class="col-lg-12 text-left" style="margin-bottom: 20px;">
-			<h3 style="margin: 0">예약한 렌터카</h3>
+			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">예약한 렌터카</span>
 		</div>
 	
 		<div class="col-lg-2" style="padding-right: 0;height:750px;overflow: auto;">

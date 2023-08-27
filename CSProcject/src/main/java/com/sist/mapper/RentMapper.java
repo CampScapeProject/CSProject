@@ -136,4 +136,7 @@ public interface RentMapper {
 		  + "inwon=#{inwon}, fuel=#{fuel}, car_option=#{car_option}, price=#{price} "
 		  + "WHERE rno=#{rno}")
 	public void updateRent(RentVO vo);
+	
+	//관리자페이지 예약리스트
+	public List<ReserveVO> adminReserveListData(Map map);
 }

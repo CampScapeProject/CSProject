@@ -338,4 +338,16 @@ public class RentRestController {
 		
 		return "";
 	}
+	
+	@GetMapping(value = "rent/admin_rent_reserve_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String admin_rent_reserve_list(String fd, int type) throws Exception{
+		Map map=new HashMap();
+		map.put("fd", fd);
+		map.put("type", type);
+		
+		List<ReserveVO> list=dao.adminReserveListData(map);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(list);
+	}
 }
