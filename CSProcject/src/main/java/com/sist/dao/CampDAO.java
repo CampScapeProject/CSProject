@@ -1,6 +1,7 @@
 package com.sist.dao;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
@@ -76,9 +77,9 @@ public class CampDAO {
 	{
 		return mapper.campReviewTotal(map);
 	}
-	public int campCount(Map map)
+	public int campReviewCount(Map map)
 	{
-		return mapper.campCount(map);
+		return mapper.campReviewCount(map);
 	}
 	
 	public void campReviewInsert()
@@ -88,7 +89,7 @@ public class CampDAO {
 	
 	public ReviewVO campReviewDetail(int no)
 	{
-		mapper.campHitUpdate(no);
+		mapper.campReviewHitUpdate(no);
 		return mapper.campReviewDetail(no);
 	}
 	
@@ -123,5 +124,33 @@ public class CampDAO {
 	public void campReserveInsert(ReserveVO vo)
 	{
 		mapper.campReserveInsert(vo);
+	}
+	
+	//마이페이지
+	public List<ReserveVO> campMypageReserveList(String id)
+	{
+		return mapper.campMypageReserveList(id);
+	}
+	
+	public void campMyReserveDelete(int rno)
+	{
+		mapper.campMyReserveDelete(rno);
+	}
+	
+	//관리자페이지
+	public List<ReserveVO> campAdminReserveList(Map map)
+	{
+		return mapper.campAdminReserveList(map);
+	}
+	
+	public int campAdminTotalpage()
+	{
+		return mapper.campAdminTotalpage();
+				
+	}
+	
+	public void rstateChange(int rno)
+	{
+		mapper.rstateChange(rno);
 	}
 }

@@ -314,26 +314,26 @@
 							</template>
 				      		<template v-if="index == 2">
 					        	<div class="container">
-					        		<h4 style="color:#001D38;font-weight: bold;">Review({{rcount}})</h4>
+					        		<h4 style="color:#001D38;font-weight: bold;"><i class="fa-sharp fa-regular fa-clipboard-list"></i>&nbsp;리뷰({{rcount}})</h4>
 									<div class="campprogress-table-wrap" style="margin-top: -20px;">
 										<div class="campprogress-table">
 											<div class="table-head">
-												<div class="serial" width=10%>번호</div>
-												<div class="visit" width=45%>제목</div>
-												<div class="visit" width=15%>이름</div>
-												<div class="visit" width=15%>날짜</div>
-												<div class="visit" width=5%>조회수</div>
-												<div class="visit" width=10%></div>
+												<div class="serial">번호</div>
+												<div class="visit">제목</div>
+												<div class="visit">이름</div>
+												<div class="visit">작성날짜</div>
+												<div class="serial">조회수</div>
+												<div class="visit"></div>
 											</div>
 											<div class="table-row" v-for="rvo,index in review_list">
 												<div class="serial">{{index+1}}</div>
 												<div class="visit"><a @click="reviewDetail(rvo.no,true)">{{rvo.subject}}</a></div>
 												<div class="visit">{{rvo.id}}</div>
 												<div class="visit">{{rvo.dbday}}</div>
-												<div class="visit">{{rvo.hit}}</div>
+												<div class="serial">{{rvo.hit}}</div>
 												<div class="visit">
-													<button class="btn btn-xs btn-danger" style="font-size: 15px;margin-right: 15px;" @click="reviewUpdateDialog(rvo.no,true)">수정</button>
-          											<button class="btn btn-xs btn-danger" @click="reviewDelete(rvo.no,rvo.sno)" style="font-size: 15px;cursor:pointer;">삭제</buton>
+													<button class="btn btn-xs btn-link" style="font-size: 15px;margin-right: 15px;" @click="reviewUpdateDialog(rvo.no,true)">수정</button>
+          											<button class="btn btn-xs btn-link" @click="reviewDelete(rvo.no)" style="font-size: 15px;cursor:pointer;">삭제</buton>
 												</div>
 											</div>
 										</div>
@@ -361,6 +361,7 @@
 				</div>
               </div>
               
+              
               <!-- 리뷰 디테일 -->
               
               <div id="dialog" title="후기글" v-if="rDetailShow">
@@ -368,22 +369,22 @@
                      <div class="row" >
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" name="name" id="name" type="text" :value="review_detail.id" readonly>
+                              <input class="form-control"  type="text" :value="review_detail.id" readonly>
                            </div>
                         </div>
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" name="date" id="date" type="text" :value="review_detail.dbday" readonly>
+                              <input class="form-control"  type="text" :value="review_detail.dbday" readonly>
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              <input class="form-control" name="subject" id="subject" type="text" :value="review_detail.subject" readonly>
+                              <input class="form-control"  type="text" :value="review_detail.subject" readonly>
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" readonly>
+                              <textarea class="form-control w-100"  cols="30" rows="9" readonly>
                               	{{review_detail.content}}
                               </textarea>
                            </div>
@@ -399,13 +400,13 @@
                      <div class="row" >
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" type="text" :value="update_data.id" readonly>
-                              <input type="hidden" :value="update_data.no"> 
+                              <input class="form-control" ref="id" type="text" :value="update_data.id" readonly>
+                              <input type="hidden" ref="no" :value="update_data.no"> 
                            </div>
                         </div>
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" type="text" :value="update_data.dbday" readonly>
+                              <input class="form-control" ref="date" type="text" :value="update_data.dbday" readonly>
                            </div>
                         </div>
                         <div class="col-12">
@@ -489,10 +490,10 @@
 		                    </div>
          					</section>
          					<br>
-         					<section>
-         					  <div class="row justify-content-center" style="background-color: white;">
+			        	<section>
+			        	<form @submit.prevent="reserveOk">
+			        	 <div class="row justify-content-center" style="background-color: white;">
 			                <div class="col-lg-8 col-md-9">
-			                	 <form @submit.prevent="ReserveOk()">
 			                	<div class="contact_join" style="margin-top: 20px;margin-bottom: 20px">
          						<h4>예약 인원 수</h4>
          						<p>*최대 인원 {{campsite_detail.inwon}}명</p>
@@ -520,9 +521,8 @@
 		                    		</div>
 		                   		 </div>
 		                    </div>
-         					</section>
-         					<br>
-			        	<section>
+		                    </div>
+		                    <br>
 			            <div class="row justify-content-center" style="background-color: white;">
 			                <div class="col-lg-8 col-md-9">
 			                	<div class="contact_join" style="margin-top: 20px;margin-bottom: 20px">
@@ -531,7 +531,7 @@
 			                                <div class="col-lg-6">
 			                                    <div class="single_input">
 			                                    	<label>이름</label>
-			                                       <input type="text" :value="name" ref="name">
+			                                       <input type="text" v-model="name" ref="name">
 			                                       <input type="hidden" :value="campsite_detail.csno" ref="csno">
 			                                       <input type="hidden" :value="cno" ref="cno">
 			                                    </div>
@@ -539,38 +539,39 @@
 			                                <div class="col-lg-8">
 			                                    <div class="single_input">
 			                                   		<label>연락처</label>
-			                                        <input type="text" :value="phone" ref="phone">
+			                                        <input type="text" v-model="phone" ref="phone">
 			                                    </div>
 			                                </div>
 			                                <div class="col-lg-8">
 			                                    <div class="single_input">
 			                                    	<label>이메일</label>
-			                                        <input type="email" :value="email" ref="email">
+			                                        <input type="email" v-model="email" ref="email">
 			                                    </div>
 			                                </div>
 			                                <div class="col-lg-12">
 			                                    <div class="single_input">
 			                                    	<label>요청사항</label>
-			                                        <textarea name="" id="" cols="30" rows="10" ref="msg"></textarea>
+			                                        <textarea v-model="msg" cols="30" rows="10" ref="msg"></textarea>
 			                                    </div>
 			                                </div>
 			                            </div>
-			                        </form>
+			                        
 			                    </div>
 							</div>
 						</div>
-					</section> 
-					</div>
-					<div class="col-lg-12" >
+							<div class="col-lg-12" >
                            <div class="submit_btn" style="width: 100%;	">
-                               <button class="boxed-btn4" type="submit" style="width: 100%">예약하기 | {{campsite_detail.price}}원</button>
+                               <button class="boxed-btn4" type="submit" style="width: 100%">예약하기 | {{csprice*dateCount}}원</button>
                            </div>
                        </div>
+						 </form>
+					</section> 
+					</div>
 				</div> 
 	          </div>
              <!-- ------------------------------ -->
              
-              <div class="navigation-area"><!--style="width: 1000px"-->
+              <div class="navigation-area">
                      <div class="row">
                         <div
                            class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
@@ -650,9 +651,10 @@
 				sdate:'${sdate}',
 				edate:'${edate}',
 				id:'${id}',
-				name:'${name}}',
+				name:'${name}',
 				email:'${email}',
 				phone:'${phone}',
+				msg:'',
 				no:0,
 				activeTab: 0,
 			    tabs: [
@@ -676,7 +678,9 @@
 				update_data:{},
 				campsite_list:[],
 				campsite_detail:{},
-				reserveForm:false
+				reserveForm:false,
+				dateCount:${dateCount},
+				csprice:0
 			},
 			mounted:function(){
 				axios.get('../camp/camp_detail_vue.do',{
@@ -770,16 +774,22 @@
 						}).dialog("open")
 					})			    	
 			    },
-			    reviewDelete:function(no,cno){
+			    reviewDelete:function(no){
 			    	axios.get('../camp/camp_review_delete_vue.do',{
 						params:{
-							cno:cno,
 							no:no,
+							cno:this.cno,
 							page:this.curpage
 						}
 					}).then(res=>{
-						alert('삭제되었습니다')
-						this.review_list=res.data
+						
+						let check=res.data
+						if(check==="OK")
+						{
+							alert('삭제되었습니다')	
+							location.href='../camp/camp_detail.do?cno='+this.cno
+						}
+						
 						
 					}).catch(error=>{
 						  console.log(error.response)
@@ -822,14 +832,15 @@
 				   let form=new FormData();
 				   form.append("subject",this.subject);
 				   form.append("content",this.content);
-				   form.append("no",this.no)
+				   form.append("no",this.$refs.no.value)
 				   form.append("page",this.curpage)
 				   form.append("cno",this.cno)
 					
 					 axios.post('../camp/camp_review_update_vue.do',form).then(response=>{
-						  
 						  console.log(response.data)
+						  alert('수정 되었습니다')
 						  this.review_list=response.data
+						  location.href='../camp/camp_detail.do?cno='+this.cno
 					  }).catch(error=>{
 						  console.log(error.response)
 					  })
@@ -863,54 +874,57 @@
 			    		}
 			    	}).then(res=>{
 			    		this.campsite_detail=res.data
+			    		this.csprice=this.campsite_detail.dbprice
 			    	})
 			    },
-			    reserve:function(){
-			    	this.resShow=false;
-			    	let name=this.$refs.name.value;
-			    	let email=this.$refs.email.value;
-			    	let msg=this.$refs.msg.value;
-			    	let phone=this.$refs.phone.value;
-			    	let csno=this.$refs.csno.value;
-			    	let inwon=this.$refs.inwon.value;
+			    reserveOk:function(){
 			    	
-		    		if(name=="")
+			    	
+		    		if(this.name=="")
 				   {
 					   this.$refs.name.focus();
 					   return;
 				   }
-				   if(email=="")
+				   if(this.email=="")
 				   {
 					   this.$refs.email.focus();
 					   return;
 				   }
-				   if(msg=="")
+				   if(this.msg=="")
 				   {
 					   this.$refs.msg.focus();
 					   return;
 				   } 
-				   if(phone=="")
+				   if(this.phone=="")
 				   {
 					   this.$refs.phone.focus();
 					   return;
 				   }
 					   
 					   let form=new FormData();
-					   form.append("name",name);
-					   form.append("email",email);
-					   form.append("msg",msg)
-					   form.append("phone",phone)  //인서트 이어서 (페이지 넘겨줘야함)
-					   form.append("csno",csno)
-					   form.append("cno",cno)
-					   form.append("inwon",inwon)
-					   form.append("sdate",this.sdate)
-					   form.append("edate",this.edate)
+					   form.append("name",this.name);
+					   form.append("id",this.id);
+					   form.append("email",this.email);
+					   form.append("msg",this.msg)
+					   form.append("phone",this.phone)  
+					   form.append("csno",this.$refs.csno.value)
+					   form.append("fno",this.cno)
+					   form.append("inwon",this.$refs.inwon.value)
+					   form.append("dbsdate",this.sdate)
+					   form.append("dbedate",this.edate)
+					   form.append("price",this.csprice*this.dateCount)
 					   form.append("page",1)
-					   
 						
 						 axios.post('../camp/camp_reserve_ok_vue.do',form).then(res=>{
-								location.href="../camp/camp_main.do"
-								alert('예약이 완료되었습니다')
+							 	let rcheck=res.data
+							 	if(rcheck==="OK")
+							 	{
+									location.href="../camp/camp_main.do"
+									alert('예약이 완료되었습니다')
+							 	}else{
+							 		alert('예약을 다시 해주세요')
+							 	}
+								
 						  }).catch(error=>{
 							  console.log(error.response)
 						  })
@@ -944,7 +958,7 @@
 
 		                 // 인포윈도우로 장소에 대한 설명을 표시합니다
 		                 var infowindow = new kakao.maps.InfoWindow({
-		                     content: '<div style="width:400px;text-align:center;padding:6px 0;">'+name+'</div>'
+		                     content: '<div style="width:150px;text-align:center;padding:6px 5px;">'+name+'</div>'
 		                 });
 		                 infowindow.open(map, marker);
 

@@ -43,9 +43,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="campReviewList" resultType="ReviewVO" parameterType="hashmap">
-		SELECT no,subject,sno,type,id,TO_CHAR(regdate, 'YYYY-MM-DD')as dbday,num
-		FROM (SELECT no,subject,sno,type,id,regdate,rownum as num 
-		FROM (SELECT no,subject,sno,type,id,regdate FROM review2 WHERE sno=#{cno} AND type=#{type} ORDER BY no DESC))
+		SELECT no,subject,sno,type,id,TO_CHAR(regdate, 'YYYY-MM-DD')as dbday,hit,num
+		FROM (SELECT no,subject,sno,type,id,regdate,hit,rownum as num 
+		FROM (SELECT no,subject,sno,type,id,regdate,hit FROM review2 WHERE sno=#{cno} AND type=#{type} ORDER BY no DESC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
+	<select id="campAdminReserveList" resultType="ReserveVO" parameterType="hashmap">
+		SELECT rno,name,price,fno,rstate,id,inwon,msg,TO_CHAR(sdate, 'YYYY-MM-DD') as dbsdate,TO_CHAR(edate, 'YYYY-MM-DD') as dbedate,image,campsite_name,camp_name,num
+			FROM (SELECT rno,name,price,fno,rstate,id,inwon,msg,sdate,edate,image,campsite_name,camp_name,rownum as num
+			FROM (SELECT rno,name,price,fno,rstate,id,inwon,msg,sdate,edate,(SELECT image FROM camp2 WHERE camp2.cno=reserve2.fno) as image,
+			(SELECT name FROM campsite2 WHERE campsite2.csno=reserve2.csno) as campsite_name,(SELECT name FROM camp2 WHERE camp2.cno=reserve2.fno) as camp_name
+			FROM reserve2 WHERE type='c' 
+			<if test="rstate=='예약승인' || rstate=='대기'">
+			AND rstate=#{rstate}
+			</if>
+			ORDER BY rno DESC)) 
+			WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	
 </mapper>

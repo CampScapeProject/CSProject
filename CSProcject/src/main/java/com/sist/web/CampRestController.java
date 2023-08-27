@@ -2,7 +2,10 @@ package com.sist.web;
 
 import java.lang.ProcessBuilder.Redirect;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -380,7 +383,12 @@ public class CampRestController {
 		
 		DecimalFormat df=new DecimalFormat("###,###,###");
 		String Fprice=df.format(price);
-		vo.setPrice(Fprice); 
+		
+		if(Fprice.contains(","))
+		{
+			Fprice=Fprice.replace(",","");
+		}
+		vo.setDbprice(Integer.parseInt(Fprice));
 
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
@@ -389,15 +397,65 @@ public class CampRestController {
 	}
 	
 	
-	/*
-	 * @PostMapping(value = "camp/camp_reserve_ok_vue.do",produces =
-	 * "text/plain;charset=UTF-8") public String camp_reserve_ok_vue(ReserveVO
-	 * vo,int cno) throws Exception { dao.campReserveInsert(vo);
-	 * 
-	 * List<CampVO> list=dao.campListData(map)
-	 * 
-	 * }
-	 */
+		
+	  @PostMapping(value = "camp/camp_reserve_ok_vue.do",produces ="text/plain;charset=UTF-8") 
+	  public String camp_reserve_ok_vue(ReserveVO vo,int page) throws Exception 
+	  {
+		  
+		  System.out.println("server진입 성공");
+		   System.out.println("name:"+vo.getName());
+		   System.out.println("email:"+vo.getEmail());
+		   System.out.println("msg:"+vo.getMsg());
+		   System.out.println("phone:"+vo.getPhone());
+		   System.out.println("csno:"+vo.getCsno());
+		   System.out.println("fno:"+vo.getFno());
+		   System.out.println("inwon:"+vo.getInwon());
+		   System.out.println("dbsdate:"+vo.getDbsdate());
+		   System.out.println("dbedate:"+vo.getDbedate());
+		   System.out.println("price:"+vo.getPrice());
+		   System.out.println("page:"+page);
+		   
+		   
+		   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        Date sdate = dateFormat.parse(vo.getDbsdate());
+	        Date edate = dateFormat.parse(vo.getDbedate());
+	        vo.setSdate(sdate);
+	        vo.setEdate(edate);
+	        
+	        System.out.println("sdate:"+vo.getSdate());
+	        System.out.println("edate:"+vo.getEdate());
+	        
+	        String phone=vo.getPhone();
+	        if(phone.contains("-"))
+			{
+				phone=phone.replace("-"," ");
+			}
+	        vo.setPhone(phone);
+	        
+	        String price=vo.getPrice();
+	        if(price.contains(","))
+			{
+				price=price.replace(","," ");
+			}
+	        vo.setPrice(price);
+	        
+		  dao.campReserveInsert(vo);
+		  System.out.println("예약 성공");
+		  
+			/*
+			 * Map map = new HashMap(); int rowsize = 4; int start = (rowsize * page) -
+			 * (rowsize - 1); int end = rowsize * page; map.put("start", start);
+			 * map.put("end", end);
+			 * 
+			 * List<CampVO> list=dao.campListData(map);
+			 * 
+			 * ObjectMapper mapper = new ObjectMapper(); String json =
+			 * mapper.writeValueAsString(list);
+			 */
+			
+		  return "OK";
+	  }
+	 
 
 
 	/* -------------------------------- */
@@ -442,7 +500,7 @@ public class CampRestController {
 		map.put("type", "c");
 		map.put("cno", cno);
 		
-		int rcount=dao.campCount(map);
+		int rcount=dao.campReviewCount(map);
 		//rcount=rcount-(10*(page-1));
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(rcount);
@@ -520,4 +578,106 @@ public class CampRestController {
 		
 		return camp_review_list_data(page,cno);
 	}
+	
+	
+	
+	// 마이페이지
+	
+	@GetMapping(value = "mypage/camp_reserve_list.do",produces = "text/plain;charset=UTF-8")
+	public String mypage_camp_reserve_list(String id) throws Exception
+	{
+		List<ReserveVO> list=dao.campMypageReserveList(id);
+		for(ReserveVO vo:list)
+		{
+			String img=vo.getImage();
+			if(img.contains("^"))
+			{
+				img=img.substring(0,img.indexOf("^"));
+				vo.setImage(img);
+			}
+			int price=Integer.parseInt(vo.getPrice());
+			
+			DecimalFormat df=new DecimalFormat("###,###,###");
+			String Fprice=df.format(price);
+			vo.setPrice(Fprice); 
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+	
+		return json;
+	}
+	
+	@GetMapping(value = "mypage/camp_reserve_delete.do",produces = "text/plain;charset=UTF-8")
+	public String mypage_camp_reserve_delete(int rno) 
+	{
+		dao.campMyReserveDelete(rno);
+		
+		return"OK";
+	}
+	
+	//관리자 페이지
+	
+	
+	public String admin_camp_reserve_list_data(int page,String rstate) throws Exception
+	{
+		Map map = new HashMap();
+		int rowsize = 12;
+		int start = (rowsize * page) - (rowsize - 1);
+		int end = rowsize * page;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("rstate", rstate);
+		
+		List<ReserveVO> list=dao.campAdminReserveList(map);
+		for(ReserveVO vo:list)
+		{
+			String img=vo.getImage();
+			if(img.contains("^"))
+			{
+				img=img.substring(0,img.indexOf("^"));
+				vo.setImage(img);
+			}
+			int price=Integer.parseInt(vo.getPrice());
+			
+			DecimalFormat df=new DecimalFormat("###,###,###");
+			String Fprice=df.format(price);
+			vo.setPrice(Fprice); 
+		}
+		
+		int totalpage=dao.campAdminTotalpage();
+		final int BLOCK = 5;
+		int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
+		int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
+		if(endpage>totalpage)
+			endpage=totalpage;
+		
+		Map jmap=new HashMap();
+		jmap.put("list", list);
+		jmap.put("totalpage", totalpage);
+		jmap.put("startpage",startpage);
+		jmap.put("endpage", endpage);
+		jmap.put("curpage", page);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(jmap);
+	
+		return json;
+	}
+	
+	@GetMapping(value ="adminpage/camp_reserve_list.do" ,produces = "text/plain;charset=UTF-8")
+	public String admin_camp_reserve_list(int page,String rstate) throws Exception
+	{
+		System.out.println(rstate);
+		return admin_camp_reserve_list_data(page,rstate);
+	}
+	
+	@GetMapping(value ="adminpage/camp_reserve_rstate_change.do" ,produces = "text/plain;charset=UTF-8")
+	public String admin_reserve_rstate_change(int page,int rno,String rstate) throws Exception
+	{
+		dao.rstateChange(rno);
+		
+		return admin_camp_reserve_list_data(page,rstate);
+	}
+	
 }

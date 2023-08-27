@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter@Setter
 public class CampSiteVO {
-	private int csno,cno;
+	private int csno,cno,dbprice;
 	private String name,image,price,inwon,maxInwon;
 }

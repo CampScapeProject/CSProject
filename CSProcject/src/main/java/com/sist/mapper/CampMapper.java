@@ -1,5 +1,5 @@
 package com.sist.mapper;
-
+ 
 import java.util.List;
 
 import java.util.Map;
@@ -72,7 +72,7 @@ public interface CampMapper {
 	public int campReviewTotal(Map map);
 	
 	@Select("SELECT COUNT(*) FROM review2 WHERE sno=#{cno} AND type=#{type}")
-	public int campCount(Map map);
+	public int campReviewCount(Map map);
 	
 	@Insert("INSERT INTO review2(no,regdate,content,sno,type,id) VALUES(rv2_no_seq.nextval,SYSDATE,#{msg},#{cno},'c',#{id})")
 	public void campReviewInsert();
@@ -80,7 +80,10 @@ public interface CampMapper {
 	@Update("UPDATE review2 SET subject=#{sub},content=#{cont} WHERE no=#{no}")
 	public void campReviewUpdate(Map map);
 	
-	@Select("SELECT no,subject,content,sno,id,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday FROM review2 WHERE no=#{no}")
+	@Update("UPDATE review2 SET hit=hit+1 WHERE no=#{no}")
+	public void campReviewHitUpdate(int no);
+	
+	@Select("SELECT no,subject,content,sno,id,hit,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday FROM review2 WHERE no=#{no}")
 	public ReviewVO campReviewDetail(int no);
 	
 	@Delete("DELETE FROM review2 WHERE no=#{no}")
@@ -95,9 +98,27 @@ public interface CampMapper {
 	@Select("SELECT * FROM campsite2 WHERE csno=#{csno}")
 	public CampSiteVO campSiteDetail(int csno);
 	
-	@Insert("INSERT INTO reserve2(rno,name,price,inwon,sdate,edate,type,fno,id,phone,email,regdate,msg,csno) "
-			+ "VALUES(rs2_rno_seq.nextval,#{name},#{price},#{inwon},#{sdate},#{edate},'c',#{cno},#{id},#{email},SYSDATE,#{msg},#{csno})")
+	@Insert("INSERT INTO reserve2(rno,name,price,inwon,sdate,edate,type,fno,id,phone,email,msg,csno) "
+			+ "VALUES(rs2_rno_seq.nextval,#{name},#{price},#{inwon},#{sdate},#{edate},'c',#{fno},#{id},#{phone},#{email},#{msg},#{csno})")
 	public void campReserveInsert(ReserveVO vo);
 	
+	//마이페이지
+	@Select("SELECT rno,fno,name,price,rstate,inwon,TO_CHAR(sdate, 'YYYY-MM-DD') as dbsdate,TO_CHAR(edate, 'YYYY-MM-DD') as dbedate,(SELECT image FROM camp2 "
+			+ "WHERE camp2.cno=reserve2.fno) as image,(SELECT name FROM campsite2 WHERE campsite2.csno=reserve2.csno) as campsite_name,"
+			+ "(SELECT name FROM camp2 WHERE camp2.cno=reserve2.fno) as camp_name "
+			+ "FROM reserve2 WHERE id=#{id} AND type='c' ORDER BY rno DESC")
+	public List<ReserveVO> campMypageReserveList(String id);
 	
+	@Delete("DELETE FROM reserve2 WHERE rno=#{rno}")
+	public void campMyReserveDelete(int rno);
+	
+	//관리자 페이지
+
+	public List<ReserveVO> campAdminReserveList(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/12.0) FROM reserve2 WHERE type='c'")
+	public int campAdminTotalpage();
+	
+	@Update("UPDATE reserve2 SET rstate='예약승인' WHERE rno=#{rno}")
+	public void rstateChange(int rno);
 }

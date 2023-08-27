@@ -1,6 +1,8 @@
 package com.sist.web;
 
 import java.net.URLEncoder;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +49,8 @@ public class CampController {
 			}
 		}
 		
+		long dateDifference = 0;
+		
 		if(rdate!=null) 
 		{
 			
@@ -55,9 +59,19 @@ public class CampController {
 			model.addAttribute("sdate",sdate);
 			model.addAttribute("edate",edate);
 			
-			System.out.println("s:"+sdate+"e:"+edate);
+			String dateStr1 = sdate;
+	        String dateStr2 = edate;
+
+	        LocalDate date1 = LocalDate.parse(dateStr1);
+	        LocalDate date2 = LocalDate.parse(dateStr2);
+	        
+	        dateDifference = ChronoUnit.DAYS.between(date1, date2);
+	        
+	        System.out.println("날짜차이:"+dateDifference);
+			
 		}
 		
+		model.addAttribute("dateCount", dateDifference);
 		Cookie cookie=new Cookie("camp_"+cno, String.valueOf(cno));
 		cookie.setPath("/");
 		cookie.setMaxAge(60*60*24);
