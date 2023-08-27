@@ -38,8 +38,8 @@
                                                         <li><a href="../recipe/recipe_main.do">레시피</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="../mypage/main.do">마이페이지</a></li>
-                                            <li><a href="../adminpage/main.do">관리자페이지</a></li>
+                                            <c:if test="${sessionScope.admin=='n' }"><li><a href="../mypage/main.do">마이페이지</a></li></c:if>
+                                            <c:if test="${sessionScope.admin=='y' }"><li><a href="../adminpage/main.do">관리자페이지</a></li></c:if>
                                             <li><a href="#">고객센터 <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="../notice/notice_main.do">공지사항</a></li>
