@@ -156,4 +156,20 @@ public interface RentMapper {
 		  + "SET rstate='예약승인' "
 		  + "WHERE rno=#{rsno}")
 	public void reserveOk(int rsno);
+	
+	@Select("SELECT rno,name,price,TO_CHAR(sdate,'yyyy-mm-dd') as dbsdate, "
+		 + "	 	TO_CHAR(edate,'yyyy-mm-dd') as dbedate,email, "
+		 + "		(SELECT car_name FROM rent2 WHERE rent2.rno=reserve2.fno) as car_name "
+		 + "FROM reserve2 "
+		 + "WHERE rno=#{rsno}")
+	public ReserveVO reserveOkMailData(int rsno);
+	
+	@Select("SELECT rno,image,car_name,maker,jjimCount,rownum "
+		  + "FROM (SELECT rno,image,car_name,maker,"
+		  + "			  (SELECT COUNT(*) FROM jjim2 WHERE sno=rno) as jjimCount "
+		  + "      FROM rent2 "
+		  + "      ORDER BY jjimCount desc "
+		  + "	   ) "
+		  + "WHERE rownum<=3")
+	public List<RentVO> home_rent_list();
 }

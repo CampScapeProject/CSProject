@@ -213,67 +213,35 @@
         </div>
     </div>
 
-
-    <div class="recent_trip_area">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section_title text-center mb_70">
-                        <h3>여행 일정에 맞는 차량을<br> 캠프스케이프에서 찾아보세요</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_trip">
-                        <div class="thumb">
-                            <img src="../layout/img/trip/1.png" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="date">
-                                <span>Oct 12, 2019</span>
-                            </div>
-                            <a href="#">
-                                <h3>Journeys Are Best Measured In
-                                    New Friends</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_trip">
-                        <div class="thumb">
-                            <img src="../layout/img/trip/2.png" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="date">
-                                <span>Oct 12, 2019</span>
-                            </div>
-                            <a href="#">
-                                <h3>Journeys Are Best Measured In
-                                    New Friends</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_trip">
-                        <div class="thumb">
-                            <img src="../layout/img/trip/3.png" alt="">
-                        </div>
-                        <div class="info">
-                            <div class="date">
-                                <span>Oct 12, 2019</span>
-                            </div>
-                            <a href="#">
-                                <h3>Journeys Are Best Measured In
-                                    New Friends</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<div class="rent-el">
+	    <div class="recent_trip_area">
+	        <div class="container">
+	            <div class="row justify-content-center">
+	                <div class="col-lg-6">
+	                    <div class="section_title text-center mb_70">
+	                        <h3>여행 일정에 맞는 차량을<br> 캠프스케이프에서 찾아보세요</h3>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-lg-4 col-md-6" v-for="vo in rent_list">
+	                    <div class="single_trip">
+	                        <div class="thumb">
+	                            <img :src="vo.image">
+	                        </div>
+	                        <div class="info">
+	                            <div class="date">
+	                                <span>{{vo.maker}}</span>
+	                            </div>
+	                            <a>
+	                                <h3>{{vo.car_name}}</h3>
+	                            </a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
     </div>
     
     <div class="board_area">
@@ -396,6 +364,19 @@ let board = new Vue({
 			this.recipe_list = res.data
 		}).catch(error=>{
 			console.log(error.response)
+		})
+	}
+})
+
+let rent=new Vue({
+	el:'.rent-el',
+	data:{
+		rent_list:[]
+	},
+	mounted:function(){
+		axios.get('../rent/home_rent_list_vue.do').then(res=>{
+			console.log(res.data)
+			this.rent_list=res.data
 		})
 	}
 })

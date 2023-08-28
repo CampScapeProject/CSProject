@@ -116,4 +116,12 @@ public class RentDAO {
 	public void reserveOk(int rsno) {
 		mapper.reserveOk(rsno);
 	}
+	
+	public ReserveVO reserveOkMailData(int rsno) {
+		return mapper.reserveOkMailData(rsno);
+	}
+	
+	public List<RentVO> home_rent_list(){
+		return mapper.home_rent_list();
+	}
 }

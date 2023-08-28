@@ -363,6 +363,17 @@ public class RentRestController {
 	@GetMapping(value = "rent/reserve_ok_vue.do", produces = "text/plain;charset=UTF-8")
 	public String reserve_ok(int rsno) {
 		dao.reserveOk(rsno);
+		
+		ReserveVO vo=dao.reserveOkMailData(rsno);
+		mailManager.rentReserveOkMail(vo);
 		return "";
+	}
+	
+	@GetMapping(value = "rent/home_rent_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String home_rent_list() throws Exception {
+		List<RentVO> list=dao.home_rent_list();
+		
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(list);
 	}
 }

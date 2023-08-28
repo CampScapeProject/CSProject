@@ -7,8 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT rno, image, car_name, car_type, maker, inwon, fuel, car_option, price,
 			   (SELECT COUNT(*) FROM review2 WHERE sno=rno) as rvCount,
 			   (SELECT NVL(ROUND(AVG(rating),1),0) FROM review2 WHERE sno=rno) as rvAvg,
-			   (SELECT COUNT(*) FROM jjim2 WHERE sno=rno) as jjimCount,
-			   (SELECT COUNT(*) FROM jjim2 WHERE sno=rno AND id=#{id}) as jjimOk 
+			   (SELECT COUNT(*) FROM jjim2 WHERE sno=rno AND type='r') as jjimCount,
+			   (SELECT COUNT(*) FROM jjim2 WHERE sno=rno AND id=#{id} AND type='r') as jjimOk 
 			   
 		FROM rent2
 		WHERE (SELECT COUNT(sDate) FROM reserve2 WHERE rent2.rno=reserve2.fno AND sDate BETWEEN #{sDate} AND #{eDate} AND type='r') = 0 

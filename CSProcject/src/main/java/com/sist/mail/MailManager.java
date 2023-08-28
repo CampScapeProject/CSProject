@@ -80,18 +80,17 @@ public class MailManager {
     		"	  }" + 
     		"</style>";
 
-	/*
-	 * public static void main(String[] args) { MailManager m=new MailManager();
-	 * MemberVO vo=new MemberVO(); m.naverMailSend(vo, 1); }
-	 */
-	public void naverMailSend(Object obj,int type) {
-		 MemberVO vo=null;
-		 if(type==1)
-			 vo=(MemberVO)obj;
+	
+//	  public static void main(String[] args) { 
+//		  MailManager m=new MailManager();
+//		  m.naverMailSend();
+//	  }
+	 
+	public void rentReserveOkMail(ReserveVO vo) {
 		 
 		 String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 
-	     String user = "vcandjava@naver.com"; // 패스워드 
-	     String password = "";      // SMTP 서버 정보를 설정한다. 
+	     String user = "cs_test_id1@naver.com"; // 패스워드 
+	     String password = "qwer1234";      // SMTP 서버 정보를 설정한다. 
 	     Properties props = new Properties(); 
 	     props.put("mail.smtp.host", host); 
 	     props.put("mail.smtp.port", 587); 
@@ -105,37 +104,20 @@ public class MailManager {
 	     try { 
 	        	MimeMessage message = new MimeMessage(session); 
 	              message.setFrom(new InternetAddress(user)); 
-	              message.addRecipient(Message.RecipientType.TO, new InternetAddress("vcandjava@nate.com")); // 메일 제목 
-	              message.setSubject("등록 내역입니다!!"); // 메일 내용
+	              message.addRecipient(Message.RecipientType.TO, new InternetAddress(vo.getEmail())); // 메일 제목 
+	              message.setSubject("예약 승인 완료"); // 메일 내용
 	              
 	              String html="<html>"
-	            		     +"<head>"
-	            		     +style
-	            		     +"</head>"
-	            		     +"<table>"
-	            		     +"<thead>"
-	            		     +"<tr>"
-	            		     +"<th width=15%>회원번호</th>"
-	            		     +"<td width=85%>1</td>"
-	            		     +"</tr>"
-	            		     +"<tr>"
-	            		     +"<th>이름</th>"
-	            		     +"<td>홍길동</td>"
-	            		     +"</tr>"
-	            		     +"<tr>"
-	            		     +"<th>성별</th>"
-	            		     +"<td>남자</td>"
-	            		     +"</tr>"
-	            		     +"<tr>"
-	            		     +"<th>생년월일</th>"
-	            		     +"<td>2000-10-10</td>"
-	            		     +"</tr>"
-	            		     +"<tr>"
-	            		     +"<th>ID</th>"
-	            		     +"<td>hong12</td>"
-	            		     +"</tr>"
-	            		     +"<body>"
-	            		     +"</body>"
+	            		     +"		<head>"
+	            		     +			style
+	            		     +"		</head>"
+	            		     +"		<body>"
+	            		     + "		<span style=\"font-size: 30px; font-weight:bold; margin-bottom: 20px;\">예약이 승인되었습니다</span><br><br>"
+	            		     + "		<span style=\"font-size: 15px; margin-bottom: 3px;\">예약자명 : "+vo.getName()+"</span><br>"
+	            		     + "		<span style=\"font-size: 15px; margin-bottom: 3px;\">차량명 : "+vo.getCar_name()+"</span><br>"
+	            		     + "		<span style=\"font-size: 15px; margin-bottom: 3px;\">가격 : "+vo.getPrice()+"</span><br>"
+	            		     + "		<span style=\"font-size: 15px; margin-bottom: 3px;\">이용기간 : "+vo.getDbsdate()+" ~ "+vo.getDbedate()+"</span><br>"
+	            		     +"		</body>"
 	            		     +"</html>";
 	              		     
 	              message.setContent(html,"text/html;charset=UTF-8"); // send the message 
