@@ -29,7 +29,12 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li><a class="active" href="../main/home.do">홈</a></li>
-                                            <li><a href="../camp/camp_main.do">캠핑장예약</a></li>
+                                            <li><a href="#">캠핑장<i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="../camp/camp_main.do">캠핑장 예약</a></li>
+                                                    <li><a href="../camp/camp_recommand.do">캠핑장 추천</a></li>
+                                                </ul>
+                                            </li>
                                             <li><a href="../rent/rent_main.do">렌터카</a></li>
                                             <li><a href="../shop/shop_main.do">쇼핑몰</a></li>
                                             <li><a href="../recipe/recipe_main.do">레시피</a></li>

@@ -155,4 +155,13 @@ public interface CampMapper {
 			+ "(SELECT name FROM camp2 WHERE camp2.cno=reserve2.fno) as camp_name "
 			+ "FROM reserve2 WHERE rno=#{rno}")
 	public ReserveVO campReserveMail(int rno);
+	
+	//추천
+	
+	 @Select("SELECT DISTINCT name FROM camp2 WHERE LENGTH(name)>1")
+	   public List<String> campNamGetData();
+	 
+	  @Select("SELECT cno,name,image,msg,rownum FROM camp2 "
+			  +"WHERE name=#{name} AND rownum<=1")
+	   public CampVO campRecommandInfoData(String name);
 }

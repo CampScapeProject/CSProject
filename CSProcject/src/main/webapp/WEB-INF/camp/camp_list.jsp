@@ -73,6 +73,9 @@
   margin-right: 2px;
 }
 
+#selectid {
+   display: block !important;
+}
 </style>
 </head>
 <body>
@@ -106,31 +109,30 @@
 <!---------->
 
 <div class="popular_places_area">
-	<div class="container">
+	<div class="container" style="margin-left: 240px;">
 		<div class="row">
 		 
 		    <!-- 리스트 목록 -->
 		        <div class="col-lg-8">
 		        	 <div class="well" style=" border-bottom: 2px solid #DEE2E7;">
-						<select>
-							<option value="1">조회순 &nbsp;&nbsp;</option>
-							<option value="1">추천순 &nbsp;&nbsp;</option>
-							<option value="1">리뷰순 &nbsp;&nbsp;</option>
-						</select>
+						<!-- <select ref="select" @change="selectChange()">
+							<option value="조회순">조회순 &nbsp;&nbsp;</option>
+							<option value="리뷰순">리뷰순 &nbsp;&nbsp;</option>
+						</select> -->
 						<a href="../camp/camp_main.do" class="btn btn-info" role="button" style="float: right; margin-right: 20px;background-color:gray;border: none; ">캠핑장 검색</a>
 		        	 </div>
 		        	 <br>
 		            <div class="row" style="width: 1500px;display: flex;justify-content : center;">
-		                <div class="col-lg-3 col-md-3" v-for="vo in camp_list" style="border: 1px solid #f0e9ff;width: 400px;height: 500px;">
-		                    <div class="single_place">
+		                <div class="col-lg-3 col-md-3" v-for="vo in camp_list" style="width: 400px;height: 500px;">
+		                    <div class="single_place" style="border: 1px solid #f0e9ff;">
 		                        <div class="thumb" style="margin-top: 10px;">
 		                            <img :src="vo.image" :title="vo.name" style="height: 250px;">
 		                            <a href="#" class="prise">{{vo.mprice}}&nbsp;원</a>
 		                        </div>
-		                        <div class="place_info" style="height:200px;">
+		                        <div class="place_info" style="height:235px;">
 		                            <a :href="'../camp/camp_detail.do?cno='+vo.cno"><h3>{{vo.name}}</h3></a>
 		                            <p>{{vo.msg}}</p>
-		                            <i class="fa fa-phone-square" style="color: #E86A33"></i>&nbsp;<span>{{vo.phone}}</span><br>
+		                            <i class="fa fa-phone-square" style="color: #E86A33;margin-bottom: 15px"></i>&nbsp;<span>{{vo.phone}}</span><br>
 		                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span>{{vo.address}}</span>
 		                            <div class="rating_days d-flex justify-content-between" style="margin-top: 8px;margin-bottom: -8px;">
 		                            		<!--  추천,찜 등 -->
@@ -226,7 +228,12 @@
 			pageChange:function(page){
 				this.curpage=page;
 				this.dataRecive();
-			}
+			}/* ,
+			selectChange:function(){
+				this.curpage=1;
+				this.dataRecive();
+			} */
+			
 		}
 		
 	})

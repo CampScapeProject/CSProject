@@ -9,7 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c6fd98b724a1c5dfb4d7bfce05b0389f&libraries=services"></script>
 <style type="text/css">
   
 .well{
@@ -176,7 +175,7 @@ function uncomma(str) {
 		                        <div class="place_info" style="height: 255px;">
 		                            <a @click="detailPage(vo.cno)" style="cursor: pointer;"><h3>{{vo.name}}</h3></a>
 		                            <p>{{vo.msg}}</p>
-		                            <i class="fa fa-phone-square" style="color: #E86A33"></i>&nbsp;<span>{{vo.phone}}</span><br>
+		                            <i class="fa fa-phone-square" style="color: #E86A33;margin-bottom: 15px"></i>&nbsp;<span>{{vo.phone}}</span><br>
 		                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span>{{vo.address}}</span><br>
 		                        </div>
 		                    </div>

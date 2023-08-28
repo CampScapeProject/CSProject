@@ -185,4 +185,21 @@ public class CampDAO {
 	{
 		return mapper.campJjimCount(map);
 	}
+	
+	//메일
+	public ReserveVO campReserveMail(int rno)
+	{
+		return mapper.campReserveMail(rno);
+	}
+	
+	//추천
+	public List<String> campNamGetData()
+	{
+		return mapper.campNamGetData();
+	}
+	
+	public CampVO campRecommandInfoData(String name)
+	{
+		return mapper.campRecommandInfoData(name);
+	}
 }

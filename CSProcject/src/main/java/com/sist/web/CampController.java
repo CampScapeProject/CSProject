@@ -102,4 +102,11 @@ public class CampController {
 		model.addAttribute("sno",sno);
 		return "camp_review_write";
 	}
+	
+	//추천
+	 @GetMapping("camp/camp_recommand.do")
+	  public String camp_recommand_page(Model model)
+	  {
+		  return "camp/camp_recommand";
+	  }
 }

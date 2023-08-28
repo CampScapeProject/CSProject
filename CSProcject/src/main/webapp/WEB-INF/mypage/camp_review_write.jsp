@@ -30,7 +30,7 @@
 	 	<h3>글 쓰기</h3>
  <section class="blog_area single-post-area section-padding" style="margin-top: -100px;background-color: #EEEEEE;">
       <div class="container">
-         <form @submit.prevent="updateForm()">
+         <form @submit.prevent="InsertForm()">
                      <div class="row" >
                         <div class="col-sm-12">
                            <div class="form-group">

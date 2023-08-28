@@ -9,10 +9,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 -->
 <mapper namespace="com.sist.mapper.CampMapper">
 	<select id="campListData" resultType="CampVO" parameterType="hashmap">
-		SELECT cno,name,address,phone,msg,image,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) as mprice,num 
-		FROM (SELECT cno,name,address,phone,msg,image,rownum as num 
-		FROM (SELECT cno,name,address,phone,msg,image FROM camp2 ORDER BY cno ASC)) c
+		SELECT cno,name,address,phone,msg,image,hit,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) as mprice,num 
+		FROM (SELECT cno,name,address,phone,msg,image,hit,rownum as num 
+		FROM (SELECT cno,name,address,phone,msg,image,hit FROM camp2 ORDER BY cno ASC)) c
+		<!-- <if test="select==null">
+		ORDER BY cno ASC)) c
+		</if>
+		<if test="select=='조회순'">
+		 ORDER BY hit DESC)) c
+		</if>
+		<if test="select=='리뷰순'">
+		ORDER BY (SELECT COUNT(*) FROM review2 WHERE review2.sno=cno) DESC)) c
+		</if> -->
 		WHERE num BETWEEN #{start} AND #{end}
+		
 	</select>
 	
 	 

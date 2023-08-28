@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.CampDAO;
+import com.sist.mail.MailManager;
 import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
 import com.sist.vo.JjimVO;
@@ -38,7 +39,8 @@ public class CampRestController {
 	@Autowired
 	private CampDAO dao;
 	
-	
+	@Autowired
+	private MailManager manager;
 	
 	//메인 리스트 출력
 	@GetMapping(value = "camp/camp_main_list_vue.do",produces = "text/plain;charset=UTF-8")
@@ -211,7 +213,9 @@ public class CampRestController {
 			int end = rowsize * page;
 			map.put("start", start);
 			map.put("end", end);
-		
+			/*
+			 * map.put("select", select);
+			 */		
 		
 		List<CampVO> list=dao.campListData(map);
 		for(CampVO vo:list)
@@ -702,7 +706,8 @@ public class CampRestController {
 	public String admin_reserve_rstate_change(int page,int rno,String rstate) throws Exception
 	{
 		dao.rstateChange(rno);
-		
+		ReserveVO vo=dao.campReserveMail(rno);
+		manager.campReserveOkMail(vo);
 		return admin_camp_reserve_list_data(page,rstate);
 	}
 	

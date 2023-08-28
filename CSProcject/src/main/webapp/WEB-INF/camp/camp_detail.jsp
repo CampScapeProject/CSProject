@@ -570,46 +570,13 @@
 	          </div>
              <!-- ------------------------------ -->
              
-              <div class="navigation-area">
+              <div class="navigation-area" style="border: none;">
                      <div class="row">
-                        <div
-                           class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-                           <div class="thumb">
-                              <a href="#">
-                                 <img class="img-fluid" src="img/post/preview.png" alt="">
-                              </a>
-                           </div>
-                           <div class="arrow">
-                              <a href="#">
-                                 <span class="lnr text-white ti-arrow-left"></span>
-                              </a>
-                           </div>
-                           <div class="detials">
-                              <p>이전 캠핑장</p>
-                              <a href="#">
-                                 <h4>Space The Final Frontier</h4>
-                              </a>
-                           </div>
-                        </div>
-                        <div
-                           class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                           <div class="detials">
-                              <p>다음 캠핑장</p>
-                              <a href="#">
-                                 <h4>Telescopes 101</h4>
-                              </a>
-                           </div>
-                           <div class="arrow">
-                              <a href="#">
-                                 <span class="lnr text-white ti-arrow-right"></span>
-                              </a>
-                           </div>
-                           <div class="thumb">
-                              <a href="#">
-                                 <img class="img-fluid" src="img/post/next.png" alt="">
-                              </a>
-                           </div>
-                        </div>
+                     	<div class="col-lg-12 text-center">
+	                     	<div class="reset_btn">
+				                <button class="boxed-btn4" type="button" @click="goList()" style="background-color:#001D38;width:400px">목록</button>
+				            </div>
+			            </div>
                      </div>
                   </div>
             </div>
@@ -623,7 +590,7 @@
 	                     <div class="media post_item"  v-for="c in cookie_list">
 	                        <img :src="c.image.split('^')[0]" alt="post" style="width: 100px;height:100px">
 	                        <div class="media-body">
-	                           <a href="single-blog.html">
+	                           <a :href="'../camp/camp_detail.do?cno='+c.cno">
 	                              <h3>{{c.name}}</h3>
 	                           </a>
 	                           <p>{{c.address}}</p>
@@ -918,7 +885,7 @@
 							 	if(rcheck==="OK")
 							 	{
 									location.href="../camp/camp_main.do"
-									alert('예약이 완료되었습니다')
+									alert('예약이 완료되었습니다 (예약 승인 완료시 본인 메일로 전송됩니다.)')
 							 	}else{
 							 		alert('예약을 다시 해주세요')
 							 	}
@@ -967,6 +934,9 @@
 			    	let x=(document.body.offsetWidth/2)-(450/2)
 					let y=(window.screen.height/2)-(600/2)-50
 					window.open("../mypage/camp_review_write.do?sno="+this.cno,"",'width=450, height=500, left='+x+', top='+y+',scrollbar=no')
+			    },
+			    goList:function(){
+			    	location.href="../camp/camp_main.do"
 			    },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
