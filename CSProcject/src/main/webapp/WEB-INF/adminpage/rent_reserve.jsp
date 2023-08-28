@@ -174,7 +174,7 @@
 										      				</div>
 										      				<div class="col-lg-4">
 										      					<h3 style="margin-bottom: 10px;"><b>예약상태</b></h3>
-										      					{{reviewState()?'이용완료':reserve_list[activeReserve].rstate}}
+										      					{{reserve_list[activeReserve].rstate}}
 										      				</div>
 										      			</div>
 													</template>
@@ -203,16 +203,17 @@
 										예약일 : {{reserve_list[activeReserve].dbdate}}
 									</div>
 									<div class="col-lg-6 text-right" style="margin-top: 10px;">
-										<input type="button" value="리뷰쓰기" class="btn btn-sm btn-success" 
-											v-if="reviewState()" @click="reviewWriteBtn()"
+										<input type="button" value="예약취소" class="btn btn-sm btn-danger" 
+											v-if="reserve_list[activeReserve].rstate=='취소 요청'" 
+											@click="reserveDeleteBtn(reserve_list[activeReserve].rno)"
 										>
+										
+										<input type="button" value="예약승인" class="btn btn-sm btn-success" 
+											v-if="reserve_list[activeReserve].rstate=='대기'" 
+											@click="reserveOkBtn(reserve_list[activeReserve].rno)"
+										>
+										
 										<span v-if="reserve_list[activeReserve].reviewok!=0">리뷰 작성됨</span>
-										<input type="button" value="취소요청" class="btn btn-sm btn-danger" 
-											v-if="cancel() && reserve_list[activeReserve].rstate!='취소 요청'" @click="cancelRequestBtn()"
-										>
-										<input type="button" value="요청취소" class="btn btn-sm btn-danger" 
-											v-if="cancel() && reserve_list[activeReserve].rstate=='취소 요청'" @click="requestCancelBtn()"
-										>
 									</div>
 								</div>
 	    	
@@ -284,40 +285,20 @@
 				console.log(diff);
 				this.period=diff
 		    },
-		    //상태
-		    reviewState(){
-		    	let today=new Date()
-		    	
-		    	return (new Date(this.reserve_list[this.activeReserve].dbedate) < new Date(today.toLocaleDateString())) 
-		    			&& (this.reserve_list[this.activeReserve].rstate == "예약승인") && (this.reserve_list[this.activeReserve].reviewok==0)
-		    },
-		    cancel(){
-		    	let today=new Date()
-		    	
-		    	return new Date(this.reserve_list[this.activeReserve].dbsdate) > new Date(today.toLocaleDateString())
-		    },
-		    
 		    //버튼
-		    reviewWriteBtn(){
-		    	let x=(document.body.offsetWidth/2)-(450/2)
-				let y=(window.screen.height/2)-(600/2)-50
-				window.open("../mypage/review_write.do?rno="+this.reserve_list[this.activeReserve].rno
-													+"&fno="+this.reserve_list[this.activeReserve].fno,
-						"",'width=450, height=600, left='+x+', top='+y+',scrollbar=yes')
-		    },
-		    cancelRequestBtn(){
-		    	axios.get('../rent/reserve_cancel_request_vue.do',{
+		    reserveDeleteBtn(rsno){
+		    	axios.get('../rent/reserve_delete_vue.do',{
 		    		params:{
-		    			rno:this.reserve_list[this.activeReserve].rno
+		    			rsno:rsno
 		    		}
 		    	}).then(res=>{
 		    		this.listData(this.activeReserve)
 		    	})
 		    },
-		    requestCancelBtn(){
-		    	axios.get('../rent/reserve_request_cancel_vue.do',{
+		    reserveOkBtn(rsno){
+		    	axios.get('../rent/reserve_ok_vue.do',{
 		    		params:{
-		    			rno:this.reserve_list[this.activeReserve].rno
+		    			rsno:rsno
 		    		}
 		    	}).then(res=>{
 		    		this.listData(this.activeReserve)

@@ -79,7 +79,7 @@
 				<div style="height: 10px;background-color: #F5F5F5;margin-top: 20px;margin-bottom: 20px;"></div>
 					
 				<div class="review_rating">
-		            <div class="warning_msg" style="text-align: center;margin-bottom: 20px;font-size: 18px;font-weight: bold;">구장은 어떠셨나요?</div>
+		            <div class="warning_msg" style="text-align: center;margin-bottom: 20px;font-size: 18px;font-weight: bold;">차량은 어떠셨나요?</div>
 		            <div class="rating" style="text-align: center;">
 		                <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
 		                <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점">

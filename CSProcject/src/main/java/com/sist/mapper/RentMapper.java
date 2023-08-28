@@ -147,4 +147,13 @@ public interface RentMapper {
 		  + "AND edate<SYSDATE "
 		  + "AND rstate='예약승인' ")
 	public void rstateUpdate();
+	
+	@Delete("DELETE FROM reserve2 "
+		  + "WHERE rno=#{rsno}")
+	public void reserveDelete(int rsno);
+	
+	@Update("UPDATE reserve2 "
+		  + "SET rstate='예약승인' "
+		  + "WHERE rno=#{rsno}")
+	public void reserveOk(int rsno);
 }

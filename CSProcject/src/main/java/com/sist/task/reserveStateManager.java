@@ -13,7 +13,6 @@ public class reserveStateManager {
 	
 	@Scheduled(fixedRate = 60000)
 	public void rentStateUpdate() {
-		System.out.println("Scheduled : rentStateUpdate");
 		dao.rstateUpdate();
 	}
 }

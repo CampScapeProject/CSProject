@@ -108,4 +108,12 @@ public class RentDAO {
 	public void rstateUpdate() {
 		mapper.rstateUpdate();
 	}
+	
+	public void reserveDelete(int rsno) {
+		mapper.reserveDelete(rsno);
+	}
+	
+	public void reserveOk(int rsno) {
+		mapper.reserveOk(rsno);
+	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.RentDAO;
+import com.sist.mail.MailManager;
 import com.sist.vo.*;
 
 import oracle.jdbc.proxy.annotation.Post;
@@ -33,6 +34,8 @@ import javax.servlet.http.HttpServletRequest;
 public class RentRestController {
 	@Autowired
 	private RentDAO dao;
+	@Autowired
+	private MailManager mailManager;
 	
 	@GetMapping(value = "rent/rentList_vue.do", produces = "text/plain;charset=UTF-8")
 	public String rentList(String date, boolean all, OArray oArray, String id) throws Exception {
@@ -349,5 +352,17 @@ public class RentRestController {
 		
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(list);
+	}
+	
+	@GetMapping(value = "rent/reserve_delete_vue.do", produces = "text/plain;charset=UTF-8")
+	public String reserve_delete(int rsno) {
+		dao.reserveDelete(rsno);
+		return "";
+	}
+	
+	@GetMapping(value = "rent/reserve_ok_vue.do", produces = "text/plain;charset=UTF-8")
+	public String reserve_ok(int rsno) {
+		dao.reserveOk(rsno);
+		return "";
 	}
 }

@@ -163,7 +163,7 @@
 										      				</div>
 										      				<div class="col-lg-4">
 										      					<h3 style="margin-bottom: 10px;"><b>예약상태</b></h3>
-										      					{{reviewState()?'이용완료':reserve_list[activeReserve].rstate}}
+										      					{{reserve_list[activeReserve].rstate}}
 										      				</div>
 										      			</div>
 													</template>
@@ -271,8 +271,7 @@
 		    reviewState(){
 		    	let today=new Date()
 		    	
-		    	return (new Date(this.reserve_list[this.activeReserve].dbedate) < new Date(today.toLocaleDateString())) 
-		    			&& (this.reserve_list[this.activeReserve].rstate == "예약승인") && (this.reserve_list[this.activeReserve].reviewok==0)
+		    	return (this.reserve_list[this.activeReserve].rstate == "이용완료") && (this.reserve_list[this.activeReserve].reviewok==0)
 		    },
 		    cancel(){
 		    	let today=new Date()
