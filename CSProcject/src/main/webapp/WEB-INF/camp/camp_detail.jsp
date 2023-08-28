@@ -239,7 +239,7 @@
             <div class="col-lg-10 posts-list">
                <div class="single-post"><!--style="width: 1000px"-->
                   <div class="feature-img">
-                     <img class="img-fluid" :src="camp_detail.image">
+                     <img class="img-fluid" :src="camp_detail.image" style="width: 900px;height: 500px">
                   </div>
                   <div class="blog_details">
                      <h2>{{camp_detail.name}}</h2>
@@ -260,7 +260,7 @@
                </div>
                <div class="navigation-top"><!--style="width: 1000px"-->
                   <div class="d-sm-flex justify-content-between text-center">
-                     <p class="like-info"><span class="align-middle"><i class="fa-solid fa-house"></i></span>총 {{camp_detail.hit}}명이 조회하였습니다</p>
+                     <p class="like-info"><span class="align-middle"><i class="fa-solid fa-house"></i></span>총 <span style="color: orange">{{camp_detail.hit}}</span>명이 조회하였습니다</p>
                      <div class="col-sm-4 text-center my-2 my-sm-0">
                         <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
                      </div>

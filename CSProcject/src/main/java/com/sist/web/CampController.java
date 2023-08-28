@@ -20,6 +20,18 @@ public class CampController {
 	public String camp_main() {
 		return "camp/camp_main";
 	}
+	
+	@GetMapping("camp/camp_main_find.do")
+	public String camp_main_find(String rdate,String state,String campfd,Model model) {
+		
+		System.out.println("날짜데이터:"+rdate);
+		model.addAttribute("rdate",rdate);
+		model.addAttribute("state",state);
+		model.addAttribute("campfd",campfd);
+		
+		return "camp/camp_main_find";
+	}
+	
 	@GetMapping("camp/camp_list.do")
 	public String camp_list(){
 		return "camp/camp_list";

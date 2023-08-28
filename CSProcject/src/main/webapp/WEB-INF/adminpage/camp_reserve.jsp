@@ -59,10 +59,10 @@
 							<div class="serial text-left">객실</div>
 							<div class="serial text-left">예약자</div>
 							<div class="serial text-left">인원</div>
-							<div class="visit text-left">예약일</div>
+							<div class="visit text-center">예약일</div>
 							<div class="serial text-left">가격</div>
 							<div class="serial text-left">승인 여부</div>
-							<div class="serial text-left">요청 사항</div>
+							<div class="serial text-left"></div>
 						</div>
 						
 						<div class="table-row" v-for="cvo in admin_clist">
@@ -79,9 +79,9 @@
 								<button class="btn btn-xs btn-primary" @click="rstateChange(cvo.rno)" style="font-size: 15px;">{{cvo.rstate}}</button>
 							</div>
 							<div class="serial">
-								<button class="btn btn-xs btn-primary" @click="seeDetail(true)" style="font-size: 15px;margin-right: 5px;">보기</button>
+								<button class="btn btn-xs btn-primary" @click="seeDetail(true)" style="font-size: 15px;margin-right: 5px;">요청사항</button>
 								<!--  요청사항 디테일 -->
-								 <div id="dialogDetail" :title="cvo.name+'님의 요청사항'" v-if="show" style="background-color: #EEEEEE;">
+								 <div id="dialogDetail" :title="cvo.name+'님의 요청사항'" v-if="show">
 						           		<div class="comment-form" style="margin-top: -55px;">
 						                   <div class="row" >
 						                      <div class="col-12">

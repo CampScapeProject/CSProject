@@ -127,7 +127,7 @@
 		                            <img :src="vo.image" :title="vo.name" style="height: 250px;">
 		                            <a href="#" class="prise">{{vo.mprice}}&nbsp;원</a>
 		                        </div>
-		                        <div class="place_info">
+		                        <div class="place_info" style="height:200px;">
 		                            <a :href="'../camp/camp_detail.do?cno='+vo.cno"><h3>{{vo.name}}</h3></a>
 		                            <p>{{vo.msg}}</p>
 		                            <i class="fa fa-phone-square" style="color: #E86A33"></i>&nbsp;<span>{{vo.phone}}</span><br>

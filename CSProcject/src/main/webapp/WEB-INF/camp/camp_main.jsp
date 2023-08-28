@@ -128,12 +128,12 @@ function uncomma(str) {
 	                                 <h3><b>가격</b></h3>
 	                                 <div class="row">
 										<input type="text" ref=spricefd v-model=spricefd placeholder="15,000"
-											onfocus="this.placeholder = ''" onblur="this.placeholder = '15,000 ~ 1,100,000사이 입력'" required
+											onfocus="this.placeholder = ''" onblur="this.placeholder = '15,000'" required
 												class="single-input-primary" style="margin-bottom: 20px;margin-left:12px;width: 100px;" onkeyup="inputNumberFormat(this)">
 										<span style="margin: 10px;">&nbsp;-&nbsp;</span>
-										<input type="text" ref=epricefd v-model=epricefd placeholder="1,100,000사이 입력"
-									onfocus="this.placeholder = ''" onblur="this.placeholder = '15,000 ~ 1,100,000사이 입력'" required
-										class="single-input-primary" style="margin-bottom: 20px;width: 100px;" onkeyup="inputNumberFormat(this)">
+										<input type="text" ref=epricefd v-model=epricefd placeholder="1,100,000"
+									onfocus="this.placeholder = ''" onblur="this.placeholder = '1,100,000'" required
+										class="single-input-primary" style="margin-bottom: 20px;width: 120px;" onkeyup="inputNumberFormat(this)">
 										<span style="margin: 10px;">&nbsp;원</span>
 									</div>
                                 </div>
@@ -173,19 +173,17 @@ function uncomma(str) {
 		                            <img :src="vo.image" :title="vo.name" style="height: 250px;">
 		                            <a href="#" class="prise">{{vo.mprice}}&nbsp;원</a>
 		                        </div>
-		                        <div class="place_info">
+		                        <div class="place_info" style="height: 255px;">
 		                            <a @click="detailPage(vo.cno)" style="cursor: pointer;"><h3>{{vo.name}}</h3></a>
 		                            <p>{{vo.msg}}</p>
 		                            <i class="fa fa-phone-square" style="color: #E86A33"></i>&nbsp;<span>{{vo.phone}}</span><br>
-		                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span>{{vo.address}}</span>
-		                            <div class="rating_days d-flex justify-content-between" style="margin-top: 8px;margin-bottom: -8px;">
-		                            		<!--  추천,찜 등 -->
-		                            </div>
+		                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span>{{vo.address}}</span><br>
+		                           <i class="fa-sharp fa-solid fa-eye" style="color:gray"></i><span>{{vo.hit}}</span>
 		                        </div>
 		                    </div>
 		                </div>
 			                <!--  page바 -->
-			            <div class="row" style="margin-left: 220px;margin-top:-40px;"> 
+			            <div class="col-lg-12 text-center"> 
 			                 <nav class="blog-pagination justify-content-center d-flex">
 	                            <ul class="pagination">
 	                                <li class="page-item" v-if="startpage>1">
@@ -230,7 +228,7 @@ function uncomma(str) {
 			
 		},
 		mounted:function(){
-			
+				
 			this.campRecive();
 		},
 		methods:{
@@ -238,12 +236,12 @@ function uncomma(str) {
 				
 				axios.get('../camp/camp_find_list_vue.do',{
 					params:{
-						page:this.curpage,
 						rdate:this.$refs.rdate.value,
 						state:this.$refs.state.value,
 						spricefd:this.spricefd,
 						epricefd:this.epricefd,
-						campfd:this.campfd
+						campfd:this.campfd,
+						page:this.curpage
 						
 					}
 				}).then(res=>{
@@ -258,6 +256,8 @@ function uncomma(str) {
 				location.href="../camp/camp_detail.do?cno="+no+"&rdate="+this.$refs.rdate.value;
 			},
 			findCamp:function(){
+				
+				
 				axios.get('../camp/camp_find_list_vue.do',{
 					params:{
 						page:1,

@@ -350,16 +350,13 @@ let campFind=new Vue({
 	},
 	methods:{
 		findReserve:function(){
-			axios.get('../camp/camp_find_list_vue.do',{
-				params:{
-					page:1,
-					rdate:this.$refs.rdate.value,
-					state:this.$refs.state.value,
-					campfd:this.campfd
-				}
-			}).then(res=>{
-				location.href="../camp/camp_main.do"				
-			})
+			let	rdate=this.$refs.rdate.value
+			let	state=this.$refs.state.value
+			let	campfd=this.campfd
+			
+		
+			location.href="../camp/camp_main_find.do?rdate="+rdate+"&state="+state+"&campfd="+campfd				
+			
 		}
 	}
 })
