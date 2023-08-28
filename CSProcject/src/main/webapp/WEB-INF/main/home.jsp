@@ -28,14 +28,14 @@
 		overflow: inherit;
 	}
 	
-	.table td, .table th {
+	.board_area > .table > td, .table > th {
 	    padding: 0.3rem;
 	    vertical-align: top;
 	    border-top: 1px solid #dee2e6;
 	    font-size: 14px;
 	}
 	
-	.table a:hover {
+	.board_area > .table > a:hover {
 		color: #E86A33;
 		font-weight: bold;
 	}
