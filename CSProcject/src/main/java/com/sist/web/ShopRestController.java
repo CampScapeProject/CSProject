@@ -83,9 +83,14 @@ public class ShopRestController {
 	}
 	
 	@GetMapping(value="shop/page_list_vue.do",produces = "text/plain;charset=UTF-8")
-	public String page_list(int page,int cateno) throws Exception {
+	public String page_list(String fd,int page,int cateno) throws Exception {
 		
-		int totalpage=service.shopTotalPage(cateno);
+		Map map=new HashMap();
+		
+		map.put("fd", fd);
+		map.put("cateno", cateno);
+		
+		int totalpage=service.shopTotalPage(map);
 		
 		// 시작페이지~끝페이지 1~10
 		final int BLOCK=10;
@@ -271,3 +276,7 @@ public class ShopRestController {
 	}
 	
 }
+
+
+
+

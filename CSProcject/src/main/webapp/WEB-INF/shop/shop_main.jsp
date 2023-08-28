@@ -116,7 +116,8 @@
          curpage:1,
          totalpage:0,
          startpage:0,
-         endpage:0
+         endpage:0,
+         fd:''
       },
       mounted: function(){
          axios.get('../shop/shop_cateList_vue.do')
@@ -132,12 +133,13 @@
          getList(cateno) {
             axios.get('../shop/shop_cateAllList_vue.do',{
                params:{
-                  cateno: cateno,
+                  cateno:cateno,
                   page:this.curpage,
-                  fd:''
+                  fd:this.fd
                }
             }).then(res => {/* 
                   console.log(res.data)  */
+                  console.log(res.data)
                   this.shop_all = res.data;
                }).catch(error => {
                   console.error(error);
@@ -147,10 +149,10 @@
             axios.get('../shop/page_list_vue.do',{
             	params:{
             		page:this.curpage,
-            		cateno:cateno
+            		cateno:cateno,
+            		fd:this.fd
             	}
-            }).then(res=>{/* 
-            	console.log(res.data)  */
+            }).then(res=>{
             	this.page_list=res.data
 				this.curpage=this.page_list.curpage
 				this.totalpage=this.page_list.totalpage

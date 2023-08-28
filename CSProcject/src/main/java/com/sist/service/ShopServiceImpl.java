@@ -39,8 +39,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public int shopTotalPage(int cateno) {
-		return dao.shopTotalPage(cateno);
+	public int shopTotalPage(Map map) {
+		return dao.shopTotalPage(map);
 	}
 
 	@Override

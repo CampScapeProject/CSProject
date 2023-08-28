@@ -383,7 +383,29 @@ a:hover {
 					<footer class="content">
 						<span id="footer_price">가격 : {{s.price.toLocaleString()}}원</span>
 						<h2 class="full-price">
-							<span>수정</span>
+						
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  수정하기
+</button>
+  <div class="modal fade" tabindex="-1" role="dialog" id="myModal" ref="vuemodal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
+							
 						</h2>
 					</footer>
 					
@@ -408,6 +430,9 @@ a:hover {
 	         </li>
 	     </ul>
 	 </nav>
+	
+	
+	
 	
 </div>
 
@@ -479,7 +504,8 @@ a:hover {
         totalpage:0,
         startpage:0,
         endpage:0,
-        curCate:1
+        curCate:1,
+        fd:''
 	},
     mounted: function(){
     	this.productList()
@@ -517,7 +543,7 @@ a:hover {
                  fd:this.productName
               }
            }).then(res => {
-        	   console.log(res.data)
+        	   /* console.log(res.data) */
                  this.shop_all = res.data;
         	   	 this.curCate=cateno
               }).catch(error => {
@@ -527,10 +553,11 @@ a:hover {
            axios.get('../shop/page_list_vue.do',{
 	           params:{
 	           		page:this.curpage,
-	           		cateno:cateno
+	           		cateno:cateno,
+	           		fd:this.productName
 	           }
            }).then(res=>{
-           	this.page_list=res.data
+           		this.page_list=res.data
 				this.curpage=this.page_list.curpage
 				this.totalpage=this.page_list.totalpage
 				this.startpage=this.page_list.startpage

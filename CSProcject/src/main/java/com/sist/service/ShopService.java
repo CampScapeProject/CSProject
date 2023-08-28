@@ -22,7 +22,7 @@ public interface ShopService {
 	
 	public ShopVO shopDetailList(int sno); 
 	
-	public int shopTotalPage(int cateno);
+	public int shopTotalPage(Map map);
 	
 	public List<ShopVO> shopCateDetailList(Map map);
 	

@@ -52,8 +52,8 @@ public class ShopDAO {
 	}
 	
 //	@Select("SELECT CEIL(COUNT(*)/12.0) FROM shop2 WHERE cateno=#{cateno}")
-	public int shopTotalPage(int cateno) {
-		return mapper.shopTotalPage(cateno);
+	public int shopTotalPage(Map map) {
+		return mapper.shopTotalPage(map);
 	}
 	
 //	@Select("SELECT sno,image,brand,name,price,detail_image,cateno,num "

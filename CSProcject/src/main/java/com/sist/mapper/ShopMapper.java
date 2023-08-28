@@ -35,8 +35,12 @@ public interface ShopMapper {
 	@Select("SELCET COUNT(*) FROM shop2")
 	public int shopRowCount();
 	
-	@Select("SELECT CEIL(COUNT(*)/12.0) FROM shop2 WHERE cateno=#{cateno}")
-	public int shopTotalPage(int cateno);
+	/*
+	 * @Select("SELECT CEIL(COUNT(*)/12.0) FROM shop2 WHERE cateno=#{cateno} AND name LIKE '%'||#{fd}||'%'"
+	 * )
+	 */
+	@Select("SELECT CEIL(COUNT(*)/12.0) FROM shop2 WHERE cateno=#{cateno} AND (#{fd} IS NULL OR name LIKE '%'||#{fd}||'%')")
+	public int shopTotalPage(Map map);
 	
 	@Select("SELECT sno,image,brand,name,price,detail_image,cateno,num "
 			+ "FROM (SELECT sno,image,brand,name,price,detail_image,cateno,rownum as num "
