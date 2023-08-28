@@ -15,7 +15,7 @@
 
 
 
-h2 {
+memh2 {
   margin-bottom:0px;
   margin-top:25px;
   text-align:center;
@@ -38,19 +38,7 @@ h2 {
   display:-ms-flexbox;
   display:flex;
   margin-top:100px;
-}
-
-ul {
-  margin:0;
-  padding:0;
-}
-ul li {
-  list-style:none;
-  padding-left:10px;
-  cursor:pointer;
-}
-ul li:hover {
-  background:rgba(255,255,255,0.1);
+  margin-left: 100px;
 }
 
 .thin {
@@ -65,12 +53,12 @@ ul li:hover {
   width:100%;
 }
 .half-input-table td:first-of-type {
-  border-right:10px solid #4488dd;
+  border-right:10px solid mediumseagreen;
   width:50%;
 }
 .window {
-  height:540px;
-  width:800px;
+  height:650px;
+  width:1000px;
   background:#fff;
   display:-webkit-box;
   display:-webkit-flex;
@@ -100,7 +88,7 @@ ul li:hover {
   bottom:0px;
   position:absolute;
   right:0px;
-  color:#4488dd;
+  color:mediumseagreen;
 }
 .order-table td:first-of-type {
   width:25%;
@@ -129,12 +117,12 @@ ul li:hover {
 }
 .pay-btn {
   border:none;
-  background:#22b877;
+  background:white;
   line-height:2em;
   border-radius:10px;
   font-size:19px;
   font-size:1.2rem;
-  color:#fff;
+  color:black;
   cursor:pointer;
   position:absolute;
   bottom:25px;
@@ -179,7 +167,7 @@ ul li:hover {
   margin-right:auto;
 }
 .credit-info {
-  background:#4488dd;
+  background:mediumseagreen;
   height:100%;
   width:50%;
   color:#eee;
@@ -188,7 +176,7 @@ ul li:hover {
       -ms-flex-pack:center;
           justify-content:center;
   font-size:14px;
-  font-size:.9rem;
+  font-size:1.1rem;
   display:-webkit-box;
   display:-webkit-flex;
   display:-ms-flexbox;
@@ -290,19 +278,19 @@ ul li:hover {
   <div class='window'>
     <div class='order-info' style='overflow-y: scroll'>
       <div class='order-info-content'>
-        <h2>회원 내역</h2>
+        <h2 class="memh2">회원 내역</h2>
                 <div class='line'></div>
         <table class='order-table'>
           <tbody>
 				<tr class="success">
 					<th width=20% class="text-center">아이디</th>
-					<th width=20% class="text-center">이름</th>
-					<th width=20% class="text-center">생년월일</th>
+					<th width=30% class="text-center">이름</th>
+					<th width=30% class="text-center">생년월일</th>
 				</tr>
 				<tr v-for="m in memberList"  @click="detailInfoGo(m.id)">
 					<td width=20% class="text-center" style="vertical-align: middle;">{{m.id}}</td>
-					<td width=20% class="text-center" style="vertical-align: middle;">{{m.name}}</td>
-					<td width=20% class="text-center" style="vertical-align: middle;">{{m.birth}}</td>
+					<td width=30% class="text-center" style="vertical-align: middle;">{{m.name}}</td>
+					<td width=30% class="text-center" style="vertical-align: middle;">{{m.birth}}</td>
 				</tr>
 
           </tbody>
@@ -348,15 +336,15 @@ ul li:hover {
 			성별
             <div class="radio">
                 <label>
-                    <input type="radio" name=sex value="남" v-model="sex" />남자 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name=sex value="여" v-model="sex" />여자
+                    <input type="radio" name=sex value="남" v-model="sex" /><span style="color:white">남자</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name=sex value="여" v-model="sex" /><span style="color:white">여자</span>
                 </label>
             </div>
             관리자
              <div class="radio">
                  <label>
-                     <input type="radio" value="n" v-model="admin" />NO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <input type="radio" value="y" v-model="admin" />YES
+                     <input type="radio" value="n" v-model="admin" /><span style="color:white">NO</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <input type="radio" value="y" v-model="admin" /><span style="color:white">YES</span>
                  </label>
              </div>
 			
@@ -449,6 +437,7 @@ new Vue({
 			}).then(res=>{
 				
 				this.detailInfo(this.id)
+				location.href="../adminpage/main.do";
 				
 			})	
 		}

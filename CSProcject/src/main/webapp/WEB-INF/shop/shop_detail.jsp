@@ -15,16 +15,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
 
 
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-/*   border: 1px solid silver; */
-}
-
-body {
-  font-family: 'Noto Sans KR', sans-serif;
+#sbody {
+/*   font-family: 'Noto Sans KR', sans-serif; */
   font-size: 14px;
   line-height: 1.2rem;
   color: #11111;
@@ -610,19 +602,32 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 #select-count {
 	display: block !important;
 }
+.shop_detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* 원하는 정렬 방식으로 변경 */
+  width: 1300px; /* 가로 폭을 100%로 설정 */
+  margin: 0px auto;
+}
+
+#shop1, #shop2 {
+  width: 48%; /* 각 섹션의 폭을 조절하여 여백을 남깁니다 */
+}
+
+
 </style>
  
 </head>
-<body>
+<body id="sbody">
 
-	<div class="sb_detail" style="width:1200px;margin: 0 auto;">
-	  <div id="totop" class="event">
-	    <p>카카오 채널 추가 시 3천원 할인!</p>
-	  </div>
 
-		<div class="shop_detail">
+	<div class="shop_detail">
+
+		<span style="width:85%" id="shop1">
+		  <div id="totop" class="event">
+		    <p>카카오 채널 추가 시 3천원 할인!</p>
+		  </div>
 		  <main>
-		
 		    <img :src="shopDetail.image" id="shopMain">
 	
 		    <section>
@@ -751,22 +756,24 @@ main .purchase> :nth-child(3)> :nth-child(2) strong {
 		      <img src="https://xexymix.jpg3.kr/xexymix/2020m/main/quick_btn_top.png" alt="top">
 		    </a>
 		  </div>
-    
-    	<!--  cookie  -->
-		    <aside class="single_sidebar_widget popular_post_widget">
-		       <h3 class="widget_title">최근 본 상품</h3>
-		       <div class="media post_item"  v-for="c in cookie_list">
-		          <img :src="c.image" alt="post" style="width: 100px;height:100px">
-		          <div class="media-body">
-		             <a href="single-blog.html">
-		                <h3>{{c.name}}</h3>
-		             </a>
-		          </div>
-		       </div>
-		    </aside>
-    
+    	  </span>
+    	  
+    		<!--  cookie  -->
+	    	<span id="shop2" style="width:15%;margin-left:20px">
+			    <aside class="single_sidebar_widget popular_post_widget">
+			       <h3 class="widget_title">최근 본 상품</h3>
+			       <div class="media post_item"  v-for="c in cookie_list">
+			          <img :src="c.image" alt="post" style="width: 100px;height:100px">
+			          <div class="media-body">
+			             <a :href="'../shop/shop_detail.do?sno='+c.sno">
+			                <h4>{{c.name}}</h4>
+			             </a>
+			          </div>
+			       </div>
+			    </aside>
+	    	</span>
+    		
 		</div>
-	</div>
 </body>
 
 <script>

@@ -348,14 +348,14 @@ a:hover {
 
 <div class="shop_admin">
 	<header id="site-header">
-		<div class="container">
-			<h1><strong>물품 정보</strong></h1>
+		<div class="col-lg-12 text-left" style="margin-bottom: 20px;">
+			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">물품 정보</span>
 		</div>
         <div class="row justify-content-center">
             <div class="col-lg-11">
                 <div class="section_title text-center mb_70">
                     <div class="button-container">
-	                    <a v-for="c in shop_cate" @click="getList(c.cateno)" style="margin:5px;" id="cateName">{{c.cname}}</a>
+	                    <a v-for="c in shop_cate" @click="getList(c.cateno)" style="margin:5px;border:none" id="cateName">{{c.cname}}</a>
                     </div>
                 </div>
             </div>
