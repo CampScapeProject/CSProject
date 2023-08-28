@@ -92,7 +92,9 @@ public class RecipeRestController {
 			List<CommentVO> list = dao.CommentListData(rno);
 			ObjectMapper mapper = new ObjectMapper();
 			json = mapper.writeValueAsString(list);
-		}catch(Exception ex) {}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
 		
 		return json;
 	}
@@ -112,9 +114,9 @@ public class RecipeRestController {
 	@PostMapping(value = "recipe/comment_update_vue.do", produces = "text/plain;charset=UTF-8")
 	public String recipe_comment_update(CommentVO vo)
 	{
-			dao.CommentUpdate(vo);
-			
-			return recipe_comment_list(vo.getRno());
+		dao.CommentUpdate(vo);
+		
+		return recipe_comment_list(vo.getRno());
 	}
 	
 	@GetMapping(value = "recipe/comment_delete_vue.do", produces = "text/plain;charset=UTF-8")

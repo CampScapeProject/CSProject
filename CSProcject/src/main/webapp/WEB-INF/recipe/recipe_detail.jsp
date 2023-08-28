@@ -39,13 +39,42 @@
 		font-weight: bold;
 	}
 	
+	.comment {
+		margin-bottom: 50px;
+		margin-top: 10px;
+	}
+	
+	.comment_title {
+		margin-top: -50px;
+		padding: 10px;
+	}
+	
+	.comment_title_span {
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
 </style>
 </head>
 <body>
 
+	<div class="where_togo_area" style="padding: 30px;">
+	    <div class="container" style="margin: 0 auto;">
+	    	<div class=row>
+	         <div class="col-lg-3">
+	             <div class="form_area">
+	                 <h1 style="color: white;text-align: center;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">Recipe</h1>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
 <div class="recipe">
 	<div class="container">
 		<div class="row1">
+		
+			<!-- 레시피 -->
 			<table class="table">
 				<tr>
 					<td class="text-center" colspan=3>
@@ -93,15 +122,19 @@
 				</tr>
 			</table>
 			
+			<div class="comment_title">
+				<i class="fa-regular fa-comments fa-2xl" style="margin-right: 20px; color:#E86A33"></i><span class="comment_title_span">댓글</span>
+			</div>
+			
 			<div class="comment">
 				<!-- 댓글 -->
 				<table class="table" v-for="cvo in comment_list">
 					<tr>
-						<td class="text-left">
-							<i class="fa-solid fa-user fa-xl" style="color: #8f8f8f;"></i>&nbsp;&nbsp;{{cvo.nickname}}<span style="font-size: 12px;">  &#91;{{cvo.dbday}}&#93;</span>
+						<td class="text-left" style="vertical-align: middle;">
+							<i class="fa-solid fa-user fa-lg" style="color: #8f8f8f;"></i>&nbsp;&nbsp;{{cvo.nickname}}<span style="font-size: 12px;">  &#91;{{cvo.dbday}}&#93;</span>
 						</td>
 						
-						<td class="text-right">
+						<td class="text-right" style="vertical-align: middle;">
 							<span v-if="sessionId==cvo.id">
 								<input type=button class="btn btn-sm btn-default ups" value="수정" :id="'up'+cvo.cmno" @click="commentUpdateForm(cvo.cmno)">
 		    					<input type=button class="btn btn-sm btn-default" value="삭제" @click="commentDelete(cvo.cmno)">
@@ -211,7 +244,7 @@
 			// 댓글 목록
 			commentList:function(){
 				
-				console.log(this.zrno)
+				console.log(this.rno)
 				
 				axios.get('../recipe/comment_list_vue.do',{
 					params:{

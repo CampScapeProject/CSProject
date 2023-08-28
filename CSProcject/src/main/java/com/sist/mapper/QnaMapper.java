@@ -69,14 +69,23 @@ public interface QnaMapper {
 	public void qnaDepthDecrement(int qno);
 	
 	// 마이 페이지
-	@Select("SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD'), open, group_step, group_tab, depth FROM qna2 WHERE id=#{id} ORDER BY qno DESC")
-	public List<QnaVO> mp_qnaList(String id);
+	@Select("SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD'), open, group_step, group_tab, depth, num "
+			+ "FROM (SELECT qno, qcno, id, name, title, regdate, open, group_step, group_tab, depth, rownum as num"
+			+ "FROM (SELECT qno, qcno, id, name, title, regdate, open, group_step, group_tab, depth FROM qna2 WHERE id=#{id} ORDER BY qno DESC)"
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<QnaVO> mp_qnaList(Map map);
 	
 	@Select("SELECT CEIL(COUNT(*)/10.0) FROM qna2 WHERE id=#{id}")
 	public int mp_qnaTotalPage(String id);
 	
 	// 관리자 페이지
-	@Select("SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD'), open, gorup_step, group_tab, depth FROM qna2 WHERE group_step='0' ORDER BY qno DESC")
-	public List<QnaVO> ap_qnaList();
+	@Select("SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit, open, group_tab, depth, num "
+			+ "FROM (SELECT qno, qcno, id, name, title, regdate , hit, open, group_tab, depth, rownum as num "
+			+ "FROM (SELECT qno, qcno, id, name, title, regdate , hit, open, group_tab, depth "
+			+ "FROM qna2 WHERE group_step='0' ORDER BY group_id DESC, group_step ASC)) "
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<QnaVO> ap_qnaList(Map map);
+	
+	
 	
 }

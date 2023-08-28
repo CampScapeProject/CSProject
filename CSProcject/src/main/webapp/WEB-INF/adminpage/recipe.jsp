@@ -12,7 +12,7 @@
 	
 	.row1 {
 		margin: 0px auto;
-		padding-right: 120px;
+		padding-right: 100px;
 	}
 	
 	.recipe_pagination {

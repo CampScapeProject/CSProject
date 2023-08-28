@@ -135,7 +135,15 @@ public class QnaRestController {
 	@GetMapping(value = "qna/mp_qna_main.do", produces = "text/plain;charset=UTF-8")
 	public String mp_qna_main(int page, String id) throws Exception
 	{
-		List<QnaVO> list = dao.mp_qnaList(id);
+		Map map = new HashMap();
+		int rowSize=15;
+		int start = (rowSize*page)-(rowSize-1);
+		int end = rowSize*page;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("id", id);
+		
+		List<QnaVO> list = dao.mp_qnaList(map);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
 		
@@ -165,4 +173,43 @@ public class QnaRestController {
 		return json;
 	}
 	
+	@GetMapping(value = "qna/ap_qna_main.do", produces = "text/plain;charset=UTF-8")
+	public String ap_qna_main(int page) throws Exception
+	{
+		Map map = new HashMap();
+		int rowSize=15;
+		int start = (rowSize*page)-(rowSize-1);
+		int end = rowSize*page;
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<QnaVO> list = dao.ap_qnaList(map);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "qna/ap_qna_page.do", produces = "text/plain;charset=UTF-8")
+	public String ap_qna_page(int page) throws Exception
+	{
+		int totalpage = dao.qnaTotalpage();
+		
+		final int BLOCK = 5;
+		int startpage = ((page-1)/BLOCK*BLOCK)+1;
+		int endpage = ((page-1)/BLOCK*BLOCK)+BLOCK;
+		
+		if(endpage>totalpage)
+			endpage = totalpage;
+
+		PageVO vo = new PageVO();
+		vo.setTotalpage(totalpage);
+		vo.setCurpage(page);
+		vo.setStartpage(startpage);
+		vo.setEndpage(endpage);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
 }

@@ -12,7 +12,7 @@
 	
 	.row1 {
 		margin: 0px auto;
-		padding-right: 120px;
+		padding-right: 100px;
 	}
 	
 	.recipe_pagination {
@@ -20,7 +20,7 @@
 	}
 	
 	.reply_ok {
-		color: #CD4646;
+		color: #EB0000;
 		font-weight: bold;
 	}
 	
@@ -39,18 +39,18 @@
 	<div class="qna_container">
 		<div class="container">
 			<div class="row1">
+				<span class="qna_title"></span>
+				
 				<table class="table">
 					<tr>
 						<th width=10% class="text-center">NO.</th>
-						<th width=55% class="text-center">제목</th>
-						<th width=20% class="text-center">작성자</th>
-						<th width=15% class="text-center"></th>
+						<th width=70% class="text-center">제목</th>
+						<th width=20% class="text-center"></th>
 					</tr>
 					<tr v-for="vo in qna_list">
 						<td width=10% class="text-center">{{vo.qno}}</td>
-						<td width=55%><a :href="'../qna/qna_detail.do?qno='+vo.qno">{{vo.title}}</a></td>
-						<td width=20% class="text-center">{{vo.id}}</td>
-						<td width=15% class="text-center">
+						<td width=70%><a :href="'../qna/qna_detail.do?qno='+vo.qno">{{vo.title}}</a></td>
+						<td width=20% class="text-center">
 							<span class="reply_ok" v-if="vo.depth>=1">답변 완료</span>
 						</td>
 					</tr>
