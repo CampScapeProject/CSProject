@@ -26,7 +26,7 @@ public interface RecipeMapper {
 	public RecipeVO recipeDetailData(int rno);
 	
 	// 댓글
-	@Select("SELECT cmno, rno, id, nickname, msg, TO_CHAT(regdate, 'YYYY\"년\" MM\"월\" DD\"일\" hh24:mi') as dbday FROM comment WHERE rno=#{rno}")
+	@Select("SELECT cmno, rno, id, nickname, msg, TO_CHAR(regdate, 'YYYY\"년\" MM\"월\" DD\"일\" hh24:mi') as dbday FROM comment WHERE rno=#{rno}")
 	public List<CommentVO> CommentListData(int rno);
 	
 	@Insert("INSERT INTO comment2 VALUES(cm2_cmno_seq.nextval, #{rno}, #{id}, #{nickname}, #{msg}, SYSDATE)")

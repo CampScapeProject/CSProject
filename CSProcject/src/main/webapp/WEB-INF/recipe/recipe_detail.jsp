@@ -13,8 +13,6 @@
 	
 	.row1 {
 		margin: 0px auto;
-		display: flex;
-		justify-content: space-between;
 	}
 
 	/* 순서 상-우-하-좌 */
@@ -95,45 +93,47 @@
 				</tr>
 			</table>
 			
-			<!-- 댓글 -->
-			<table class="table" v-for="cvo in comment_list">
-				<tr>
-					<td class="text-left">
-						<i class="fa-solid fa-user fa-xl" style="color: #8f8f8f;"></i>&nbsp;&nbsp;{{cvo.nickname}}<span style="font-size: 12px;">  &#91;{{cvo.dbday}}&#93;</span>
-					</td>
+			<div class="comment">
+				<!-- 댓글 -->
+				<table class="table" v-for="cvo in comment_list">
+					<tr>
+						<td class="text-left">
+							<i class="fa-solid fa-user fa-xl" style="color: #8f8f8f;"></i>&nbsp;&nbsp;{{cvo.nickname}}<span style="font-size: 12px;">  &#91;{{cvo.dbday}}&#93;</span>
+						</td>
+						
+						<td class="text-right">
+							<span v-if="sessionId==cvo.id">
+								<input type=button class="btn btn-sm btn-default ups" value="수정" :id="'up'+cvo.cmno" @click="commentUpdateForm(cvo.cmno)">
+		    					<input type=button class="btn btn-sm btn-default" value="삭제" @click="commentDelete(cvo.cmno)">
+							</span>
+						</td>
+					</tr>
 					
-					<td class="text-right">
-						<span v-if="sessionId==cvo.id">
-							<input type=button class="btn btn-sm btn-default ups" value="수정" :id="'up'+cvo.cmno" @click="commentUpdateForm(cvo.cmno)">
-	    					<input type=button class="btn btn-sm btn-default" value="삭제" @click="commentDelete(cvo.cmno)">
-						</span>
-					</td>
-				</tr>
+					<tr>
+						<td colspan=2><pre style="white-space: pre-wrap;background-color: white;border: none">{{cvo.msg}}</pre></td>
+					</tr>
+					
+					<!-- 댓글 업데이트 -->
+					<tr :id="'u'+cvo.cmno" class="updates" style="display:none">
+						<td colspan=2>
+							<textarea rows=3 cols=100 :id="'msg'+cvo.cmno" style="float:left; resize: none;">{{cvo.msg}}</textarea>
+							<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentUpdate(cvo.cmno)">수정</button>
+						</td>
+					</tr>
+				</table>
 				
-				<tr>
-					<td colspan=2><pre style="white-space: pre-wrap;background-color: white;border: none">{{cvo.msg}}</pre></td>
-				</tr>
-				
-				<!-- 댓글 업데이트 -->
-				<tr :id="'u'+cvo.cmno" class="updates" style="display:none">
-					<td colspan=2>
-						<textarea rows=3 cols=100 :id="'msg'+cvo.cmno" style="float:left; resize: none;">{{cvo.msg}}</textarea>
-						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentUpdate(cvo.cmno)">수정</button>
-					</td>
-				</tr>
-			</table>
-			
-			<!-- 댓글 작성 -->
-			<c:if test="${sessionScope.id!=null }">
-			<table class="table">
-				<tr>
-					<td>
-						<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg" v-model="msg"></textarea>
-						<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentInsert()">댓글 작성</button>
-					</td>
-				</tr>
-			</table>
-			</c:if>
+				<!-- 댓글 작성 -->
+				<c:if test="${sessionScope.id!=null }">
+				<table class="table">
+					<tr>
+						<td>
+							<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg" v-model="msg"></textarea>
+							<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentInsert()">댓글 작성</button>
+						</td>
+					</tr>
+				</table>
+				</c:if>
+			</div>
 			
 			
 		</div>
@@ -210,13 +210,18 @@
 			
 			// 댓글 목록
 			commentList:function(){
+				
+				console.log(this.zrno)
+				
 				axios.get('../recipe/comment_list_vue.do',{
 					params:{
 						rno:this.rno
 					}
 				}).then(res=>{
-					console.log(res.data)
+					console.log("데이터 : ",res.data)
+					
 					this.comment_list = res.data
+					this.msg = this.comment_list.msg
 				}).catch(error=>{
 					console.log(error.response)
 				})
@@ -240,7 +245,7 @@
 					this.comment_list=res.data
 					this.msg='';
 				}).catch(error=>{
-					console.log(error.response)
+					console.log("에러 : ",error)
 				})
 			},
 			

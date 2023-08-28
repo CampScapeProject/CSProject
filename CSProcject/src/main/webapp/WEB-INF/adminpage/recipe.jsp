@@ -154,9 +154,7 @@
 				
 				alert("삭제하시겠습니까?")
 				
-				console.log(rno);
-				
-				axios.post("../recipe/recipe_del_vue.do", {
+				axios.post("../recipe/recipe_del_vue.do", null, {
 					params:{
 						rno:rno
 					}

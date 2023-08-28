@@ -177,7 +177,6 @@ public class RecipeRestController {
 	@PostMapping(value = "recipe/recipe_del_vue.do", produces = "text/plain;charset=UTF-8")
 	public void recipe_delete(int rno)
 	{
-		System.out.println("rno : "+rno);
 		dao.RecipeDelete(rno);
 	}
 	
