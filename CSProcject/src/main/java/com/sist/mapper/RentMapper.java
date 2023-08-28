@@ -139,4 +139,12 @@ public interface RentMapper {
 	
 	//관리자페이지 예약리스트
 	public List<ReserveVO> adminReserveListData(Map map);
+	
+	//스케줄 - 예약상태변경
+	@Update("UPDATE reserve2 "
+		  + "SET rstate='이용완료' "
+		  + "WHERE type='r' "
+		  + "AND edate<SYSDATE "
+		  + "AND rstate='예약승인' ")
+	public void rstateUpdate();
 }

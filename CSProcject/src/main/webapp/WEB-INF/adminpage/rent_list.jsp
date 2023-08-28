@@ -22,6 +22,13 @@
 		cursor: pointer;
 		font-weight: bold;
 	}
+	#fuel{
+		display:block !important;
+	}
+	.nice-select{
+		display: none !important;
+	}
+	
 </style>
 </head>
 <body>
@@ -139,7 +146,7 @@
 	   						<tr>
 		   						<th class="text-center" width=15%>연료</th>
 		   						<td width=85% class="text-left">
-									<select v-model="fuel" style="width: 70px;height: 25px">
+									<select v-model="fuel" style="width: 70px;height: 25px" id="fuel">
 										<option value="휘발유">휘발유</option>
 										<option value="경유">경유</option>
 										<option value="LPG">LPG</option>

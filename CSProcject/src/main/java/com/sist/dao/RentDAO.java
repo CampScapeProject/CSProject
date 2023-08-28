@@ -104,4 +104,8 @@ public class RentDAO {
 	public List<ReserveVO> adminReserveListData(Map map){
 		return mapper.adminReserveListData(map);
 	}
+	
+	public void rstateUpdate() {
+		mapper.rstateUpdate();
+	}
 }
