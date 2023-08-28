@@ -65,7 +65,7 @@ public interface RecipeMapper {
 	public int commentCount(int rno);
 	
 	// 찜
-	@Insert("INSERT INTO jjim2 VALUES(j2_no_seq.nextval, #{id}, 'p', #{rno}")
+	@Insert("INSERT INTO jjim2 (no, id, type, sno) VALUES(j2_no_seq.nextval, #{id}, 'p', #{rno})")
 	public void recipeJjimInsert(Map map);
 	
 	@Delete("DELETE FROM jjim2 WHERE id=#{id} AND type='p' AND sno=#{rno}")

@@ -218,9 +218,7 @@ public class RecipeRestController {
 	
 	@PostMapping(value = "recipe/jjim_insert.do", produces = "text/plain;charset=UTF-8")
 	public void jjim_insert(int rno, String id)
-	{
-		System.out.println("rno : "+rno);
-		
+	{	
 		Map map = new HashMap();
 		map.put("rno", rno);
 		map.put("id", id);

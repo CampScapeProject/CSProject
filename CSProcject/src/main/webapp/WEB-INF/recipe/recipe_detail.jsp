@@ -215,8 +215,8 @@
 			jjim:0,
 			recommend:0,
 			comment_list:[],
-			sessionId:"${sessionScope.id}",
-			sessionNickname:"${sessionScope.nickname}",
+			sessionId:"${id}",
+			sessionNickname:"${nickname}",
 			msg:'',
 			isShow:false,
 			cmno:0,
@@ -243,6 +243,7 @@
 				console.log(res.data)
 				this.commentTotal = res.data
 			})
+
 		},
 		methods:{
 			dataRecive:function(){
@@ -275,8 +276,6 @@
 			
 			// 댓글 목록
 			commentList:function(){
-				
-				console.log(this.rno)
 				
 				axios.get('../recipe/comment_list_vue.do',{
 					params:{
@@ -403,31 +402,36 @@
 			// 찜하기
 			jjimInsert:function(){
 				
-				console.log("아이디 : ", this.sessionId)
-				
-				if(this.sessionId==null)
+				if(this.sessionId==="")
 				{
 					alert("로그인 후 이용해주세요.")
-					a.href="../member/login.do";
+					location.href="../member/login.do";
 					return;
 				}
+				else {
+					axios.post('../recipe/jjim_insert.do', null, {
+						params:{
+							rno:this.rno,
+							id:this.sessionId
+						}
+					}).then(res=>{
+						
+						location.href="../recipe/recipe_detail.do?rno="+this.rno
+						
+					}).catch(error=>{
+						console.log(error.response)
+					})
+				}
 				
-				axios.post('../recipe/jjim_insert.do', null, {
-					rno:this.rno,
-					id:this.sessionId
-				}).then(res=>{
-					
-					
-				}).catch(error=>{
-					console.log(error.response)
-				})
 			},
 			
 			// 찜 삭제
 			jjimDelete:function(){
 				axios.post('../recipe/jjim_delete.do',null, {
-					rno:this.rno,
-					id:this.sessionId
+					params:{
+						rno:this.rno,
+						id:this.sessionId
+					}
 				}).then(res=>{
 					
 				}).catch(error=>{

@@ -122,7 +122,7 @@
 					
 					<div class="card-description-detail text-right">
 						<i class="fa-solid fa-eye fa-sm" style="color: #8f8f8f;"></i><span>     {{vo.hit}}</span>
-						<i class="fa-solid fa-heart fa-sm" style="color: #8f8f8f;"></i><span></span>
+						<i class="fa-solid fa-heart fa-sm" style="color: #8f8f8f;"></i><span>     {{vo.jjim}}</span>
 					</div>
 				</li>
 			</div>			
