@@ -32,12 +32,7 @@
                                             <li><a href="../camp/camp_main.do">캠핑장예약</a></li>
                                             <li><a href="../rent/rent_main.do">렌터카</a></li>
                                             <li><a href="../shop/shop_main.do">쇼핑몰</a></li>
-                                            <li><a href="#">캠핑정보 <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                        <li><a href="../camptip/camptip_main.do">캠핑팁</a></li>
-                                                        <li><a href="../recipe/recipe_main.do">레시피</a></li>
-                                                </ul>
-                                            </li>
+                                            <li><a href="../recipe/recipe_main.do">레시피</a></li>
                                             <c:if test="${sessionScope.admin=='n' }"><li><a href="../mypage/main.do">마이페이지</a></li></c:if>
                                             <c:if test="${sessionScope.admin=='y' }"><li><a href="../adminpage/main.do">관리자페이지</a></li></c:if>
                                             <li><a href="#">고객센터 <i class="ti-angle-down"></i></a>

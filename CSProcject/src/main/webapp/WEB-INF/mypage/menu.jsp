@@ -45,6 +45,11 @@
 					<li><a href="../mypage/shop_basket.do">- 장바구니</a></li>
 				</ul>
 				
+				<h4>레시피</h4>
+				<ul class="nav-menu-li">
+					<li><a href="../mypage/recipe.do">- 내가 찜한 레시피</a></li>
+				</ul>
+				
 				<h5><a href="../mypage/qna.do">내가 작성한 문의글</a></h5>
 			</div>
 		</div>
