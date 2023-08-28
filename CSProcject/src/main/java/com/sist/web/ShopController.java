@@ -2,6 +2,11 @@ package com.sist.web;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -27,9 +32,26 @@ public class ShopController {
 	}
 	
 	@GetMapping("shop/shop_detail.do")
-	public String shop_detail(int sno,Model model) {
+	public String shop_detail(int sno,Model model,HttpServletResponse response, HttpServletRequest request) {
 		
 		model.addAttribute("sno", sno);
+		
+		Cookie[] cookies=request.getCookies();
+		if(cookies!=null) {
+			for(int i=cookies.length-1;i>=0;i--) {
+				String key=cookies[i].getName();
+				if(key.equals("shop_"+sno)) {
+					cookies[i].setMaxAge(0); // 쿠키를 삭제하기 위해 만료시간을 0으로 설정
+	                cookies[i].setPath("/");
+	                response.addCookie(cookies[i]);
+				}
+			}
+		}
+		
+		Cookie cookie=new Cookie("shop_"+sno, String.valueOf(sno));
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24);
+		response.addCookie(cookie);
 		
 		return "shop/shop_detail";
 	}

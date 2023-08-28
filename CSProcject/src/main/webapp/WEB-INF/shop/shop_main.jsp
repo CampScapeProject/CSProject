@@ -83,6 +83,7 @@
             </div>
         </div>
     </div>
+    
 	 <nav class="blog-pagination justify-content-center d-flex" style="margin-top:40px;margin-bottom:40px">
 	     <ul class="pagination">
 	         <li class="page-item" v-if="startpage>1">
@@ -119,23 +120,24 @@
       },
       mounted: function(){
          axios.get('../shop/shop_cateList_vue.do')
-            .then(res => {
-             console.log(res.data) 
+            .then(res => {/* 
+             console.log(res.data)  */
                this.shop_cate = res.data;
             }).catch(error => {
                console.error(error);
             });
-         this.getList(1)
+         this.getList(1);
       },
       methods: {
          getList(cateno) {
             axios.get('../shop/shop_cateAllList_vue.do',{
                params:{
                   cateno: cateno,
-                  page:this.curpage
+                  page:this.curpage,
+                  fd:''
                }
-            }).then(res => {
-                  console.log(res.data) 
+            }).then(res => {/* 
+                  console.log(res.data)  */
                   this.shop_all = res.data;
                }).catch(error => {
                   console.error(error);
@@ -147,8 +149,8 @@
             		page:this.curpage,
             		cateno:cateno
             	}
-            }).then(res=>{
-            	console.log(res.data) 
+            }).then(res=>{/* 
+            	console.log(res.data)  */
             	this.page_list=res.data
 				this.curpage=this.page_list.curpage
 				this.totalpage=this.page_list.totalpage
