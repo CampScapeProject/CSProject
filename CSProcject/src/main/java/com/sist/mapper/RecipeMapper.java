@@ -66,17 +66,17 @@ public interface RecipeMapper {
 	
 	// 찜
 	@Insert("INSERT INTO jjim2 VALUES(j2_no_seq.nextval, #{id}, 'p', #{rno}")
-	public void recipeJjimInsert(String id, int rno);
+	public void recipeJjimInsert(Map map);
 	
 	@Delete("DELETE FROM jjim2 WHERE id=#{id} AND type='p' AND sno=#{rno}")
-	public void reicpeJjimDelete(String id, int rno);
+	public void reicpeJjimDelete(Map map);
 	
 	@Select("SELECT COUNT(*) FROM jjim2 WHERE type='p' AND sno=#{rno}")
 	public int recipeJjimCount(int rno);
 	
 	// 찜 확인용
 	@Select("SELECT COUNT(*) FROM jjim2 WHERE type='p' AND sno=#{rno} AND id=#{id}")
-	public int recipeJjim_ok(int rno, String id);
+	public int recipeJjim_ok(Map map);
 	
 	@Update("UPDATE recipe2 SET jjim=jjim+1 WHERE rno=#{rno}")
 	public void recipeJjimIncrease(int rno);

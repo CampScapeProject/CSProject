@@ -87,16 +87,24 @@ public class RecipeDAO {
 	}
 	
 	// 찜
-	public void recipeJjimInsert(String id, int rno)
+	public void recipeJjimInsert(Map map)
 	{
-		mapper.recipeJjimIncrease(rno);
-		mapper.recipeJjimInsert(id, rno);
+		mapper.recipeJjimInsert(map);
 	}
 	
-	public void reicpeJjimDelete(String id, int rno)
+	public void recipeJjimIncrease(int rno)
+	{
+		mapper.recipeJjimIncrease(rno);
+	}
+	
+	public void reicpeJjimDelete(Map map)
+	{
+		mapper.reicpeJjimDelete(map);
+	}
+	
+	public void recipeJjimDecrease(int rno)
 	{
 		mapper.recipeJjimDecrease(rno);
-		mapper.reicpeJjimDelete(id, rno);
 	}
 	
 	public int recipeJjimCount(int rno)
@@ -104,8 +112,10 @@ public class RecipeDAO {
 		return mapper.recipeJjimCount(rno);
 	}
 	
-	public int recipeJjim_ok(int rno, String id)
+	public int recipeJjim_ok(Map map)
 	{
-		return mapper.recipeJjim_ok(rno, id);
+		return mapper.recipeJjim_ok(map);
 	}
+	
+	
 }

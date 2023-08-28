@@ -230,7 +230,7 @@
 			this.commentList()
 			this.jjimCount()
 			
-			if(sessionId!=null)
+			if(this.sessionId!=null)
 			{
 				this.jjimOk()
 			}
@@ -384,6 +384,9 @@
 			
 			// 찜 눌렀는지 확인
 			jjimOk:function(){
+				
+				console.log(this.rno)
+				
 				axios.get('../recipe/jjim_ok_vue.do', {
 					params:{
 						rno:this.rno,
@@ -410,6 +413,7 @@
 					rno:this.rno,
 					id:this.sessionId
 				}).then(res=>{
+					
 					
 				}).catch(error=>{
 					console.log(error.response)

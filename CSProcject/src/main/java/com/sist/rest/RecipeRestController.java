@@ -200,7 +200,11 @@ public class RecipeRestController {
 	@GetMapping(value = "recipe/jjim_ok_vue.do", produces = "text/plain;charset=UTF-8")
 	public int jjim_Ok(int rno, String id)
 	{
-		int jjimOk = dao.recipeJjim_ok(rno, id);
+		Map map = new HashMap();
+		map.put("rno", rno);
+		map.put("id", id);
+		
+		int jjimOk = dao.recipeJjim_ok(map);
 		
 		return jjimOk;
 	}
@@ -208,13 +212,24 @@ public class RecipeRestController {
 	@PostMapping(value = "recipe/jjim_insert.do", produces = "text/plain;charset=UTF-8")
 	public void jjim_insert(int rno, String id)
 	{
-		dao.recipeJjimInsert(id, rno);
+		Map map = new HashMap();
+		map.put("rno", rno);
+		map.put("id", id);
+		
+		dao.recipeJjimInsert(map);
+		dao.recipeJjimIncrease(rno);
 	}
 	
 	@PostMapping(value = "recipe/jjim_delete.do", produces = "text/plain;charset=UTF-8")
 	public void jjim_delete(int rno, String id)
 	{
-		dao.reicpeJjimDelete(id, rno);
+		Map map = new HashMap();
+		map.put("rno", rno);
+		map.put("id", id);
+		
+		
+		dao.reicpeJjimDelete(map);
+		dao.recipeJjimDecrease(rno);
 	}
 	
 }
