@@ -166,7 +166,7 @@ public interface RentMapper {
 	
 	@Select("SELECT rno,image,car_name,maker,jjimCount,rownum "
 		  + "FROM (SELECT rno,image,car_name,maker,"
-		  + "			  (SELECT COUNT(*) FROM jjim2 WHERE sno=rno) as jjimCount "
+		  + "			  (SELECT COUNT(*) FROM jjim2 WHERE sno=rno AND type='r') as jjimCount "
 		  + "      FROM rent2 "
 		  + "      ORDER BY jjimCount desc "
 		  + "	   ) "
