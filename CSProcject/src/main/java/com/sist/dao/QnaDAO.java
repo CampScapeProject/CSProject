@@ -84,4 +84,19 @@ public class QnaDAO {
 		mapper.qnaDepthDecrement(qno);
 	}
 	
+	public List<QnaVO> mp_qnaList(String id)
+	{
+		return mapper.mp_qnaList(id);
+	}
+	
+	public int mp_qnaTotalPage(String id)
+	{
+		return mapper.mp_qnaTotalPage(id);
+	}
+	
+	public List<QnaVO> ap_qnaList()
+	{
+		return mapper.ap_qnaList();
+	}
+	
 }

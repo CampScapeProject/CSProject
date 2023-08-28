@@ -12,6 +12,7 @@
 	
 	.row1 {
 		margin: 0px auto;
+		padding-right: 120px;
 	}
 	
 	.recipe_pagination {
@@ -25,16 +26,16 @@
 			
 			<table class="table">
 				<tr>
-					<th width=30% class="text-center"></th>
-					<th width=50% class="text-center">레시피명</th>
+					<th width=20% class="text-center"></th>
+					<th width=60% class="text-center">레시피명</th>
 					<th width=10% class="text-center">조회수</th>
 					<th width=10% class="text-center"></th>
 				</tr>
 				<tr v-for="rvo in recipe_list">
-					<td width=30% class="text-center">
-						<img :href="rvo.image" style="width: 20%">
+					<td width=20% class="text-center">
+						<img :src="rvo.image" style="width: 40%">
 					</td>
-					<td width=50%>{{rvo.title}}</td>
+					<td width=60%>{{rvo.title}}</td>
 					<td width=10% class="text-center">{{rvo.hit}}</td>
 					<td width=10% class="text-center">
 						<input type=button class="btn btn-sm btn-default" value="삭제">
@@ -78,7 +79,7 @@
 		el:'.recipe',
 		data:{
 			recipe_list:[],
-			page_list:[],
+			page_info:[],
 			rno:0,
 			curpage:1,
 			totalpage:0,
@@ -86,33 +87,35 @@
 			endpage:0
 		},
 		mounted:function(){
-			
-			axios.get('../recipe/ap_list_vue.do', {
-				params:{
-					page:this.curpage
-				}
-			}).then(res=>{
-				this.recipe_list = res.data
-			}).catch(error=>{
-				console.log(error.response)
-			})
-			
-			//페이지 데이터
-			axios.get('../recipe/ap_totalpage_vue.do', {
-				params:{
-					page:this.curpage
-				}
-			}).then(res=>{
-				this.page_list = res.data
-				
-				this.curpage = this.page_list.curpage
-				this.totalpage = this.page_list.totalpage
-				this.startpage = this.page_list.startpage
-				this.endpage = this.page_list.endpage
-			})
-			
+			this.dataRecive()
 		},
 		methods:{
+			
+			dataRecive:function(){
+				axios.get('../recipe/ap_list_vue.do', {
+					params:{
+						page:this.curpage
+					}
+				}).then(res=>{
+					this.recipe_list = res.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+				
+				//페이지 데이터
+				axios.get('../recipe/ap_totalpage_vue.do', {
+					params:{
+						page:this.curpage
+					}
+				}).then(res=>{
+					this.page_info = res.data
+					
+					this.curpage = this.page_info.curpage
+					this.totalpage = this.page_info.totalpage
+					this.startpage = this.page_info.startpage
+					this.endpage = this.page_info.endpage
+				})
+			},
 			
 			range:function(start,end){
 				let arr = [];
@@ -126,12 +129,15 @@
 			},
 			prev:function(){
 				this.curpage = this.startPage-1;
+				this.dataRecive();
 			},
 			next:function(){
 				this.curpage = this.endPage+1;
+				this.dataRecive();
 			},
 			pageChange:function(page){
 				this.curpage = page;
+				this.dataRecive();
 			}
 			
 		}

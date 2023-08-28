@@ -68,5 +68,15 @@ public interface QnaMapper {
 	@Update("UPDATE qna2 SET depth=depth-1 WHERE qno=#{qno}")
 	public void qnaDepthDecrement(int qno);
 	
+	// 마이 페이지
+	@Select("SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD'), open, group_step, group_tab, depth FROM qna2 WHERE id=#{id} ORDER BY qno DESC")
+	public List<QnaVO> mp_qnaList(String id);
+	
+	@Select("SELECT CEIL(COUNT(*)/10.0) FROM qna2 WHERE id=#{id}")
+	public int mp_qnaTotalPage(String id);
+	
+	// 관리자 페이지
+	@Select("SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD'), open, gorup_step, group_tab, depth FROM qna2 WHERE group_step='0' ORDER BY qno DESC")
+	public List<QnaVO> ap_qnaList();
 	
 }

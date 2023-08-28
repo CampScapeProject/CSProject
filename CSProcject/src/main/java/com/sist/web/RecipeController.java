@@ -3,6 +3,7 @@ package com.sist.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import com.sist.vo.RecipeVO;
 
 @Controller
 public class RecipeController {
@@ -17,4 +18,6 @@ public class RecipeController {
 		model.addAttribute("rno", rno);
 		return "recipe/recipe_detail";
 	}
+	
+	
 }
