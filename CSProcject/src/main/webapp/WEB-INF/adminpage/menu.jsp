@@ -23,7 +23,7 @@
 		<div class="mypage-menu text-left">
 			<h4>회원 정보</h4>
 			<ul class="nav-menu-li">
-				<li><a href="../adminpage/main.do">- 정보 수정 / 탈퇴</a></li>
+				<li><a href="../adminpage/main.do">- 회원 수정</a></li>
 			</ul>
 			
 			<h4>캠핑장</h4>
