@@ -76,4 +76,9 @@ public class RecipeDAO {
 	{
 		mapper.RecipeDelete(rno);
 	}
+	
+	public int commentCount(int rno)
+	{
+		return mapper.commentCount(rno);
+	}
 }

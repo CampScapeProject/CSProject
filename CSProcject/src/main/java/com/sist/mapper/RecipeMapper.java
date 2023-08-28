@@ -54,4 +54,7 @@ public interface RecipeMapper {
 	@Delete("DELETE FROM recipe2 WHERE rno=#{rno}")
 	public void RecipeDelete(int rno);
 	
+	@Select("SELECT COUNT(*) FROM comment2 WHERE rno=#{rno}")
+	public int commentCount(int rno);
+	
 }

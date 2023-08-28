@@ -182,4 +182,11 @@ public class RecipeRestController {
 		dao.RecipeDelete(rno);
 	}
 	
+	@GetMapping(value= "recipe/comment_total_vue.do", produces = "text/plain;charset=UTF-8")
+	public int comment_count(int rno)
+	{
+		int total = dao.commentCount(rno);
+		return total;
+	}
+	
 }

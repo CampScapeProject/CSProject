@@ -206,11 +206,19 @@
 			msg:'',
 			isShow:false,
 			cmno:0,
-			bool:false
+			bool:false,
+			commentTotal:0
 		},
 		mounted:function(){
 			this.dataRecive()
 			this.commentList()
+			
+			axios.get('../recipe/comment_total_vue.do', {
+				params:rno:this.rno
+			}).then(res=>{
+				console.log(res.data)
+				commentTotal = res.data
+			})
 		},
 		methods:{
 			dataRecive:function(){
