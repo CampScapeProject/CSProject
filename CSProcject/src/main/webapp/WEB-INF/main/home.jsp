@@ -234,9 +234,21 @@
 	                                <span>{{vo.maker}}</span>
 	                            </div>
 	                            <a>
-	                                <h3>{{vo.car_name}}</h3>
+	                            	<div class="row">
+	                            		<div class="col-lg-8">
+	                                		<h3>{{vo.car_name}}</h3>
+	                            		</div>
+	                            		<div class="col-lg-4 text-right" style="padding-top: 11px;">
+	                            			<i class="fa-solid fa-heart" style="color: red"></i> ({{vo.jjimCount}})
+	                            		</div>
+	                            	</div>
 	                            </a>
 	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-lg-12" style="margin-top: 30px;">
+	                    <div class="more_place_btn text-center">
+	                        <a class="boxed-btn4" href="../rent/rent_main.do">예약하러가기</a>
 	                    </div>
 	                </div>
 	            </div>
