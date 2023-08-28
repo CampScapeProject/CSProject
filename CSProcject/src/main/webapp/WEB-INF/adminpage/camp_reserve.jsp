@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -16,6 +15,16 @@
 	.activePage{
 		font-weight: bold;
 	}
+	
+	.nice-select {
+   display: none !important;
+}
+
+#select-count {
+   display: block !important;
+}
+
+
 </style>
 </head>
 <body>
@@ -29,7 +38,7 @@
 		<div class="col-lg-12">
     		<div class="option">
 		      <div>
-		        <select ref="rstate" @change="option()">
+		        <select ref="rstate" @change="option()" id="select-count">
 					<option value="전체">전체&nbsp;&nbsp;</option>
 					<option value="대기">대기중&nbsp;&nbsp;</option>
 					<option value="예약승인">승인완료&nbsp;&nbsp;</option>
@@ -53,6 +62,7 @@
 							<div class="visit text-left">예약일</div>
 							<div class="serial text-left">가격</div>
 							<div class="serial text-left">승인 여부</div>
+							<div class="serial text-left">요청 사항</div>
 						</div>
 						
 						<div class="table-row" v-for="cvo in admin_clist">
@@ -66,10 +76,25 @@
 							<div class="visit">{{cvo.dbsdate}}&nbsp;-&nbsp;{{cvo.dbedate}}</div>
 							<div class="serial">{{cvo.price}}</div>
 							<div class="serial">
-								<button class="btn btn-xs btn-primary" @click="rstateChange(cvo.rno)" style="font-size: 15px;margin-right: 5px;">{{cvo.rstate}}</button>
+								<button class="btn btn-xs btn-primary" @click="rstateChange(cvo.rno)" style="font-size: 15px;">{{cvo.rstate}}</button>
 							</div>
-						</div>
-						
+							<div class="serial">
+								<button class="btn btn-xs btn-primary" @click="seeDetail(true)" style="font-size: 15px;margin-right: 5px;">보기</button>
+								<!--  요청사항 디테일 -->
+								 <div id="dialogDetail" :title="cvo.name+'님의 요청사항'" v-if="show" style="background-color: #EEEEEE;">
+						           		<div class="comment-form" style="margin-top: -55px;">
+						                   <div class="row" >
+						                      <div class="col-12">
+						                         <div class="form-group">
+						                            <textarea class="form-control w-100"  cols="30" rows="9" readonly>
+						                            	{{cvo.msg}}
+						                            </textarea>
+						                         </div>
+						                      </div>
+						                   </div>
+							        </div>
+								</div>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -94,6 +119,7 @@
                  </nav> 
             </div>
 		 </div>
+		 </div>
 	</div>
 	<script>
 	new Vue({
@@ -104,7 +130,8 @@
 			startpage:0,
 			endpage:0,
 			totalpage:0,
-			rstate:'전체'
+			rstate:'전체',
+			show:false
 		},
 		mounted:function(){
 			this.dataRecive();
@@ -164,8 +191,17 @@
 				this.dataRecive();
 			},
 			option:function(){
-				alert('함수 진입')
 				this.dataRecive();
+			},
+			seeDetail:function(bool){
+				this.show=bool
+				
+				$('#dialogDetail').dialog({
+					autoOpen:false,
+					modal:true, //다이어로그 실행중에는 다른 것은 실행 안되게
+					width:600,
+					height:300
+				}).dialog("open")
 			}
 		}
 	})

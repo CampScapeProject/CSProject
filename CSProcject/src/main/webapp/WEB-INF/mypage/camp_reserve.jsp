@@ -10,21 +10,12 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<style type="text/css">
-	.page{
-		cursor: pointer;
-	}  
-	.activePage{
-		font-weight: bold;
-	}
-</style>
 </head>
 <body>
 <div class="campMy">
 	<div class=row style="padding-top: 40px;padding-left: 20px;padding-bottom: 150px;">
 		<div class="col-lg-12 text-left" style="margin-bottom: 20px;">
-			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">캠핑장 목록</span>
+			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">캠핑장 예약 목록</span>
 		</div>
 		
 		<div class="col-lg-12">
@@ -48,17 +39,17 @@
 							<div class="serial">
 								<img  :src="cvo.image" width="85px" height="65px">
 							</div>
-							<div class="serial">{{cvo.camp_name}}</div>
+							<div class="serial"><a :href="'../camp/camp_detail.do?cno='+cvo.fno">{{cvo.camp_name}}</a></div>
 							<div class="serial">{{cvo.campsite_name}}</div>
 							<div class="serial">{{cvo.inwon}}</div>
 							<div class="visit">{{cvo.dbsdate}}&nbsp;-&nbsp;{{cvo.dbedate}}</div>
 							<div class="serial">{{cvo.price}}</div>
 							<div class="serial">
-								<button class="btn btn-xs btn-primary" style="font-size: 15px;margin-right: 5px;">{{cvo.rstate}}</button>
+								<button class="btn btn-xs btn-primary" style="font-size: 15px;margin-right: 5px;" >{{cvo.rstate}}</button>
 								<button class="btn btn-xs btn-danger" style="font-size: 15px;" @click="reserveDelete(cvo.rno)">예약취소</button>
 							</div>
 							<div class="serial">
-								<button class="btn btn-xs btn-info" style="font-size: 15px;margin-left: 5px;" @click="reviewForm()">리뷰작성</button>
+								<button class="btn btn-xs btn-info" style="font-size: 15px;margin-left: 5px;" @click="reviewForm(true)">리뷰작성</button>
 							</div>
 						</div>
 						
@@ -132,15 +123,15 @@
 					location.href='../mypage/camp_reserve.do'
 				})
 			},
-			reviewForm:function(){
-				rInsertShow=true;
+			reviewForm:function(bool){
+				rInsertShow=bool;
 				
 				$('#dialog').dialog({
 					autoOpen:false,
 					modal:true, //다이어로그 실행중에는 다른 것은 실행 안되게
-					width:700,
-					height:500
-				}).dialog('open')
+					width:600,
+					height:300
+				}).dialog("open")
 			}
 			
 			

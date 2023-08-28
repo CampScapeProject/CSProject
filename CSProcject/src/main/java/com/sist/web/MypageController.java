@@ -22,6 +22,11 @@ public class MypageController {
 		return "mypage/camp_review";
 	}
 	
+	@GetMapping("mypage/camp_jjim.do")
+	public String mypage_camp_jjim(){
+		return "mypage/camp_jjim";
+	}
+	
 	@GetMapping("mypage/rent_reserve.do")
 	public String mypage_rent_reserve(){
 		return "mypage/rent_reserve";

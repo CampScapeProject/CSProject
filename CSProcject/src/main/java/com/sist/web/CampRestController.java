@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.CampDAO;
 import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
+import com.sist.vo.JjimVO;
 import com.sist.vo.PageVO;
 import com.sist.vo.RentVO;
 import com.sist.vo.ReserveVO;
@@ -70,7 +71,6 @@ public class CampRestController {
 	@GetMapping(value = "camp/camp_find_list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String campFindList(int page,String rdate,String state,String spricefd,String epricefd,String campfd) throws Exception
 	{
-		
 		Map map = new HashMap();
 		int rowsize = 4;
 		int start = (rowsize * page) - (rowsize - 1);
@@ -85,24 +85,38 @@ public class CampRestController {
 		System.out.println("데이터값끝:"+epricefd);
 		System.out.println("데이터 네임:"+campfd);
 		//2023-08-23 - 2023-08-24
-		String sdate=rdate.split(" - ")[0];
-		String edate=rdate.split(" - ")[1];
+		
+		String sdate="";
+		String edate="";
+		if(rdate!="")
+		{
+			sdate=rdate.split(" - ")[0];
+			edate=rdate.split(" - ")[1];
+			
+		}
 		map.put("sdate", sdate);
 		map.put("edate", edate);
-		
-		
 		
 		String sp=spricefd;
 		String ep=epricefd;
 		
-		if(sp.trim() !="" || ep.trim() !="")
+		if(sp ==null && ep ==null)
 		{
-			sp=sp.replace(",", "");
-			ep=ep.replace(",", "");
-		}else {
 			sp="0";
 			ep="1100000";
 		}
+		else 
+		{
+			if(sp.trim() !="" || ep.trim() !="")
+			{
+				sp=sp.replace(",", "");
+				ep=ep.replace(",", "");
+			}else {
+				sp="0";
+				ep="1100000";
+			}
+		}
+		
 		
 		
 		if(state.equals("지역을 선택하세요"))
@@ -154,39 +168,50 @@ public class CampRestController {
 			vo.setPhone(FphoneNumber);  
 		}
 		
-		/*
-		 * for(CampVO cvo:slist) { int price=dao.campPrice(cvo.getCno());
-		 * map.put("price", price); }
-		 * 
-		 * List<CampVO> list=dao.campFindData(map);
-		 */
+		Map tmap = new HashMap();
+		tmap.put("sdate", sdate);
+		tmap.put("edate", edate);
+		tmap.put("spricefd", Integer.parseInt(sp));
+		tmap.put("epricefd", Integer.parseInt(ep));
+		
+		tmap.put("campfd", campfd);
+		tmap.put("state", state);
+		
+		int totalpage=dao.campFindTotal(tmap);
+		final int BLOCK = 5;
+		int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
+		int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
+		if(endpage>totalpage)
+			endpage=totalpage;
+		
+		Map jmap = new HashMap();
+		jmap.put("curpage", page);
+		jmap.put("totalpage", totalpage);
+		jmap.put("startpage", startpage);
+		jmap.put("endpage", endpage);
+		jmap.put("list", list);
+		
+		
 		ObjectMapper mapper=new ObjectMapper();
-		String json=mapper.writeValueAsString(list);
+		String json=mapper.writeValueAsString(jmap);
 		return json;
 	}
 	
 	
+
+	
+	
 	@GetMapping(value = "camp/camp_list_vue.do",produces = "text/plain;charset=UTF-8")
-	public String campListData(int page,String type) throws Exception
+	public String campListData(int page) throws Exception
 	{
 		Map map = new HashMap();
-		if(type.equals("list"))
-		{
+	
 			int rowsize = 12;
 			int start = (rowsize * page) - (rowsize - 1);
 			int end = rowsize * page;
 			map.put("start", start);
 			map.put("end", end);
-		}
-		else
-		{
-			int rowsize = 4;
-			int start = (rowsize * page) - (rowsize - 1);
-			int end = rowsize * page;
-			map.put("start", start);
-			map.put("end", end);
-			
-		}
+		
 		
 		List<CampVO> list=dao.campListData(map);
 		for(CampVO vo:list)
@@ -245,7 +270,7 @@ public class CampRestController {
 			vo.setCurpage(page);
 			vo.setTotalpage(totalpage);
 		}else {
-			int totalpage=dao.campTotalPage();
+			int totalpage=dao.campTotalMainPage();
 			final int BLOCK = 5;
 			int startpage = ((page - 1) / BLOCK * BLOCK) + 1;
 			int endpage = ((page - 1) / BLOCK * BLOCK) + BLOCK;
@@ -586,6 +611,7 @@ public class CampRestController {
 	@GetMapping(value = "mypage/camp_reserve_list.do",produces = "text/plain;charset=UTF-8")
 	public String mypage_camp_reserve_list(String id) throws Exception
 	{
+		
 		List<ReserveVO> list=dao.campMypageReserveList(id);
 		for(ReserveVO vo:list)
 		{
@@ -734,6 +760,44 @@ public class CampRestController {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(rmap);
+	
+		return json;
+	}
+	
+	@GetMapping(value = "mypage/camp_jjim_list.do",produces = "text/plain;charset=UTF-8")
+	public String camp_mypage_jjim_list(String id)throws Exception
+	{
+		System.out.println(id);
+		
+	
+		List<JjimVO> list=dao.campJjimList(id);
+		for(JjimVO vo:list)
+		{
+			String img=vo.getImage();
+			if(img.contains("^"))
+			{
+				img=img.substring(0,img.indexOf("^"));
+				vo.setImage(img);
+			}
+			int price=Integer.parseInt(vo.getPrice());
+			
+			DecimalFormat df=new DecimalFormat("###,###,###");
+			String Fprice=df.format(price);
+			vo.setPrice(Fprice);
+			
+			String phoneNumber = vo.getPhone();
+			String FphoneNumber = phoneNumber.substring(0, 3) 
+								+ "-" 
+								+ phoneNumber.substring(3, 7) 
+								+ "-" 
+								+ phoneNumber.substring(7);
+			vo.setPhone(FphoneNumber);
+		}
+		
+		
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
 	
 		return json;
 	}

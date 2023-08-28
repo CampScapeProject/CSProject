@@ -30,6 +30,7 @@
 				<ul class="nav-menu-li">
 					<li><a href="../mypage/camp_reserve.do">- 캠핑장 예약 정보</a></li>
 					<li><a href="../mypage/camp_review.do">- 내가 작성한 리뷰</a></li>
+					<li><a href="../mypage/camp_jjim.do">- 내가 찜한 목록</a></li>
 				</ul>
 				
 				<h4>렌터카</h4>

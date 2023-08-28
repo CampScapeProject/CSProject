@@ -59,10 +59,12 @@
 function inputNumberFormat(obj) {
     obj.value = comma(uncomma(obj.value));
 }
+
 function comma(str) {
     str = String(str);
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 }
+
 function uncomma(str) {
     str = String(str);
     return str.replace(/[^\d]+/g, '');
@@ -234,35 +236,6 @@ function uncomma(str) {
 		methods:{
 			campRecive:function(){
 				
-				axios.get('../camp/camp_list_vue.do',{
-					params:{
-						page:this.curpage,
-						type:'mlist'
-					}
-				}).then(res=>{
-					this.camp_list=res.data
-				})
-				
-				axios.get('../camp/camp_list_page_vue.do',{
-						params:{
-							page:this.curpage,
-							type:"find"
-							
-						}
-						
-					}).then(res=>{
-						console.log(res.data)
-						this.page_list=res.data
-						this.curpage=this.page_list.curpage
-						this.totalpage=this.page_list.totalpage
-						this.startpage=this.page_list.startpage
-						this.endpage=this.page_list.endpage
-					})
-			},
-			detailPage:function(no){
-				location.href="../camp/camp_detail.do?cno="+no+"&rdate="+this.$refs.rdate.value;
-			},
-			findCamp:function(){
 				axios.get('../camp/camp_find_list_vue.do',{
 					params:{
 						page:this.curpage,
@@ -274,8 +247,35 @@ function uncomma(str) {
 						
 					}
 				}).then(res=>{
-					this.camp_list=res.data
+					this.camp_list=res.data.list
+					this.curpage=res.data.curpage
+					this.totalpage=res.data.totalpage
+					this.startpage=res.data.startpage
+					this.endpage=res.data.endpage
 				})
+			},
+			detailPage:function(no){
+				location.href="../camp/camp_detail.do?cno="+no+"&rdate="+this.$refs.rdate.value;
+			},
+			findCamp:function(){
+				axios.get('../camp/camp_find_list_vue.do',{
+					params:{
+						page:1,
+						rdate:this.$refs.rdate.value,
+						state:this.$refs.state.value,
+						spricefd:this.spricefd,
+						epricefd:this.epricefd,
+						campfd:this.campfd
+						
+					}
+				}).then(res=>{
+					this.camp_list=res.data.list
+					this.curpage=res.data.curpage
+					this.totalpage=res.data.totalpage
+					this.startpage=res.data.startpage
+					this.endpage=res.data.endpage
+				})
+				
 			},
 			range:function(start,end){
 				let arr=[];

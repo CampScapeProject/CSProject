@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.sist.mapper.CampMapper;
 import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
+import com.sist.vo.JjimVO;
 import com.sist.vo.ReserveVO;
 import com.sist.vo.ReviewVO;
 import com.sist.vo.TourVO;
@@ -41,12 +42,20 @@ public class CampDAO {
 		return mapper.campFindData(map);
 	}
 	
+	public int campFindTotal(Map map)
+	{
+		return mapper.campFindTotal(map);
+	}
 	
 	public int campTotalPage()
 	{
 		return mapper.campTotalPage();
 	}
 	
+	public int campTotalMainPage()
+	{
+		return mapper.campTotalMainPage();
+	}
 	
 	public CampVO campDetail(int cno)
 	{
@@ -136,6 +145,11 @@ public class CampDAO {
 	public void campMyReserveDelete(int rno)
 	{
 		mapper.campMyReserveDelete(rno);
+	}
+	
+	public List<JjimVO> campJjimList(String id)
+	{
+		return mapper.campJjimList(id);
 	}
 	
 	//관리자페이지

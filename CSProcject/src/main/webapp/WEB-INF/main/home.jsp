@@ -93,31 +93,42 @@
     <div class="where_togo_area">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-3">
+                <div class="col-lg-3" style="margin-right: -50px;">
                     <div class="form_area" style="padding-bottom: 20px;">
-                        <h3>Where you want to go?</h3>
+                        <h3>캠핑장 예약 검색</h3>
                     </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="search_wrap">
-                        <form class="search_form" action="#">
+                    	 <div class="search_form" >
                             <div class="input_field">
-                                <input type="text" placeholder="Where to go?">
+                                <input type="text" name="daterange" ref="rdate"/>
+                            </div>
+                            <div class="input_field" >
+                               <select ref="state">
+	                                <option data-display="지역">지역을 선택하세요</option>
+	                                <option value="경기">경기</option>
+	                                <option value="인천">인천</option>
+	                                <option value="강원">강원</option>
+	                                <option value="울산">울산</option>
+	                                <option value="충청북도">충북</option>
+	                                <option value="충청남도">충남</option>
+	                                <option value="전라북도">전북</option>
+	                                <option value="전라남도">전남</option>
+	                                <option value="경상북도">경북</option>
+	                                <option value="경상남도">경남</option>
+	                                <option value="제주">제주</option>
+                              </select>
                             </div>
                             <div class="input_field">
-                                <input id="datepicker" placeholder="Date">
-                            </div>
-                            <div class="input_field">
-                                <select>
-                                    <option data-display="Travel type">Travel type</option>
-                                    <option value="1">Some option</option>
-                                    <option value="2">Another option</option>
-                                </select>
+                               <input type="text" v-model="campfd" placeholder="캠핑장명을 검색하세요."
+											onfocus="this.placeholder = ''" onblur="this.placeholder = '캠핑장명을 검색하세요.'" required
+												class="single-input-primary" style="margin-bottom: 20px;">
                             </div>
                             <div class="search_btn">
-                                <button class="boxed-btn4 " type="submit" >Search</button>
+                                <button class="boxed-btn4 " type="submit" @click="findReserve()">검색</button>
                             </div>
-                        </form>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -126,7 +137,7 @@
     <!-- where_togo_area_end  -->
     
     
-    <!-- 캠핑장 조회수 순 리스트  -->
+  <!-- 캠핑장 조회수 순 리스트  -->
     
     <div class="popular_destination_area">
         <div class="container">
@@ -152,7 +163,7 @@
             </div>
         </div>
     </div>
-    
+
     <!------------------------------------>
 
     <div class="popular_places_area">
@@ -328,6 +339,27 @@ let campList=new Vue({
 	methods:{
 		toDetail:function(no){
 			location.href="../camp/camp_detail.do?cno="+no;
+		}
+	}
+})
+
+let campFind=new Vue({
+	el:'.where_togo_area',
+	data:{
+		campfd:''
+	},
+	methods:{
+		findReserve:function(){
+			axios.get('../camp/camp_find_list_vue.do',{
+				params:{
+					page:1,
+					rdate:this.$refs.rdate.value,
+					state:this.$refs.state.value,
+					campfd:this.campfd
+				}
+			}).then(res=>{
+				location.href="../camp/camp_main.do"				
+			})
 		}
 	}
 })

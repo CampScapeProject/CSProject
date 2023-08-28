@@ -260,8 +260,7 @@
                </div>
                <div class="navigation-top"><!--style="width: 1000px"-->
                   <div class="d-sm-flex justify-content-between text-center">
-                     <p class="like-info"><span class="align-middle"><i class="fa fa-heart"></i></span> Lily and 4
-                        people like this</p>
+                     <p class="like-info"><span class="align-middle"><i class="fa-solid fa-house"></i></span>총 {{camp_detail.hit}}명이 조회하였습니다</p>
                      <div class="col-sm-4 text-center my-2 my-sm-0">
                         <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
                      </div>
@@ -314,7 +313,7 @@
 							</template>
 				      		<template v-if="index == 2">
 					        	<div class="container">
-					        		<h4 style="color:#001D38;font-weight: bold;"><i class="fa-sharp fa-regular fa-clipboard-list"></i>&nbsp;리뷰({{rcount}})</h4>
+					        		<h4 style="color:#001D38;font-weight: bold;">&nbsp;리뷰({{rcount}})</h4>
 									<div class="campprogress-table-wrap" style="margin-top: -20px;">
 										<div class="campprogress-table">
 											<div class="table-head">
@@ -338,11 +337,6 @@
 											</div>
 										</div>
 									</div>
-									<div style="float: right;">
-										<div class="row">
-										<a href="#" class="cgenric-btn cprimary-border circle" style="background-color: #001D38;border-radius: 20px;">작성</a>
-							            </div>
-									</div>
 							 		<nav class="blog-pagination justify-content-center d-flex">
 			                                    <a href="#"  aria-label="Previous" @click="prev()">
 			                                    &lt;
@@ -364,7 +358,7 @@
               
               <!-- 리뷰 디테일 -->
               
-              <div id="dialog" title="후기글" v-if="rDetailShow">
+              <div id="dialog" title="후기글" v-if="rDetailShow" style="background-color: #EEEEEE;">
               	<div class="comment-form" style="margin-top: -55px;">
                      <div class="row" >
                         <div class="col-sm-6">
@@ -394,7 +388,7 @@
               </div>
               
               <!-- 리뷰 수정 -->
-              <div id="dialogU" title="후기글 수정" v-if="rUpShow">
+              <div id="dialogU" title="후기글 수정" v-if="rUpShow" style="background-color: #EEEEEE;">
               	<div class="comment-form" style="margin-top: -65px;">
                   <form @submit.prevent="updateForm()">
                      <div class="row" >
@@ -454,7 +448,7 @@
              </div>
              
              <!--  예약 폼 -->
-          	<div class="destination_details_info" v-if="reserveForm" style="padding: 0px;margin-top: -40px;">
+          	<div class="destination_details_info" v-if="reserveForm" style="padding: 0px;margin-top: -40px;background-color: #EEEEEE;">
           		<div class="container">
 			          		<div class="row" style="background-color: white;">
 			          			<div class="col-lg-12 text-center">
@@ -614,8 +608,6 @@
                      </div>
                   </div>
             </div>
-            
-            
 	            <div class="col-lg-2">
 	               <div class="blog_right_sidebar" style="width: 400px;">
                		<aside class="single_sidebar_widget search_widget">
@@ -635,8 +627,6 @@
 	                  </aside>
 	               </div>
 	            </div>
-            
-            
          </div>
       </div>
       

@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.CampSiteVO;
 import com.sist.vo.CampVO;
+import com.sist.vo.JjimVO;
 import com.sist.vo.RentVO;
 import com.sist.vo.ReserveVO;
 import com.sist.vo.ReviewVO;
@@ -32,13 +33,18 @@ public interface CampMapper {
 	//<select id="campFindData" resultType="CampVO" parameterType="hashmap">
 	public List<CampVO> campFindData(Map map);
 	
+	public int campFindTotal(Map map);
+	
 	@Select("SELECT CEIL(COUNT(*)/12.0) FROM camp2")
 	public int campTotalPage();
+	
+	@Select("SELECT CEIL(COUNT(*)/4.0) FROM camp2")
+	public int campTotalMainPage();
 	
 	@Update("UPDATE camp2 SET hit=hit+1 WHERE cno=#{cno} ")
 	public void campHitUpdate(int cno);
 	
-	@Select("SELECT cno,name,address,phone,msg,image,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) as mprice FROM camp2 c WHERE cno=#{cno}")
+	@Select("SELECT cno,name,address,phone,msg,image,hit,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) as mprice FROM camp2 c WHERE cno=#{cno}")
 	public CampVO campDetail(int cno);
 	
 	@Select("SELECT name FROM camp2 WHERE cno=#{cno}")
@@ -132,4 +138,11 @@ public interface CampMapper {
 	
 	@Select("SELECT COUNT(*) FROM jjim2 WHERE type='c' AND id=#{id} AND sno=#{cno} ")
 	public int campJjimCount(Map map);
+	
+	@Select("SELECT no,id,sno,(SELECT name FROM camp2 WHERE camp2.cno=jjim2.sno) as name, (SELECT address FROM camp2 WHERE camp2.cno=jjim2.sno) as address,"
+			+ "(SELECT phone FROM camp2 WHERE camp2.cno=jjim2.sno) as phone,"
+			+ "(SELECT MIN(TO_NUMBER(price)) FROM campsite2 WHERE campsite2.cno=jjim2.sno) as price,"
+			+ "(SELECT image FROM camp2 WHERE camp2.cno=jjim2.sno) as image "
+			+ "FROM jjim2 WHERE id=#{id} AND type='c'")
+	public List<JjimVO> campJjimList(String id);
 }

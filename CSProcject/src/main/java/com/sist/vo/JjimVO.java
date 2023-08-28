@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class JjimVO {
-	private int no, sno;
+	private int no,sno;
 	private char type;
-	private String id;
+	private String id,name,address,phone,price,image;
 }
