@@ -189,4 +189,32 @@ public class RecipeRestController {
 		return total;
 	}
 	
+	// 찜
+	@GetMapping(value = "recipe/jjim_count_vue.do", produces = "text/plain;charset=UTF-8")
+	public int jjim_count(int rno)
+	{
+		int total = dao.recipeJjimCount(rno);
+		return total;
+	}
+	
+	@GetMapping(value = "recipe/jjim_ok_vue.do", produces = "text/plain;charset=UTF-8")
+	public int jjim_Ok(int rno, String id)
+	{
+		int jjimOk = dao.recipeJjim_ok(rno, id);
+		
+		return jjimOk;
+	}
+	
+	@PostMapping(value = "recipe/jjim_insert.do", produces = "text/plain;charset=UTF-8")
+	public void jjim_insert(int rno, String id)
+	{
+		dao.recipeJjimInsert(id, rno);
+	}
+	
+	@PostMapping(value = "recipe/jjim_delete.do", produces = "text/plain;charset=UTF-8")
+	public void jjim_delete(int rno, String id)
+	{
+		dao.reicpeJjimDelete(id, rno);
+	}
+	
 }

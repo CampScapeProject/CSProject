@@ -54,6 +54,10 @@
 		font-size: 20px;
 	}
 	
+	i :hover {
+		cursor: pointer;
+	}
+	
 </style>
 </head>
 <body>
@@ -83,8 +87,18 @@
 				</tr>
 				<tr>
 					<td class="text-left" colspan=2><span class="recipe_title">{{title}}</span></td>
+					
+					<!-- ##찜하기## -->
 					<td class="text-right" style="padding-top: 17px;">
-						<i class="fa-regular fa-heart fa-2xl" style="color: #f05c5c;"></i><span style="margin-right: 10px;">       찜하기</span>
+					
+					`	<!-- 로그인 안했을 때 & 찜 안눌렀을 때 -->
+						<i v-if="jjim_ok==0 || sessionId==null" class="fa-regular fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimInsert()></i>
+						<span v-if="jjim_ok==0 || sessionId==null">       찜하기</span>
+						
+						
+						<!-- 찜 눌렀을 때 -->
+						<i v-if="jjim_ok==1" class="fa-solid fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimDelete()></i>
+						<span v-if="jjim_ok==1">       찜하기</span>
 					</td>
 				</tr>
 				<tr>
@@ -123,7 +137,7 @@
 			</table>
 			
 			<div class="comment_title">
-				<i class="fa-regular fa-comments fa-2xl" style="margin-right: 20px; color:#E86A33"></i><span class="comment_title_span">댓글</span>
+				<i class="fa-regular fa-comments fa-2xl" style="margin-right: 20px; color:#E86A33"></i><span class="comment_title_span">댓글 ({{commentTotal}})</span>
 			</div>
 			
 			<div class="comment">
@@ -201,20 +215,30 @@
 			jjim:0,
 			recommend:0,
 			comment_list:[],
-			sessionId:"${id}",
-			sessionNickname:"${nickname}",
+			sessionId:"${sessionScope.id}",
+			sessionNickname:"${sessionScope.nickname}",
 			msg:'',
 			isShow:false,
 			cmno:0,
 			bool:false,
-			commentTotal:0
+			commentTotal:0,
+			jjimTotal:0,
+			jjim_ok:0
 		},
 		mounted:function(){
 			this.dataRecive()
 			this.commentList()
+			this.jjimCount()
+			
+			if(sessionId!=null)
+			{
+				this.jjimOk()
+			}
 			
 			axios.get('../recipe/comment_total_vue.do', {
-				params:rno:this.rno
+				params:{
+					rno:this.rno
+				}
 			}).then(res=>{
 				console.log(res.data)
 				commentTotal = res.data
@@ -341,7 +365,69 @@
 				}).catch(error=>{
 					console.log(error.response)
 				})
+			},
+			
+			// 찜
+			// 레시피 찜 갯수
+			jjimCount:function(){
+				axios.get('../recipe/jjim_count_vue.do', {
+					params:{
+						rno:this.rno
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.jjimTotal = res.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			},
+			
+			// 찜 눌렀는지 확인
+			jjimOk:function(){
+				axios.get('../recipe/jjim_ok_vue.do', {
+					params:{
+						rno:this.rno,
+						id:this.sessionId
+					}
+				}).then(res=>{
+					console.log("찜 확인 : ",res.data)
+					this.jjim_ok = res.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			},
+			
+			// 찜하기
+			jjimInsert:function(){
+				
+				if(sessionId==null)
+				{
+					alert("로그인 후 이용해주세요.")
+					a.href="../member/login.do";
+				}
+				
+				axios.post('../recipe/jjim_insert.do', null, {
+					rno:this.rno,
+					id:this.sessionId
+				}).then(res=>{
+					
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			},
+			
+			// 찜 삭제
+			jjimDelete:function(){
+				axios.post('../recipe/jjim_delete.do',null, {
+					rno:this.rno,
+					id:this.sessionId
+				}).then(res=>{
+					
+				}).catch(error=>{
+					console.log(error.response)
+				})
 			}
+			
 		}
 	})
 </script>
