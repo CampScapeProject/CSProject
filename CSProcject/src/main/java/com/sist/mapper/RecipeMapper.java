@@ -38,6 +38,13 @@ public interface RecipeMapper {
 	@Delete("DELETE FROM comment2 WHERE cmno=#{cmno}")
 	public void CommentDelete(int cmno);
 	
+	// 마이 페이지
+	@Select("SELECT no, id, sno, (SELECT title recipe2 WHERE recipe2.rno = jjim2.sno) as title, "
+			+ "(SELECT image recipe2 WHERE recipe2.rno = jjim2.sno) as image, "
+			+ "(SELECT jjim recipe2 WHERE recipe2.rno = jjim2.sno) as jjim "
+			+ "FROM jjim2 WHERE id=#{id} AND type='p'")
+	public List<JjimVO> mp_recipeJjimList(String id);
+	
 	// 관리자 페이지
 	@Select("SELECT rno, title, image, jjim, hit, num "
 			+ "FROM (SELECT rno, title, image, jjim, hit, rownum as num "
@@ -57,4 +64,23 @@ public interface RecipeMapper {
 	@Select("SELECT COUNT(*) FROM comment2 WHERE rno=#{rno}")
 	public int commentCount(int rno);
 	
+	// 찜
+	@Insert("INSERT INTO jjim2 VALUES(j2_no_seq.nextval, #{id}, 'p', #{rno}")
+	public void recipeJjimInsert(String id, int rno);
+	
+	@Delete("DELETE FROM jjim2 WHERE id=#{id} AND type='p' AND sno=#{rno}")
+	public void reicpeJjimDelete(String id, int rno);
+	
+	@Select("SELECT COUNT(*) FROM jjim2 WHERE type='p' AND sno=#{rno}")
+	public int recipeJjimCount(int rno);
+	
+	// 찜 확인용
+	@Select("SELECT COUNT(*) FROM jjim2 WHERE type='p' AND sno=#{rno} AND id=#{id}")
+	public int recipeJjim_ok(int rno, String id);
+	
+	@Update("UPDATE recipe2 SET jjim=jjim+1 WHERE rno=#{rno}")
+	public void recipeJjimIncrease(int rno);
+	
+	@Update("UPDATE recipe2 SET jjim=jjim-1 WHERE rno=#{rno}")
+	public void recipeJjimDecrease(int rno);
 }

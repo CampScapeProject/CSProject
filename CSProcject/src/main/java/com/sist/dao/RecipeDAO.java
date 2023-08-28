@@ -55,6 +55,10 @@ public class RecipeDAO {
 	}
 	
 	// 마이 페이지
+	public List<JjimVO> mp_recipeJjimList(String id)
+	{
+		return mapper.mp_recipeJjimList(id);
+	}
 	
 	// 관리자 페이지
 	public List<RecipeVO> ap_recipeListData(Map map)
@@ -80,5 +84,28 @@ public class RecipeDAO {
 	public int commentCount(int rno)
 	{
 		return mapper.commentCount(rno);
+	}
+	
+	// 찜
+	public void recipeJjimInsert(String id, int rno)
+	{
+		mapper.recipeJjimIncrease(rno);
+		mapper.recipeJjimInsert(id, rno);
+	}
+	
+	public void reicpeJjimDelete(String id, int rno)
+	{
+		mapper.recipeJjimDecrease(rno);
+		mapper.reicpeJjimDelete(id, rno);
+	}
+	
+	public int recipeJjimCount(int rno)
+	{
+		return mapper.recipeJjimCount(rno);
+	}
+	
+	public int recipeJjim_ok(int rno, String id)
+	{
+		return mapper.recipeJjim_ok(rno, id);
 	}
 }
