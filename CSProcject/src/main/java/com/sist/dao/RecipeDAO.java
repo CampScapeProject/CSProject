@@ -71,4 +71,9 @@ public class RecipeDAO {
 	{
 		return mapper.main_recipe_list();
 	}
+	
+	public void RecipeDelete(int rno)
+	{
+		mapper.RecipeDelete(rno);
+	}
 }

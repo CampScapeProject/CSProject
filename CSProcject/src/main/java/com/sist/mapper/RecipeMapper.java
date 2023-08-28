@@ -51,4 +51,7 @@ public interface RecipeMapper {
 	@Select("SELECT rno, title, hit FROM recipe2 ORDER BY hit DESC")
 	public List<RecipeVO> main_recipe_list();
 	
+	@Delete("DELETE FROM recipe2 WHERE rno=#{rno}")
+	public void RecipeDelete(int rno);
+	
 }

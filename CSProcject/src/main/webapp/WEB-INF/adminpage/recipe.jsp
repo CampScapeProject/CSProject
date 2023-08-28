@@ -18,6 +18,16 @@
 	.recipe_pagination {
 		margin: 50px 0px 50px 0px;
 	}
+	
+	a {
+		color: #333333;
+	}
+	
+	a:hover {
+		text-decoration: none;
+		font-weight: bold;
+		color: #333333;
+	}
 </style>
 </head>
 <body>
@@ -32,13 +42,13 @@
 					<th width=10% class="text-center"></th>
 				</tr>
 				<tr v-for="rvo in recipe_list">
-					<td width=20% class="text-center">
+					<td width=20% class="text-center" style="vertical-align: middle;">
 						<img :src="rvo.image" style="width: 40%">
 					</td>
-					<td width=60%>{{rvo.title}}</td>
-					<td width=10% class="text-center">{{rvo.hit}}</td>
-					<td width=10% class="text-center">
-						<input type=button class="btn btn-sm btn-default" value="삭제">
+					<td width=60% style="vertical-align: middle;"><a :href="'../recipe/recipe_detail.do?rno='+rvo.rno">{{rvo.title}}</a></td>
+					<td width=10% class="text-center" style="vertical-align: middle;">{{rvo.hit}}</td>
+					<td width=10% class="text-center" style="vertical-align: middle;">
+						<input type=button class="btn btn-sm btn-default" value="삭제" @click="recipeDel(rvo.rno)">
 					</td>
 				</tr>
 			</table>
@@ -138,6 +148,23 @@
 			pageChange:function(page){
 				this.curpage = page;
 				this.dataRecive();
+			},
+			
+			recipeDel:function(rno){
+				
+				alert("삭제하시겠습니까?")
+				
+				console.log(rno);
+				
+				axios.post("../recipe/recipe_del_vue.do", {
+					params:{
+						rno:rno
+					}
+				}).then(res=>{
+					this.dataRecive();
+				}).catch(error=>{
+					console.log(error.response)
+				})
 			}
 			
 		}
