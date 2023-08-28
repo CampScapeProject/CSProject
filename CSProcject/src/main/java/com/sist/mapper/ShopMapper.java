@@ -15,7 +15,7 @@ import com.sist.vo.ShopVO;
 
 public interface ShopMapper {
 
-	@Select("SELECT * FROM shop2 WHERE sno BETWEEN 1 AND 6")
+	@Select("SELECT * FROM shop2 WHERE sno BETWEEN 1 AND 7")
 	public List<ShopVO> shopAllList();
 	
 	@Select("SELECT * FROM category_shop2")
@@ -72,10 +72,15 @@ public interface ShopMapper {
 	@Delete("DELETE FROM campbasket WHERE cno=#{cno}")
 	public void deleteBasket(int cno);
 	
-	@Select("SELECT * FROM order2 o JOIN shop2 s ON o.sno=s.sno"
-			+ " WHERE id=#{id}")
-	public List<OrderVO> orderList(String id);
+//	@Select("SELECT * FROM order2 o JOIN shop2 s ON o.sno=s.sno"
+//			+ " WHERE id=#{id}")
+//	public List<OrderVO> orderList(String id);
 	
+	@Select("SELECT o.ono, o.sno, o.id, o.amount, o.price, o.buy_ok, TO_CHAR(o.regdate, 'YYYY-MM-DD') AS dbday, image, name "
+			+ "FROM (SELECT o.ono, o.sno, o.id, o.amount, o.price, o.buy_ok, o.regdate, image, name "
+			+ "	FROM order2 o JOIN shop2 s ON o.sno=s.sno) o "
+			+ "WHERE o.id=#{id}")
+	public List<OrderVO> orderList(String id);
 	
 	
 	// ======== adminpage shopping

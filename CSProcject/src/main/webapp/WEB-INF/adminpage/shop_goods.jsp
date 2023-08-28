@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>물품 정보</title>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
@@ -14,7 +14,6 @@
 
 <style type="text/css">
 body {
-	background: #eee;
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
@@ -131,7 +130,7 @@ a:hover {
 }
 
 .product header, .product .content {
-	background-color: #fff;
+	background-color: #eee;
 	border: 1px solid #ccc;
 	border-style: none none solid none;
 	float: left;
@@ -346,7 +345,8 @@ a:hover {
 
 <body>
 
-<div class="shop_admin">
+<div class="shop_admin" style="padding-top: 40px;padding-left: 20px;">
+
 	<header id="site-header">
 		<div class="col-lg-12 text-left" style="margin-bottom: 20px;">
 			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">물품 정보</span>
@@ -372,16 +372,12 @@ a:hover {
 				<header>
 					<a class="remove">
 						<img :src="s.image">
-
 						<h3 @click="deleteProduct(s.sno)">Remove product</h3>
 					</a>
 				</header>
 					<div class="content">
-	
 						<h1>{{s.brand}}</h1>
-	
 						{{s.name}}
-
 					</div>
 	
 					<footer class="content">
@@ -390,9 +386,11 @@ a:hover {
 							<span>수정</span>
 						</h2>
 					</footer>
+					
 			</article>
 		</section>
 	</div>
+	
 	 <nav class="blog-pagination justify-content-center d-flex" style="margin-top:40px;margin-bottom:40px">
 	     <ul class="pagination">
 	         <li class="page-item" v-if="startpage>1">
@@ -414,62 +412,62 @@ a:hover {
 </div>
 
 <script>
-var check = false;
+	var check = false;
 
-function changeVal(el) {
-  var price = parseFloat(el.parent().children(".price").html());
-  var eq = Math.round(price * qt * 100) / 100;
-  
-  el.parent().children(".full-price").html( eq + "€" );
-  
-  changeTotal();			
-}
+	function changeVal(el) {
+	  var price = parseFloat(el.parent().children(".price").html());
+	  var eq = Math.round(price * qt * 100) / 100;
+	  
+	  el.parent().children(".full-price").html( eq + "€" );
+	  
+	  changeTotal();			
+	}
 
-function changeTotal() {
-  
-  var price = 0;
-  
-  $(".full-price").each(function(index){
-    price += parseFloat($(".full-price").eq(index).html());
-  });
-  
-  price = Math.round(price * 100) / 100;
-  var tax = Math.round(price * 0.05 * 100) / 100
-  var shipping = parseFloat($(".shipping span").html());
-  var fullPrice = Math.round((price + tax + shipping) *100) / 100;
-  
-  if(price == 0) {
-    fullPrice = 0;
-  }
-  
-  $(".subtotal span").html(price);
-  $(".tax span").html(tax);
-  $(".total span").html(fullPrice);
-}
+	function changeTotal() {
+	  
+	  var price = 0;
+	  
+	  $(".full-price").each(function(index){
+	    price += parseFloat($(".full-price").eq(index).html());
+	  });
+	  
+	  price = Math.round(price * 100) / 100;
+	  var tax = Math.round(price * 0.05 * 100) / 100
+	  var shipping = parseFloat($(".shipping span").html());
+	  var fullPrice = Math.round((price + tax + shipping) *100) / 100;
+	  
+	  if(price == 0) {
+	    fullPrice = 0;
+	  }
+	  
+	  $(".subtotal span").html(price);
+	  $(".tax span").html(tax);
+	  $(".total span").html(fullPrice);
+	}
 
-$(document).ready(function(){
-  
-  $(".remove").click(function(){
-    var el = $(this);
-    el.parent().parent().addClass("removed");
-    window.setTimeout(
-      function(){
-        el.parent().parent().slideUp('fast', function() { 
-          el.parent().parent().remove(); 
-          changeTotal(); 
-        });
-      }, 200);
-  });
-  
-  window.setTimeout(function(){$(".is-open").removeClass("is-open")}, 1200);
-  
-  $(".btn").click(function(){
-    check = true;
-    $(".remove").click();
-  });
-});
+	$(document).ready(function(){
+	  
+	  $(".remove").click(function(){
+	    var el = $(this);
+	    el.parent().parent().addClass("removed");
+	    window.setTimeout(
+	      function(){
+	        el.parent().parent().slideUp('fast', function() { 
+	          el.parent().parent().remove(); 
+	          changeTotal(); 
+	        });
+	      }, 200);
+	  });
+	  
+	  window.setTimeout(function(){$(".is-open").removeClass("is-open")}, 1200);
+	  
+	  $(".btn").click(function(){
+	    check = true;
+	    $(".remove").click();
+	  });
+	});
 
-
+	
  new Vue({
 	el:'.shop_admin',
 	data:{
@@ -509,7 +507,6 @@ $(document).ready(function(){
     				alert('삭제가 완료되었습니다.')
     				location.href='../adminpage/shop_goods.do';
     			}
-    			
     		})
     	},
         getList(cateno) {
@@ -528,10 +525,10 @@ $(document).ready(function(){
               })
 
            axios.get('../shop/page_list_vue.do',{
-           	params:{
-           		page:this.curpage,
-           		cateno:cateno
-           	}
+	           params:{
+	           		page:this.curpage,
+	           		cateno:cateno
+	           }
            }).then(res=>{
            	this.page_list=res.data
 				this.curpage=this.page_list.curpage
@@ -543,26 +540,26 @@ $(document).ready(function(){
            })
         },
         range(start,end){
-       	 let arr=[];
-       	 let length=end-start
-       	 for(let i=0;i<=length;i++) {
-       		 arr[i]=start
-       		 start++;
-       	 }
-       	 return arr;
+	       	let arr=[];
+	       	let length=end-start
+		       	for(let i=0;i<=length;i++) {
+		       		 arr[i]=start
+		       		 start++;
+		       	}
+	        return arr;
         },
         pageChange(page){
             this.curpage = page;
             this.getList(this.curpage);
-         },
-         prev(){
-            this.curpage = this.startpage - 1;
-            this.getList(this.curpage);
-         },
-         next(){
+        },
+        prev(){
+	        this.curpage = this.startpage - 1;
+	        this.getList(this.curpage);
+        },
+        next(){
             this.curpage = this.endpage + 1;
             this.getList(this.curpage);
-         }
+        }
      }
  })
  

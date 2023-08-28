@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 관리</title>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
@@ -105,7 +105,7 @@ memh2 {
 }
 .order-table td:last-of-type {
   vertical-align:top;
-  padding-left:25px;
+  padding-left:20px;
 }
 .order-info-content {
   table-layout:fixed;
@@ -275,86 +275,83 @@ memh2 {
 <body>
 
 <div class='member_container'>
-  <div class='window'>
-    <div class='order-info' style='overflow-y: scroll'>
-      <div class='order-info-content'>
-        <h2 class="memh2">회원 내역</h2>
-                <div class='line'></div>
-        <table class='order-table'>
-          <tbody>
-				<tr class="success">
-					<th width=20% class="text-center">아이디</th>
-					<th width=30% class="text-center">이름</th>
-					<th width=30% class="text-center">생년월일</th>
-				</tr>
-				<tr v-for="m in memberList"  @click="detailInfoGo(m.id)">
-					<td width=20% class="text-center" style="vertical-align: middle;">{{m.id}}</td>
-					<td width=30% class="text-center" style="vertical-align: middle;">{{m.name}}</td>
-					<td width=30% class="text-center" style="vertical-align: middle;">{{m.birth}}</td>
-				</tr>
-
-          </tbody>
-
-        </table>
-        <div class='line'></div>
-
-</div>
-</div>
-        <div class='credit-info'>
-          <div class='credit-info-content'>
-            <table class='half-input-table'>
-              <tr><td>상세정보</td></tr>
-            </table>
-<!--             <img src='https://dl.dropboxusercontent.com/s/ubamyu6mzov5c80/visa_logo%20%281%29.png' height='80' class='credit-card-image' id='credit-card-image'></img> -->
-            <table class='half-input-table'>
-              <tr>
-                <td> 아이디
-                  <input type="text" class='input-field' v-model="id" id=id value="id" size=100 readonly>
-                </td>
-                <td>이름
-                  <input type="text" class='input-field' v-model="name" id=name value="name">
-                </td>
-              </tr>
-            </table>
-            연락처
-            <input type="text" class='input-field' v-model="phone" id=phone value="phone">
-            이메일
-            <input type="text" class='input-field' v-model="email" id=email value="email">
-            닉네임
-            <input type="text" class='input-field' v-model="nickname" id=nickname value="nickname">
-            생년월일
-			<input type="date" class="input-field" v-model="birth" id=birth value="birth">
-			우편번호
-			<div class="check-dup">
-				<input type="text" class="input-field" v-model="post" id=post style="margin-right: 10px;display: inline;" value="post">
-				<input type="button" class="btn btn-sm btn-default" value="우편번호 검색" id="postBtn"  @click="openPost">
+	<div class='window'>
+	    <div class='order-info' style='overflow-y: scroll'>
+		    <div class='order-info-content'>
+		        <h2 class="memh2">회원 내역</h2>
+		        <div class='line'></div>
+			        <table class='order-table'>
+				        <tbody>
+							<tr class="success" style="margin:3px">
+								<th width=30% class="text-center">아이디</th>
+								<th width=40% class="text-center">이름</th>
+								<th width=40% class="text-center">생년월일</th>
+							</tr>
+							<tr v-for="m in memberList" @click="detailInfoGo(m.id)">
+								<td width=30% class="text-center" style="vertical-align: middle;margin:3px">{{m.id}}</td>
+								<td width=40% class="text-center" style="vertical-align: middle;margin:3px">{{m.name}}</td>
+								<td width=40% class="text-center" style="vertical-align: middle;margin:3px">{{m.birth}}</td>
+							</tr>
+				        </tbody>
+			        </table>
+		        <div class='line'></div>
 			</div>
-			주소
-			<input type="text" class="input-field" v-model="addr1" id=addr1 size=100 value="addr1">			
-			상세주소
-			<input type="text" class="input-field" v-model="addr2" id=addr2 value="addr2" size=100 >
-			성별
-            <div class="radio">
-                <label>
-                    <input type="radio" name=sex value="남" v-model="sex" /><span style="color:white">남자</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name=sex value="여" v-model="sex" /><span style="color:white">여자</span>
-                </label>
-            </div>
-            관리자
-             <div class="radio">
-                 <label>
-                     <input type="radio" value="n" v-model="admin" /><span style="color:white">NO</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <input type="radio" value="y" v-model="admin" /><span style="color:white">YES</span>
-                 </label>
-             </div>
-			
-            <button class='pay-btn' @click="updateGo">수정하기</button>
-
-          </div>
-
+		</div>
+        <div class='credit-info'>
+	        <div class='credit-info-content'>
+	        <table class='half-input-table'>
+		        <tr>
+			        <td>
+				        상세정보
+			        </td>
+		        </tr>
+	        </table>
+	        <table class='half-input-table'>
+		        <tr>
+			        <td> 아이디
+			       		<input type="text" class='input-field' v-model="id" id=id value="id" size=100 readonly>
+			        </td>
+			        <td>이름
+			        	<input type="text" class='input-field' v-model="name" id=name value="name">
+			        </td>
+		        </tr>
+	        </table>
+	            연락처
+	            <input type="text" class='input-field' v-model="phone" id=phone value="phone">
+	            이메일
+	            <input type="text" class='input-field' v-model="email" id=email value="email">
+	            닉네임
+	            <input type="text" class='input-field' v-model="nickname" id=nickname value="nickname">
+	            생년월일
+				<input type="date" class="input-field" v-model="birth" id=birth value="birth">
+				우편번호
+				<div class="check-dup">
+					<input type="text" class="input-field" v-model="post" id=post style="margin-right: 10px;display: inline;" value="post">
+					<input type="button" class="btn btn-sm btn-default" value="우편번호 검색" id="postBtn"  @click="openPost">
+				</div>
+				주소
+				<input type="text" class="input-field" v-model="addr1" id=addr1 size=100 value="addr1">			
+				상세주소
+				<input type="text" class="input-field" v-model="addr2" id=addr2 value="addr2" size=100 >
+				성별
+	            <div class="radio">
+	                <label>
+	                    <input type="radio" name=sex value="남" v-model="sex" /><span style="color:white">남자</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                    <input type="radio" name=sex value="여" v-model="sex" /><span style="color:white">여자</span>
+	                </label>
+	            </div>
+	            관리자
+	             <div class="radio">
+	                 <label>
+	                     <input type="radio" value="n" v-model="admin" /><span style="color:white">NO</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                     <input type="radio" value="y" v-model="admin" /><span style="color:white">YES</span>
+	                 </label>
+	             </div>
+	             	<button class='pay-btn' @click="updateGo">수정하기</button>
+	        </div>
         </div>
-      </div>
-    </div>
+	</div>
+</div>
     
 <script>
 
@@ -435,9 +432,8 @@ new Vue({
 					id:this.id
 				}
 			}).then(res=>{
-				
-				this.detailInfo(this.id)
-				location.href="../adminpage/main.do";
+
+				location.href='../adminpage/main.do';
 				
 			})	
 		}
