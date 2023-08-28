@@ -19,6 +19,7 @@
 	</definition>
 	
 	<definition name="review_write" template="/WEB-INF/mypage/review_write.jsp"/>
+	<definition name="camp_review_write" template="/WEB-INF/mypage/camp_review_write.jsp"/>
 	
 	<!-- 관리자페이지 -->
 	<definition name="adminpage" template="/WEB-INF/adminpage/main.jsp" extends="main">

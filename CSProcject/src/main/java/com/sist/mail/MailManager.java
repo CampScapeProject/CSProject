@@ -128,4 +128,49 @@ public class MailManager {
 	        	 e.printStackTrace();
 	          }
 	     }
+	
+	
+	public void campReserveOkMail(ReserveVO vo) {
+		 
+		 String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정 
+	     String user = "cs_test_id1@naver.com"; // 패스워드 
+	     String password = "qwer1234";      // SMTP 서버 정보를 설정한다. 
+	     Properties props = new Properties(); 
+	     props.put("mail.smtp.host", host); 
+	     props.put("mail.smtp.port", 587); 
+	     props.put("mail.smtp.auth", "true"); 
+	     Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator(){ 
+	    	 protected PasswordAuthentication getPasswordAuthentication() 
+	    	 { 
+	    		 return new PasswordAuthentication(user, password); 
+	    	 } 
+	     }); 
+	     try { 
+	        	MimeMessage message = new MimeMessage(session); 
+	              message.setFrom(new InternetAddress(user)); 
+	              message.addRecipient(Message.RecipientType.TO, new InternetAddress("tktmzpt7@naver.com")); // 메일 제목 
+	              message.setSubject("예약 승인 완료"); // 메일 내용
+	              
+	              String html="<html>"
+	            		     +"		<head>"
+	            		     +			style
+	            		     +"		</head>"
+	            		     +"		<body>"
+	            		     + "		<span style=\"font-size: 30px; font-weight:bold; margin-bottom: 20px;\">예약이 승인되었습니다</span><br><br>"
+	            		     + "		<span style=\"font-size: 15px; margin-bottom: 3px;\">예약자명 : "+vo.getName()+"</span><br>"
+	            		     + "		<span style=\"font-size: 15px; margin-bottom: 3px;\">캠핑명 : "+vo.getCamp_name()+"</span><br>"
+	            		     + "		<span style=\"font-size: 15px; margin-bottom: 3px;\">객실 : "+vo.getCampsite_name()+"</span><br>"
+	            		     + "		<span style=\"font-size: 15px; margin-bottom: 3px;\">가격 : "+vo.getPrice()+"</span><br>"
+	            		     + "		<span style=\"font-size: 15px; margin-bottom: 3px;\">이용기간 : "+vo.getDbsdate()+" ~ "+vo.getDbedate()+"</span><br>"
+	            		     +"		</body>"
+	            		     +"</html>";
+	              		     
+	              message.setContent(html,"text/html;charset=UTF-8"); // send the message 
+	              Transport.send(message); 
+	              System.out.println("Success Message Send"); 
+	         } catch (MessagingException e) 
+	          {
+	        	 e.printStackTrace();
+	          }
+	     }
 }

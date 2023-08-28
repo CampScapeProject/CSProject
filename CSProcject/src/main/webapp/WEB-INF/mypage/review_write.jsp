@@ -164,48 +164,13 @@ $(function(){
 	new Vue({
 		el:'.container',
 		data:{
-			rno:${fno},
-			rsno:${rno},
-			rent_detail:{},
-			content:''
+			
 		},
 		mounted:function(){
-			axios.get('../rent/rentDetail_vue.do', {
-				params:{
-					rno:this.rno
-				}
-			}).then(res=>{
-				this.rent_detail=res.data
-			})
+			
 		},
 		methods:{
-			insertBtn(){
-				if(rank==0){
-					alert("별점을 선택해주세요")
-					return;
-				}
-				if(this.content.trim()==""){
-					this.$refs.content.focus()
-					return;
-				}
-
-				axios.post('../rent/review_insert_vue.do',null,{
-					params:{
-						rno:this.rno,
-						rank:rank,
-						content:this.content,
-						id:'${sessionScope.id}',
-						rsno:this.rsno
-					}
-				}).then(res=>{
-					alert("리뷰가 등록되었습니다")
-					opener.location.reload();
-  	  		        window.close();
-				})
-			},
-			cancelBtn(){
-				window.close()
-			}
+			
 		}
 	})
 </script>

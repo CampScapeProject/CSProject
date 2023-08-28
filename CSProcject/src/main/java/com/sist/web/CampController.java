@@ -95,4 +95,11 @@ public class CampController {
 	{
 		return "camp/camp_reserve";
 	}
+	
+	@GetMapping("mypage/camp_review_write.do")
+	public String camp_mypage_review_write(int sno,Model model) {
+		
+		model.addAttribute("sno",sno);
+		return "camp_review_write";
+	}
 }

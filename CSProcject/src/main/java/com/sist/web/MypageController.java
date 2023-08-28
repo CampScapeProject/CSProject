@@ -57,6 +57,7 @@ public class MypageController {
 		return "mypage/qna";
 	}
 	
+	
 
 	
 }

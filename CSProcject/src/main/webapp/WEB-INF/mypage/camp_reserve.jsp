@@ -32,7 +32,6 @@
 							<div class="visit text-left">예약일</div>
 							<div class="serial text-left">가격</div>
 							<div class="serial text-left">승인 여부</div>
-							<div class="serial text-left">리뷰</div>
 						</div>
 						
 						<div class="table-row" v-for="cvo in my_clist">
@@ -45,11 +44,14 @@
 							<div class="visit">{{cvo.dbsdate}}&nbsp;-&nbsp;{{cvo.dbedate}}</div>
 							<div class="serial">{{cvo.price}}</div>
 							<div class="serial">
-								<button class="btn btn-xs btn-primary" style="font-size: 15px;margin-right: 5px;" >{{cvo.rstate}}</button>
-								<button class="btn btn-xs btn-danger" style="font-size: 15px;" @click="reserveDelete(cvo.rno)">예약취소</button>
-							</div>
-							<div class="serial">
-								<button class="btn btn-xs btn-info" style="font-size: 15px;margin-left: 5px;" @click="reviewForm(true)">리뷰작성</button>
+								<div class="row">
+									<div class="col-lg-12 text-center" style="margin-bottom: 5px;">
+										<button class="btn btn-xs btn-primary" style="font-size: 15px;" >{{cvo.rstate}}</button>
+									</div>
+									<div class="col-lg-12 text-center">
+										<button class="btn btn-xs btn-danger" style="font-size: 15px;" @click="reserveDelete(cvo.rno)">예약취소</button>
+									</div>
+								</div>
 							</div>
 						</div>
 						
@@ -122,18 +124,7 @@
 					alert('예약이 취소되었습니다')
 					location.href='../mypage/camp_reserve.do'
 				})
-			},
-			reviewForm:function(bool){
-				rInsertShow=bool;
-				
-				$('#dialog').dialog({
-					autoOpen:false,
-					modal:true, //다이어로그 실행중에는 다른 것은 실행 안되게
-					width:600,
-					height:300
-				}).dialog("open")
 			}
-			
 			
 		}
 	})

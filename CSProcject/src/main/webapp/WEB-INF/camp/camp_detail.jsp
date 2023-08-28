@@ -347,7 +347,12 @@
 			                                    </a>
 			                                </li>
 			                            </ul>
-			                        </nav> 
+			                        </nav>
+			                        <div class="row">
+			                        	<div class="col-lg-12 text-right">
+			                        		<button class="btn btn-xs btn-primary" style="background-color: #001D38;border: 1px solid #001D38" @click="reviewWriteBtn()">작성</button>
+			                        	</div>
+			                        </div>
 								</div>
 							</template>
 				    	</div>
@@ -957,6 +962,11 @@
 			    	}).then(res=>{
 			    		this.jjimCount=res.data.jjimCount
 			    	})
+			    },
+			    reviewWriteBtn:function(){
+			    	let x=(document.body.offsetWidth/2)-(450/2)
+					let y=(window.screen.height/2)-(600/2)-50
+					window.open("../mypage/camp_review_write.do?sno="+this.cno,"",'width=450, height=500, left='+x+', top='+y+',scrollbar=no')
 			    },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

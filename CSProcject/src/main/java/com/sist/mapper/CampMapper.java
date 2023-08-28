@@ -44,7 +44,7 @@ public interface CampMapper {
 	@Update("UPDATE camp2 SET hit=hit+1 WHERE cno=#{cno} ")
 	public void campHitUpdate(int cno);
 	
-	@Select("SELECT cno,name,address,phone,msg,image,hit,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=c.cno) as mprice FROM camp2 c WHERE cno=#{cno}")
+	@Select("SELECT camp2.cno,name,address,phone,msg,image,hit,(SELECT MIN(TO_NUMBER(price)) FROM campsite2  WHERE campsite2.cno=camp2.cno) as mprice FROM camp2 WHERE camp2.cno=#{cno}")
 	public CampVO campDetail(int cno);
 	
 	@Select("SELECT name FROM camp2 WHERE cno=#{cno}")
@@ -109,7 +109,7 @@ public interface CampMapper {
 	public void campReserveInsert(ReserveVO vo);
 	
 	//마이페이지
-	@Select("SELECT rno,fno,name,price,rstate,inwon,TO_CHAR(sdate, 'YYYY-MM-DD') as dbsdate,TO_CHAR(edate, 'YYYY-MM-DD') as dbedate,(SELECT image FROM camp2 "
+	@Select("SELECT rno,fno,name,email,price,rstate,inwon,TO_CHAR(sdate, 'YYYY-MM-DD') as dbsdate,TO_CHAR(edate, 'YYYY-MM-DD') as dbedate,(SELECT image FROM camp2 "
 			+ "WHERE camp2.cno=reserve2.fno) as image,(SELECT name FROM campsite2 WHERE campsite2.csno=reserve2.csno) as campsite_name,"
 			+ "(SELECT name FROM camp2 WHERE camp2.cno=reserve2.fno) as camp_name "
 			+ "FROM reserve2 WHERE id=#{id} AND type='c' ORDER BY rno DESC")
@@ -145,4 +145,14 @@ public interface CampMapper {
 			+ "(SELECT image FROM camp2 WHERE camp2.cno=jjim2.sno) as image "
 			+ "FROM jjim2 WHERE id=#{id} AND type='c'")
 	public List<JjimVO> campJjimList(String id);
+	
+	
+	
+	//메일
+	
+	@Select("SELECT rno,fno,name,email,price,rstate,inwon,TO_CHAR(sdate, 'YYYY-MM-DD') as dbsdate,TO_CHAR(edate, 'YYYY-MM-DD') as dbedate,(SELECT image FROM camp2 "
+			+ "WHERE camp2.cno=reserve2.fno) as image,(SELECT name FROM campsite2 WHERE campsite2.csno=reserve2.csno) as campsite_name,"
+			+ "(SELECT name FROM camp2 WHERE camp2.cno=reserve2.fno) as camp_name "
+			+ "FROM reserve2 WHERE rno=#{rno}")
+	public ReserveVO campReserveMail(int rno);
 }

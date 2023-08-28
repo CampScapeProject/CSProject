@@ -178,7 +178,6 @@ function uncomma(str) {
 		                            <p>{{vo.msg}}</p>
 		                            <i class="fa fa-phone-square" style="color: #E86A33"></i>&nbsp;<span>{{vo.phone}}</span><br>
 		                           <i class="fa fa-location-arrow" style="color: #E86A33"></i>&nbsp;<span>{{vo.address}}</span><br>
-		                           <i class="fa-sharp fa-solid fa-eye" style="color:gray"></i><span>{{vo.hit}}</span>
 		                        </div>
 		                    </div>
 		                </div>

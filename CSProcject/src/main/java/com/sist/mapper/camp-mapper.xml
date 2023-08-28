@@ -22,10 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM (SELECT cno,name,address,phone,msg,hit,image,mprice,rownum as num 
 		FROM (SELECT cno,name,address,phone,msg,hit,image,(SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=camp2.cno) as mprice FROM camp2 
 		WHERE (SELECT MIN(TO_NUMBER(price)) FROM campsite2 cs WHERE cs.cno=camp2.cno) BETWEEN #{spricefd} AND #{epricefd} 
-        <if test="sdate !=null and edate !=null">
 		AND (SELECT COUNT(sDate) FROM reserve2 WHERE camp2.cno=reserve2.rno AND sDate BETWEEN #{sdate} AND #{edate} AND type='c') = 0
 		AND (SELECT COUNT(eDate) FROM reserve2 WHERE camp2.cno=reserve2.rno AND eDate BETWEEN #{sdate} AND #{edate} AND type='c') = 0
-		</if>
 		<if test="state != null">
 		AND address LIKE '%'||#{state}||'%'
 		</if>	
