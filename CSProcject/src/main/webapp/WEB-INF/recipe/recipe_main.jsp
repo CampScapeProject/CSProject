@@ -259,7 +259,7 @@
 			// 검색
 			recipeSearch:function(){
 				this.curpage=1
-		    	this.dataReicive()
+				this.dataRecive();
 			}
 		}
 		

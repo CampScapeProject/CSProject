@@ -55,9 +55,14 @@ public class RecipeDAO {
 	}
 	
 	// 마이 페이지
-	public List<JjimVO> mp_recipeJjimList(String id)
+	public List<JjimVO> mp_recipeJjimList(Map map)
 	{
-		return mapper.mp_recipeJjimList(id);
+		return mapper.mp_recipeJjimList(map);
+	}
+	
+	public int mp_recipeTotalpage(String id)
+	{
+		return mapper.mp_recipeTotalpage(id);
 	}
 	
 	// 관리자 페이지
