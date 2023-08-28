@@ -13,6 +13,7 @@
 	
 	.row1 {
 		margin: 0px auto;
+		width: 900px;
 	}
 
 	/* 순서 상-우-하-좌 */
@@ -45,7 +46,7 @@
 	}
 	
 	.comment_title {
-		margin-top: -50px;
+		margin-top: -80px;
 		padding: 10px;
 	}
 	
@@ -70,125 +71,121 @@
 	                 <h1 style="color: white;text-align: center;font-weight: bold;font-family: 'Noto Sans KR', sans-serif;margin-top: 10px;">Recipe</h1>
 	                </div>
 	            </div>
-	        </div>
+	        </div> 
 	    </div>
 	</div>
+	
 
-<div class="recipe">
-	<div class="container">
+	<div class="recipe">
 		<div class="row1">
-		
-			<!-- 레시피 -->
-			<table class="table">
-				<tr>
-					<td class="text-center" colspan=3>
-						<img :src="image" style="width: 600px">
-					</td>
-				</tr>
-				<tr>
-					<td class="text-left" colspan=2><span class="recipe_title">{{title}}</span></td>
-					
-					<!-- ##찜하기## -->
-					<td class="text-right" style="padding-top: 17px;">
-					
-					`	<!-- 로그인 안했을 때 & 찜 안눌렀을 때 -->
-						<i v-if="jjim_ok==0 || sessionId==null" class="fa-regular fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimInsert()></i>
-						<span v-if="jjim_ok==0 || sessionId==null">       찜하기</span>
-						
-						
-						<!-- 찜 눌렀을 때 -->
-						<i v-if="jjim_ok==1" class="fa-solid fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimDelete()></i>
-						<span v-if="jjim_ok==1">       찜하기</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="text-center" colspan=3 style="padding: 50px 60px 50px 60px"><span class="recipe_subject">{{msg1}}</span></td>
-				</tr>
-				<tr style="padding: 15px 0px 15px 0px;">
-					<td class="text-right" width="33.3%"><i class="fa-solid fa-users" style="color: #8f8f8f;"></i><span class="msg2">       {{people}}       </span></td>
-					<td class="text-center" width="33.3%"><i class="fa-regular fa-clock" style="color: #8f8f8f;"></i><span class="msg2">       {{time}}       </span></td>
-					<td class="text-left" width="33.3%"><i class="fa-solid fa-chart-simple" style="color: #8f8f8f;"></i><span class="msg2">       {{level}}       </span></td>
-				</tr>
-				<tr>
-					<td style="padding: 30px;"><span style="font-size: 24px;"> <span style="font-weight: 600;">재료</span>   |</span> <span style="font-size: 16px;">   Ingredients</span></td>
-					<td style="padding: 30px;" colspan=2><span>{{ingre}}</span></td>
-				</tr>
-				<tr>
-					<td colspan=3 style="padding:30px;">
-
-						<!-- 조리 순서 -->
-						<div>
-						<i class="fa-solid fa-fire-burner fa-xl" style="color: #E86A33;"></i><span style="font-size: 24px; font-weight: 600;">            조리 순서</span>
-						</div>
-						
-						<div style="padding: 30px;">
-							<table class="table recipe_step_img">
-								<tr v-for="steps_img, index in allstepsimg">
-									<td width=40% class="text-center">
-										<img :src="steps_img" style="width: 600px; margin-bottom: 20px;">
-										<span class="allsteps"><pre>{{allsteps[index]}}</pre></span>
-									</td>
-								</tr>
-							</table>
-						</div>
-						
-					</td>
-				</tr>
-			</table>
 			
-			<div class="comment_title">
-				<i class="fa-regular fa-comments fa-2xl" style="margin-right: 13px; color:#E86A33"></i><span class="comment_title_span">댓글 ({{commentTotal}})</span>
-			</div>
-			
-			<div class="comment">
-				<!-- 댓글 -->
-				<table class="table" v-for="cvo in comment_list">
+				<!-- 레시피 -->
+				<table class="table">
 					<tr>
-						<td class="text-left" style="vertical-align: middle;">
-							<i class="fa-solid fa-user fa-lg" style="color: #8f8f8f;"></i>&nbsp;&nbsp;{{cvo.nickname}}<span style="font-size: 12px;">  &#91;{{cvo.dbday}}&#93;</span>
-						</td>
-						
-						<td class="text-right" style="vertical-align: middle;">
-							<span v-if="sessionId==cvo.id">
-								<input type=button class="btn btn-sm btn-default ups" value="수정" :id="'up'+cvo.cmno" @click="commentUpdateForm(cvo.cmno)">
-		    					<input type=button class="btn btn-sm btn-default" value="삭제" @click="commentDelete(cvo.cmno)">
-							</span>
+						<td class="text-center" colspan=3>
+							<img :src="image" style="width: 600px">
 						</td>
 					</tr>
-					
 					<tr>
-						<td colspan=2><pre style="white-space: pre-wrap;background-color: white;border: none">{{cvo.msg}}</pre></td>
+						<td class="text-left" colspan=2><span class="recipe_title">{{title}}</span></td>
+						
+						<!-- ##찜하기## -->
+						<td class="text-right" style="padding-top: 17px;">
+						
+						`	<!-- 로그인 안했을 때 & 찜 안눌렀을 때 -->
+							<i v-if="jjim_ok==0 || sessionId==null" class="fa-regular fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimInsert()></i>
+							<span v-if="jjim_ok==0 || sessionId==null">       찜하기</span>
+							
+							
+							<!-- 찜 눌렀을 때 -->
+							<i v-if="jjim_ok==1" class="fa-solid fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimDelete()></i>
+							<span v-if="jjim_ok==1">       찜하기</span>
+						</td>
 					</tr>
-					
-					<!-- 댓글 업데이트 -->
-					<tr :id="'u'+cvo.cmno" class="updates" style="display:none">
-						<td colspan=2>
-							<textarea rows=3 cols=100 :id="'msg'+cvo.cmno" style="float:left; resize: none;">{{cvo.msg}}</textarea>
-							<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentUpdate(cvo.cmno)">수정</button>
+					<tr>
+						<td class="text-center" colspan=3 style="padding: 50px 60px 50px 60px"><span class="recipe_subject">{{msg1}}</span></td>
+					</tr>
+					<tr style="padding: 15px 0px 15px 0px;">
+						<td class="text-right" width="33.3%"><i class="fa-solid fa-users" style="color: #8f8f8f;"></i><span class="msg2">       {{people}}       </span></td>
+						<td class="text-center" width="33.3%"><i class="fa-regular fa-clock" style="color: #8f8f8f;"></i><span class="msg2">       {{time}}       </span></td>
+						<td class="text-left" width="33.3%"><i class="fa-solid fa-chart-simple" style="color: #8f8f8f;"></i><span class="msg2">       {{level}}       </span></td>
+					</tr>
+					<tr>
+						<td style="padding: 30px;"><span style="font-size: 24px;"> <span style="font-weight: 600;">재료</span>   |</span> <span style="font-size: 16px;">   Ingredients</span></td>
+						<td style="padding: 30px;" colspan=2><span>{{ingre}}</span></td>
+					</tr>
+					<tr>
+						<td colspan=3 style="padding:30px;">
+	
+							<!-- 조리 순서 -->
+							<div>
+							<i class="fa-solid fa-fire-burner fa-xl" style="color: #E86A33;"></i><span style="font-size: 24px; font-weight: 600;">            조리 순서</span>
+							</div>
+							
+							<div style="padding: 30px;">
+								<table class="table recipe_step_img">
+									<tr v-for="steps_img, index in allstepsimg">
+										<td width=40% class="text-center">
+											<img :src="steps_img" style="width: 600px; margin-bottom: 20px;">
+											<span class="allsteps"><pre>{{allsteps[index]}}</pre></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
 						</td>
 					</tr>
 				</table>
 				
-				<!-- 댓글 작성 -->
-				<c:if test="${sessionScope.id!=null }">
-				<table class="table">
-					<tr>
-						<td>
-							<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg" v-model="msg"></textarea>
-							<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentInsert()">댓글 작성</button>
-						</td>
-					</tr>
-				</table>
-				</c:if>
-			</div>
-			
-			
+				<div class="comment_title">
+					<i class="fa-regular fa-comments fa-2xl" style="margin-right: 13px; color:#E86A33"></i><span class="comment_title_span">댓글 ({{commentTotal}})</span>
+				</div>
+				
+				<div class="comment">
+					<!-- 댓글 -->
+					<table class="table" v-for="cvo in comment_list">
+						<tr>
+							<td class="text-left" style="vertical-align: middle;">
+								<i class="fa-solid fa-user fa-lg" style="color: #8f8f8f;"></i>&nbsp;&nbsp;{{cvo.nickname}}<span style="font-size: 12px;">  &#91;{{cvo.dbday}}&#93;</span>
+							</td>
+							
+							<td class="text-right" style="vertical-align: middle;">
+								<span v-if="sessionId==cvo.id">
+									<input type=button class="btn btn-sm btn-default ups" value="수정" :id="'up'+cvo.cmno" @click="commentUpdateForm(cvo.cmno)">
+			    					<input type=button class="btn btn-sm btn-default" value="삭제" @click="commentDelete(cvo.cmno)">
+								</span>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan=2><pre style="white-space: pre-wrap;background-color: white;border: none">{{cvo.msg}}</pre></td>
+						</tr>
+						
+						<!-- 댓글 업데이트 -->
+						<tr :id="'u'+cvo.cmno" class="updates" style="display:none">
+							<td colspan=2>
+								<textarea rows=3 cols=100 :id="'msg'+cvo.cmno" style="float:left; resize: none;">{{cvo.msg}}</textarea>
+								<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentUpdate(cvo.cmno)">수정</button>
+							</td>
+						</tr>
+					</table>
+					
+					<!-- 댓글 작성 -->
+					<c:if test="${sessionScope.id!=null }">
+					<table class="table">
+						<tr>
+							<td>
+								<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg" v-model="msg"></textarea>
+								<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentInsert()">댓글 작성</button>
+							</td>
+						</tr>
+					</table>
+					</c:if>
+				</div>
+	 
 		</div>
-		
-		
- 
 	</div>
-</div>
+	
 	
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
