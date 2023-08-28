@@ -153,7 +153,7 @@
 				}
 				
 				let form = new FormData();
-				form.appebd("nno", this.nno)
+				form.append("nno", this.nno)
 				form.append("title", this.title)
 				form.append("content", this.content)
 				form.append("fix", this.fix)

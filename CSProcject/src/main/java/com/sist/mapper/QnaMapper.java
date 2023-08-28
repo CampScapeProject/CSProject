@@ -71,7 +71,7 @@ public interface QnaMapper {
 	// 마이 페이지
 	@Select("SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD'), open, group_step, group_tab, depth, num "
 			+ "FROM (SELECT qno, qcno, id, name, title, regdate, open, group_step, group_tab, depth, rownum as num "
-			+ "FROM (SELECT qno, qcno, id, name, title, regdate, open, group_step, group_tab, depth FROM qna2 WHERE id=#{id} ORDER BY qno DESC) "
+			+ "FROM (SELECT qno, qcno, id, name, title, regdate, open, group_step, group_tab, depth FROM qna2 WHERE id=#{id} ORDER BY qno DESC)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<QnaVO> mp_qnaList(Map map);
 	

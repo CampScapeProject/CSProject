@@ -35,7 +35,7 @@ public interface RecipeMapper {
 	public void CommentDelete(int cmno);
 	
 	// 마이 페이지
-	@Select("SELECT no, id, sno, rownum, (SELECT title FROM recipe2 WHERE recipe2.rno = jjim2.sno) as title, "
+	@Select("SELECT no, id, sno, rownum, (SELECT title FROM recipe2 WHERE recipe2.rno = jjim2.sno) as name, "
 			+ "(SELECT image FROM recipe2 WHERE recipe2.rno = jjim2.sno) as image, "
 			+ "(SELECT jjim FROM recipe2 WHERE recipe2.rno = jjim2.sno) as jjim "
 			+ "FROM jjim2 WHERE id=#{id} AND type='p' AND rownum BETWEEN #{start} AND #{end} ")

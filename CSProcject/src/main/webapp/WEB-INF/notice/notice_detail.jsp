@@ -104,7 +104,7 @@
 	    			<tr>
 	    				<td colspan=4 class="text-right">
 	    				<c:if test="${sessionScope.admin=='y' }">
-	    					<a :href="'../notice/notice_update.do?nno='+notice_data.nno"><input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="수정"></a>
+	    					<a :href="'../notice/notice_update.do?nno='+notice_data.nno"><input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="수정" @click="update()"></a>
 	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="삭제" @click="del()">
 	    				</c:if>
 	    					<input type=button class="boxed-btn4 text-white rounded-1 w-40 btn_1" value="목록" style="background-color: #787878" onclick="javascript:history.back()">
@@ -162,7 +162,33 @@
 			})
 		},
 		methods:{
+				
+			del:function(){
+				alert('삭제하시겠습니까?')
+				
+				axios.get('../notice/notice_delete_vue.do', {
+					params:{
+						nno:this.nno
+					}
+				}).then(res=>{
+					location.href="../notice/notice_main.do?"
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			},
 			
+			update:function(){
+				
+				axios.get('../notice/notice_update_vue.do', {
+					params:{
+						nno:this.nno
+					}
+				}).then(res=>{
+					location.href="../notice/notice_update.do?nno="+this.nno
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			}
 			
 		}
 	})

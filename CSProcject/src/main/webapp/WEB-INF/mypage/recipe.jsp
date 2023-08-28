@@ -57,7 +57,7 @@
 							<img :src="vo.image" style="width:30%">
 						</td>
 						<td width=60% style="vertical-align: middle;">
-							<a :href="'../recipe/recipe_detail.do?rno='+vo.rno">{{vo.title}}</a>
+							<a :href="'../recipe/recipe_detail.do?rno='+vo.sno">{{vo.name}}</a>
 						</td>
 						<td width=20% class="text-center" style="vertical-align: middle;">
 							<span>
