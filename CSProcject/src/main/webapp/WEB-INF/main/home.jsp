@@ -126,7 +126,7 @@
 												class="single-input-primary" style="margin-bottom: 20px;">
                             </div>
                             <div class="search_btn">
-                                <button class="boxed-btn4 " type="submit" @click="findReserve()">검색</button>
+                                <button class="boxed-btn4 " type="submit" @click="findReserve()" style="background-color: #F2E3DB;color: #1F1F1F">검색</button>
                             </div>
                             </div>
                     </div>
