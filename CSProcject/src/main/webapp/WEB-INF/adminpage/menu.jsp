@@ -18,7 +18,7 @@
 <body>
 	<div class="col-lg-2">
 		<div class="mypage-title text-center">
-			<span>관리자페이지</span>
+			<span>관리자페이지</span> 
 		</div>
 		<div class="mypage-menu text-left">
 			<h4>회원 정보</h4>
