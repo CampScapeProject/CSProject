@@ -137,7 +137,7 @@
 			</table>
 			
 			<div class="comment_title">
-				<i class="fa-regular fa-comments fa-2xl" style="margin-right: 20px; color:#E86A33"></i><span class="comment_title_span">댓글 ({{commentTotal}})</span>
+				<i class="fa-regular fa-comments fa-2xl" style="margin-right: 13px; color:#E86A33"></i><span class="comment_title_span">댓글 ({{commentTotal}})</span>
 			</div>
 			
 			<div class="comment">
@@ -241,7 +241,7 @@
 				}
 			}).then(res=>{
 				console.log(res.data)
-				commentTotal = res.data
+				this.commentTotal = res.data
 			})
 		},
 		methods:{
@@ -403,10 +403,13 @@
 			// 찜하기
 			jjimInsert:function(){
 				
-				if(sessionId==null)
+				console.log("아이디 : ", this.sessionId)
+				
+				if(this.sessionId==null)
 				{
 					alert("로그인 후 이용해주세요.")
 					a.href="../member/login.do";
+					return;
 				}
 				
 				axios.post('../recipe/jjim_insert.do', null, {

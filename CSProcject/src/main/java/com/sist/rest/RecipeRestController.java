@@ -183,22 +183,27 @@ public class RecipeRestController {
 	}
 	
 	@GetMapping(value= "recipe/comment_total_vue.do", produces = "text/plain;charset=UTF-8")
-	public int comment_count(int rno)
+	public String comment_count(int rno) throws Exception
 	{
 		int total = dao.commentCount(rno);
-		return total;
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(total);
+		return json;
 	}
 	
 	// 찜
 	@GetMapping(value = "recipe/jjim_count_vue.do", produces = "text/plain;charset=UTF-8")
-	public int jjim_count(int rno)
+	public String jjim_count(int rno) throws Exception
 	{
 		int total = dao.recipeJjimCount(rno);
-		return total;
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(total);
+		return json;
 	}
 	
 	@GetMapping(value = "recipe/jjim_ok_vue.do", produces = "text/plain;charset=UTF-8")
-	public int jjim_Ok(int rno, String id)
+	public String jjim_Ok(int rno, String id) throws Exception
 	{
 		Map map = new HashMap();
 		map.put("rno", rno);
@@ -206,12 +211,16 @@ public class RecipeRestController {
 		
 		int jjimOk = dao.recipeJjim_ok(map);
 		
-		return jjimOk;
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(jjimOk);
+		return json;
 	}
 	
 	@PostMapping(value = "recipe/jjim_insert.do", produces = "text/plain;charset=UTF-8")
 	public void jjim_insert(int rno, String id)
 	{
+		System.out.println("rno : "+rno);
+		
 		Map map = new HashMap();
 		map.put("rno", rno);
 		map.put("id", id);
