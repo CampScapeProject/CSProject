@@ -22,9 +22,9 @@ public class RecipeDAO {
 		return mapper.recipeListData(map);
 	}
 	
-	public int recipeTotalPage()
+	public int recipeTotalPage(String fd)
 	{
-		return mapper.recipeTotalPage();
+		return mapper.recipeTotalPage(fd);
 	}
 	
 	public RecipeVO recipeDetailData(int rno)

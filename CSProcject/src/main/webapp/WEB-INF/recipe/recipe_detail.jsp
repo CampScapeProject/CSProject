@@ -54,7 +54,7 @@
 		font-size: 20px;
 	}
 	
-	i :hover {
+	i:hover {
 		cursor: pointer;
 	}
 	

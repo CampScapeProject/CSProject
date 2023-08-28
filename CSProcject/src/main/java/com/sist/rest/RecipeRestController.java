@@ -24,13 +24,17 @@ public class RecipeRestController {
 	private RecipeDAO dao;
 	
 	@GetMapping(value = "recipe/recipe_list_vue.do", produces = "text/plain;charset=UTF-8")
-	public String recipeList(int page) throws Exception
+	public String recipeList(int page, String fd) throws Exception
 	{
 		Map map = new HashMap();
 		int rowSize = 12;
 		int start = (rowSize*page)-(rowSize-1);
 		int end = rowSize*page;
 		
+		if(fd==null)
+			fd="";
+		
+		map.put("fd", fd);
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -42,9 +46,11 @@ public class RecipeRestController {
 	}
 	
 	@GetMapping(value = "recipe/recipe_page_vue.do", produces = "text/plain;charset=UTF-8")
-	public String recipe_page(int page) throws Exception
+	public String recipe_page(int page, String fd) throws Exception
 	{
-		int totalpage = dao.recipeTotalPage();
+		if(fd==null)
+			fd="";
+		int totalpage = dao.recipeTotalPage(fd);
 		
 		final int BLOCK = 5;
 		int startpage = ((page-1)/BLOCK*BLOCK)+1;

@@ -1,1 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.RecipeMapper">
+<!-- 
+@Select("SELECT rno, title, image, msg2, jjim, hit, num "
+	+ "FROM (SELECT rno, title, image, msg2, jjim, hit, rownum as num "
+	+ "FROM (SELECT rno, title, image, msg2, jjim, hit FROM recipe2 ORDER BY rno ASC)) "
+	+ "WHERE num BETWEEN #{start} AND #{end}")
+-->
+	<select id="recipeListData" resultType="RecipeVO" parameterType="HashMap">
+		SELECT rno, title, image, msg2, jjim, hit, num 
+		FROM (SELECT rno, title, image, msg2, jjim, hit, rownum as num 
+		FROM (SELECT rno, title, image, msg2, jjim, hit FROM recipe2 WHERE title LIKE '%'||#{fd}||'%' ORDER BY rno ASC))
+		WHERE num BETWEEN #{start} AND #{end})
+	</select>
+</mapper>

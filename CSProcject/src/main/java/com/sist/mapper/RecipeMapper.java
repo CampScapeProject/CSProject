@@ -10,14 +10,10 @@ import org.apache.ibatis.annotations.Update;
 
 public interface RecipeMapper {
 	
-	@Select("SELECT rno, title, image, msg2, jjim, hit, num "
-			+ "FROM (SELECT rno, title, image, msg2, jjim, hit, rownum as num "
-			+ "FROM (SELECT rno, title, image, msg2, jjim, hit FROM recipe2 ORDER BY rno ASC)) "
-			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<RecipeVO> recipeListData(Map map);
 	
-	@Select("SELECT CEIL(COUNT(*)/20.0) FROM recipe2")
-	public int recipeTotalPage();
+	@Select("SELECT CEIL(COUNT(*)/20.0) FROM recipe2 WHERE title LIKE '%'||#{fd}||'%'")
+	public int recipeTotalPage(String fd);
 	
 	@Update("UPDATE recipe2 SET hit=hit+1 WHERE rno=#{rno}")
 	public void recipeHitIncrease(int rno);

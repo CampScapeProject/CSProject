@@ -86,6 +86,18 @@
 		font-size: 12px;
 	}
 	
+	.search_form {
+		margin-bottom: 30px;
+	}
+	
+	.row2 {
+		text-align: right;
+	}
+	
+	i:hover {
+		cursor: pointer;
+	}
+	
 </style>
 </head>
 <body>
@@ -107,8 +119,16 @@
 	<!-- 레시피 본문 -->
 	
 	<div class="container">
-		<div class="row" style="margin-top: 50px;">
+	
+		<div class="row2" style="margin-top: 70px; margin-right: 10px;">
+			<div class="search">
+	            <input type=text class="input-sm" placeholder="레시피명을 입력하세요." style="width: 300px" v-model="fd" @keyup.enter="recipeSearch()"/>
+	            <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #e86a33;margin-left: 5px;" @click="recipeSearch()"></i>
+			</div>
+		</div>
 		
+		<div class="row" style="margin-top: 30px;">
+			
 			<!-- 레시피 리스트 -->
 			<div class="col-lg-3" v-for="vo in recipe_list">
 				<li class="card">
@@ -172,7 +192,8 @@
 			curpage:1,
 			totalpage:0,
 			startpage:0,
-			endpage:0
+			endpage:0,
+			fd:''
 		},
 		mounted:function(){
 			this.dataRecive();
@@ -183,7 +204,8 @@
 				// 해당 페이지 값 데이터 읽기
 				axios.get('../recipe/recipe_list_vue.do', {
 					params:{
-						page:this.curpage
+						page:this.curpage,
+						fd:this.fd
 					}
 				}).then(response=>{
 					console.log(response.data)
@@ -195,7 +217,8 @@
 				// 페이지 정보
 				axios.get('../recipe/recipe_page_vue.do', {
 					params:{
-						page:this.curpage
+						page:this.curpage,
+						fd:this.fd
 					}
 				}).then(response=>{
 					console.log(response.data)
@@ -231,6 +254,12 @@
 			pageChange:function(page){
 				this.curpage = page;
 				this.dataRecive();
+			},
+			
+			// 검색
+			recipeSearch:function(){
+				this.curpage=1
+		    	this.dataReicive()
 			}
 		}
 		
