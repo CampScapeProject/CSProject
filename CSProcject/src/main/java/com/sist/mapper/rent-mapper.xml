@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.sist.mapper.RentMapper">
 	<select id="rentListData" resultType="RentVO" parameterType="HashMap">
 		SELECT rno, image, car_name, car_type, maker, inwon, fuel, car_option, price,
-			   (SELECT COUNT(*) FROM review2 WHERE sno=rno) as rvCount,
-			   (SELECT NVL(ROUND(AVG(rating),1),0) FROM review2 WHERE sno=rno) as rvAvg,
+			   (SELECT COUNT(*) FROM review2 WHERE sno=rno AND type='r') as rvCount,
+			   (SELECT NVL(ROUND(AVG(rating),1),0) FROM review2 WHERE sno=rno AND type='r') as rvAvg,
 			   (SELECT COUNT(*) FROM jjim2 WHERE sno=rno AND type='r') as jjimCount,
 			   (SELECT COUNT(*) FROM jjim2 WHERE sno=rno AND id=#{id} AND type='r') as jjimOk 
 			   

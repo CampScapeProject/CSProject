@@ -122,7 +122,7 @@ public interface CampMapper {
 	@Select("SELECT no,sno,content,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,"
 			+ "(SELECT name FROM camp2 WHERE camp2.cno=review2.sno AND type='c') as camp_name,"
 			+ "(SELECT image FROM camp2 WHERE camp2.cno=review2.sno AND type='c') as image,"
-			+ "id,subject,hit FROM review2 WHERE id=#{id}")
+			+ "id,subject,hit FROM review2 WHERE id=#{id} AND type='c' ")
 	public List<ReviewVO> mypageReiview(String id);
 	
 	//관리자 페이지
