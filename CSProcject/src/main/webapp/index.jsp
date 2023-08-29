@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>일상을 벗어나 자연속으로, CampScape</title>
 <script type="text/javascript">
 	location.href="main/home.do"
 </script>
