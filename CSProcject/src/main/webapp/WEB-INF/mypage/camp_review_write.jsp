@@ -32,34 +32,34 @@
  		<h3>글 쓰기</h3>
  	</div>
  </div>	
- <section class="blog_area single-post-area section-padding" style="margin-top: -100px;background-color: #EEEEEE;">
+ <section class="blog_area single-post-area section-padding" style="margin-top: -100px;background-color: #EADBC8;">
       <div class="container">
          <form @submit.prevent="InsertForm()">
                      <div class="row" >
                         <div class="col-sm-12">
                            <div class="form-group">
-                              이름<input class="form-control" v-model="id" type="text" style="width: 100px" readonly>
+                              이름<input class="form-control" v-model="id" type="text" style="width: 100px;background-color: #DAC0A3;font-weight: bold;" readonly>
                            </div>
                         </div>
                         <div class="col-sm-12">
                            <div class="form-group">
-                              제목<input class="form-control" ref="subject" v-model="subject" type="text" style="width: 300px">
+                              제목<input class="form-control" ref="subject" v-model="subject" type="text" style="width: 300px;background-color: #DAC0A3;font-weight: bold;">
                            </div>
                         </div>
                         <div class="col-sm-12">
                            <div class="form-group">
-                              이미지<input ref="img" type="file" @change="getFileName($event.target.files)">
+                              이미지<input ref="img" type="file" @change="getFileName($event.target.files)" style="background-color: #DAC0A3;font-weight: bold;">
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                             내용<textarea class="form-control w-100" ref="content" v-model=content cols="30" rows="9">
+                             내용<textarea class="form-control w-100" ref="content" v-model=content cols="30" rows="9" style="background-color: #DAC0A3;font-weight: bold;">
                               </textarea>
                            </div>
                         </div>
                      </div>
                      <div class="form-group text-center">
-                        <button type="submit" class="button button-contactForm btn_1 boxed-btn" style="background-color: #001D38;border: 1px solid #001D38">작성</button>
+                        <button type="submit" class="button button-contactForm btn_1 boxed-btn" style="background-color: #DAC0A3;border: 1px solid white">작성</button>
                      </div>
                   </form>
                </div>

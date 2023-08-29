@@ -363,40 +363,41 @@
               
               <!-- 리뷰 디테일 -->
               
-              <div id="dialog" title="리뷰글" v-if="rDetailShow" style="background-color: #EEEEEE;overflow: auto;">
-              	<div class="comment-form" style="margin-top: -55px;">
+              <div id="dialog" title="" v-if="rDetailShow" style="background-color: #EADBC8;overflow: auto;">
+              	<h3 style="margin-top: -10px;margin-bottom: 5px;">리뷰글</h3>
+              	<div class="comment-form" style="margin-top: -35px;border: none;">
                      <div class="row" >
                         <div class="col-sm-6">
                            <div class="form-group">
-                              이름<input class="form-control" style="background-color: white;" type="text" :value="review_detail.id" readonly>
+                              이름<input class="form-control" style="background-color: #DAC0A3;font-weight: bold;" type="text" :value="review_detail.id" readonly>
                            </div>
                         </div>
                         <div class="col-sm-6">
                            <div class="form-group">
-                             작성날짜<input class="form-control" style="background-color: white;" type="text" :value="review_detail.dbday" readonly>
+                             작성날짜<input class="form-control" style="background-color: #DAC0A3;font-weight: bold;" type="text" :value="review_detail.dbday" readonly>
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              제목<input class="form-control" style="background-color: white;" type="text" :value="review_detail.subject" readonly>
+                              제목<input class="form-control" style="background-color: #DAC0A3;font-weight: bold;" type="text" :value="review_detail.subject" readonly>
                            </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12" v-if="review_detail.img!=null">
                         캠프 이미지
-                           <div class="form-group" style="background-color: white;width: 750px;height: 230px;display: grid;place-items: center">
+                           <div class="form-group" style="background-color: #DAC0A3;font-weight: bold;width: 750px;height: 230px;display: grid;place-items: center">
 	                           <img :src="review_detail.img" style="width: 300px;height: 200px;">
                            </div>
                         </div>	
                         <div class="col-12">
                            <div class="form-group">
-                              내용<textarea class="form-control w-100" style="background-color: white;" cols="30" rows="9" readonly>{{review_detail.content}}</textarea>
+                              내용<textarea class="form-control w-100" style="background-color: #DAC0A3;font-weight: bold;" cols="30" rows="9" readonly>{{review_detail.content}}</textarea>
                            </div>
                         </div>
                      </div>
                      <div class="row">
                      	<div class="col-lg-12 text-center">
 	                    	<div class="form-group">
-	                        	<button type="submit" class="button button-contactForm btn_1 boxed-btn" @click="back()" style="background-color: #001D38;border: 1px solid #001D38">목록</button>
+	                        	<button type="submit" class="button button-contactForm btn_1 boxed-btn" @click="back()" style="background-color: #DAC0A3;border: 1px solid white">목록</button>
 	                     	</div>
                      	</div> 
                      </div>
@@ -404,36 +405,41 @@
               </div>
               
               <!-- 리뷰 수정 -->
-              <div id="dialogU" title="후기글 수정" v-if="rUpShow" style="background-color: #EEEEEE;overflow: auto;">
-              	<div class="comment-form" style="margin-top: -65px;">
+              <div id="dialogU" v-if="rUpShow" title="" style="background-color: #EADBC8;overflow: auto;">
+              	<h3 style="margin-top: -10px;margin-bottom: 5px;">리뷰글 수정</h3>
+              	<div class="comment-form" style="margin-top: -35px;border: none;">
                   <form @submit.prevent="updateForm()">
                      <div class="row" >
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" style="background-color: white;" ref="id" type="text" :value="update_data.id" readonly>
+                              <input class="form-control" style="background-color: #DAC0A3;font-weight: bold;" ref="id" type="text" :value="update_data.id" readonly>
                               <input type="hidden" ref="no" :value="update_data.no"> 
                            </div>
                         </div>
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" style="background-color: white;" ref="date" type="text" :value="update_data.dbday" readonly>
+                              <input class="form-control" style="background-color: #DAC0A3;font-weight: bold;" ref="date" type="text" :value="update_data.dbday" readonly>
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              <input class="form-control" style="background-color: white;"  ref=subject v-model=subject type="text">
+                              <input class="form-control" style="background-color: #DAC0A3;font-weight: bold;"  ref=subject v-model=subject type="text">
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              <textarea class="form-control w-100" style="background-color: white;" ref=content v-model=content cols="30" rows="9">
+                              <textarea class="form-control w-100" style="background-color: #DAC0A3;font-weight: bold;" ref=content v-model=content cols="30" rows="9">
                               	{{content}}
                               </textarea>
                            </div>
                         </div>
                      </div>
-                     <div class="form-group">
-                        <button type="submit" class="button button-contactForm btn_1 boxed-btn" style="background-color: #001D38;border: 1px solid #001D38">수정</button>
+                    <div class="row">
+                     	<div class="col-lg-12 text-center">
+	                    	<div class="form-group">
+	                        	<button type="submit" class="button button-contactForm btn_1 boxed-btn" @click="back()" style="background-color:  #DAC0A3;border: 1px solid white">수정</button>
+	                     	</div>
+                     	</div> 
                      </div>
                   </form>
                </div>
@@ -797,7 +803,7 @@
 						autoOpen:false,
 						modal:true, //다이어로그 실행중에는 다른 것은 실행 안되게
 						width:700,
-						height:500
+						height:550
 					}).dialog("open")
 					})	    	
 			    },
