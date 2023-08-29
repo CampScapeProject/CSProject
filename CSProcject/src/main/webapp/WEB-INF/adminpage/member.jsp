@@ -71,8 +71,6 @@ memh2 {
 .order-info {
   height:100%;
   width:50%;
-  padding-left:25px;
-  padding-right:25px;
   box-sizing:border-box;
   display:-webkit-box;
   display:-webkit-flex;
@@ -83,6 +81,7 @@ memh2 {
       -ms-flex-pack:center;
           justify-content:center;
   position:relative;
+  font-size:16px;
 }
 .price {
   bottom:0px;
@@ -290,14 +289,14 @@ memh2 {
 			        <table class='order-table'>
 				        <tbody>
 							<tr class="success" style="margin:3px">
-								<th width=30% class="text-center">아이디</th>
-								<th width=40% class="text-center">이름</th>
-								<th width=40% class="text-center">생년월일</th>
+								<th width=25% class="text-center">아이디</th>
+								<th width=25% class="text-center">이름</th>
+								<th width=50% class="text-center">생년월일</th>
 							</tr>
 							<tr v-for="m in memberList" @click="detailInfoGo(m.id)" style="width:15px">
-								<td width=30% class="text-center" style="vertical-align: middle;margin:3px">{{m.id}}</td>
-								<td width=40% class="text-center" style="vertical-align: middle;margin:3px">{{m.name}}</td>
-								<td width=40% class="text-center" style="vertical-align: middle;margin:3px">{{m.birth}}</td>
+								<td width=25% class="text-center" style="vertical-align: middle;margin:3px">{{m.id}}</td>
+								<td width=25% class="text-center" style="vertical-align: middle;margin:3px">{{m.name}}</td>
+								<td width=50% class="text-center" style="vertical-align: middle;margin:3px">{{m.birth}}</td>
 							</tr>
 				        </tbody>
 			        </table>
@@ -343,14 +342,14 @@ memh2 {
 				성별
 	            <div class="radio">
 	                <label>
-	                    <input type="radio" name=sex value="남" v-model="sex" /><span style="color:white">남자</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                    <input type="radio" name=sex value="남" v-model="sex" /><span style="color:white">남자</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                    <input type="radio" name=sex value="여" v-model="sex" /><span style="color:white">여자</span>
 	                </label>
 	            </div>
 	            관리자
 	             <div class="radio">
 	                 <label>
-	                     <input type="radio" value="n" v-model="admin" /><span style="color:white">NO</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                     <input type="radio" value="n" v-model="admin" /><span style="color:white">NO</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                     <input type="radio" value="y" v-model="admin" /><span style="color:white">YES</span>
 	                 </label>
 	             </div>

@@ -69,7 +69,7 @@
                         <div class="thumb">
                             <a :href="'../shop/shop_detail.do?sno='+s.sno"><img :src="s.image" alt=""></a>
                         </div>
-                        <div class="place_info">
+                        <div class="place_info" style="height:150px">
                             <a :href="'../shop/shop_detail.do?sno='+s.sno"><h3>{{s.name}}</h3></a>
                             <p>{{s.brand}}</p>
                             <div class="rating_days d-flex justify-content-between">

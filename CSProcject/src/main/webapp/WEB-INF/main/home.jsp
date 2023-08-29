@@ -209,7 +209,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="more_place_btn text-center">
-                        <a class="boxed-btn4" href="#">More Places</a>
+                        <a href="../shop/shop_main.do" class="boxed-btn4" href="#">Go Shopping!</a>
                     </div>
                 </div>
             </div>
