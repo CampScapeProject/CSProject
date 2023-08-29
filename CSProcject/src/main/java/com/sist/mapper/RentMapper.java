@@ -79,6 +79,7 @@ public interface RentMapper {
 		  + "		(SELECT COUNT(*) FROM review2 WHERE reserve2.rno=review2.rsno AND type='r') as reviewok "
 		  + "FROM reserve2 "
 		  + "WHERE id=#{id} "
+		  + "AND type='r' "
 		  + "ORDER BY regdate DESC")
 	public List<ReserveVO> reserveListData(String id);
 	
