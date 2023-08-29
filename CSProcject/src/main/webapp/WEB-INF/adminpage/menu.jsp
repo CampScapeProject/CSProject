@@ -29,7 +29,6 @@
 			<h4>캠핑장</h4>
 			<ul class="nav-menu-li">
 				<li><a href="../adminpage/camp_reserve.do">- 캠핑장 예약 정보</a></li>
-				<li><a href="../adminpage/camp_review.do">- 내가 작성한 리뷰</a></li>
 			</ul>
 			
 			<h4>렌터카</h4>
