@@ -53,6 +53,8 @@ public class RecommandRestController {
 	@GetMapping(value="recommand/recommand_vue.do",produces = "text/plain;charset=UTF-8")
 	public String recommand_list(String fd) throws Exception
 	{
+		
+		System.out.println("recommand 진입");
 		String json=ndm.CampRecommand(fd);
 		List<String> list=ndm.jsonParser(json);
 		// 블로그 댓글 

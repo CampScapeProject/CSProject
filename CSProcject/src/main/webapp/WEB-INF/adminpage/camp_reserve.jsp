@@ -48,7 +48,8 @@
        		</div>
 		</div>
 		<div class="col-lg-12">
-			
+		<div class="row">
+			<div class="col-lg-12">
 			<div class="section-top-border" style="padding: 0;">
 				<div class="progress-table-wrap" style="overflow:hidden;">
 					<div class="progress-table" style="background-color: white;padding-bottom: 5px">
@@ -79,27 +80,15 @@
 								<button class="btn btn-xs btn-primary" @click="rstateChange(cvo.rno)" style="font-size: 15px;">{{cvo.rstate}}</button>
 							</div>
 							<div class="serial">
-								<button class="btn btn-xs btn-primary" @click="seeDetail(true)" style="font-size: 15px;margin-right: 5px;">요청사항</button>
+								<button class="btn btn-xs btn-primary" @click="seeDetail(cvo.rno,true)" style="font-size: 15px;margin-right: 5px;">요청사항</button>
 								<!--  요청사항 디테일 -->
-								 <div id="dialogDetail" :title="cvo.name+'님의 요청사항'" v-if="show">
-						           		<div class="comment-form" style="margin-top: -55px;">
-						                   <div class="row" >
-						                      <div class="col-12">
-						                         <div class="form-group">
-						                            <textarea class="form-control w-100"  cols="30" rows="9" readonly>
-						                            	{{cvo.msg}}
-						                            </textarea>
-						                         </div>
-						                      </div>
-						                   </div>
-							        </div>
-								</div>
 							</div>
 					</div>
 				</div>
 			</div>
 		</div>
-   			<div class="row">
+		</div>
+   			<div class="col-lg-12 text-center" style="margin-top: -20px;">
             	<nav class="blog-pagination justify-content-center d-flex">
                      <ul class="pagination">
                          <li class="page-item" v-if="startpage>1">
@@ -118,8 +107,22 @@
                      </ul>
                  </nav> 
             </div>
+            </div>
 		 </div>
 		 </div>
+		 
+		 <div id="dialogDetail" :title="name+'님의 요청사항'" v-if="show" style="background-color: #EEEEEE;">
+         		<div class="comment-form" style="margin-top: -55px;">
+                 <div class="row" >
+                    <div class="col-12">
+                       <div class="form-group">
+                          <textarea class="form-control w-100"  cols="30" rows="9" style="background-color: white;"readonly>{{msg}}</textarea>
+                       </div>
+                    </div>
+                 </div>
+	        </div>
+		</div>
+		
 	</div>
 	<script>
 	new Vue({
@@ -131,7 +134,9 @@
 			endpage:0,
 			totalpage:0,
 			rstate:'전체',
-			show:false
+			show:false,
+			msg:'',
+			name:''
 		},
 		mounted:function(){
 			this.dataRecive();
@@ -193,18 +198,27 @@
 			option:function(){
 				this.dataRecive();
 			},
-			seeDetail:function(bool){
+			seeDetail:function(rno,bool){
 				this.show=bool
-				
+				axios.get('../adminpage/camp_reserve_msg.do',{
+					params:{
+						rno:rno
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.msg=res.data.msg
+					this.name=res.data.name
+					
 				$('#dialogDetail').dialog({
 					autoOpen:false,
 					modal:true, //다이어로그 실행중에는 다른 것은 실행 안되게
 					width:600,
 					height:300
 				}).dialog("open")
-			}
+			})
 		}
-	})
+	}
+})
 	</script>
 </body>
 </html>

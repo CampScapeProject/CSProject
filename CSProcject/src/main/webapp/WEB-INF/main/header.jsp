@@ -36,7 +36,7 @@
                                             <li><a href="#">캠핑장<i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="../camp/camp_main.do">캠핑장 예약</a></li>
-                                                    <li><a href="../camp/camp_recommand.do">캠핑장 추천</a></li>
+                                                    <li><a href="../camp/camp_list.do">캠핑장 전체</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="../rent/rent_main.do">렌터카</a></li>

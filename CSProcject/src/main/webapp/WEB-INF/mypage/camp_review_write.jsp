@@ -27,44 +27,94 @@
     <link rel="stylesheet" href="../layout/css/style.css">
 </head>
 <body>
-	 	<h3>글 쓰기</h3>
+<div class="row">
+	<div class="col-sm-12 text-center">
+ 		<h3>글 쓰기</h3>
+ 	</div>
+ </div>	
  <section class="blog_area single-post-area section-padding" style="margin-top: -100px;background-color: #EEEEEE;">
       <div class="container">
          <form @submit.prevent="InsertForm()">
                      <div class="row" >
                         <div class="col-sm-12">
                            <div class="form-group">
-                              이름<input class="form-control" ref="id" type="text" style="width: 100px">
-                              <input type="hidden" ref="no" :value="update_data.no"> 
+                              이름<input class="form-control" v-model="id" type="text" style="width: 100px" readonly>
                            </div>
                         </div>
                         <div class="col-sm-12">
                            <div class="form-group">
-                              제목<input class="form-control" ref="date" type="text" style="width: 300px">
+                              제목<input class="form-control" ref="subject" v-model="subject" type="text" style="width: 300px">
+                           </div>
+                        </div>
+                        <div class="col-sm-12">
+                           <div class="form-group">
+                              이미지<input ref="img" type="file" @change="getFileName($event.target.files)">
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                             내용<textarea class="form-control w-100" ref=content v-model=content cols="30" rows="9">
+                             내용<textarea class="form-control w-100" ref="content" v-model=content cols="30" rows="9">
                               </textarea>
                            </div>
                         </div>
                      </div>
                      <div class="form-group text-center">
-                        <button type="submit" class="button button-contactForm btn_1 boxed-btn">작성</button>
+                        <button type="submit" class="button button-contactForm btn_1 boxed-btn" style="background-color: #001D38;border: 1px solid #001D38">작성</button>
                      </div>
                   </form>
                </div>
                </section>
 	<script>
-	/*  new Vue({
+	new Vue({
 		 el:'.blog_area',
 		 data:{
-			 
+			 id:'${sessionScope.id}',
+			 sno:${sno},
+			 subject:'',
+			 content:'',
+			 filename:''
 		 },
 		 mounted:function(){
 		 },
-	 }) */
+		 methods:{
+			 InsertForm:function(){
+				 
+				 if(this.subject=="")
+				   {
+					   this.$refs.subject.focus();
+					   return;
+				   }
+				   if(this.content=="")
+				   {
+					   this.$refs.content.focus();
+					   return;
+				   }
+				   
+				   let form=new FormData();
+				   form.append("id",this.id);
+				   form.append("subject",this.subject);
+				   form.append("content",this.content);
+				   form.append("sno",this.sno)
+				   form.append("imagefile", this.fileName)
+				   
+				   axios.post('../camp/camp_review_insert_vue.do',form,{
+						header:{
+							'Content-Type':'multipart/form-data'
+							}
+						}).then(response=>{
+						  console.log(response.data)
+						  alert('등록이 완료되었습니다.')
+						  window.close();
+						  location.href='../camp/camp_detail.do?cno='+this.sno
+					  }).catch(error=>{
+						  console.log(error.response)
+					  })
+			 },
+			getFileName(files) {
+	        	  this.fileName = files[0]
+	        }
+		 }
+	 }) 
 	</script>
 </body>
 </html>

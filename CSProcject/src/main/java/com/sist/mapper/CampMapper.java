@@ -80,8 +80,9 @@ public interface CampMapper {
 	@Select("SELECT COUNT(*) FROM review2 WHERE sno=#{cno} AND type=#{type}")
 	public int campReviewCount(Map map);
 	
-	@Insert("INSERT INTO review2(no,regdate,content,sno,type,id) VALUES(rv2_no_seq.nextval,SYSDATE,#{msg},#{cno},'c',#{id})")
-	public void campReviewInsert();
+	@Insert("INSERT INTO review2(no,regdate,content,subject,sno,type,id,img) "
+			+ "VALUES(rv2_no_seq.nextval,SYSDATE,#{content},#{subject},#{sno},'c',#{id},#{image})")
+	public void campReviewInsert(ReviewVO vo);
 	
 	@Update("UPDATE review2 SET subject=#{sub},content=#{cont} WHERE no=#{no}")
 	public void campReviewUpdate(Map map);
@@ -89,7 +90,7 @@ public interface CampMapper {
 	@Update("UPDATE review2 SET hit=hit+1 WHERE no=#{no}")
 	public void campReviewHitUpdate(int no);
 	
-	@Select("SELECT no,subject,content,sno,id,hit,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday FROM review2 WHERE no=#{no}")
+	@Select("SELECT no,subject,content,sno,id,hit,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,img FROM review2 WHERE no=#{no}")
 	public ReviewVO campReviewDetail(int no);
 	
 	@Delete("DELETE FROM review2 WHERE no=#{no}")
@@ -118,6 +119,12 @@ public interface CampMapper {
 	@Delete("DELETE FROM reserve2 WHERE rno=#{rno}")
 	public void campMyReserveDelete(int rno);
 	
+	@Select("SELECT no,sno,content,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,"
+			+ "(SELECT name FROM camp2 WHERE camp2.cno=review2.sno AND type='c') as camp_name,"
+			+ "(SELECT image FROM camp2 WHERE camp2.cno=review2.sno AND type='c') as image,"
+			+ "id,subject,hit FROM review2 WHERE id=#{id}")
+	public List<ReviewVO> mypageReiview(String id);
+	
 	//관리자 페이지
 
 	public List<ReserveVO> campAdminReserveList(Map map);
@@ -127,6 +134,9 @@ public interface CampMapper {
 	
 	@Update("UPDATE reserve2 SET rstate='예약승인' WHERE rno=#{rno}")
 	public void rstateChange(int rno);
+	
+	@Select("SELECT msg,name FROM reserve2 WHERE type='c' AND rno=#{rno}")
+	public ReserveVO adminReserveMsg(int rno);
 	
 	
 	//찜하기
@@ -164,4 +174,6 @@ public interface CampMapper {
 	  @Select("SELECT cno,name,image,msg,rownum FROM camp2 "
 			  +"WHERE name=#{name} AND rownum<=1")
 	   public CampVO campRecommandInfoData(String name);
+	  
+	  
 }

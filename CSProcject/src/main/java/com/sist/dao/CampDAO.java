@@ -92,9 +92,9 @@ public class CampDAO {
 		return mapper.campReviewCount(map);
 	}
 	
-	public void campReviewInsert()
+	public void campReviewInsert(ReviewVO vo)
 	{
-		mapper.campReviewInsert();
+		mapper.campReviewInsert(vo);
 	}
 	
 	public ReviewVO campReviewDetail(int no)
@@ -152,6 +152,11 @@ public class CampDAO {
 		return mapper.campJjimList(id);
 	}
 	
+	public List<ReviewVO> mypageReiview(String id)
+	{
+		return mapper.mypageReiview(id);
+	}
+	
 	//관리자페이지
 	public List<ReserveVO> campAdminReserveList(Map map)
 	{
@@ -169,6 +174,10 @@ public class CampDAO {
 		mapper.rstateChange(rno);
 	}
 	
+	public ReserveVO adminReserveMsg(int rno)
+	{
+		return mapper.adminReserveMsg(rno);
+	}
 	//찜하기
 	
 	public void campJjimInsert(Map map)

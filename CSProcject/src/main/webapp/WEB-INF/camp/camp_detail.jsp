@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c6fd98b724a1c5dfb4d7bfce05b0389f&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=961b2dbce44d1035a55d49e54f0fd53f&libraries=services"></script>
 <!--  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -306,7 +306,7 @@
 				      		
 								<div class=col-sm-12>
 						            <!-- 지도출력 -->
-						            <div id="map" style="width:100%;height:300px;"></div>
+						            <div id="map" style="width:100%;height:350px;"></div>
 						            <!-- 분석 = 그래프(데이터분석 : 데이터마이닝) : 꼬꼬마 -->
 						         </div>
 					        	
@@ -326,11 +326,11 @@
 											</div>
 											<div class="table-row" v-for="rvo,index in review_list">
 												<div class="serial">{{index+1}}</div>
-												<div class="visit"><a @click="reviewDetail(rvo.no,true)">{{rvo.subject}}</a></div>
+												<div class="visit"><a @click="reviewDetail(rvo.no,true)" style="cursor: pointer;">{{rvo.subject}}</a></div>
 												<div class="visit">{{rvo.id}}</div>
 												<div class="visit">{{rvo.dbday}}</div>
 												<div class="serial">{{rvo.hit}}</div>
-												<div class="visit">
+												<div class="visit" v-if="sessionId==rvo.id">
 													<button class="btn btn-xs btn-link" style="font-size: 15px;margin-right: 15px;" @click="reviewUpdateDialog(rvo.no,true)">수정</button>
           											<button class="btn btn-xs btn-link" @click="reviewDelete(rvo.no)" style="font-size: 15px;cursor:pointer;">삭제</buton>
 												</div>
@@ -349,7 +349,7 @@
 			                            </ul>
 			                        </nav>
 			                        <div class="row">
-			                        	<div class="col-lg-12 text-right">
+			                        	<div class="col-lg-12 text-right" v-if="sessionId!=''">
 			                        		<button class="btn btn-xs btn-primary" style="background-color: #001D38;border: 1px solid #001D38" @click="reviewWriteBtn()">작성</button>
 			                        	</div>
 			                        </div>
@@ -363,66 +363,77 @@
               
               <!-- 리뷰 디테일 -->
               
-              <div id="dialog" title="후기글" v-if="rDetailShow" style="background-color: #EEEEEE;">
+              <div id="dialog" title="리뷰글" v-if="rDetailShow" style="background-color: #EEEEEE;overflow: auto;">
               	<div class="comment-form" style="margin-top: -55px;">
                      <div class="row" >
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control"  type="text" :value="review_detail.id" readonly>
+                              이름<input class="form-control" style="background-color: white;" type="text" :value="review_detail.id" readonly>
                            </div>
                         </div>
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control"  type="text" :value="review_detail.dbday" readonly>
+                             작성날짜<input class="form-control" style="background-color: white;" type="text" :value="review_detail.dbday" readonly>
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              <input class="form-control"  type="text" :value="review_detail.subject" readonly>
+                              제목<input class="form-control" style="background-color: white;" type="text" :value="review_detail.subject" readonly>
                            </div>
                         </div>
                         <div class="col-12">
+                        캠프 이미지
+                           <div class="form-group" style="background-color: white;width: 750px;height: 230px;display: grid;place-items: center">
+	                           <img :src="review_detail.img" style="width: 300px;height: 200px;">
+                           </div>
+                        </div>	
+                        <div class="col-12">
                            <div class="form-group">
-                              <textarea class="form-control w-100"  cols="30" rows="9" readonly>
-                              	{{review_detail.content}}
-                              </textarea>
+                              내용<textarea class="form-control w-100" style="background-color: white;" cols="30" rows="9" readonly>{{review_detail.content}}</textarea>
                            </div>
                         </div>
+                     </div>
+                     <div class="row">
+                     	<div class="col-lg-12 text-center">
+	                    	<div class="form-group">
+	                        	<button type="submit" class="button button-contactForm btn_1 boxed-btn" @click="back()" style="background-color: #001D38;border: 1px solid #001D38">목록</button>
+	                     	</div>
+                     	</div> 
                      </div>
                </div>
               </div>
               
               <!-- 리뷰 수정 -->
-              <div id="dialogU" title="후기글 수정" v-if="rUpShow" style="background-color: #EEEEEE;">
+              <div id="dialogU" title="후기글 수정" v-if="rUpShow" style="background-color: #EEEEEE;overflow: auto;">
               	<div class="comment-form" style="margin-top: -65px;">
                   <form @submit.prevent="updateForm()">
                      <div class="row" >
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" ref="id" type="text" :value="update_data.id" readonly>
+                              <input class="form-control" style="background-color: white;" ref="id" type="text" :value="update_data.id" readonly>
                               <input type="hidden" ref="no" :value="update_data.no"> 
                            </div>
                         </div>
                         <div class="col-sm-6">
                            <div class="form-group">
-                              <input class="form-control" ref="date" type="text" :value="update_data.dbday" readonly>
+                              <input class="form-control" style="background-color: white;" ref="date" type="text" :value="update_data.dbday" readonly>
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              <input class="form-control" ref=subject v-model=subject type="text">
+                              <input class="form-control" style="background-color: white;"  ref=subject v-model=subject type="text">
                            </div>
                         </div>
                         <div class="col-12">
                            <div class="form-group">
-                              <textarea class="form-control w-100" ref=content v-model=content cols="30" rows="9">
+                              <textarea class="form-control w-100" style="background-color: white;" ref=content v-model=content cols="30" rows="9">
                               	{{content}}
                               </textarea>
                            </div>
                         </div>
                      </div>
                      <div class="form-group">
-                        <button type="submit" class="button button-contactForm btn_1 boxed-btn">수정</button>
+                        <button type="submit" class="button button-contactForm btn_1 boxed-btn" style="background-color: #001D38;border: 1px solid #001D38">수정</button>
                      </div>
                   </form>
                </div>
@@ -560,7 +571,7 @@
 						</div>
 							<div class="col-lg-12" >
                            <div class="submit_btn" style="width: 100%;	">
-                               <button class="boxed-btn4" type="submit" style="width: 100%">예약하기 | {{csprice*dateCount}}원</button>
+                               <button class="boxed-btn4" type="submit" style="width: 100%">예약하기 | {{(csprice*dateCount).toLocaleString()}}원</button>
                            </div>
                        </div>
 						 </form>
@@ -582,8 +593,16 @@
             </div>
 	            <div class="col-lg-2">
 	               <div class="blog_right_sidebar" style="width: 400px;">
-               		<aside class="single_sidebar_widget search_widget">
+               		<aside class="single_sidebar_widget search_widget" v-if="${sessionScope.id!=null }">
                         <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="button" @click="reserveList(true)" style="background-color:#001D38;border: 1px solid #001D38;">예약하기</button>
+                  	</aside>
+                  	<aside class="single_sidebar_widget search_widget" v-if="${sessionScope.id==null }">
+                  		<div class="row">
+                  			<div class="col-lg-12 text-center" style="margin-bottom: 8px;">
+                  				<span style="color:red;">예약은 로그인 후 가능합니다</span>
+                  			</div>
+                  		</div>
+                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="button" @click="goLogin()" style="background-color:#001D38;border: 1px solid #001D38;">예약하기</button>
                   	</aside>
 	                  <aside class="single_sidebar_widget popular_post_widget">
 	                     <h3 class="widget_title">최근 본 캠핑장</h3>
@@ -613,6 +632,7 @@
 				sdate:'${sdate}',
 				edate:'${edate}',
 				id:'${id}',
+				sessionId:'${sessionScope.id}',
 				name:'${name}',
 				email:'${email}',
 				phone:'${phone}',
@@ -622,7 +642,7 @@
 			    tabs: [
 				      { title: "주변 관광지", content: "Content for Tab 1" },
 				      { title: "위치 보기", content: "Content for Tab 2" },
-				      { title: "후기", content: "Content for Tab 3" }
+				      { title: "리뷰 게시판", content: "Content for Tab 3" }
 				    ],
 				tour_list:[],
 				addr:'',
@@ -734,8 +754,8 @@
 						$('#dialog').dialog({
 							autoOpen:false,
 							modal:true, //다이어로그 실행중에는 다른 것은 실행 안되게
-							width:700,
-							height:500
+							width:800,
+							height:600
 						}).dialog("open")
 					})			    	
 			    },
@@ -933,10 +953,17 @@
 			    reviewWriteBtn:function(){
 			    	let x=(document.body.offsetWidth/2)-(450/2)
 					let y=(window.screen.height/2)-(600/2)-50
-					window.open("../mypage/camp_review_write.do?sno="+this.cno,"",'width=450, height=500, left='+x+', top='+y+',scrollbar=no')
+					window.open("../mypage/camp_review_write.do?sno="+this.cno,"",'width=450, height=600, left='+x+', top='+y+',scrollbar=no')
 			    },
 			    goList:function(){
 			    	location.href="../camp/camp_main.do"
+			    },
+			    goLogin:function(){
+			    	location.href="../member/login.do"
+			    },
+			    back:function(){
+			    	this.rDetailShow=false;
+			    	parent.$('#dialog').dialog('destroy').remove();
 			    },
 			    initMap:function(){
 		            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -967,7 +994,7 @@
 
 		                 // 인포윈도우로 장소에 대한 설명을 표시합니다
 		                 var infowindow = new kakao.maps.InfoWindow({
-		                     content: '<div style="width:150px;text-align:center;padding:6px 5px;">'+name+'</div>'
+		                     content: '<div style="width:150px;text-align:center;padding:6px 0;">'+name+'</div>'
 		                 });
 		                 infowindow.open(map, marker);
 

@@ -148,7 +148,7 @@ public class MailManager {
 	     try { 
 	        	MimeMessage message = new MimeMessage(session); 
 	              message.setFrom(new InternetAddress(user)); 
-	              message.addRecipient(Message.RecipientType.TO, new InternetAddress("tktmzpt7@naver.com")); // 메일 제목 
+	              message.addRecipient(Message.RecipientType.TO, new InternetAddress(vo.getEmail())); // 메일 제목 
 	              message.setSubject("예약 승인 완료"); // 메일 내용
 	              
 	              String html="<html>"

@@ -1,5 +1,6 @@
 package com.sist.web;
 
+import java.io.File;
 import java.lang.ProcessBuilder.Redirect;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.CampDAO;
@@ -514,6 +516,27 @@ public class CampRestController {
 		
 	}
 	
+	@PostMapping(value = "camp/camp_review_insert_vue.do",produces = "text/plain;charset=UTF-8")
+	public String camp_review_insert(ReviewVO vo,MultipartFile imagefile, HttpServletRequest request)
+	{
+		String path = request.getSession().getServletContext().getRealPath("/")+"layout\\upload-camp\\"+imagefile.getOriginalFilename();
+		path=path.replace("\\", File.separator); // os에 따른 경로 구분자 변경
+		
+		try {
+			imagefile.transferTo(new File(path));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		vo.setImage("../layout/upload-camp/"+imagefile.getOriginalFilename());
+		
+		dao.campReviewInsert(vo);
+		return "";
+	}
+	
+	
+	
+	
 	@GetMapping(value = "camp/camp_review_vue.do",produces = "text/plain;charset=UTF-8")
 	public String camp_review_list(int page,int cno)throws Exception
 	{ 
@@ -646,6 +669,31 @@ public class CampRestController {
 		return"OK";
 	}
 	
+	
+	@GetMapping(value = "mypage/camp_myreview.do",produces = "text/plain;charset=UTF-8")
+	public String mypage_camp_myreview(String id) throws Exception
+	{
+		List<ReviewVO> list=dao.mypageReiview(id);
+		
+		for(ReviewVO vo:list)
+		{
+			
+			String img=vo.getImage();
+			
+			if(img.contains("^"))
+			{
+				img=img.substring(0,img.indexOf("^"));
+				vo.setImage(img);
+			}
+			
+		} 
+			
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+	
+		return json;
+		
+	}
 	//관리자 페이지
 	
 	
@@ -698,8 +746,23 @@ public class CampRestController {
 	@GetMapping(value ="adminpage/camp_reserve_list.do" ,produces = "text/plain;charset=UTF-8")
 	public String admin_camp_reserve_list(int page,String rstate) throws Exception
 	{
+		
+	
 		System.out.println(rstate);
 		return admin_camp_reserve_list_data(page,rstate);
+		
+	}
+	
+	@GetMapping(value ="adminpage/camp_reserve_msg.do" ,produces = "text/plain;charset=UTF-8")
+	public String admin_camp_reserve_list(int rno) throws Exception
+	{
+		
+		ReserveVO vo=dao.adminReserveMsg(rno);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		
+		return json;
 	}
 	
 	@GetMapping(value ="adminpage/camp_reserve_rstate_change.do" ,produces = "text/plain;charset=UTF-8")
