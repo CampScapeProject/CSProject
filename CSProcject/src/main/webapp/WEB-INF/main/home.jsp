@@ -15,8 +15,17 @@
 		background: #f5f5f5;
 	}
 	
-	.board_area > table > td {
-		font-size: 12px;
+	.board_area .table th {
+		padding : 0.5rem;
+		font-size: 16px;
+		background-color: rgba(255, 255, 255, 0.6);
+	}
+	
+	.board_area .table td {
+		padding: 0.3rem;
+		font-size: 14px;
+		vertical-align: top;
+	    border-top: 1px solid #dee2e6;
 	}
 	
 	.board_area_title {
@@ -28,14 +37,7 @@
 		overflow: inherit;
 	}
 	
-	.board_area > .table > td, .table > th {
-	    padding: 0.3rem;
-	    vertical-align: top;
-	    border-top: 1px solid #dee2e6;
-	    font-size: 14px;
-	}
-	
-	.board_area > .table > a:hover {
+	.board_area .table a:hover {
 		color: #E86A33;
 		font-weight: bold;
 	}
