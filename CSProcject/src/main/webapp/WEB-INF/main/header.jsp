@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 <style type="text/css">
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <!-- header-start -->
@@ -52,7 +56,12 @@
                             </div>
                             <div class="col-xl-4 col-lg-4 d-none d-lg-block">
                                 <div class="social_wrap d-flex align-items-center justify-content-end">
-                                    <div class="number">
+                                	<span style="margin-right: 20px;">
+	                               		<sup style="color: #A2A2A2;">오늘의 날씨</sup> 
+	                               		<img :src="'http://openweathermap.org/img/wn/'+weather_data.weather[0].icon+'.png'" style="margin-right: -8px;">
+	                               		{{weather_data.main.temp}}˚
+                               		</span>
+                                    <div class="number" style="padding-left: 20px;border-left: 1px solid #EAEAEA;">
                                       <p> <c:if test="${sessionScope.name!=null }"><i class="fa fa-user" style="color: black"></i> ${sessionScope.name}님</c:if></p>
                                     </div>
                                     <div class="social_links d-none d-xl-block">
@@ -72,5 +81,20 @@
         </div>
     </header>
     <!-- header-end -->
+    
+<script>
+	let header=new Vue({
+		el:'header',
+		data:{
+			weather_data:[]
+		},
+		mounted:function(){
+			axios.get('https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=8d866292cddcb29177c61c1d26f091f0&units=metric').then(res=>{
+				console.log(res.data)
+				this.weather_data=res.data
+			})
+		}
+	})
+</script>
 </body>
 </html>
