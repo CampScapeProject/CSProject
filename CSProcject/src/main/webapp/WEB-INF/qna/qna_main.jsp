@@ -42,15 +42,20 @@
 		margin-left: 30px;
 		margin-right: 30px;
 	}
+	
+	a, span {
+		color: #212529;
+	}
+	
 	li > a:hover {
-		color: #E86A33;
+		color: #212529;
 		font-weight: bold;
 	}
 	
 	a:hover {
 		text-decoration: none;
 		font-weight: bold;
-		color: #E86A33;
+		color: #212529;
 	}
 
 </style>
@@ -109,21 +114,30 @@
 	    		
 	    		<table class="table">
 	    			<tr>
-	    				<th width=10% class="text-center">NO.</th>
-	    				<th width=40% class="text-center">CONTENT</th>
-	    				<th width=15% class="text-center">ID</th>
+	    				<th width=1% class="text-center"></th>
+	    				<th width=49% class="text-center">CONTENT</th>
+	    				<th width=15% class="text-center">작성자</th>
 	    				<th width=20% class="text-center">DATE</th>
 	    				<th width=15% class="text-center">HITS</th>
 	    			</tr>
 	    			
 	    			<tr v-for="vo in qna_list">
-	    				<td width=10% class="text-center">{{vo.qno}}</td>
 	    				 
+	    				<td width=1% class="text-center"></td>
 	    				<!-- 답변이 아닐 때 -->
-	    				<td width=40% v-if="vo.group_tab==0">
-	    					<i v-if="vo.open=='n'" class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>
-	    					<span v-if="(vo.id!=sessionId || sessionId==null) && sessionAdmin!='y'">비밀글입니다.</span>
-	    					<a v-if="vo.id==sessionId || sessionAdmin=='y'" :href="'../qna/qna_detail.do?qno='+vo.qno">{{vo.title}}</a>
+	    				<td width=49% v-if="vo.group_tab==0">
+	    					<!-- 비밀글 일 때 -->
+	    					<span v-if="vo.open=='n'">
+	    						<span v-if="sessionId==null || sessionId!=vo.id">
+	    							<i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>비밀글입니다.
+	    						</span>
+	    						<a v-if="sessionId==vo.id || sessionAdmin=='y'" :href="'../qna/qna_detail.do?qno='+vo.qno">
+	    							<i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>{{vo.title}}
+	    						</a>
+	    					</span>
+	    					
+	    					<!-- 공개글일 때 -->
+	    					<a v-if="vo.open=='y'" :href="'../qna/qna_detail.do?qno='+vo.qno">{{vo.title}}</a>
 	    				</td>
 	    				
 	    				<!-- 답변일 때 -->

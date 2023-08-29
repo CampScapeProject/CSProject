@@ -130,7 +130,7 @@
 	    				<th width=10% class="text-center">공개 여부</th>
 	    				<td width=50%>
 	    					<input type=radio name=secret v-model=open value=n >     비밀      
-	                   		<input type=radio name=secret v-model=open value=y style="margin-left: 10px;">     공개      
+	                   		<input type=radio name=secret v-model=open value=y style="margin-left: 10px;" checked>     공개      
 	    				</td>
 	    			</tr>
 	    			<tr>
@@ -171,20 +171,20 @@
 			qcno : 0
 		},
 		methods:{
-			 
-			// 카테고리 선택 안했을 때
-			categoryZero:function(){
-				alert("카테고리 선택해 주세요");
-			},
 			
 			write:function(){
 				
 				this.qcno = this.$refs.qcno.value
 				
 				if (this.qcno===0) {
-		            this.categoryZero();
+		            alert("카테고리를 선택해 주세요")
 		            return;
 		        }
+				
+				if(this.open===null) {
+					alert("공개 여부를 선택해 주세요")
+					return;
+				}
 				
 				axios.post("../qna/qna_insert_ok_vue.do", null, {
 					params:{

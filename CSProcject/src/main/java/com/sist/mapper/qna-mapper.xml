@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="qnaCategoryListData" resultType="QnaVO" parameterType="hashmap">
 		SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit, open, group_tab, num
 		FROM (SELECT qno, qcno, id, name, title, regdate, hit, open, group_tab, rownum as num
-		FROM (SELECT qno, qcno, id, name, title, regdate, hit, open, group_tab FROM qna2 WHERE qcno=#{qcno} ORDER BY qno DESC))
+		FROM (SELECT qno, qcno, id, name, title, regdate, hit, open, group_tab FROM qna2 WHERE qcno=#{qcno} ORDER BY group_id DESC, group_step ASC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select> 
 </mapper>
