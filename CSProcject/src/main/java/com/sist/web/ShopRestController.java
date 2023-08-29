@@ -244,13 +244,6 @@ public class ShopRestController {
 		return "ok";
 	}
 
-	@PostMapping(value = "adminpage/product_update_vue.do", produces = "text/plain;charset=UTF8")
-	public String shop_product_update(ShopVO vo) {
-
-		service.shopProductUpdate(vo);
-		return "ok";
-	}
-
 	@GetMapping(value = "shop/shop_cookie.do", produces = "text/plain;charset=UTF-8")
 	public String shopCookieData(HttpServletRequest request) throws Exception {
 
@@ -288,7 +281,7 @@ public class ShopRestController {
 
 	}
 
-	@PostMapping(value = "product_update_vue.do", produces = "text/plain;charset=UTF-8")
+	@PostMapping(value = "adminpage/product_update_vue.do", produces = "text/plain;charset=UTF-8")
 	public String adminpage_productUpdate(ShopVO vo, MultipartFile imagefile, HttpServletRequest request) {
 
 		
