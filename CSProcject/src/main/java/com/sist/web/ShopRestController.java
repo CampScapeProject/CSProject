@@ -286,7 +286,7 @@ public class ShopRestController {
 
 		
 		if(imagefile!=null) {
-			String path = request.getSession().getServletContext().getRealPath("/")+"layout\\upload-rent\\"+imagefile.getOriginalFilename();
+			String path = request.getSession().getServletContext().getRealPath("/")+"layout\\shopImage\\"+imagefile.getOriginalFilename();
 			path=path.replace("\\", File.separator); // os에 따른 경로 구분자 변경
 			
 			System.out.println(path);
@@ -296,7 +296,7 @@ public class ShopRestController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			vo.setImage("../layout/upload-rent/"+imagefile.getOriginalFilename());
+			vo.setImage("../layout/shopImage/"+imagefile.getOriginalFilename());
 		}	
 		System.out.println(vo.getImage());
 		service.shopProductUpdate(vo);
