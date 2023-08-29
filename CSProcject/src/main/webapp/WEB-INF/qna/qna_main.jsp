@@ -132,7 +132,7 @@
 	    							<a :href="'../qna/qna_detail.do?qno='+vo.qno">
 		    							<i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>{{vo.title}}
 		    						</a>
-	    						</span>
+	    						</span> 
 	    						
 		    					<span v-else>
 		    						<span v-if="sessionId!=vo.id">

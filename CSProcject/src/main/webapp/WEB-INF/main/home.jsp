@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>일상을 벗어나 자연속으로, CampScape</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
