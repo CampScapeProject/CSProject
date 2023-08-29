@@ -604,7 +604,7 @@ public class CampRestController {
 		dao.campReviewDelete(no);
 		System.out.println("실행됨2");
 		
-		return camp_review_list_data(page,cno);
+		return "OK";
 		
 	}
 	
