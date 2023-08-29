@@ -130,7 +130,7 @@
 	    				<th width=10% class="text-center">공개 여부</th>
 	    				<td width=50%>
 	    					<input type=radio name=secret v-model=open value=n >     비밀      
-	                   		<input type=radio name=secret v-model=open value=y style="margin-left: 10px;" checked>     공개      
+	                   		<input type=radio name=secret v-model=open value=y style="margin-left: 10px;">     공개      
 	    				</td>
 	    			</tr>
 	    			<tr>

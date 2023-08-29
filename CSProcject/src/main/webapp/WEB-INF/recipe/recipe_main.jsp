@@ -28,16 +28,8 @@
 		opacity: 1;
 		max-height: 10rem;
 		object-fit: cover;
-		padding: 20px 20px 0px 20px;
-	}
-	
-	.card-list {
-		display: block;
-		margin: 1rem auto;
-		padding: 0;
-		font-size: 0;
-		text-align: center;
-		list-style: none;
+		padding: 10px 10px 0px 10px;
+		border-radius: 15px;
 	}
 	
 	.card {
@@ -49,6 +41,7 @@
 		text-decoration: none;
 		overflow: hidden;
 		transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+		border-radius: 15px;
 	}
 	
 	.card:hover {

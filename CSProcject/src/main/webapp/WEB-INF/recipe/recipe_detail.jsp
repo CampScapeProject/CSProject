@@ -30,11 +30,6 @@
 		color: #8f8f8f;
 	}
 	
-	pre {
-		font-family: 'Pretendard-Regular';
-	    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-	}
-	
 	.allsteps {
 		font-size: 18px;
 		font-weight: bold;
