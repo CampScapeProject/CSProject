@@ -284,7 +284,7 @@ memh2 {
 <div class='member_container'>
 	<div class='window'>
 	    <div class='order-info' style='overflow-y: scroll'>
-		    <div class='order-info-content'>
+		    <div class='order-info-content' style="width:70%">
 		        <h3 class="memh2">Member List</h3>
 		        <div class='line'></div>
 			        <table class='order-table'>
@@ -294,7 +294,7 @@ memh2 {
 								<th width=40% class="text-center">이름</th>
 								<th width=40% class="text-center">생년월일</th>
 							</tr>
-							<tr v-for="m in memberList" @click="detailInfoGo(m.id)">
+							<tr v-for="m in memberList" @click="detailInfoGo(m.id)" style="width:15px">
 								<td width=30% class="text-center" style="vertical-align: middle;margin:3px">{{m.id}}</td>
 								<td width=40% class="text-center" style="vertical-align: middle;margin:3px">{{m.name}}</td>
 								<td width=40% class="text-center" style="vertical-align: middle;margin:3px">{{m.birth}}</td>
