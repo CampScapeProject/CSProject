@@ -24,6 +24,11 @@
 		font-weight: bold;
 	}
 	
+	.reply_waiting {
+		color: #7fb88d;
+		font-weight: bold;
+	}
+	
 	a {
 		color: #333333;
 	}
@@ -52,6 +57,7 @@
 						<td width=70%><a :href="'../qna/qna_detail.do?qno='+vo.qno">{{vo.title}}</a></td>
 						<td width=20% class="text-center">
 							<span class="reply_ok" v-if="vo.depth>=1">답변 완료</span>
+							<span class="reply_wating" v-if="vo.depth==0">답변 대기중</span>
 						</td>
 					</tr>
 				</table>

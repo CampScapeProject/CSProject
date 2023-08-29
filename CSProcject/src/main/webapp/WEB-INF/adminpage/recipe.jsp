@@ -31,9 +31,17 @@
 </style>
 </head>
 <body>
+	
+	<div class="col-lg-12 text-left" style=" margin: 50px 0px 20px 0px">
+		<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">레시피 목록</span>
+	</div>
+	
 	<div class="recipe">
+	
+		
+		
 		<div class="row1">
-			
+
 			<table class="table">
 				<tr>
 					<th width=20% class="text-center"></th>

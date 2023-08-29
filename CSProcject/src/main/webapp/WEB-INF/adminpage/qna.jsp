@@ -25,7 +25,7 @@
 	}
 	
 	.reply_waiting {
-		color: #41644A;
+		color: #7fb88d;
 		font-weight: bold;
 	}
 	a {
@@ -40,6 +40,12 @@
 </style>
 </head>
 <body>
+
+	<div class="col-lg-12 text-left" style=" margin: 50px 0px 20px 0px">
+		<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">Q&A 목록</span>
+	</div>
+	
+	
 	<div class="qna_container">
 		<div class="container">
 			<div class="row1">
