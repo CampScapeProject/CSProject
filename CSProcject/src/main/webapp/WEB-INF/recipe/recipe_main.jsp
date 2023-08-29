@@ -136,8 +136,8 @@
 					</a>
 					
 					<div class="card-description-detail text-right">
-						<i class="fa-solid fa-eye fa-sm" style="color: #8f8f8f;"></i><span>     {{vo.hit}}</span>
-						<i class="fa-solid fa-heart fa-sm" style="color: #8f8f8f;"></i><span>     {{vo.jjim}}</span>
+						<i class="fa-solid fa-eye fa-sm" style="color: #8f8f8f;"></i><span style="margin-right: 5px; margin-left: 3px;">             {{vo.hit}}</span>
+						<i class="fa-solid fa-heart fa-sm" style="color: #8f8f8f;"></i><span style="margin-left: 3px;">             {{vo.jjim}}</span>
 					</div>
 				</li>
 			</div>			
