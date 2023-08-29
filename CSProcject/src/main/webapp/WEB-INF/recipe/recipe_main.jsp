@@ -25,6 +25,7 @@
 	.card-image > img {
 		display: block;
 		width: 100%;
+		height: 160px;
 		opacity: 1;
 		max-height: 10rem;
 		object-fit: cover;
