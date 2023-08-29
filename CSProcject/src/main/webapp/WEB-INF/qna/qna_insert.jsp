@@ -83,7 +83,7 @@
 				<span class="notice_text">문의사항</span>
 			</div>
 		</div>
-		
+		 
 		<div class="row2">
 			<div class="qna_nav">
 				<ul style="list-style: none">

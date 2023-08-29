@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sist.mapper.QnaMapper">
+<mapper namespace="com.sist.mapper.QnaMapper"> 
 	<select id="qnaCategoryListData" resultType="QnaVO" parameterType="hashmap">
 		SELECT qno, qcno, id, name, title, TO_CHAR(regdate, 'YYYY-MM-DD') as dbday, hit, open, group_tab, num
 		FROM (SELECT qno, qcno, id, name, title, regdate, hit, open, group_tab, rownum as num
