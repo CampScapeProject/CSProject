@@ -97,7 +97,7 @@ public interface ShopMapper {
 	@Delete("DELETE FROM shop2 WHERE sno=#{sno}")
 	public void shopProductDelete(int sno);	
 	
-	@Update("UPDATE shop2 SET name=#{name},brand=#{brand},price=#{price} "
+	@Update("UPDATE shop2 SET image=#{image},name=#{name},brand=#{brand},price=#{price} "
 			+ "WHERE sno=#{sno}")
 	public void shopProductUpdate(ShopVO vo);
 	

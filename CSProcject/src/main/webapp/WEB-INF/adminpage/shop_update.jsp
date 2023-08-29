@@ -198,12 +198,9 @@ textarea {
   background-color: white;
  }
  
- #detailImgReal{
+ #chooseFile{
  	width: 70%;
     height: 100%;
- }
- #detailImg{ellow;
- 	height:240px;
  }
  
 </style>
@@ -213,9 +210,21 @@ textarea {
 <div id="section">
 	<section class="U-contact-wrap">
 		<form class="contact-form" @submit.prevent="productUpdate">
+				
+				<!-- <img :src="image" id="detailImgReal" ref="image" @change="getFileName($event.target.files)"> -->
+				
 			<div id="detailImg">
-				<img :src="image" id="detailImgReal">
+				<input type="file" id="chooseFile" name="chooseFile" accept="image/*"  ref="image"
+					@change="getFileName($event.target.files)" style="display: none;"
+				>
+			    <label for="chooseFile">
+			        <img id="preview" :src="image" style="width: 60%;height: 50%;">
+			    </label>
+			    
+			    <span id="filename"></span>
 			</div>
+
+				
 			<div class="col-sm-12">
 				<div class="input-block">
 					<label for="">이름</label>
@@ -232,12 +241,6 @@ textarea {
 				<div class="input-block">
 					<label for="">가격</label>
 					<input type="text" class="form-control" v-model="price">
-				</div>
-			</div>
-			<div class="col-sm-12">
-				<div class="input-block textarea">
-					<label for="">Memo</label>
-					<textarea rows="3" type="text" class="form-control"></textarea>
 				</div>
 			</div>
 			<div class="col-sm-12">
@@ -288,7 +291,8 @@ $(document).ready(function(){
 			name:'',
 			brand:'',
 			price:0,
-			image:''
+			image:'',
+			fileName:''
 		},
 		mounted:function(){
 			axios.get('../adminpage/shop_updateDetail_vue.do',{
@@ -296,6 +300,7 @@ $(document).ready(function(){
 					sno:this.sno
 				}
 			}).then(res=>{
+				console.log(res.data)
 				this.name=res.data.name
 				this.brand=res.data.brand
 				this.price=res.data.price
@@ -305,13 +310,53 @@ $(document).ready(function(){
 			})	
 		},
 		methods:{
-			productUpdate(){
+	        async getFileName(files) {
+	        	  this.fileName = files[0]
+	        	  await this.base64(this.fileName)
+	        },
+	        base64(file) {
+	        	  // 비동기적으로 동작하기 위하여 promise를 return 해준다.
+	        	  return new Promise(resolve => {
+	        	    // 업로드된 파일을 읽기 위한 FileReader() 객체 생성
+	        	    let a = new FileReader()
+	        	    // 읽기 동작이 성공적으로 완료됐을 때 발생
+					a.onload = e => {
+					    resolve(e.target.result);
+					    // 썸네일을 보여주고자 하는 <img>에 id값을 가져와 src에 결과값을 넣어준다.
+					    const previewImage = document.getElementById('preview');
+					    previewImage.src = e.target.result;
+					    $('#filename').text(file.name);
+					};
+	        			// file 데이터를 base64로 인코딩한 문자열. 이 문자열을 브라우저가 인식하여 원래 데이터로 만들어준다.
+	        	    a.readAsDataURL(file)
+	        	  })
+	        },
+		    productUpdate() {
+	        	
+		        let form = new FormData();
+		        
+		        form.append("image", $('#preview').attr("src"))
+		        form.append("name", this.name)
+		        form.append("brand", this.brand)	        
+		        form.append("price", this.price)
+		        form.append("sno", this.sno)
+				form.append("imagefile", this.fileName)
 				
-				console.log("이름 : ", this.name)
-				console.log("브랜드 : ", this.brand)
-				console.log("가격 : ", this.price)
-				console.log("sno : ", this.sno)
-				
+		        axios.post('../adminpage/product_update_vue.do', form, {
+		            headers: {
+		                'Content-Type': 'multipart/form-data'
+		            }
+		        }).then(res => {
+		            console.log(res.data);
+		            alert('변경이 완료되었습니다!');
+		            location.href = "../adminpage/shop_goods.do";
+		        }).catch(error => {
+		            console.log(error);
+		        });
+		    }
+
+
+/* 			productUpdate(){
 				axios.post('../adminpage/product_update_vue.do', null, {
 					params:{
 						name:this.name,
@@ -321,13 +366,12 @@ $(document).ready(function(){
 					}
 				}).then(res=>{
 					console.log(res.data)
-					alert(this.sno)
-					
+					alert('변경이 완료되었습니다!')
+					location.href="../adminpage/shop_goods.do"
 				}).catch(error=>{
 					console.log(error)
-					alert(this.sno)
 				})	
-			}
+			}, */
 		}		
 	})
 	
