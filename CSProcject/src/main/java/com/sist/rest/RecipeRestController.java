@@ -80,11 +80,11 @@ public class RecipeRestController {
 		vo.setTime(msg2.substring(msg2.indexOf(" "), msg2.lastIndexOf(" ")).trim());
 		vo.setLevel(msg2.substring(msg2.lastIndexOf(" ")).trim());
 		
-		String ingre = vo.getIngre();
-		vo.setIngre(ingre.replace("구매", ""));
+		String ingre = vo.getIngre();		
+		ingre = ingre.substring(ingre.indexOf("[")).trim();
+		ingre = ingre.replaceAll("구매", "");
 		
-		vo.setIngre_title(ingre.substring(ingre.indexOf(" "), ingre.indexOf("[")).trim());
-		vo.setIngre(ingre.substring(ingre.indexOf("[")).trim());
+		vo.setIngre(ingre);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);

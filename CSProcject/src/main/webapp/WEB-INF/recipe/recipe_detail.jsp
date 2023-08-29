@@ -111,8 +111,8 @@
 						<td class="text-left" width="33.3%"><i class="fa-solid fa-chart-simple" style="color: #8f8f8f;"></i><span class="msg2">       {{level}}       </span></td>
 					</tr>
 					<tr>
-						<td style="padding: 30px;"><span style="font-size: 24px;"> <span style="font-weight: 600;">재료</span>   |</span> <span style="font-size: 16px;">   Ingredients</span></td>
-						<td style="padding: 30px;" colspan=2><span>{{ingre}}</span></td>
+						<td style="padding: 30px; vertical-align: middle;"><span style="font-size: 24px;"> <span style="font-weight: 600;">재료</span>   |</span> <span style="font-size: 16px;">   Ingredients</span></td>
+						<td style="padding: 30px; vertical-align: middle;" colspan=2 ><span>{{ingre}}</span></td>
 					</tr>
 					<tr>
 						<td colspan=3 style="padding:30px;">
@@ -158,7 +158,7 @@
 						</tr>
 						
 						<tr>
-							<td colspan=2><pre style="white-space: pre-wrap;background-color: white;border: none">{{cvo.msg}}</pre></td>
+							<td colspan=2 style="vertical-align: middle;"><pre style="white-space: pre-wrap;background-color: white;border: none;">{{cvo.msg}}</pre></td>
 						</tr>
 						
 						<!-- 댓글 업데이트 -->
@@ -176,7 +176,9 @@
 						<tr>
 							<td>
 								<textarea rows=3 cols=100 style="float:left; resize: none;" ref="msg" v-model="msg"></textarea>
-								<button class="btn btn-sm btn-default" style="float:left; margin-left: 10px; width: 120px; height: 79px;" @click="commentInsert()">댓글 작성</button>
+							</td>
+							<td style="vertical-align: middle;">
+								<button class="btn btn-default" style="float:left; margin-left: 10px;" @click="commentInsert()">댓글 작성</button>
 							</td>
 						</tr>
 					</table>
