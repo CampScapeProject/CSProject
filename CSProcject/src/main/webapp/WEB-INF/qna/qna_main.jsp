@@ -128,13 +128,24 @@
 	    				<td width=49% v-if="vo.group_tab==0">
 	    					<!-- 비밀글 일 때 -->
 	    					<span v-if="vo.open=='n'">
-	    						<span v-if="sessionId!=vo.id && sessionAdmin=='n' || sessionId==null">
-	    							<i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>비밀글입니다.
+	    						<span v-if="sessionAdmin=='y'">
+	    							<a :href="'../qna/qna_detail.do?qno='+vo.qno">
+		    							<i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>{{vo.title}}
+		    						</a>
 	    						</span>
 	    						
-	    						<a v-if="sessionId==vo.id || sessionAdmin=='y'" :href="'../qna/qna_detail.do?qno='+vo.qno">
-	    							<i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>{{vo.title}}
-	    						</a>
+		    					<span v-else>
+		    						<span v-if="sessionId!=vo.id">
+	    								<i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>비밀글입니다.
+		    						</span>
+		    						
+		    						<span v-if="sessionId==vo.id">
+			    						<a :href="'../qna/qna_detail.do?qno='+vo.qno">
+			    							<i class="fa-solid fa-lock" style="color:#828282; margin-right: 10px;"></i>{{vo.title}}
+			    						</a>
+		    						</span>
+		    					</span>
+	    						
 	    					</span>
 	    					
 	    					<!-- 공개글일 때 -->
