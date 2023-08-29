@@ -37,8 +37,8 @@ memh2 {
   display:-webkit-flex;
   display:-ms-flexbox;
   display:flex;
-  margin-top:100px;
-  margin-left: 100px;
+  margin-top: 6px;
+  margin-left: 63px;
 }
 
 .thin {
@@ -274,11 +274,18 @@ memh2 {
 </head>
 <body>
 
+<header id="Bheader" class="container">
+	<h1>Member Info</h1>
+		<ul class="breadcrumb">
+			<li>AdminPage</li>
+			<li>회원 관리</li>
+		</ul>
+</header>
 <div class='member_container'>
 	<div class='window'>
 	    <div class='order-info' style='overflow-y: scroll'>
 		    <div class='order-info-content'>
-		        <h2 class="memh2">회원 내역</h2>
+		        <h3 class="memh2">Member List</h3>
 		        <div class='line'></div>
 			        <table class='order-table'>
 				        <tbody>
