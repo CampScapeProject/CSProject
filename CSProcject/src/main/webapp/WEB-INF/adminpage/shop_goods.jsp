@@ -13,11 +13,11 @@
 </head>
 
 <style type="text/css">
-body {
+/* body {
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
-}
+} */
 
 .clearfix {
   content: "";
@@ -339,18 +339,22 @@ a:hover {
     padding: 12px;
     border-radius: 12px;
     color: white;
-    background: linear-gradient(142.94deg, #7fb88d 7.53%, #41644A 103.72%);
+    background: #53b5aa;
 }
 </style>
 
 <body>
 
+	  <header id="Bheader" class="container">
+	    <h1>Product Manager</h1>
+	    <ul class="breadcrumb">
+	      <li>AdminPage</li>
+	      <li>물품 정보</li>
+	    </ul>
+	  </header>
 <div class="shop_admin" style="padding-top: 40px;padding-left: 20px;">
 
 	<header id="site-header">
-		<div class="col-lg-12 text-left" style="margin-bottom: 20px;">
-			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">물품 정보</span>
-		</div>
         <div class="row justify-content-center">
             <div class="col-lg-11">
                 <div class="section_title text-center mb_70">
@@ -383,32 +387,9 @@ a:hover {
 					<footer class="content">
 						<span id="footer_price">가격 : {{s.price.toLocaleString()}}원</span>
 						<h2 class="full-price">
-						
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  수정하기
-</button>
-  <div class="modal fade" tabindex="-1" role="dialog" id="myModal" ref="vuemodal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Modal title</h4>
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-</div>
-							
+							<a :href="'../adminpage/shop_update.do?sno='+s.sno" style="color:white">수정</a>
 						</h2>
 					</footer>
-					
 			</article>
 		</section>
 	</div>
@@ -430,67 +411,10 @@ a:hover {
 	         </li>
 	     </ul>
 	 </nav>
-	
-	
-	
-	
+
 </div>
 
 <script>
-	var check = false;
-
-	function changeVal(el) {
-	  var price = parseFloat(el.parent().children(".price").html());
-	  var eq = Math.round(price * qt * 100) / 100;
-	  
-	  el.parent().children(".full-price").html( eq + "€" );
-	  
-	  changeTotal();			
-	}
-
-	function changeTotal() {
-	  
-	  var price = 0;
-	  
-	  $(".full-price").each(function(index){
-	    price += parseFloat($(".full-price").eq(index).html());
-	  });
-	  
-	  price = Math.round(price * 100) / 100;
-	  var tax = Math.round(price * 0.05 * 100) / 100
-	  var shipping = parseFloat($(".shipping span").html());
-	  var fullPrice = Math.round((price + tax + shipping) *100) / 100;
-	  
-	  if(price == 0) {
-	    fullPrice = 0;
-	  }
-	  
-	  $(".subtotal span").html(price);
-	  $(".tax span").html(tax);
-	  $(".total span").html(fullPrice);
-	}
-
-	$(document).ready(function(){
-	  
-	  $(".remove").click(function(){
-	    var el = $(this);
-	    el.parent().parent().addClass("removed");
-	    window.setTimeout(
-	      function(){
-	        el.parent().parent().slideUp('fast', function() { 
-	          el.parent().parent().remove(); 
-	          changeTotal(); 
-	        });
-	      }, 200);
-	  });
-	  
-	  window.setTimeout(function(){$(".is-open").removeClass("is-open")}, 1200);
-	  
-	  $(".btn").click(function(){
-	    check = true;
-	    $(".remove").click();
-	  });
-	});
 
 	
  new Vue({

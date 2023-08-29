@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.output.CloseShieldOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.transaction.AfterTransaction;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -228,7 +229,7 @@ public class ShopRestController {
 		
 	}
 	
-	@AfterTransaction
+	@Transactional
 	@GetMapping(value="adminpage/product_delete_vue.do",produces = "text/plain;charset=UTF8")
 	public String shop_product_delete(int sno) {
 		
@@ -273,6 +274,27 @@ public class ShopRestController {
 		}
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(clist);
+	}
+	
+	@GetMapping(value="adminpage/shop_updateDetail_vue.do", produces = "text/plain;charset=UTF-8")
+	public String adminpage_shopDetail(int sno) throws Exception {
+		
+		ShopVO vo=service.shopDetailList(sno);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		
+		return json;
+		
+	}
+	
+	@Transactional
+	@GetMapping(value="adminpage/product_update_vue.do", produces = "text/plain;charset=UTF-8")
+	public String adminpage_productUpdate(ShopVO vo) {
+		
+	System.out.println(vo.getSno());
+		service.shopProductUpdate(vo);
+		return "ok";
 	}
 	
 }

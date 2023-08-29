@@ -55,4 +55,10 @@ public class AdminpageController {
 	public String adminpage_notice(){
 		return "adminpage/notice";
 	}
+	
+	@GetMapping("adminpage/shop_update.do")
+	public String adminpage_shop_update(int sno,Model model){
+		model.addAttribute("sno", sno);
+		return "adminpage/shop_update";
+	}
 }
