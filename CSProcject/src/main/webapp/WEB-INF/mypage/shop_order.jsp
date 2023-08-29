@@ -424,21 +424,21 @@ input {
 	  
 	  <!-- Summary -->
 	  <section class="container">
-	    <div class="promotion">
+<!-- 	    <div class="promotion">
 	      <label for="promo-code">Have A Promo Code?</label>
 	      <input type="text" id="promo-code"/> <button type="button"></button>
-	    </div>
+	    </div> -->
 	
 	    <div class="summary">
 	      <ul>
-	        <li>Amount <span>{{ totalAmount.toLocaleString() }}</span></li>
-	        <li class="total">Total <span>{{ totalPrice.toLocaleString() }}</span></li>
+	        <li>Amount <span>{{ totalAmount.toLocaleString() }} 개</span></li>
+	        <li class="total">Total <span>{{ totalPrice.toLocaleString() }} 원</span></li>
 	      </ul>
 	    </div>
 	
-	    <div class="checkout">
+<!-- 	    <div class="checkout">
 	      <button type="button">Check Out</button>
-	    </div>
+	    </div> -->
 	  </section>
 	  <!-- End Summary -->
 	</div>
