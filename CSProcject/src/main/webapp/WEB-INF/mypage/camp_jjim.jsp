@@ -22,7 +22,7 @@
 <div class="campMy">
 	<div class=row style="padding-top: 40px;padding-left: 20px;padding-bottom: 150px;">
 		<div class="col-lg-12 text-left" style="margin-bottom: 20px;">
-			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">예약자 목록</span>
+			<span style="font-size: 22px; font-weight:bold; margin-bottom: 10px;">찜 목록</span>
 		</div>
 		<div class="col-lg-12">
 			

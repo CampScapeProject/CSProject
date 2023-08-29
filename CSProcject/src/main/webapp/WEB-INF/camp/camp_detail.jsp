@@ -330,9 +330,9 @@
 												<div class="visit">{{rvo.id}}</div>
 												<div class="visit">{{rvo.dbday}}</div>
 												<div class="serial">{{rvo.hit}}</div>
-												<div class="visit" v-if="sessionId==rvo.id">
-													<button class="btn btn-xs btn-link" style="font-size: 15px;margin-right: 15px;" @click="reviewUpdateDialog(rvo.no,true)">수정</button>
-          											<button class="btn btn-xs btn-link" @click="reviewDelete(rvo.no)" style="font-size: 15px;cursor:pointer;">삭제</buton>
+												<div class="visit" v-if="sessionId==rvo.id" style="margin-right: -30px;	">
+													<button class="btn btn-xs btn-link" style="font-size: 15px;" @click="reviewUpdateDialog(rvo.no,true)" v-if="sessionId==rvo.id">수정</button>
+          											<button class="btn btn-xs btn-link" @click="reviewDelete(rvo.no)" style="font-size: 15px;cursor:pointer;" v-if="sessionId==rvo.id">삭제</buton>
 												</div>
 											</div>
 										</div>
