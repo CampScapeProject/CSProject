@@ -7,12 +7,16 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.recipe_container {
-		margin: 100px 10px 30px 100px;
+		margin: 100px 10px 30px 180px;
 	}
 	
 	.row1 {
 		margin: 0px auto;
 		padding-right: 100px;
+	}
+	
+	.row2 {
+		margin: 0px auto;
 	}
 	
 	.recipe_pagination {
@@ -38,104 +42,116 @@
 		cursor: pointer;
 	}
 	
+	/* 레시피 리스트 css */
+	.card-image {
+		display: block;
+		background: #fff center center no-repeat;
+	}
+	
+	.card-image > img {
+		display: block;
+		width: 100%;
+		opacity: 1;
+		max-height: 10rem;
+		object-fit: cover;
+		padding: 7px 7px 0px 7px;
+		border-radius: 20px;
+	}
+	
+	.card {
+		display: inline-block;
+		width: 100%;
+		max-width: 15rem;
+		margin: 0.5rem 0.5rem 2rem 0.5rem;
+		font-size: 1rem;
+		text-decoration: none;
+		overflow: hidden;
+		transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+		border-radius: 20px;
+	}
+	
+	.card:hover {
+		transform: translateY(-0.5rem) scale(1.0125);
+		color: #515151;
+	}
+	
+	.card-description {
+		display: block;
+		padding: 0.9em 0.7em 0.5rem 0.7rem;
+		text-decoration: none;
+	}
+	
+	.card-description > span {
+		margin: 0 0 0.3em;
+		display: block;
+		font-weight: bold;
+		font-size: 14px;
+		
+		text-align:left;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+	}
+	
+	.card-description > span:hover {
+		color: #41644A;
+	}
+	
+	.card-description-detail {
+		margin: 0px 10px 10px 10px;
+	}
+	
 </style>
 </head>
 <body>
 	<div class="recipe_container">
+	
 		<div class="container">
 			<div class="row1">
-				<span class="recipe_title"></span>
-				
-				<div class="card-list">
-					<article class="card">
-					
-					<figure class="card-image">
-						<img src="https://images.unsplash.com/photo-1494253109108-2e30c049369b?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYyNDcwMTUwOQ&ixlib=rb-1.2.1&q=85" alt="An orange painted blue, cut in half laying on a blue background" />
-					</figure>
-					
-					<div class="card-header">
-						<a href="#">When life gives you oranges</a>
-						<button class="icon-button">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Heart">
-								<path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
-							</svg>
-				
-						</button>
-					</div>
-					
-					<div class="card-footer">
-						<div class="card-meta card-meta--views">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="EyeOpen">
-								<path d="M21.257 10.962c.474.62.474 1.457 0 2.076C19.764 14.987 16.182 19 12 19c-4.182 0-7.764-4.013-9.257-5.962a1.692 1.692 0 0 1 0-2.076C4.236 9.013 7.818 5 12 5c4.182 0 7.764 4.013 9.257 5.962z" />
-								<circle cx="12" cy="12" r="3" />
-							</svg>
-							2,465
-						</div>
+
+				<div class="col-lg-2" v-for="vo in recipe_list">
+					<li class="card">
+						<a class="card-image" :href="'../recipe/recipe_detail.do?rno='+vo.rno">
+							<img :src="vo.image" :title="vo.name">
+						</a>
 						
-						<div class="card-meta card-meta--date">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Calendar">
-								<rect x="2" y="4" width="20" height="18" rx="4" />
-								<path d="M8 2v4" />
-								<path d="M16 2v4" />
-								<path d="M2 10h20" />
-							</svg>
-							Jul 26, 2019
+						<a class="card-description" :href="'../recipe/recipe_detail.do?rno='+vo.rno">
+							<span>{{vo.name}}</span>
+						</a>
+						
+						<div class="card-description-detail text-right">
+							<i class="fa-solid fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimDelete()></i>
 						</div>
-					</div>
-					
-				</article>
+					</li>
 				</div>
 				
+			</div>	
+		</div>
 				
-				
-				
-				
-				
-				<table class="table">
-					<tr>
-						<th width=20% class="text-center"></th>
-						<th width=60% class="text-center">레시피명</th>
-						<th width=20% class="text-center"></th>
-					</tr>
-					<tr v-for="vo in recipe_list">
-						<td width=20% class="text-center" style="vertical-align: middle;">
-							<img :src="vo.image" style="width:30%">
-						</td>
-						<td width=60% style="vertical-align: middle;">
-							<a :href="'../recipe/recipe_detail.do?rno='+vo.sno">{{vo.name}}</a>
-						</td>
-						<td width=20% class="text-center" style="vertical-align: middle;">
-							<span>
-								<i class="fa-solid fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimDelete()></i>
-							</span>
-						</td>
-					</tr>
-				</table>
-				
-				<div class="qna_pagination">
-					<nav class="blog-pagination justify-content-center d-flex">
-						<ul class="pagination">
-							<li class="page-item" v-if="startpage>1">
-								<a href="#" class="page-link" aria-label="Previous" @click="prev()">
-									<i class="ti-angle-left"></i>
-								</a>
-							</li>
-							
-							<li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
-								<a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
-							</li>
-							
-							<li class="page-item" v-if="endpage<totalpage">
-								<a href="#" class="page-link" aria-label="Next" @click="next()">
-									<i class="ti-angle-right"></i>
-								</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-				
+		<div class="row2">	
+			<div class="qna_pagination">
+				<nav class="blog-pagination justify-content-center d-flex">
+					<ul class="pagination">
+						<li class="page-item" v-if="startpage>1">
+							<a href="#" class="page-link" aria-label="Previous" @click="prev()">
+								<i class="ti-angle-left"></i>
+							</a>
+						</li>
+						
+						<li v-for="i in range(startpage,endpage)" :class="i==curpage?'page-item active':'page-item'">
+							<a href="#" class="page-link" @click="pageChange(i)">{{i}}</a>
+						</li>
+						
+						<li class="page-item" v-if="endpage<totalpage">
+							<a href="#" class="page-link" aria-label="Next" @click="next()">
+								<i class="ti-angle-right"></i>
+							</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
+	
 	</div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
@@ -224,10 +240,11 @@
 			},
 			
 			jjimDelete:function(){
+				
 				axios.post('../recipe/jjim_delete.do',null, {
 					params:{
-						rno:this.rno,
-						id:this.sessionId
+						id:this.id,
+						rno:this.rno
 					}
 				}).then(res=>{
 					this.dataRecive();

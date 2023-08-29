@@ -28,6 +28,7 @@
 		opacity: 1;
 		max-height: 10rem;
 		object-fit: cover;
+		padding: 20px 20px 0px 20px;
 	}
 	
 	.card-list {
@@ -41,9 +42,9 @@
 	
 	.card {
 		display: inline-block;
-		width: 90%;
+		width: 100%;
 		max-width: 15rem;
-		margin: 1rem;
+		margin: 0.5rem 0.5rem 1rem 0.5rem;
 		font-size: 1rem;
 		text-decoration: none;
 		overflow: hidden;
@@ -57,7 +58,7 @@
 	
 	.card-description {
 		display: block;
-		padding: 0.7em 0.5em;
+		padding: 0.7em 0.6em;
 		text-decoration: none;
 	}
 	
