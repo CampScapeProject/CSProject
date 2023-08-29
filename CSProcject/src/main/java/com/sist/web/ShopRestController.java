@@ -244,7 +244,7 @@ public class ShopRestController {
 		return "ok";
 	}
 	
-	@GetMapping(value="adminpage/product_update_vue.do",produces = "text/plain;charset=UTF8")
+	@PostMapping(value="adminpage/product_update_vue.do",produces = "text/plain;charset=UTF8")
 	public String shop_product_update(ShopVO vo) {
 
 		service.shopProductUpdate(vo);

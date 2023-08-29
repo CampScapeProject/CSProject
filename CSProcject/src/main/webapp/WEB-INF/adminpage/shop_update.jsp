@@ -212,7 +212,7 @@ textarea {
 
 <div id="section">
 	<section class="U-contact-wrap">
-		<form class="contact-form">
+		<form class="contact-form" @submit.prevent="productUpdate">
 			<div id="detailImg">
 				<img :src="image" id="detailImgReal">
 			</div>
@@ -231,7 +231,7 @@ textarea {
 			<div class="col-sm-12">
 				<div class="input-block">
 					<label for="">가격</label>
-					<input type="text" class="form-control" v-model="price.toLocaleString()">
+					<input type="text" class="form-control" v-model="price">
 				</div>
 			</div>
 			<div class="col-sm-12">
@@ -241,7 +241,8 @@ textarea {
 				</div>
 			</div>
 			<div class="col-sm-12">
-				<button class="square-button" @click="productUpdate">Update</button>
+				<input type=submit class="square-button" value="Update">
+				<!-- <button  @click="productUpdate">Update</button> -->
 			</div>
 		</form>
 	</section>
@@ -305,7 +306,13 @@ $(document).ready(function(){
 		},
 		methods:{
 			productUpdate(){
-				axios.get('../adminpage/product_update_vue.do',{
+				
+				console.log("이름 : ", this.name)
+				console.log("브랜드 : ", this.brand)
+				console.log("가격 : ", this.price)
+				console.log("sno : ", this.sno)
+				
+				axios.post('../adminpage/product_update_vue.do', null, {
 					params:{
 						name:this.name,
 						brand:this.brand,
@@ -313,8 +320,9 @@ $(document).ready(function(){
 						sno:this.sno
 					}
 				}).then(res=>{
-					alert(this.sno)
 					console.log(res.data)
+					alert(this.sno)
+					
 				}).catch(error=>{
 					console.log(error)
 					alert(this.sno)
