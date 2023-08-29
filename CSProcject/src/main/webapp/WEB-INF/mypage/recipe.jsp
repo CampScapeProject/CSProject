@@ -111,16 +111,16 @@
 
 				<div class="col-lg-2" v-for="vo in recipe_list">
 					<li class="card">
-						<a class="card-image" :href="'../recipe/recipe_detail.do?rno='+vo.rno">
+						<a class="card-image" :href="'../recipe/recipe_detail.do?rno='+vo.sno">
 							<img :src="vo.image" :title="vo.name">
 						</a>
 						
-						<a class="card-description" :href="'../recipe/recipe_detail.do?rno='+vo.rno">
+						<a class="card-description" :href="'../recipe/recipe_detail.do?rno='+vo.sno">
 							<span>{{vo.name}}</span>
 						</a>
 						
 						<div class="card-description-detail text-right">
-							<i class="fa-solid fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimDelete()></i>
+							<i class="fa-solid fa-heart fa-2xl" style="color: #f05c5c;" @click=jjimDelete(vo.sno)></i>
 						</div>
 					</li>
 				</div>
@@ -178,7 +178,6 @@
 			this.dataRecive()
 		},
 		methods:{
-			
 			dataRecive:function(){
 				
 				axios.get('../recipe/mp_recipe_list.do', {
@@ -227,11 +226,11 @@
 				return arr;
 			},
 			prev:function(){
-				this.curpage = this.startPage-1;
+				this.curpage = this.startpage-1;
 				this.dataRecive();
 			},
 			next:function(){
-				this.curpage = this.endPage+1;
+				this.curpage = this.endpage+1;
 				this.dataRecive();
 			},
 			pageChange:function(page){
@@ -239,12 +238,12 @@
 				this.dataRecive();
 			},
 			
-			jjimDelete:function(){
+			jjimDelete:function(rno){
 				
 				axios.post('../recipe/jjim_delete.do',null, {
 					params:{
 						id:this.id,
-						rno:this.rno
+						rno:rno
 					} 
 				}).then(res=>{
 					this.dataRecive();
