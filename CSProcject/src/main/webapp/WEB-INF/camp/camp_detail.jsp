@@ -881,11 +881,6 @@
 					   this.$refs.email.focus();
 					   return;
 				   }
-				   if(this.msg=="")
-				   {
-					   this.$refs.msg.focus();
-					   return;
-				   } 
 				   if(this.phone=="")
 				   {
 					   this.$refs.phone.focus();

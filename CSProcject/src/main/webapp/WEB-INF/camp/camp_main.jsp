@@ -159,11 +159,11 @@ function uncomma(str) {
 	    <!-- 리스트 목록 -->
 	        <div class="col-lg-8">
 	        	 <div class="well" style=" border-bottom: 2px solid #DEE2E7;width:750px;">
-						<select>
+					<!-- 	<select>
 							<option value="1">조회순 &nbsp;&nbsp;</option>
 							<option value="1">추천순 &nbsp;&nbsp;</option>
 							<option value="1">리뷰순 &nbsp;&nbsp;</option>
-						</select>
+						</select> -->
 						<a href="../camp/camp_list.do" class="btn btn-info" role="button" style="float: right; margin-right: 20px;background-color:gray;border: none; ">캠핑장 전체</a>
 		        	 </div>
 		        	 <br>
