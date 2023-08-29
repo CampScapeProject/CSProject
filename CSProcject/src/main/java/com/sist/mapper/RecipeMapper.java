@@ -63,7 +63,7 @@ public interface RecipeMapper {
 	@Select("SELECT COUNT(*) FROM comment2 WHERE rno=#{rno}")
 	public int commentCount(int rno);
 	
-	// 찜
+	// 찜 
 	@Insert("INSERT INTO jjim2 (no, id, type, sno) VALUES(j2_no_seq.nextval, #{id}, 'p', #{rno})")
 	public void recipeJjimInsert(Map map);
 	

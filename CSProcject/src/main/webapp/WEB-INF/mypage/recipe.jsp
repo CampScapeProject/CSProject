@@ -245,7 +245,7 @@
 					params:{
 						id:this.id,
 						rno:this.rno
-					}
+					} 
 				}).then(res=>{
 					this.dataRecive();
 				}).catch(error=>{
