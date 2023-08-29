@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.recipe_container {
-		margin: 100px 10px 30px 100px;
+		margin: 100px 10px 30px 100px; 
 	}
 	
 	.row1 {
