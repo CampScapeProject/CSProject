@@ -519,6 +519,7 @@ public class CampRestController {
 	@PostMapping(value = "camp/camp_review_insert_vue.do",produces = "text/plain;charset=UTF-8")
 	public String camp_review_insert(ReviewVO vo,MultipartFile imagefile, HttpServletRequest request)
 	{
+		if(imagefile!=null) {
 		String path = request.getSession().getServletContext().getRealPath("/")+"layout\\upload-camp\\"+imagefile.getOriginalFilename();
 		path=path.replace("\\", File.separator); // os에 따른 경로 구분자 변경
 		
@@ -529,7 +530,9 @@ public class CampRestController {
 		}
 		
 		vo.setImage("../layout/upload-camp/"+imagefile.getOriginalFilename());
-		
+		}else {
+			vo.setImage(" ");
+		}
 		dao.campReviewInsert(vo);
 		return "";
 	}

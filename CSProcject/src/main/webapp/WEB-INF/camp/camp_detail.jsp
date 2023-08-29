@@ -382,7 +382,7 @@
                               제목<input class="form-control" style="background-color: #DAC0A3;font-weight: bold;" type="text" :value="review_detail.subject" readonly>
                            </div>
                         </div>
-                        <div class="col-12" v-if="review_detail.img!=null">
+                        <div class="col-12" v-if="review_detail.img!=' '">
                         캠프 이미지
                            <div class="form-group" style="background-color: #DAC0A3;font-weight: bold;width: 750px;height: 230px;display: grid;place-items: center">
 	                           <img :src="review_detail.img" style="width: 300px;height: 200px;">
