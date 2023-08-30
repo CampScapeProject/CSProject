@@ -57,7 +57,7 @@
 						<td width=70%><a :href="'../qna/qna_detail.do?qno='+vo.qno">{{vo.title}}</a></td>
 						<td width=20% class="text-center">
 							<span class="reply_ok" v-if="vo.depth>=1">답변 완료</span>
-							<span class="reply_wating" v-if="vo.depth==0">답변 대기중</span>
+							<span class="reply_waiting" v-if="vo.depth==0">답변 대기중</span>
 						</td>
 					</tr>
 				</table>
@@ -149,11 +149,11 @@
 				return arr;
 			},
 			prev:function(){
-				this.curpage = this.startPage-1;
+				this.curpage = this.startpage-1;
 				this.dataRecive();
 			},
 			next:function(){
-				this.curpage = this.endPage+1;
+				this.curpage = this.endpage+1;
 				this.dataRecive();
 			},
 			pageChange:function(page){
