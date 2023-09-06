@@ -1,28 +1,21 @@
 package com.sist.rest;
 
 import org.apache.commons.collections.map.HashedMap;
-import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.RentDAO;
 import com.sist.mail.MailManager;
 import com.sist.vo.*;
 
-import oracle.jdbc.proxy.annotation.Post;
 
 import java.io.File;
-import java.net.URL;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -41,10 +34,18 @@ public class RentRestController {
 	public String rentList(String date, boolean all, OArray oArray, String id) throws Exception {
 		String sDate=date.split(" - ")[0];
 		String eDate=date.split(" - ")[1];
+		
+		SimpleDateFormat fm=new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilSdate=fm.parse(sDate);
+		java.sql.Date sqlSdate=new java.sql.Date(utilSdate.getTime());
+
+		java.util.Date utilEdate=fm.parse(eDate);
+		java.sql.Date sqlEdate=new java.sql.Date(utilEdate.getTime());
+		
 		Map map=new HashMap();
 		map.put("id", id);
-		map.put("sDate", sDate);
-		map.put("eDate", eDate);
+		map.put("sDate", sqlSdate);
+		map.put("eDate", sqlEdate);
 		map.put("all", all);
 		map.put("oArray", oArray);
 		List<RentVO> list=dao.rentListData(map);
