@@ -105,7 +105,7 @@
 						  console.log(response.data)
 						  alert('등록이 완료되었습니다.')
 						  window.close();
-						  location.href='../camp/camp_detail.do?cno='+this.sno
+						  opener.location.reload()
 					  }).catch(error=>{
 						  console.log(error.response)
 					  })
