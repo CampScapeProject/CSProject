@@ -97,9 +97,27 @@ public class CampRestController {
 			sdate=rdate.split(" - ")[0];
 			edate=rdate.split(" - ")[1];
 			
+			SimpleDateFormat fm=new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date utilSdate=fm.parse(sdate);
+			java.sql.Date sqlSdate=new java.sql.Date(utilSdate.getTime());
+
+			java.util.Date utilEdate=fm.parse(edate);
+			java.sql.Date sqlEdate=new java.sql.Date(utilEdate.getTime());
+			
+
+			map.put("sdate", sqlSdate);
+			map.put("edate", sqlEdate);
+			
+		} else {
+			map.put("sdate", sdate);
+			map.put("edate", edate);
+			
 		}
-		map.put("sdate", sdate);
-		map.put("edate", edate);
+		
+
+	
+		
+		
 		
 		String sp=spricefd;
 		String ep=epricefd;
@@ -172,9 +190,31 @@ public class CampRestController {
 			vo.setPhone(FphoneNumber);  
 		}
 		
+		
 		Map tmap = new HashMap();
-		tmap.put("sdate", sdate);
-		tmap.put("edate", edate);
+		sdate="";
+		edate="";
+		if(rdate!="")
+		{
+			sdate=rdate.split(" - ")[0];
+			edate=rdate.split(" - ")[1];
+			
+			SimpleDateFormat fm=new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date utilSdate=fm.parse(sdate);
+			java.sql.Date sqlSdate=new java.sql.Date(utilSdate.getTime());
+
+			java.util.Date utilEdate=fm.parse(edate);
+			java.sql.Date sqlEdate=new java.sql.Date(utilEdate.getTime());
+			
+
+			tmap.put("sdate", sqlSdate);
+			tmap.put("edate", sqlEdate);
+			
+		} else {
+			tmap.put("sdate", sdate);
+			tmap.put("edate", edate);
+			
+		}
 		tmap.put("spricefd", Integer.parseInt(sp));
 		tmap.put("epricefd", Integer.parseInt(ep));
 		
